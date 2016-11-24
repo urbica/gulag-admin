@@ -22,7 +22,15 @@
   border: none;
   text-indent: 30px;
   outline: none;
-  background-color: #d8d8d8;
+  background-color: #f3f3f3;
+}
+
+.search__input:hover {
+  background-color: #f9f9f9;
+}
+
+.search__input:focus {
+  background-color: #f9f9f9;
 }
 
 .search__line {
