@@ -1,0 +1,50 @@
+.header {
+  padding: 50px 0;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header__middle {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.header__top {
+  border-bottom: 1px solid #000;
+  margin-bottom: 10px;
+}
+
+.header__bottom {
+  display: flex;
+}
+
+.header__rus {
+  flex-grow: 2;
+  margin-right: 40px;
+}
+
+.header__prisons {
+  font-size: 36px;
+}
+
+.header__prisons span {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 3px;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.header__en {
+  color: #3949ab;
+}
