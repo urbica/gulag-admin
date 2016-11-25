@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
-import Search from '../Search/Search';
-import PrisonsTable from '../Prisons-table/Prisons-table';
-import Header from '../Header/Header';
+import IndexPage from '../Index-page/Index-page';
+import PrisonPage from '../Prison-page/Prison-page';
 
 const App = React.createClass({
   getInitialState() {
@@ -164,23 +163,15 @@ const App = React.createClass({
           ru: true,
           en: true
         },
-      ],
+      ]
     };
-  },
-
-  search(event) {
-    let displayPrisons = this.state.prisons.filter(prison => {
-      return prison.name.indexOf(event.target.value) !== -1;
-    });
-    console.log(displayPrisons);
   },
 
   render() {
     return (
       <div className="App">
-        <Header/>
-        <Search/>
-        <PrisonsTable prisons={this.state.prisons}/>
+        <IndexPage prisons={this.state.prisons}/>
+        <PrisonPage/>
       </div>
     );
   }

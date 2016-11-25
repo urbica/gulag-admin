@@ -21,12 +21,17 @@ class PrisonsTable extends Component {
           {
             this.props.prisons.map((prison, key) => {
               return (
-                <tr key={key}>
+                <tr key={key} onClick={this.props.openCard}>
                   <td className="prisons__cell">{prison.name}</td>
                   <td className="prisons__cell">{prison.period}</td>
-                  <td className="prisons__cell">{prison.edited.date}{prison.edited.time}</td>
+                  <td className="prisons__cell">
+                    <div>{prison.edited.date}</div>
+                    <div>{prison.edited.time}</div>
+                  </td>
                   <td className="prisons__cell">{prison.region}</td>
-                  <td className="prisons__cell">{String(prison.strength).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ')}</td>
+                  <td className="prisons__cell prisons__strength">
+                    {String(prison.strength).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ')}
+                  </td>
                   <td className="prisons__cell">{prison.ru ? 'да' : 'нет'}</td>
                   <td className="prisons__cell">{prison.en ? 'да' : 'нет'}</td>
                 </tr>

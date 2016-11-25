@@ -9,12 +9,46 @@
 
 .prisons thead td {
   border-top: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  white-space: nowrap;
+  padding: 0 40px 10px 0;
+}
+
+.prisons thead td:last-child {
+  padding-right: 0;
+}
+
+.prisons thead td:after {
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 1px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 6px 0 6px;
+  border-color: #000 transparent transparent transparent;
+  content: '';
+}
+
+.prisons tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.prisons tbody tr:active {
+  color: #ff5c00;
 }
 
 .prisons__cell {
-  padding: 10px 0;
+  padding: 10px 25px 10px 0;
+  vertical-align: top;
+}
+
+.prisons__strength {
+  white-space: nowrap;
+  text-align: right;
 }
 
 .prisons td {
-  border-top: 1px solid rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
 }

@@ -1,0 +1,15 @@
+.prison-card {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  min-height: 100%;
+  background-color: #fff;
+  transition: .4s;
+}
+
+.prison-card_visible {
+  position: absolute;
+  left: 0;
+  transition: .4s;
+}

@@ -8,7 +8,7 @@ class Header extends Component {
       <header className="header">
         <div className="container">
           <div className="header__left">
-            <Button value={'выйти'}/>
+            <Button title={'выйти'}/>
           </div>
           <div className="header__middle">
             <div className="header__top">
@@ -30,7 +30,7 @@ class Header extends Component {
             </div>
           </div>
           <div className="header__right">
-            <Button value={'добавить'} color={'orange'}/>
+            <Button title={'добавить'} color={'orange'}/>
           </div>
         </div>
       </header>
