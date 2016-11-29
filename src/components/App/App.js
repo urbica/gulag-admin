@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import IndexPage from '../Index-page/Index-page';
-import PrisonPage from '../Prison-page/Prison-page';
+import LoginPage from '../Login-page/Login-page';
+// import IndexPage from '../Index-page/Index-page';
+// import PrisonPage from '../Prison-page/Prison-page';
 
 const App = React.createClass({
   getInitialState() {
@@ -170,8 +171,9 @@ const App = React.createClass({
   render() {
     return (
       <div className="App">
-        <IndexPage prisons={this.state.prisons}/>
-        <PrisonPage/>
+        <LoginPage/>
+        {/*<IndexPage prisons={this.state.prisons}/>*/}
+        {/*<PrisonPage/>*/}
       </div>
     );
   }
