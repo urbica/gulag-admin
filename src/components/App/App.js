@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import LoginPage from '../Login-page/Login-page';
+// import LoginPage from '../Login-page/Login-page';
 // import IndexPage from '../Index-page/Index-page';
-// import PrisonPage from '../Prison-page/Prison-page';
+import PrisonPage from '../Prison-page/Prison-page';
 
 const App = React.createClass({
   getInitialState() {
@@ -10,13 +10,59 @@ const App = React.createClass({
       prisons: [
         {
           name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
+          years: {
+            1918: {
+              prisoners: 200000
+            },
+            1922: {
+              prisoners: 200000
+            },
+            1926: {
+              prisoners: 200000
+            },
+            1930: {
+              prisoners: 200000
+            },
+            1932: {
+              prisoners: 200000
+            },
+            1934: {
+              prisoners: 200000
+            },
+            1936: {
+              prisoners: 200000
+            },
+            1938: {
+              prisoners: 200000
+            },
+            1940: {
+              prisoners: 200000
+            },
+            1942: {
+              prisoners: 200000
+            },
+            1944: {
+              prisoners: 200000
+            },
+            1946: {
+              prisoners: 200000
+            },
+            1950: {
+              prisoners: 200000
+            },
+            1954: {
+              prisoners: 200000
+            },
+            1958: {
+              prisoners: 200000
+            }
+          },
           edited: {
             date: '07 Dec 2016',
             time: '07:48AM'
           },
           region: 'Западная Сибирь',
-          strength: 43572394,
+          strength: 1918,
           ru: true,
           en: true
         },
@@ -171,9 +217,9 @@ const App = React.createClass({
   render() {
     return (
       <div className="App">
-        <LoginPage/>
+        {/*<LoginPage/>*/}
         {/*<IndexPage prisons={this.state.prisons}/>*/}
-        {/*<PrisonPage/>*/}
+        <PrisonPage prisons={this.state.prisons}/>
       </div>
     );
   }
