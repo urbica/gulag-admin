@@ -40,14 +40,28 @@ class PrisonCard extends React.Component {
               </div>
               <div className="prison__name">
                 <div className="field-title">название лагеря</div>
-                <input className="input" type="text" placeholder="Название"/>
-                <input className="input" type="text" placeholder="Дополнительные названия, если есть"/>
+                <div className="inputWrapper">
+                  <input className="input"
+                         type="text"
+                         placeholder="Название"
+                         defaultValue={ this.props.prisons[0].name }
+                  />
+                  <div className="inputLine"/>
+                </div>
+                <div className="inputWrapper">
+                  <input className="input" type="text" placeholder="Дополнительные названия, если есть"/>
+                  <div className="inputLine"/>
+                </div>
               </div>
               <div className="prison__activity">
                 <div className="field-title">Основная деятельность</div>
                 <div className="dropDownContainer">
-                  <div>Гидростроительство</div>
-                  <div>The water engineering</div>
+                  <div className="dropDown__activeItem">
+                    <div>Гидростроительство</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
+                      <path fill="none" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
+                    </svg>
+                  </div>
                   <ul className="dropDownList">
                     <li>Гидростроительство</li>
                     <li>Железнодорожное строительство</li>
@@ -68,8 +82,12 @@ class PrisonCard extends React.Component {
               <div className="prison__place">
                 <div className="field-title">Регион</div>
                 <div className="dropDownContainer">
-                  <div>Западная Сибирь</div>
-                  <div>Western Siberia</div>
+                  <div className="dropDown__activeItem">
+                    <div>Западная Сибирь</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
+                      <path fill="none" fillRule="evenodd" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
+                    </svg>
+                  </div>
                   <ul className="dropDownList">
                     <li>Западная Сибирь</li>
                     <li>Восточная Сибирь и Таймыр</li>
@@ -99,14 +117,24 @@ class PrisonCard extends React.Component {
               </div>
               <div className="prison__name">
                 <div className="field-title field-title_en">eng</div>
-                <input className="input input_en" type="text" placeholder="Main name"/>
-                <input className="input input_en" type="text" placeholder="Second name"/>
+                <div className="inputWrapper">
+                  <input className="input input_en" type="text" placeholder="Main name"/>
+                  <div className="inputLine"/>
+                </div>
+                <div className="inputWrapper">
+                  <input className="input input_en" type="text" placeholder="Second name"/>
+                  <div className="inputLine"/>
+                </div>
               </div>
               <div className="prison__type">
                 <div className="field-title">Тип лагеря</div>
                 <div className="dropDownContainer">
-                  <div>ИТЛ</div>
-                  <div>ITL</div>
+                  <div className="dropDown__activeItem">
+                    <div>ИТЛ</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
+                      <path fill="none" fillRule="evenodd" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
+                    </svg>
+                  </div>
                   <ul className="dropDownList">
                     <li>ИТЛ</li>
                     <li>Особый лагерь</li>
@@ -119,8 +147,14 @@ class PrisonCard extends React.Component {
           </div>
           <div className="prison__location">
             <div className="field-title">Локация</div>
-            <input className="input" type="text"/>
-            <input className="input input_en" type="text"/>
+            <div className="inputWrapper">
+              <input className="input" type="text"/>
+              <div className="inputLine"/>
+            </div>
+            <div className="inputWrapper">
+              <input className="input input_en" type="text"/>
+              <div className="inputLine"/>
+            </div>
             <Map/>
           </div>
           <div className="prison__years">
@@ -142,8 +176,9 @@ class PrisonCard extends React.Component {
               Object.keys(this.props.prisons[0].years).map((year, key) => {
                 return <label className="amount" key={ key }>
                   <span className="amount__year">{ year }:</span>
-                  <input className="amount__input" type="text"
+                  <input className="amount__input input" type="text"
                          defaultValue={ this.props.prisons[0].years[year].prisoners }/>
+                  <div className="inputLine"/>
                 </label>
               })
             }
@@ -152,13 +187,21 @@ class PrisonCard extends React.Component {
             <div className="prison__left">
               <div className="prison__description">
                 <div className="field-title">Описание лагеря</div>
-                <textarea />
+                <div className="inputWrapper">
+                  <textarea className="input"
+                            defaultValue={ this.props.prisons[0].description }
+                  />
+                  <div className="inputLine"/>
+                </div>
               </div>
             </div>
             <div className="prison__right">
               <div className="prison__description prison__description_en">
                 <div className="field-title field-title_en">eng</div>
-                <textarea placeholder="Description"/>
+                <div className="inputWrapper">
+                  <textarea className="input input_en"/>
+                  <div className="inputLine"/>
+                </div>
               </div>
             </div>
           </div>

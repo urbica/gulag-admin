@@ -133,6 +133,10 @@ input:checked + .slider:before {
   color: #3949ab;
 }
 
+.inputWrapper {
+  position: relative;
+}
+
 .input {
   width: 100%;
   padding: 13px;
@@ -143,9 +147,32 @@ input:checked + .slider:before {
   outline: none;
 }
 
+.input:hover {
+  background-color: #f9f9f9;
+}
+
 .input_en {
   color: #3949ab;
   background-color: #ebecf6;
+}
+
+.inputLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #000;
+  z-index: 10;
+  transition: width .3s;
+}
+
+.input_en + .inputLine {
+  background-color: #3949ab;
+}
+
+.input:focus + .inputLine {
+  width: 100%;
 }
 
 .prison__activity {
@@ -158,6 +185,25 @@ input:checked + .slider:before {
 
 .dropDownContainer:hover .dropDownList {
   display: block;
+}
+
+.dropDown__activeItem {
+  padding: 12px 14px;
+  background-color: #f3f3f3;
+}
+
+.dropDown__activeItem svg {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  transition: .3s;
+}
+
+.dropDownContainer:hover .dropDown__activeItem svg {
+  transform: rotate(-180deg) translateY(50%);
+  transition: .3s;
+  z-index: 100;
 }
 
 .dropDownList {
@@ -188,7 +234,7 @@ input:checked + .slider:before {
   justify-content: space-between;
 }
 
-.prison__location input {
+.prison__location .inputWrapper {
   width: 48%;
   margin-bottom: 10px;
 }
@@ -256,6 +302,7 @@ input:checked + .slider:before {
 
 .amount__input {
   width: 100%;
+  padding: 0;
   border: none;
   background-color: transparent;
   outline: none;
@@ -269,10 +316,6 @@ input:checked + .slider:before {
   border: none;
   background-color: #f9f9f9;
   outline: none;
-}
-
-.prison__description_en textarea{
-  background-color: #ebecf6;
 }
 
 .prison__description_en textarea{
