@@ -103,8 +103,20 @@
   transition: .4s;
 }
 
+.switch_en .slider {
+  background-color: #ebecf6;;
+}
+
+.switch_en .slider:before {
+  background-color: #3949ab;
+}
+
 input:checked + .slider:before {
   transform: translateX(15px);
+}
+
+.draft-switch_en {
+  color: #3949ab;
 }
 
 .field-title {
@@ -134,6 +146,39 @@ input:checked + .slider:before {
 .input_en {
   color: #3949ab;
   background-color: #ebecf6;
+}
+
+.prison__activity {
+  margin-bottom: 50px;
+}
+
+.dropDownContainer {
+  position: relative;
+}
+
+.dropDownContainer:hover .dropDownList {
+  display: block;
+}
+
+.dropDownList {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 0;
+  border: 2px solid #000;
+  margin: 0;
+  background-color: #f9f9f9;
+  z-index: 10;
+}
+
+.dropDownList li {
+  list-style: none;
+  padding: 10px 12px;
+}
+
+.dropDownList li:hover {
+  background-color: rgba(155, 155, 155, 0.2);
 }
 
 .prison__location {

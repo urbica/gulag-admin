@@ -12,7 +12,9 @@ const Map = React.createClass({
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9',
-      drag: true
+      drag: true,
+      zoom: 1,
+      center: [70, 55]
     });
 
     this.map.on('load', this.onLoad);

@@ -20,7 +20,7 @@ class PrisonCard extends React.Component {
               {/*<div className="prison__title-period">{ this.props.prisons[0].years }</div>*/}
             </div>
             <div>
-              <Button color={'orange'} title={'сохранить'}/>
+              <Button color={'red'} title={'удалить'}/>
               <div className="prison__saved">
                 <div>Сохранено:</div>
                 <span className="prison__saved-date">{ this.props.prisons[0].edited.date }</span>
@@ -45,23 +45,53 @@ class PrisonCard extends React.Component {
               </div>
               <div className="prison__activity">
                 <div className="field-title">Основная деятельность</div>
-                <div>Гидростроительство <span>The water engineering</span></div>
-                <ul>
-
-                </ul>
+                <div className="dropDownContainer">
+                  <div>Гидростроительство</div>
+                  <div>The water engineering</div>
+                  <ul className="dropDownList">
+                    <li>Гидростроительство</li>
+                    <li>Железнодорожное строительство</li>
+                    <li>Капитальное строительство</li>
+                    <li>Строительство заводов и предприятий</li>
+                    <li>Шоссейное строительство</li>
+                    <li>Аэродромное строительство</li>
+                    <li>Горнодобывающая промышленность</li>
+                    <li>Лесозаготовки</li>
+                    <li>Строительство объектов энергетики</li>
+                    <li>Сельское хозяйство</li>
+                    <li>Топливная промышленность</li>
+                    <li>Осушение болот</li>
+                    <li>Топливная промышленность</li>
+                  </ul>
+                </div>
               </div>
               <div className="prison__place">
                 <div className="field-title">Регион</div>
-                <div>Западная Сибирь <span>Western Siberia</span></div>
-                <ul>
-
-                </ul>
+                <div className="dropDownContainer">
+                  <div>Западная Сибирь</div>
+                  <div>Western Siberia</div>
+                  <ul className="dropDownList">
+                    <li>Западная Сибирь</li>
+                    <li>Восточная Сибирь и Таймыр</li>
+                    <li>Дальний Восток</li>
+                    <li>Колыма и Чукотка (лагеря Дальстроя)</li>
+                    <li>Урал и Пермский край</li>
+                    <li>Коми</li>
+                    <li>Центральная Россия и Ленинградская область</li>
+                    <li>Европейский Север</li>
+                    <li>Кавказ</li>
+                    <li>Украина и Прибалтика</li>
+                    <li>Поволжье</li>
+                    <li>Средняя Азия</li>
+                    <li>Москва и Подмосковье</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div className="prison__right">
-              <div className="draft-switch">
+              <div className="draft-switch draft-switch_en">
                 <span className="draft">черновик</span>
-                <label className="switch">
+                <label className="switch switch_en">
                   <input type="checkbox"/>
                   <div className="slider"/>
                 </label>
@@ -74,10 +104,16 @@ class PrisonCard extends React.Component {
               </div>
               <div className="prison__type">
                 <div className="field-title">Тип лагеря</div>
-                <div>ИТЛ <span>ITL</span></div>
-                <ul>
-
-                </ul>
+                <div className="dropDownContainer">
+                  <div>ИТЛ</div>
+                  <div>ITL</div>
+                  <ul className="dropDownList">
+                    <li>ИТЛ</li>
+                    <li>Особый лагерь</li>
+                    <li>Спецлагерь</li>
+                    <li>Лагерное отделение</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -141,7 +177,7 @@ class PrisonCard extends React.Component {
               <figcaption>image1.png</figcaption>
             </figure>
           </div>
-          <Button color={'red'} title={'удалить'}/>
+          <Button color={'orange'} title={'сохранить'}/>
         </div>
       </div>
     );
