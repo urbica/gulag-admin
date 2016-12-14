@@ -16,15 +16,15 @@ class PrisonCard extends React.Component {
           <header className="prison__header">
             <a className="prison__back-link">← к таблице лагерей</a>
             <div className="prison__title">
-              <div className="prison__title-name">{ this.props.prisons[0].name }</div>
+              <div className="prison__title-name">{ this.props.prison.name }</div>
               {/*<div className="prison__title-period">{ this.props.prisons[0].years }</div>*/}
             </div>
             <div>
               <Button color={'red'} title={'удалить'}/>
               <div className="prison__saved">
                 <div>Сохранено:</div>
-                <span className="prison__saved-date">{ this.props.prisons[0].edited.date }</span>
-                <span>{ this.props.prisons[0].edited.time }</span>
+                <span className="prison__saved-date">{ this.props.prison.edited.date }</span>
+                <span>{ this.props.prison.edited.time }</span>
               </div>
             </div>
           </header>
@@ -44,7 +44,7 @@ class PrisonCard extends React.Component {
                   <input className="input"
                          type="text"
                          placeholder="Название"
-                         defaultValue={ this.props.prisons[0].name }
+                         defaultValue={ this.props.prison.name }
                   />
                   <div className="inputLine"/>
                 </div>
@@ -163,7 +163,10 @@ class PrisonCard extends React.Component {
               {
                 years.map((year, key) => {
                   return <label key={ key } className="year">
-                    <input type="checkbox" defaultChecked={ this.props.prisons[0].years[year]}/>
+                    <input type="checkbox"
+                           defaultChecked={ this.props.prison.years[year] }
+                           onClick={ this.props.addNewYear.bind(null, this.props.prisonId, year) }
+                    />
                     <span>{ year }</span>
                   </label>
                 })
@@ -173,11 +176,11 @@ class PrisonCard extends React.Component {
           <div className="prison__amount">
             <div className="field-title">количество заключенных по годам</div>
             {
-              Object.keys(this.props.prisons[0].years).map((year, key) => {
+              Object.keys(this.props.prison.years).map((year, key) => {
                 return <label className="amount" key={ key }>
                   <span className="amount__year">{ year }:</span>
                   <input className="amount__input input" type="text"
-                         defaultValue={ this.props.prisons[0].years[year].prisoners }/>
+                         defaultValue={ this.props.prison.years[year].prisoners }/>
                   <div className="inputLine"/>
                 </label>
               })
@@ -189,7 +192,7 @@ class PrisonCard extends React.Component {
                 <div className="field-title">Описание лагеря</div>
                 <div className="inputWrapper">
                   <textarea className="input"
-                            defaultValue={ this.props.prisons[0].description }
+                            defaultValue={ this.props.prison.description }
                   />
                   <div className="inputLine"/>
                 </div>
