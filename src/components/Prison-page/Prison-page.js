@@ -8,6 +8,43 @@ for (let i = 1918; i <= 1960; i++) {
   years.push(i);
 }
 
+const activity = {
+  0: 'Гидростроительство',
+  1: 'Железнодорожное строительство',
+  2: 'Капитальное строительство',
+  3: 'Строительство заводов и предприятий',
+  4: 'Шоссейное строительство',
+  5: 'Аэродромное строительство',
+  6: 'Горнодобывающая промышленность',
+  7: 'Лесозаготовки',
+  8: 'Строительство объектов энергетики',
+  9: 'Сельское хозяйство',
+  10: 'Топливная промышленность',
+  11: 'Осушение болот',
+  12: 'Топливная промышленность'
+};
+const place = {
+  0: 'Западная Сибирь',
+  1: 'Восточная Сибирь и Таймыр',
+  2: 'Дальний Восток',
+  3: 'Колыма и Чукотка (лагеря Дальстроя',
+  4: 'Урал и Пермский край',
+  5: 'Коми',
+  6: 'Центральная Россия и Ленинградская область',
+  7: 'Европейский Север',
+  8: 'Кавказ',
+  9: 'Украина и Прибалтика',
+  10: 'Поволжье',
+  11: 'Средняя Азия',
+  12: 'Москва и Подмосковье'
+};
+const type = {
+  0: 'ИТЛ',
+  1: 'Особый лагерь',
+  2: 'Спецлагерь',
+  3: 'Лагерное отделение'
+};
+
 class PrisonCard extends React.Component {
   render() {
     return (
@@ -57,25 +94,19 @@ class PrisonCard extends React.Component {
                 <div className="field-title">Основная деятельность</div>
                 <div className="dropDownContainer">
                   <div className="dropDown__activeItem">
-                    <div>Гидростроительство</div>
+                    <div>{ activity[this.props.prison.activity] }</div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
                       <path fill="none" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
                     </svg>
                   </div>
                   <ul className="dropDownList">
-                    <li>Гидростроительство</li>
-                    <li>Железнодорожное строительство</li>
-                    <li>Капитальное строительство</li>
-                    <li>Строительство заводов и предприятий</li>
-                    <li>Шоссейное строительство</li>
-                    <li>Аэродромное строительство</li>
-                    <li>Горнодобывающая промышленность</li>
-                    <li>Лесозаготовки</li>
-                    <li>Строительство объектов энергетики</li>
-                    <li>Сельское хозяйство</li>
-                    <li>Топливная промышленность</li>
-                    <li>Осушение болот</li>
-                    <li>Топливная промышленность</li>
+                    {
+                      Object.values(activity).map((activity, key) =>
+                        <li key={ key }
+                            onClick={ this.props.changeDropDownItem.bind(null, this.props.prisonId, 'activity', key) }
+                        >{ activity }</li>
+                      )
+                    }
                   </ul>
                 </div>
               </div>
@@ -83,25 +114,19 @@ class PrisonCard extends React.Component {
                 <div className="field-title">Регион</div>
                 <div className="dropDownContainer">
                   <div className="dropDown__activeItem">
-                    <div>Западная Сибирь</div>
+                    <div>{ place[this.props.prison.place] }</div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
                       <path fill="none" fillRule="evenodd" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
                     </svg>
                   </div>
                   <ul className="dropDownList">
-                    <li>Западная Сибирь</li>
-                    <li>Восточная Сибирь и Таймыр</li>
-                    <li>Дальний Восток</li>
-                    <li>Колыма и Чукотка (лагеря Дальстроя)</li>
-                    <li>Урал и Пермский край</li>
-                    <li>Коми</li>
-                    <li>Центральная Россия и Ленинградская область</li>
-                    <li>Европейский Север</li>
-                    <li>Кавказ</li>
-                    <li>Украина и Прибалтика</li>
-                    <li>Поволжье</li>
-                    <li>Средняя Азия</li>
-                    <li>Москва и Подмосковье</li>
+                    {
+                      Object.values(place).map((place, key) => {
+                        return <li key={ key }
+                                   onClick={ this.props.changeDropDownItem.bind(null, this.props.prisonId, 'place', key) }
+                        >{ place }</li>
+                      })
+                    }
                   </ul>
                 </div>
               </div>
@@ -130,16 +155,19 @@ class PrisonCard extends React.Component {
                 <div className="field-title">Тип лагеря</div>
                 <div className="dropDownContainer">
                   <div className="dropDown__activeItem">
-                    <div>ИТЛ</div>
+                    <div>{ type[this.props.prison.type] }</div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
                       <path fill="none" fillRule="evenodd" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
                     </svg>
                   </div>
                   <ul className="dropDownList">
-                    <li>ИТЛ</li>
-                    <li>Особый лагерь</li>
-                    <li>Спецлагерь</li>
-                    <li>Лагерное отделение</li>
+                    {
+                      Object.values(type).map((type, key) => {
+                        return <li key={ key }
+                                   onClick={ this.props.changeDropDownItem.bind(null, this.props.prisonId, 'type', key) }
+                        >{ type }</li>
+                      })
+                    }
                   </ul>
                 </div>
               </div>
@@ -176,10 +204,11 @@ class PrisonCard extends React.Component {
           <div className="prison__amount">
             <div className="field-title">количество заключенных по годам</div>
             {
-              Object.keys(this.props.prison.years).map((year, key) => {
-                return <label className="amount" key={ key }>
+              Object.keys(this.props.prison.years).map((year) => {
+                return <label className="amount" key={ year }>
                   <span className="amount__year">{ year }:</span>
-                  <input className="amount__input input" type="text"
+                  <input className="amount__input input"
+                         type="text"
                          defaultValue={ this.props.prison.years[year].prisoners }/>
                   <div className="inputLine"/>
                 </label>

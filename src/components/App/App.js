@@ -1,5 +1,5 @@
 import React from 'react';
-import { assocPath } from 'ramda';
+import {assocPath, dissocPath} from 'ramda';
 import './App.css';
 // import LoginPage from '../Login-page/Login-page';
 // import IndexPage from '../Index-page/Index-page';
@@ -66,7 +66,10 @@ const App = React.createClass({
           strength: 1918,
           ru: true,
           en: true,
-          description: 'Красногорский лагерь организован в мае 1953 г. и существовал, по меньшей мере до 1960 г., его управление располагалось в городе Нижняя Тура. В лагере находилось до 6694 заключенных, занятых на строительстве объектов, связанных с атомным проектом, в промышленном, энергетическом, дорожном, гражданском и жилищном строительстве, на обслуживании промышленных предприятий'
+          description: 'Красногорский лагерь организован в мае 1953 г. и существовал, по меньшей мере до 1960 г., его управление располагалось в городе Нижняя Тура. В лагере находилось до 6694 заключенных, занятых на строительстве объектов, связанных с атомным проектом, в промышленном, энергетическом, дорожном, гражданском и жилищном строительстве, на обслуживании промышленных предприятий',
+          activity: 3,
+          place: 5,
+          type: 2
         },
         1: {
           name: 'ИТЛ при Угличском заводе мостовых конструкций № 4 ГУШОСДОРа',
@@ -216,10 +219,22 @@ const App = React.createClass({
     };
   },
 
-  addNewYear(prisonId, year) {
+  changeDropDownItem(prisonId, dropDownName, itemId) {
     this.setState(
-      assocPath(['prisons', prisonId, 'years', year, 'prisoners'], 0, this.state)
-    );
+      assocPath(['prisons', prisonId.toString(), dropDownName], itemId, this.state)
+    )
+  },
+
+  addNewYear(prisonId, year) {
+    if (!this.state.prisons[prisonId].years[year]) {
+      this.setState(
+        assocPath(['prisons', prisonId, 'years', year], {prisoners: 0}, this.state)
+      )
+    } else {
+      this.setState(
+        dissocPath(['prisons', prisonId.toString(), 'years', year.toString()], this.state)
+      )
+    }
   },
 
   render() {
@@ -229,6 +244,7 @@ const App = React.createClass({
         {/*<IndexPage prisons={this.state.prisons}/>*/}
         <PrisonPage prison={ this.state.prisons[0] }
                     prisonId={ 0 }
+                    changeDropDownItem={ this.changeDropDownItem }
                     addNewYear={ this.addNewYear }
         />
       </div>

@@ -227,6 +227,10 @@ input:checked + .slider:before {
   background-color: rgba(155, 155, 155, 0.2);
 }
 
+.dropDownList li:active {
+  color: #ff5c00;
+}
+
 .prison__location {
   display: flex;
   margin-bottom: 30px;
@@ -270,6 +274,7 @@ input:checked + .slider:before {
 
 .year span:hover {
   background-color: #f3f3f3;
+  cursor: pointer;
 }
 
 .year input:checked + span {
