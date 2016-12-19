@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../Button/Button';
+import DropDownList from  '../Drop-Down-List/Drop-Down-List';
 import Map from '../Map/Map';
 import './Prison-page.css';
 
@@ -47,21 +48,22 @@ const type = {
 
 class PrisonCard extends React.Component {
   render() {
+    const PRISON = this.props.prison;
     return (
       <div className="prisonPage">
         <div className="container">
           <header className="prison__header">
             <a className="prison__back-link">← к таблице лагерей</a>
             <div className="prison__title">
-              <div className="prison__title-name">{ this.props.prison.name }</div>
-              {/*<div className="prison__title-period">{ this.props.prisons[0].years }</div>*/}
+              <div className="prison__title-name">{ PRISON.name_ru }</div>
+              <div className="prison__title-period">тут годы существования лагеря</div>
             </div>
             <div>
               <Button color={'red'} title={'удалить'}/>
               <div className="prison__saved">
                 <div>Сохранено:</div>
-                <span className="prison__saved-date">{ this.props.prison.edited.date }</span>
-                <span>{ this.props.prison.edited.time }</span>
+                {/*<span className="prison__saved-date">{ this.props.PRISON.edited.date }</span>*/}
+                {/*<span>{ this.props.PRISON.edited.time }</span>*/}
               </div>
             </div>
           </header>
@@ -81,54 +83,30 @@ class PrisonCard extends React.Component {
                   <input className="input"
                          type="text"
                          placeholder="Название"
-                         defaultValue={ this.props.prison.name }
+                         defaultValue={ PRISON.name_ru }
                   />
                   <div className="inputLine"/>
                 </div>
                 <div className="inputWrapper">
-                  <input className="input" type="text" placeholder="Дополнительные названия, если есть"/>
+                  <input className="input"
+                         type="text"
+                         placeholder="Дополнительные названия, если есть"
+                         defaultValue={ PRISON.addl_names_ru }
+                  />
                   <div className="inputLine"/>
                 </div>
               </div>
               <div className="prison__activity">
                 <div className="field-title">Основная деятельность</div>
-                <div className="dropDownContainer">
-                  <div className="dropDown__activeItem">
-                    <div>{ activity[this.props.prison.activity] }</div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
-                      <path fill="none" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
-                    </svg>
-                  </div>
-                  <ul className="dropDownList">
-                    {
-                      Object.values(activity).map((activity, key) =>
-                        <li key={ key }
-                            onClick={ this.props.changeDropDownItem.bind(null, this.props.prisonId, 'activity', key) }
-                        >{ activity }</li>
-                      )
-                    }
-                  </ul>
-                </div>
+                <DropDownList list={ activity }
+                              activeItem={ PRISON.features[0].properties.activity_id }
+                />
               </div>
               <div className="prison__place">
                 <div className="field-title">Регион</div>
-                <div className="dropDownContainer">
-                  <div className="dropDown__activeItem">
-                    <div>{ place[this.props.prison.place] }</div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
-                      <path fill="none" fillRule="evenodd" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
-                    </svg>
-                  </div>
-                  <ul className="dropDownList">
-                    {
-                      Object.values(place).map((place, key) => {
-                        return <li key={ key }
-                                   onClick={ this.props.changeDropDownItem.bind(null, this.props.prisonId, 'place', key) }
-                        >{ place }</li>
-                      })
-                    }
-                  </ul>
-                </div>
+                <DropDownList list={ place }
+                              activeItem={ PRISON.features[0].properties.place_id }
+                />
               </div>
             </div>
             <div className="prison__right">
@@ -143,7 +121,11 @@ class PrisonCard extends React.Component {
               <div className="prison__name">
                 <div className="field-title field-title_en">eng</div>
                 <div className="inputWrapper">
-                  <input className="input input_en" type="text" placeholder="Main name"/>
+                  <input className="input input_en"
+                         type="text"
+                         placeholder="Main name"
+                         defaultValue={ PRISON.name_en }
+                  />
                   <div className="inputLine"/>
                 </div>
                 <div className="inputWrapper">
@@ -153,23 +135,9 @@ class PrisonCard extends React.Component {
               </div>
               <div className="prison__type">
                 <div className="field-title">Тип лагеря</div>
-                <div className="dropDownContainer">
-                  <div className="dropDown__activeItem">
-                    <div>{ type[this.props.prison.type] }</div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="9">
-                      <path fill="none" fillRule="evenodd" stroke="#979797" strokeWidth="2" d="M1 1l5.58 6L12 1.17"/>
-                    </svg>
-                  </div>
-                  <ul className="dropDownList">
-                    {
-                      Object.values(type).map((type, key) => {
-                        return <li key={ key }
-                                   onClick={ this.props.changeDropDownItem.bind(null, this.props.prisonId, 'type', key) }
-                        >{ type }</li>
-                      })
-                    }
-                  </ul>
-                </div>
+                <DropDownList list={ type }
+                              activeItem={ PRISON.features[0].properties.type_id }
+                />
               </div>
             </div>
           </div>
@@ -192,8 +160,8 @@ class PrisonCard extends React.Component {
                 years.map((year, key) => {
                   return <label key={ key } className="year">
                     <input type="checkbox"
-                           defaultChecked={ this.props.prison.years[year] }
-                           onClick={ this.props.addNewYear.bind(null, this.props.prisonId, year) }
+                           defaultChecked={ PRISON.features[0].properties[year] }
+                           onClick={ this.props.addNewYear.bind(null, PRISON.id, 0, year) }
                     />
                     <span>{ year }</span>
                   </label>
@@ -203,13 +171,15 @@ class PrisonCard extends React.Component {
           </div>
           <div className="prison__amount">
             <div className="field-title">количество заключенных по годам</div>
+            {/*pickByRegExp(/^\d{4}$/)*/}
+            {/*const pickByRegExp = RegExp => R.pickBy(R.compose(R.test(RegExp), R.nthArg(1)));*/}
             {
-              Object.keys(this.props.prison.years).map((year) => {
+              Object.keys(PRISON.features[0].properties).map((year) => {
                 return <label className="amount" key={ year }>
                   <span className="amount__year">{ year }:</span>
                   <input className="amount__input input"
                          type="text"
-                         defaultValue={ this.props.prison.years[year].prisoners }/>
+                         defaultValue={ PRISON.features[0].properties[year].peoples }/>
                   <div className="inputLine"/>
                 </label>
               })
@@ -221,7 +191,7 @@ class PrisonCard extends React.Component {
                 <div className="field-title">Описание лагеря</div>
                 <div className="inputWrapper">
                   <textarea className="input"
-                            defaultValue={ this.props.prison.description }
+                            defaultValue={ PRISON.description_ru }
                   />
                   <div className="inputLine"/>
                 </div>
@@ -231,7 +201,9 @@ class PrisonCard extends React.Component {
               <div className="prison__description prison__description_en">
                 <div className="field-title field-title_en">eng</div>
                 <div className="inputWrapper">
-                  <textarea className="input input_en"/>
+                  <textarea className="input input_en"
+                            defaultValue={ PRISON.description_en }
+                  />
                   <div className="inputLine"/>
                 </div>
               </div>

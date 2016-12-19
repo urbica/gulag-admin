@@ -19,16 +19,17 @@ class PrisonsTable extends Component {
           </thead>
           <tbody>
           {
-            this.props.prisons.map((prison, key) => {
+            Object.values(this.props.prisons).map((prison, key) => {
               return (
                 <tr key={key} onClick={this.props.openCard}>
-                  <td className="prisons__cell">{prison.name}</td>
-                  <td className="prisons__cell">{prison.period}</td>
+                  <td className="prisons__cell">{prison.name_ru}</td>
+                  <td className="prisons__cell">период</td>
                   <td className="prisons__cell">
-                    <div>{prison.edited.date}</div>
-                    <div>{prison.edited.time}</div>
+                    время
+                    {/*<div>{prison.edited.date}</div>*/}
+                    {/*<div>{prison.edited.time}</div>*/}
                   </td>
-                  <td className="prisons__cell">{prison.region}</td>
+                  <td className="prisons__cell">регион</td>
                   <td className="prisons__cell prisons__strength">
                     {String(prison.strength).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ')}
                   </td>

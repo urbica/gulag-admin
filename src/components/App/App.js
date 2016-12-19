@@ -1,5 +1,5 @@
 import React from 'react';
-import {assocPath, dissocPath} from 'ramda';
+import {map, head, groupBy, prop, compose, lensIndex, lensPath, set, assocPath, isEmpty} from 'ramda';
 import './App.css';
 // import LoginPage from '../Login-page/Login-page';
 // import IndexPage from '../Index-page/Index-page';
@@ -8,215 +8,17 @@ import PrisonPage from '../Prison-page/Prison-page';
 const App = React.createClass({
   getInitialState() {
     return {
-      prisons: {
-        0: {
-          name: 'Вишерский ИТЛ ',
-          years: {
-            1918: {
-              prisoners: 200000
-            },
-            1922: {
-              prisoners: 200000
-            },
-            1926: {
-              prisoners: 200000
-            },
-            1930: {
-              prisoners: 200000
-            },
-            1932: {
-              prisoners: 200000
-            },
-            1934: {
-              prisoners: 200000
-            },
-            1936: {
-              prisoners: 200000
-            },
-            1938: {
-              prisoners: 200000
-            },
-            1940: {
-              prisoners: 200000
-            },
-            1942: {
-              prisoners: 200000
-            },
-            1944: {
-              prisoners: 200000
-            },
-            1946: {
-              prisoners: 200000
-            },
-            1950: {
-              prisoners: 200000
-            },
-            1954: {
-              prisoners: 200000
-            },
-            1958: {
-              prisoners: 200000
-            }
-          },
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 1918,
-          ru: true,
-          en: true,
-          description: 'Красногорский лагерь организован в мае 1953 г. и существовал, по меньшей мере до 1960 г., его управление располагалось в городе Нижняя Тура. В лагере находилось до 6694 заключенных, занятых на строительстве объектов, связанных с атомным проектом, в промышленном, энергетическом, дорожном, гражданском и жилищном строительстве, на обслуживании промышленных предприятий',
-          activity: 3,
-          place: 5,
-          type: 2
-        },
-        1: {
-          name: 'ИТЛ при Угличском заводе мостовых конструкций № 4 ГУШОСДОРа',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        2: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        3: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        4: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1932 – 1952', '1954 – 1955'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Центральная Россия и Ленинградская область',
-          strength: 18229,
-          ru: true,
-          en: true
-        },
-        5: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        6: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        7: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        8: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        9: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        10: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        11: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        },
-        12: {
-          name: 'Вишерский ИТЛ ',
-          period: ['1928 –1924'],
-          edited: {
-            date: '07 Dec 2016',
-            time: '07:48AM'
-          },
-          region: 'Западная Сибирь',
-          strength: 43572394,
-          ru: true,
-          en: true
-        }
-      }
+      prisons: {}
     };
+  },
+
+  componentWillMount() {
+    const groupById = compose(map(head), groupBy(prop('id')));
+
+    fetch('http://192.168.0.101:4000/public/camps.json')
+      .then(r => r.json())
+      .then(arr => groupById(arr))
+      .then(obj => this.setState({prisons: obj}));
   },
 
   changeDropDownItem(prisonId, dropDownName, itemId) {
@@ -225,15 +27,27 @@ const App = React.createClass({
     )
   },
 
-  addNewYear(prisonId, year) {
-    if (!this.state.prisons[prisonId].years[year]) {
-      this.setState(
-        assocPath(['prisons', prisonId, 'years', year], {prisoners: 0}, this.state)
-      )
+  addNewYear(prisonId, locationId, year) {
+    const PRISON = this.state.prisons[prisonId];
+
+    const LENS = compose(
+      lensPath(['prisons', prisonId, 'features']),
+      lensIndex(locationId),
+      lensPath(['properties', year, 'peoples'])
+    );
+    const LENS_REMOVE = compose(
+      lensPath(['prisons', prisonId, 'features']),
+      lensIndex(locationId),
+      lensPath(['properties', year, 'peoples'])
+    );
+
+    const NEW_STATE_ADD = set(LENS, 0, this.state);
+    const NEW_STATE_REMOVE = set(LENS_REMOVE, undefined, this.state);
+
+    if (!PRISON.features[0].properties[year]) {
+      this.setState(NEW_STATE_ADD)
     } else {
-      this.setState(
-        dissocPath(['prisons', prisonId.toString(), 'years', year.toString()], this.state)
-      )
+      this.setState(NEW_STATE_REMOVE)
     }
   },
 
@@ -241,12 +55,14 @@ const App = React.createClass({
     return (
       <div className="App">
         {/*<LoginPage/>*/}
-        {/*<IndexPage prisons={this.state.prisons}/>*/}
-        <PrisonPage prison={ this.state.prisons[0] }
-                    prisonId={ 0 }
-                    changeDropDownItem={ this.changeDropDownItem }
-                    addNewYear={ this.addNewYear }
-        />
+        {/*<IndexPage prisons={ this.state.prisons }/>*/}
+        {
+          !isEmpty(this.state.prisons) &&
+          <PrisonPage prison={ this.state.prisons[2] }
+                      changeDropDownItem={ this.changeDropDownItem }
+                      addNewYear={ this.addNewYear }
+          />
+        }
       </div>
     );
   }
