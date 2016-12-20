@@ -23,6 +23,19 @@ const Map = React.createClass({
   },
 
   onLoad() {
+    const PRISONS = {type: 'geojson', data: {type: 'FeatureCollection', features: this.props.features}};
+
+    this.map.addSource('prisons', PRISONS);
+    this.map.addLayer({
+      id: 'prisons',
+      type: 'circle',
+      source: 'prisons',
+      paint: {
+        'circle-radius': 5,
+        'circle-color': '#000000'
+      }
+    });
+
     setTimeout(() => {
       const credits = ' <a href="http://urbica.co" target="_blank">© Urbica</a>';
       const attrEls = document.getElementsByClassName('mapboxgl-ctrl-attrib');

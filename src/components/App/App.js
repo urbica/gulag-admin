@@ -1,5 +1,6 @@
 import React from 'react';
-import {map, head, groupBy, prop, compose, lensIndex, lensPath, set, assocPath, isEmpty} from 'ramda';
+import {compose, map, head, groupBy, prop, isEmpty} from 'ramda';
+import addNewYear from '../../utils/add-new-year';
 import './App.css';
 // import LoginPage from '../Login-page/Login-page';
 // import IndexPage from '../Index-page/Index-page';
@@ -15,40 +16,14 @@ const App = React.createClass({
   componentWillMount() {
     const groupById = compose(map(head), groupBy(prop('id')));
 
-    fetch('http://192.168.0.101:4000/public/camps.json')
+    fetch('http://gulag.urbica.co/backend/public/camps.json')
       .then(r => r.json())
       .then(arr => groupById(arr))
       .then(obj => this.setState({prisons: obj}));
   },
 
-  changeDropDownItem(prisonId, dropDownName, itemId) {
-    this.setState(
-      assocPath(['prisons', prisonId.toString(), dropDownName], itemId, this.state)
-    )
-  },
-
   addNewYear(prisonId, locationId, year) {
-    const PRISON = this.state.prisons[prisonId];
-
-    const LENS = compose(
-      lensPath(['prisons', prisonId, 'features']),
-      lensIndex(locationId),
-      lensPath(['properties', year, 'peoples'])
-    );
-    const LENS_REMOVE = compose(
-      lensPath(['prisons', prisonId, 'features']),
-      lensIndex(locationId),
-      lensPath(['properties', year, 'peoples'])
-    );
-
-    const NEW_STATE_ADD = set(LENS, 0, this.state);
-    const NEW_STATE_REMOVE = set(LENS_REMOVE, undefined, this.state);
-
-    if (!PRISON.features[0].properties[year]) {
-      this.setState(NEW_STATE_ADD)
-    } else {
-      this.setState(NEW_STATE_REMOVE)
-    }
+    this.setState(addNewYear(this.state, prisonId, locationId, year))
   },
 
   render() {
@@ -58,7 +33,7 @@ const App = React.createClass({
         {/*<IndexPage prisons={ this.state.prisons }/>*/}
         {
           !isEmpty(this.state.prisons) &&
-          <PrisonPage prison={ this.state.prisons[2] }
+          <PrisonPage prison={ this.state.prisons[9] }
                       changeDropDownItem={ this.changeDropDownItem }
                       addNewYear={ this.addNewYear }
           />

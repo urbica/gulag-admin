@@ -72,7 +72,7 @@ class PrisonCard extends React.Component {
               <div className="draft-switch">
                 <span className="draft">черновик</span>
                 <label className="switch">
-                  <input type="checkbox"/>
+                  <input type="checkbox" defaultChecked={ this.props.prison.published_ru }/>
                   <div className="slider"/>
                 </label>
                 <span className="published">опубликовано</span>
@@ -113,7 +113,7 @@ class PrisonCard extends React.Component {
               <div className="draft-switch draft-switch_en">
                 <span className="draft">черновик</span>
                 <label className="switch switch_en">
-                  <input type="checkbox"/>
+                  <input type="checkbox" defaultChecked={ this.props.prison.published_en }/>
                   <div className="slider"/>
                 </label>
                 <span className="published">опубликовано</span>
@@ -142,7 +142,21 @@ class PrisonCard extends React.Component {
             </div>
           </div>
           <div className="prison__location">
-            <div className="field-title">Локация</div>
+            <div className="field-title">
+              {
+                PRISON.features.map((location, key) => {
+                  let className = PRISON.features[0] === location ?
+                    'field-title__location field-title__location_active' : 'field-title__location';
+
+                  return <div className={ className }
+                              key={ key }
+                  >
+                    Локация { key + 1 }
+                  </div>
+                })
+              }
+              <button className="field-title__plus">+</button>
+            </div>
             <div className="inputWrapper">
               <input className="input" type="text"/>
               <div className="inputLine"/>
@@ -151,7 +165,7 @@ class PrisonCard extends React.Component {
               <input className="input input_en" type="text"/>
               <div className="inputLine"/>
             </div>
-            <Map/>
+            <Map features={ this.props.prison.features }/>
           </div>
           <div className="prison__years">
             <div className="field-title">Годы существования лагеря</div>
