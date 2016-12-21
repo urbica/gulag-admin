@@ -27,18 +27,25 @@ class PrisonsTable extends Component {
               return (
                 <tr key={key} onClick={ openPrison }>
                   <td className="prisons__cell">{prison.name_ru}</td>
-                  <td className="prisons__cell">период</td>
                   <td className="prisons__cell">
-                    время
-                    {/*<div>{prison.edited.date}</div>*/}
-                    {/*<div>{prison.edited.time}</div>*/}
+                    {
+                      prison.features.map((location, key) => {
+                        const YEARS = Object.keys(location.properties);
+                        if (YEARS.length === 3) {
+                          return <div key={ key }>{ YEARS[0] };</div>
+                        } else if (YEARS.length > 2) {
+                          return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 3] };</div>
+                        } else return null
+                      })
+                    }
                   </td>
+                  <td className="prisons__cell">время</td>
                   <td className="prisons__cell">регион</td>
                   <td className="prisons__cell prisons__strength">
-                    { prison.max_prisoners }
+                    { String(prison.max_prisoners).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ') }
                   </td>
-                  <td className="prisons__cell">{prison.ru ? 'да' : 'нет'}</td>
-                  <td className="prisons__cell">{prison.en ? 'да' : 'нет'}</td>
+                  <td className="prisons__cell">{ prison.published_ru ? 'да' : 'нет' }</td>
+                  <td className="prisons__cell">{ prison.published_en ? 'да' : 'нет' }</td>
                 </tr>
               )
             })
