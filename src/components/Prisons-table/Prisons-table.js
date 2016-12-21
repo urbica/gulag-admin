@@ -34,7 +34,7 @@ class PrisonsTable extends Component {
                   </td>
                   <td className="prisons__cell">регион</td>
                   <td className="prisons__cell prisons__strength">
-                    {String(prison.strength).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ')}
+                    { prison.max_prisoners }
                   </td>
                   <td className="prisons__cell">{prison.ru ? 'да' : 'нет'}</td>
                   <td className="prisons__cell">{prison.en ? 'да' : 'нет'}</td>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {compose, map, head, groupBy, prop, test, isEmpty} from 'ramda';
 import addNewYear from '../../utils/add-new-year';
+import { fillMaxPrisoners } from '../../utils/preprocessing';
 import './App.css';
 
 const App = React.createClass({
@@ -12,10 +13,11 @@ const App = React.createClass({
 
   componentWillMount() {
     const groupById = compose(map(head), groupBy(prop('id')));
+    const preprocess = compose(fillMaxPrisoners, groupById);
 
     fetch('http://gulag.urbica.co/backend/public/camps.json')
       .then(r => r.json())
-      .then(prisons => this.setState({ prisons: groupById(prisons)}));
+      .then(prisons => this.setState({ prisons: preprocess(prisons) }));
   },
 
   addNewYear(prisonId, locationId, year) {
