@@ -7,17 +7,13 @@ import PrisonPage from './components/Prison-page/Prison-page';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import 'normalize.css';
 
-// const campPage = (props) =>
-//   PrisonPage
-
 ReactDOM.render(
   <Router history={ browserHistory }>
     <Route path='/' component={ App }>
       <IndexRoute component={ IndexPage } />
       <Route path='login' component={ LoginPage }/>
-      <Route path='camps' component={ IndexPage }>
-        <Route path='/camps/:campId' component={ PrisonPage }/>
-      </Route>
+      <Route path='prisons' component={ IndexPage }/>
+      <Route path='/prisons/:prisonId' component={ PrisonPage }/>
     </Route>
   </Router>,
   document.getElementById('root')

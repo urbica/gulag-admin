@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { browserHistory } from 'react-router';
 import './Prisons-table.css'
 
 class PrisonsTable extends Component {
@@ -20,8 +21,10 @@ class PrisonsTable extends Component {
           <tbody>
           {
             Object.values(this.props.prisons).map((prison, key) => {
+              const url = `/prisons/${prison.id}`;
+              const openPrison = browserHistory.push.bind(browserHistory, url);
               return (
-                <tr key={key} onClick={this.props.openCard}>
+                <tr key={key} onClick={ openPrison }>
                   <td className="prisons__cell">{prison.name_ru}</td>
                   <td className="prisons__cell">период</td>
                   <td className="prisons__cell">

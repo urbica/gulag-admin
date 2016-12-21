@@ -23,6 +23,7 @@
 .prison__title-name {
   font-size: 36px;
   font-weight: bold;
+  text-align: center;
 }
 
 .prison__title-period {
@@ -64,6 +65,7 @@
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
+  color: rgba(0,0,0,.3);
 }
 
 .draft {
@@ -116,7 +118,7 @@ input:checked + .slider:before {
 }
 
 .draft-switch_en {
-  color: #3949ab;
+  color: rgba(57, 73, 171, .3);
 }
 
 .field-title {
@@ -189,6 +191,42 @@ input:checked + .slider:before {
 .prison__location .inputWrapper {
   width: 48%;
   margin-bottom: 10px;
+}
+
+.prison__location .field-title {
+  padding: 0;
+}
+
+.field-title__location {
+  display: inline-block;
+  color: rgba(0, 0, 0, .5);
+  padding: 8px 24px;
+}
+
+.field-title__location_active {
+  color: #fff;
+  background-color: #4a4a4a;
+}
+
+.field-title__plus {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border: solid 1px #b2b2b2;
+  border-radius: 2px;
+  background-color: transparent;
+  color: rgba(0, 0, 0, .5);
+  outline: none;
+}
+
+.field-title__plus:hover {
+  color: #000;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.field-title__plus:active {
+  border-color: #000;
 }
 
 .prison__years {
