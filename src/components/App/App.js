@@ -1,9 +1,6 @@
 import React from 'react';
-import {map, head, groupBy, prop, compose, lensIndex, lensPath, set, assocPath, isEmpty} from 'ramda';
+import { map, head, groupBy, prop, compose, lensIndex, lensPath, set, assocPath, isEmpty } from 'ramda';
 import './App.css';
-// import LoginPage from '../Login-page/Login-page';
-// import IndexPage from '../Index-page/Index-page';
-import PrisonPage from '../Prison-page/Prison-page';
 
 const App = React.createClass({
   getInitialState() {
@@ -15,10 +12,9 @@ const App = React.createClass({
   componentWillMount() {
     const groupById = compose(map(head), groupBy(prop('id')));
 
-    fetch('http://192.168.0.101:4000/public/camps.json')
+    fetch('http://gulag.urbica.co/backend/public/camps.json')
       .then(r => r.json())
-      .then(arr => groupById(arr))
-      .then(obj => this.setState({prisons: obj}));
+      .then(camps => this.setState({ prisons: groupById(camps)}));
   },
 
   changeDropDownItem(prisonId, dropDownName, itemId) {
@@ -51,18 +47,19 @@ const App = React.createClass({
     }
   },
 
+  renderChildren() {
+    const { pathname } = this.props.router.location;
+    if (pathname === '/' || pathname === '/camps') {
+      if (isEmpty(this.state.prisons)) return null;
+      return React.cloneElement(this.props.children, { prisons: this.state.prisons });
+    }
+    return this.props.children;
+  },
+
   render() {
     return (
-      <div className="App">
-        {/*<LoginPage/>*/}
-        {/*<IndexPage prisons={ this.state.prisons }/>*/}
-        {
-          !isEmpty(this.state.prisons) &&
-          <PrisonPage prison={ this.state.prisons[2] }
-                      changeDropDownItem={ this.changeDropDownItem }
-                      addNewYear={ this.addNewYear }
-          />
-        }
+      <div className='App'>
+        { this.renderChildren() }
       </div>
     );
   }

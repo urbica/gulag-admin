@@ -5,6 +5,7 @@ import PrisonsTable from '../Prisons-table/Prisons-table';
 
 class IndexPage extends React.Component{
   render() {
+    console.log('IndexRoute')
     return (
       <div className="indexPage">
         <Header/>
