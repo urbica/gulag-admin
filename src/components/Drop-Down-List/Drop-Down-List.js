@@ -1,4 +1,5 @@
 import React from 'react';
+import { values } from 'ramda';
 import './Drop-Down-List.css';
 
 class DropDownList extends React.Component {
@@ -13,7 +14,7 @@ class DropDownList extends React.Component {
         </div>
         <ul className='dropDownList'>
           {
-            Object.values(this.props.list).map((item, key) =>
+            values(this.props.list).map((item, key) =>
               <li key={ key }>{ item }</li>
             )
           }

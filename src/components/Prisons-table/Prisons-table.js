@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { browserHistory } from 'react-router';
+import { values } from 'ramda';
 import './Prisons-table.css'
 
 class PrisonsTable extends Component {
@@ -20,7 +21,7 @@ class PrisonsTable extends Component {
           </thead>
           <tbody>
           {
-            Object.values(this.props.prisons).map((prison, key) => {
+            values(this.props.prisons).map((prison, key) => {
               const url = `/prisons/${prison.id}`;
               const openPrison = browserHistory.push.bind(browserHistory, url);
               return (
