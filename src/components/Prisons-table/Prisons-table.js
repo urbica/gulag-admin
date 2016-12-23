@@ -22,7 +22,7 @@ class PrisonsTable extends Component {
           <tbody>
           {
             values(this.props.prisons).map((prison, key) => {
-              const url = `/prisons/${prison.id}`;
+              const url = `/admin/prisons/${prison.id}`;
               const openPrison = browserHistory.push.bind(browserHistory, url);
               return (
                 <tr key={key} onClick={ openPrison }>

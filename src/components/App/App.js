@@ -28,9 +28,9 @@ const App = React.createClass({
     if (isEmpty(this.state.prisons)) return null;
     const { pathname } = this.props.router.location;
 
-    if (pathname === '/' || pathname === '/prisons') {
+    if (pathname === '/admin' || pathname === '/admin/prisons') {
       return React.cloneElement(this.props.children, { prisons: this.state.prisons });
-    } else if (test(/\/prisons\/\d+/, pathname)) {
+    } else if (test(/\/admin\/prisons\/\d+/, pathname)) {
       const { prisonId } = this.props.router.params;
       return React.cloneElement(this.props.children, {
         prison: this.state.prisons[prisonId],

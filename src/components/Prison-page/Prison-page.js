@@ -54,7 +54,7 @@ class PrisonCard extends React.Component {
       <div className="prisonPage">
         <div className="container">
           <header className="prison__header">
-            <Link to="/prisons" className="prison__back-link">← к таблице лагерей</Link>
+            <Link to="/admin/prisons" className="prison__back-link">← к таблице лагерей</Link>
             <div className="prison__title">
               <div className="prison__title-name">{ PRISON.name_ru }</div>
               <div className="prison__title-period">тут годы существования лагеря</div>
