@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "pm2": "2.2.2",
     "react-scripts": "0.7.0"
   },
   "dependencies": {
@@ -13,10 +14,12 @@
     "react-router": "3.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "deploy": "pm2 deploy process.yml production",
+    "deploy:setup": "pm2 deploy process.yml production setup",
+    "eject": "react-scripts eject",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
   },
   "eslintConfig": {
     "extends": "react-app"
