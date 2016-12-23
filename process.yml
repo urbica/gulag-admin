@@ -1,0 +1,10 @@
+deploy:
+  production:
+    user: gulag
+    host: gulag.urbica.co
+    ref: origin/master
+    repo: ssh://git@gitlab.urbica.co:2222/gulag/gulag-admin.git
+    path: /srv/gulag/gulag-admin
+    post-deploy: yarn && NODE_ENV=production npm run build
+    env:
+      NODE_ENV: production

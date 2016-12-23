@@ -1,0 +1,33 @@
+image: node:7.3
+
+cache:
+  paths:
+  - node_modules/
+
+stages:
+  - build
+  - deploy
+
+build_job:
+  stage: build
+  variables:
+    NODE_ENV: test
+  before_script:
+    - npm install yarn -g
+  script:
+    - yarn
+    - npm run build
+  artifacts:
+    paths:
+      - node_modules/
+
+deploy_job:
+  stage: deploy
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script: npm run deploy
+  environment: production
