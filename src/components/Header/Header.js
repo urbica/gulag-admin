@@ -17,13 +17,13 @@ class Header extends Component {
             <div className="header__bottom">
               <div className="header__rus">
                 <div className="header__prisons">
-                  234 <span>/286</span>
+                  { this.props.ru_prisonsAmount } <span>/{ this.props.prisonsAmount }</span>
                 </div>
                 Опубликовано на русском
               </div>
               <div className="header__en">
                 <div className="header__prisons">
-                  234 <span>/286</span>
+                  { this.props.en_prisonsAmount } <span>/{ this.props.prisonsAmount }</span>
                 </div>
                 На английском
               </div>
