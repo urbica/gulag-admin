@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../Button/Button';
 import DropDownList from  '../Drop-Down-List/Drop-Down-List';
 import Map from '../Map/Map';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import './Prison-page.css';
 
 const years = [];
@@ -57,7 +57,18 @@ class PrisonCard extends React.Component {
             <Link to="/admin/prisons" className="prison__back-link">← к таблице лагерей</Link>
             <div className="prison__title">
               <div className="prison__title-name">{ PRISON.name_ru }</div>
-              <div className="prison__title-period">тут годы существования лагеря</div>
+              <div className="prison__title-period">
+                {
+                  PRISON.features.map((location, key) => {
+                    const YEARS = Object.keys(location.properties);
+                    if (YEARS.length === 3) {
+                      return <div key={ key }>{ YEARS[0] };</div>
+                    } else if (YEARS.length > 2) {
+                      return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 3] };</div>
+                    } else return null
+                  })
+                }
+              </div>
             </div>
             <div>
               <Button color={'red'} title={'удалить'}/>

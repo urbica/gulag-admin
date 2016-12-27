@@ -149,6 +149,10 @@ input:checked + .slider:before {
   outline: none;
 }
 
+.prison__name div:nth-child(2) input {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
 .input:hover {
   background-color: #f9f9f9;
 }
@@ -283,6 +287,10 @@ input:checked + .slider:before {
   background-color: #f3f3f3;
 }
 
+.amount:hover {
+  background-color: #f9f9f9;
+}
+
 .amount__year {
   position: absolute;
   left: 12px;
@@ -305,7 +313,7 @@ input:checked + .slider:before {
   min-height: 400px;
   padding: 12px;
   border: none;
-  background-color: #f9f9f9;
+  background-color: #f3f3f3;
   outline: none;
 }
 

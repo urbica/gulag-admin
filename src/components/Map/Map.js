@@ -14,8 +14,11 @@ const Map = React.createClass({
       style: 'mapbox://styles/mapbox/streets-v9',
       drag: true,
       zoom: 1,
-      center: [70, 55]
+      center: [70, 55],
+      scrollZoom: false
     });
+
+    this.map.addControl(new mapboxgl.NavigationControl());
 
     this.map.on('load', this.onLoad);
     this.map.on('mousemove', this.onMousemove);
