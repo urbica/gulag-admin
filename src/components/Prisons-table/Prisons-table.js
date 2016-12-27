@@ -36,8 +36,8 @@ class PrisonsTable extends Component {
                 const openPrison = browserHistory.push.bind(browserHistory, url);
                 return (
                   <tr key={key} onClick={ openPrison }>
-                    <td className="prisons__cell">{prison.name_ru}</td>
-                    <td className="prisons__cell">
+                    <td className="prisons__cell" height='56'>{prison.name_ru}</td>
+                    <td className="prisons__cell prisons__cell_period">
                       {
                         prison.features.map((location, key) => {
                           const YEARS = Object.keys(location.properties);
