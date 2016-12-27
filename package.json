@@ -4,13 +4,14 @@
   "private": true,
   "devDependencies": {
     "pm2": "2.2.2",
-    "react-scripts": "0.7.0"
+    "react-scripts": "0.8.4"
   },
   "dependencies": {
     "normalize.css": "5.0.0",
     "ramda": "0.22.1",
-    "react": "15.4.0",
-    "react-dom": "15.4.0",
+    "react": "15.4.1",
+    "react-dom": "15.4.1",
+    "react-markdown": "2.4.2",
     "react-router": "3.0.0"
   },
   "scripts": {

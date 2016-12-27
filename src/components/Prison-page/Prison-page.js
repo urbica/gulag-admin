@@ -3,6 +3,7 @@ import Button from '../Button/Button';
 import DropDownList from  '../Drop-Down-List/Drop-Down-List';
 import Map from '../Map/Map';
 import {Link} from 'react-router';
+import ReactMarkdown from 'react-markdown';
 import './Prison-page.css';
 
 const years = [];
@@ -216,9 +217,15 @@ class PrisonCard extends React.Component {
               <div className="prison__description">
                 <div className="field-title">Описание лагеря</div>
                 <div className="inputWrapper">
-                  <textarea className="input"
-                            defaultValue={ PRISON.description_ru }
+                  <ReactMarkdown
+                    className="input"
+                    source={ PRISON.description_ru }
                   />
+                  {/*
+                    <textarea className="input"
+                              defaultValue={ PRISON.description_ru }
+                    />
+                  */}
                   <div className="inputLine"/>
                 </div>
               </div>
