@@ -49,6 +49,13 @@ const type = {
 };
 
 class PrisonCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      location: 0
+    };
+  }
+
   render() {
     const PRISON = this.props.prison;
     return (
@@ -158,14 +165,18 @@ class PrisonCard extends React.Component {
             <div className="field-title">
               {
                 PRISON.features.map((location, key) => {
-                  let className = PRISON.features[0] === location ?
+                  const className = PRISON.features[this.state.location] === location ?
                     'field-title__location field-title__location_active' : 'field-title__location';
 
-                  return <div className={ className }
-                              key={ key }
-                  >
-                    Локация { key + 1 }
-                  </div>
+                  return (
+                    <div
+                      className={ className }
+                      key={ key }
+                      onClick={ () => this.setState({location: key}) }
+                    >
+                      Локация { key + 1 }
+                    </div>
+                  )
                 })
               }
               <button className="field-title__plus">+</button>
