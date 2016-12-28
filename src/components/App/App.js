@@ -1,12 +1,15 @@
 import React from 'react';
 import { assocPath, compose, map, head, groupBy, prop, test, isEmpty } from 'ramda';
 import addNewYear from '../../utils/add-new-year';
-import { fillMaxPrisoners } from '../../utils/preprocessing';
+import { directoryToOptions, fillMaxPrisoners } from '../../utils/preprocessing';
 import './App.css';
 
 const App = React.createClass({
   getInitialState() {
     return {
+      activities: [],
+      places: [],
+      types: [],
       prisons: {},
       newPrison: {
         id: undefined,
@@ -27,9 +30,19 @@ const App = React.createClass({
     const groupById = compose(map(head), groupBy(prop('id')));
     const preprocess = compose(fillMaxPrisoners, groupById);
 
-    fetch('http://gulag.urbica.co/backend/public/camps.json')
-      .then(r => r.json())
-      .then(prisons => this.setState({ prisons: preprocess(prisons) }));
+    Promise.all([
+      fetch('http://gulag.urbica.co/backend/public/camps.json').then(r => r.json()),
+      fetch('http://gulag.urbica.co/backend/public/activities.json').then(r => r.json()),
+      fetch('http://gulag.urbica.co/backend/public/places.json').then(r => r.json()),
+      fetch('http://gulag.urbica.co/backend/public/types.json').then(r => r.json())
+    ]).then(([prisons, activities, places, types]) => {
+      this.setState({
+        activities: activities,
+        places: places,
+        types: types,
+        prisons: preprocess(prisons)
+      });
+    });
   },
 
   updatePrison(prison) {
@@ -85,6 +98,9 @@ const App = React.createClass({
         prison: prison,
         changeDropDownItem: this.changeDropDownItem,
         addNewYear: this.addNewYear,
+        activityOptions: directoryToOptions(this.state.activities),
+        placeOptions: directoryToOptions(this.state.places),
+        typeOptions: directoryToOptions(this.state.types),
         submitHandler: this.submitPrison,
         updateHandler: this.updatePrison
       });
@@ -96,6 +112,9 @@ const App = React.createClass({
         prison: this.state.prisons[prisonId],
         changeDropDownItem: this.changeDropDownItem,
         addNewYear: this.addNewYear,
+        activityOptions: directoryToOptions(this.state.activities),
+        placeOptions: directoryToOptions(this.state.places),
+        typeOptions: directoryToOptions(this.state.types),
         submitHandler: this.submitPrison,
         updateHandler: this.updatePrison
       });

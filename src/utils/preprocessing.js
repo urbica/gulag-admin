@@ -1,5 +1,5 @@
 import { assoc, compose, map, prop, reduce, values } from 'ramda';
-import { pickByRegExp } from './utils';
+import { renameKeys, pickByRegExp } from './utils';
 
 export const getMaxPrisoners = (prison) => {
   const getMaxPrisoners = compose(
@@ -17,7 +17,8 @@ export const getMaxPrisoners = (prison) => {
   return assoc('max_prisoners', maxPrisoners, prison);
 }
 
-
 export const fillMaxPrisoners = (prisons) => {
   return map(getMaxPrisoners, prisons);
 }
+
+export const directoryToOptions = map(renameKeys({ id: 'value', name: 'label' }));
