@@ -123,10 +123,15 @@ class PrisonCard extends React.Component {
               <MarkdownEditor
                 title={ 'Описание лагеря' }
                 source={ prison.description_ru }
+                onChange={ update(lensProp('description_ru')) }
               />
             </div>
             <div className="prison__right">
-              <MarkdownEditor title={ 'eng' } source={ prison.description_en } />
+              <MarkdownEditor
+                title={ 'eng' }
+                source={ prison.description_en }
+                onChange={ update(lensProp('description_en')) }
+              />
             </div>
           </div>
           <PrisonPhotos />
