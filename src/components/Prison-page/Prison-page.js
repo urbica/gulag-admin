@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '../Button/Button';
-import DropDownList from  '../Drop-Down-List/Drop-Down-List';
 import PrisonHeader from './PrisonHeader';
 import DraftSwitch from './DraftSwitch';
 import TextInput from './TextInput';
+import SelectInput from './SelectInput';
 import PrisonLocation from './PrisonLocation';
 import PrisonYears from './PrisonYears';
 import PrisonStatistics from './PrisonStatistics';
@@ -12,50 +12,56 @@ import MarkdownEditor from './MarkdownEditor';
 import { lensProp, set } from 'ramda';
 import './Prison-page.css';
 
-const activity = {
-  0: 'Гидростроительство',
-  1: 'Железнодорожное строительство',
-  2: 'Капитальное строительство',
-  3: 'Строительство заводов и предприятий',
-  4: 'Шоссейное строительство',
-  5: 'Аэродромное строительство',
-  6: 'Горнодобывающая промышленность',
-  7: 'Лесозаготовки',
-  8: 'Строительство объектов энергетики',
-  9: 'Сельское хозяйство',
-  10: 'Топливная промышленность',
-  11: 'Осушение болот',
-  12: 'Топливная промышленность'
-};
-const place = {
-  0: 'Западная Сибирь',
-  1: 'Восточная Сибирь и Таймыр',
-  2: 'Дальний Восток',
-  3: 'Колыма и Чукотка (лагеря Дальстроя',
-  4: 'Урал и Пермский край',
-  5: 'Коми',
-  6: 'Центральная Россия и Ленинградская область',
-  7: 'Европейский Север',
-  8: 'Кавказ',
-  9: 'Украина и Прибалтика',
-  10: 'Поволжье',
-  11: 'Средняя Азия',
-  12: 'Москва и Подмосковье'
-};
-const type = {
-  0: 'ИТЛ',
-  1: 'Особый лагерь',
-  2: 'Спецлагерь',
-  3: 'Лагерное отделение'
-};
+const activities = [
+  { value: 0, label: 'Гидростроительство' },
+  { value: 1, label: 'Железнодорожное строительство' },
+  { value: 2, label: 'Капитальное строительство' },
+  { value: 3, label: 'Строительство заводов и предприятий' },
+  { value: 4, label: 'Шоссейное строительство' },
+  { value: 5, label: 'Аэродромное строительство' },
+  { value: 6, label: 'Горнодобывающая промышленность' },
+  { value: 7, label: 'Лесозаготовки' },
+  { value: 8, label: 'Строительство объектов энергетики' },
+  { value: 9, label: 'Сельское хозяйство' },
+  { value: 1, label0: 'Топливная промышленность' },
+  { value: 1, label1: 'Осушение болот' },
+  { value: 1, label2: 'Топливная промышленность' }
+];
+
+const places = [
+  { value: 0, label: 'Западная Сибирь'} ,
+  { value: 1, label: 'Восточная Сибирь и Таймыр'} ,
+  { value: 2, label: 'Дальний Восток'} ,
+  { value: 3, label: 'Колыма и Чукотка (лагеря Дальстроя'} ,
+  { value: 4, label: 'Урал и Пермский край'} ,
+  { value: 5, label: 'Коми'} ,
+  { value: 6, label: 'Центральная Россия и Ленинградская область'} ,
+  { value: 7, label: 'Европейский Север'} ,
+  { value: 8, label: 'Кавказ'} ,
+  { value: 9, label: 'Украина и Прибалтика'} ,
+  { value: 1, label0: 'Поволжье'} ,
+  { value: 1, label1: 'Средняя Азия'} ,
+  { value: 1, label2: 'Москва и Подмосковье' }
+];
+
+const types = [
+  { value: 0, label: 'ИТЛ'} ,
+  { value: 1, label: 'Особый лагерь'} ,
+  { value: 2, label: 'Спецлагерь'} ,
+  { value: 3, label: 'Лагерное отделение' }
+];
 
 class PrisonCard extends React.Component {
   render() {
     const { prison, updateHandler } = this.props;
 
-    const update = lens => /* debounce */ (event) => {
+    const updateInput = lens => /* debounce */ (event) => {
       const { value } = event.target;
       updateHandler(set(lens, value, prison))
+    }
+
+    const updateSelect = lens => /* debounce */ (option) => {
+      updateHandler(set(lens, option.value, prison))
     }
 
     return (
@@ -68,28 +74,30 @@ class PrisonCard extends React.Component {
               <div className="prison__name">
                 <div className="field-title">название лагеря</div>
                 <TextInput
-                  onChange={ update(lensProp('name_ru')) }
+                  onChange={ updateInput(lensProp('name_ru')) }
                   placeholder={ 'Название' }
                   defaultValue={ prison.name_ru }
                 />
                 <TextInput
-                  onChange={ update(lensProp('addl_names_ru')) }
+                  onChange={ updateInput(lensProp('addl_names_ru')) }
                   placeholder={ 'Дополнительные названия, если есть' }
                   defaultValue={ prison.addl_names_ru }
                 />
               </div>
               <div className="prison__activity">
                 <div className="field-title">Основная деятельность</div>
-                <DropDownList
-                  list={ activity }
-                  activeItem={ prison.features[0].properties.activity_id }
+                <SelectInput
+                  value={ prison.activity_id }
+                  options={ activities }
+                  onChange={ updateSelect(lensProp('activity_id')) }
                 />
               </div>
               <div className="prison__place">
                 <div className="field-title">Регион</div>
-                <DropDownList
-                  list={ place }
-                  activeItem={ prison.features[0].properties.place_id }
+                <SelectInput
+                  value={ prison.place_id }
+                  options={ places }
+                  onChange={ updateSelect(lensProp('place_id')) }
                 />
               </div>
             </div>
@@ -105,9 +113,10 @@ class PrisonCard extends React.Component {
               </div>
               <div className="prison__type">
                 <div className="field-title">Тип лагеря</div>
-                <DropDownList
-                  list={ type }
-                  activeItem={ prison.features[0].properties.type_id }
+                <SelectInput
+                  value={ prison.type_id }
+                  options={ types }
+                  onChange={ updateSelect(lensProp('type_id')) }
                 />
               </div>
             </div>
@@ -117,20 +126,23 @@ class PrisonCard extends React.Component {
             prison={ prison }
             onClick={ this.props.addNewYear.bind(null, prison.id, 0) }
           />
-          <PrisonStatistics feature={ prison.features[0] } />
+          {
+            prison.features[0] &&
+              <PrisonStatistics feature={ prison.features[0] } />
+          }
           <div className="prison__top">
             <div className="prison__left">
               <MarkdownEditor
                 title={ 'Описание лагеря' }
                 source={ prison.description_ru }
-                onChange={ update(lensProp('description_ru')) }
+                onChange={ updateInput(lensProp('description_ru')) }
               />
             </div>
             <div className="prison__right">
               <MarkdownEditor
                 title={ 'eng' }
                 source={ prison.description_en }
-                onChange={ update(lensProp('description_en')) }
+                onChange={ updateInput(lensProp('description_en')) }
               />
             </div>
           </div>

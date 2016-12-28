@@ -7,7 +7,19 @@ import './App.css';
 const App = React.createClass({
   getInitialState() {
     return {
-      prisons: {}
+      prisons: {},
+      newPrison: {
+        id: undefined,
+        name_ru: '',
+        name_en: '',
+        addl_names_ru: '',
+        addl_names_en: '',
+        description_ru: '',
+        description_en: '',
+        published_ru: false,
+        published_en: false,
+        features: []
+      }
     };
   },
 
@@ -21,7 +33,11 @@ const App = React.createClass({
   },
 
   updatePrison(prison) {
-    this.setState(assocPath(['prisons', prison.id], prison, this.state))
+    if (prison.id) {
+      this.setState(assocPath(['prisons', prison.id], prison, this.state));
+    } else {
+      this.setState({ newPrison: prison });
+    }
   },
 
   submitPrison(prison) {
@@ -60,6 +76,17 @@ const App = React.createClass({
     if (test(/^(\/admin\/?|\/admin\/prisons\/?)$/, pathname)) {
       return React.cloneElement(this.props.children, {
         prisons: this.state.prisons
+      });
+    }
+    // /admin/prisons/new -> <PrisonPage />
+    else if (test(/\/admin\/prisons\/new/, pathname)) {
+      const prison = this.state.newPrison;
+      return React.cloneElement(this.props.children, {
+        prison: prison,
+        changeDropDownItem: this.changeDropDownItem,
+        addNewYear: this.addNewYear,
+        submitHandler: this.submitPrison,
+        updateHandler: this.updatePrison
       });
     }
     // /admin/prisons/prisonId -> <PrisonPage />

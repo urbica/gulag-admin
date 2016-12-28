@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
-import './Header.css'
+import React, { Component } from 'react';
 import Button from '../Button/Button';
+import { browserHistory } from 'react-router';
+import './Header.css'
 
 class Header extends Component {
   render() {
+    const createPrison = browserHistory.push.bind(browserHistory, '/admin/prisons/new');
     return (
       <header className="header">
         <div className="container">
@@ -30,7 +32,11 @@ class Header extends Component {
             </div>
           </div>
           <div className="header__right">
-            <Button title={'добавить'} color={'orange'}/>
+            <Button
+              title={'добавить'}
+              color={'orange'}
+              onClick={ createPrison }
+            />
           </div>
         </div>
       </header>

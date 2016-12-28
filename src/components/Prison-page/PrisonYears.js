@@ -13,11 +13,14 @@ const PrisonYears = (props) => {
       <div className='years__list'>
         {
           years.map((year, key) => {
+            const defaultChecked = prison.features[0] ?
+              prison.features[0].properties[year] : false;
+
             return <label key={ key } className='year'>
               <input
                 type='checkbox'
                 onClick={ onClick.bind(null, year) }
-                defaultChecked={ prison.features[0].properties[year] }
+                defaultChecked={ defaultChecked }
               />
               <span>{ year }</span>
             </label>
