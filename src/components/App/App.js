@@ -1,5 +1,5 @@
 import React from 'react';
-import {compose, map, head, groupBy, prop, test, isEmpty} from 'ramda';
+import { assocPath, compose, map, head, groupBy, prop, test, isEmpty } from 'ramda';
 import addNewYear from '../../utils/add-new-year';
 import { fillMaxPrisoners } from '../../utils/preprocessing';
 import './App.css';
@@ -18,6 +18,10 @@ const App = React.createClass({
     fetch('http://gulag.urbica.co/backend/public/camps.json')
       .then(r => r.json())
       .then(prisons => this.setState({ prisons: preprocess(prisons) }));
+  },
+
+  updatePrison(prison) {
+    this.setState(assocPath(['prisons', prison.id], prison, this.state))
   },
 
   submitPrison(prison) {
@@ -44,7 +48,8 @@ const App = React.createClass({
         prison: this.state.prisons[prisonId],
         changeDropDownItem: this.changeDropDownItem,
         addNewYear: this.addNewYear,
-        submitHandler: this.submitPrison
+        submitHandler: this.submitPrison,
+        updateHandler: this.updatePrison
       });
     }
 

@@ -9,6 +9,7 @@ import PrisonYears from './PrisonYears';
 import PrisonStatistics from './PrisonStatistics';
 import PrisonPhotos from './PrisonPhotos';
 import MarkdownEditor from './MarkdownEditor';
+import { lensProp, set } from 'ramda';
 import './Prison-page.css';
 
 const activity = {
@@ -50,7 +51,13 @@ const type = {
 
 class PrisonCard extends React.Component {
   render() {
-    const { prison } = this.props;
+    const { prison, updateHandler } = this.props;
+
+    const update = lens => /* debounce */ (event) => {
+      const { value } = event.target;
+      updateHandler(set(lens, value, prison))
+    }
+
     return (
       <div className="prisonPage">
         <div className="container">
@@ -60,22 +67,29 @@ class PrisonCard extends React.Component {
               <DraftSwitch defaultChecked={ prison.published_ru } />
               <div className="prison__name">
                 <div className="field-title">название лагеря</div>
-                <TextInput placeholder={ 'Название' } defaultValue={ prison.name_ru } />
                 <TextInput
+                  onChange={ update(lensProp('name_ru')) }
+                  placeholder={ 'Название' }
+                  defaultValue={ prison.name_ru }
+                />
+                <TextInput
+                  onChange={ update(lensProp('addl_names_ru')) }
                   placeholder={ 'Дополнительные названия, если есть' }
                   defaultValue={ prison.addl_names_ru }
                 />
               </div>
               <div className="prison__activity">
                 <div className="field-title">Основная деятельность</div>
-                <DropDownList list={ activity }
-                              activeItem={ prison.features[0].properties.activity_id }
+                <DropDownList
+                  list={ activity }
+                  activeItem={ prison.features[0].properties.activity_id }
                 />
               </div>
               <div className="prison__place">
                 <div className="field-title">Регион</div>
-                <DropDownList list={ place }
-                              activeItem={ prison.features[0].properties.place_id }
+                <DropDownList
+                  list={ place }
+                  activeItem={ prison.features[0].properties.place_id }
                 />
               </div>
             </div>
@@ -91,8 +105,9 @@ class PrisonCard extends React.Component {
               </div>
               <div className="prison__type">
                 <div className="field-title">Тип лагеря</div>
-                <DropDownList list={ type }
-                              activeItem={ prison.features[0].properties.type_id }
+                <DropDownList
+                  list={ type }
+                  activeItem={ prison.features[0].properties.type_id }
                 />
               </div>
             </div>
