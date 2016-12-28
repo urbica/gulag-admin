@@ -20,6 +20,9 @@ const App = React.createClass({
       .then(prisons => this.setState({ prisons: preprocess(prisons) }));
   },
 
+  submitPrison(prison) {
+  },
+
   addNewYear(prisonId, locationId, year) {
     this.setState(addNewYear(this.state, prisonId, locationId, year))
   },
@@ -40,7 +43,8 @@ const App = React.createClass({
       return React.cloneElement(this.props.children, {
         prison: this.state.prisons[prisonId],
         changeDropDownItem: this.changeDropDownItem,
-        addNewYear: this.addNewYear
+        addNewYear: this.addNewYear,
+        submitHandler: this.submitPrison
       });
     }
 

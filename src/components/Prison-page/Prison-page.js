@@ -257,7 +257,11 @@ class PrisonCard extends React.Component {
               <figcaption>image1.png</figcaption>
             </figure>
           </div>
-          <Button color={'orange'} title={'сохранить'}/>
+          <Button
+            color={'orange'}
+            title={'сохранить'}
+            onClick={ this.props.submitHandler.bind(null, this.props.prison) }
+          />
         </div>
       </div>
     );
