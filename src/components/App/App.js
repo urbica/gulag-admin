@@ -25,6 +25,27 @@ const App = React.createClass({
   },
 
   submitPrison(prison) {
+    let request;
+    if (prison.id) {
+      request = fetch(`http://gulag.urbica.co/backend/public/camps/id/${prison.id}`, {
+        body: JSON.stringify(prison),
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } else {
+      request = fetch('http://gulag.urbica.co/backend/public/camps/id', {
+        body: JSON.stringify(prison),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    request
+      .then(response => response.json())
+      .then(newPrison => {
+        this.setState(assocPath(['prisons', prison.id], newPrison, this.state));
+        alert(`Лагерь "${prison.name_ru}" обновлён`);
+      });
   },
 
   addNewYear(prisonId, locationId, year) {
