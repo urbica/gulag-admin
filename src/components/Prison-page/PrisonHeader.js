@@ -15,13 +15,14 @@ const calculatePeriod = (features) => {
 
 const PrisonHeader = (props) => {
   const { prison } = props;
+  const features = prison.features || [];
   return (
     <header className='prison__header'>
       <Link to='/admin/prisons' className='prison__back-link'>← к таблице лагерей</Link>
       <div className='prison__title'>
         <div className='prison__title-name'>{ prison.name_ru }</div>
         <div className='prison__title-period'>
-          { calculatePeriod(prison.features) }
+          { calculatePeriod(features) }
         </div>
       </div>
       <div>

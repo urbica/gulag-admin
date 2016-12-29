@@ -4,12 +4,13 @@ import TextInput from './TextInput';
 
 const PrisonLocation = (props) => {
   const { prison } = props;
+  const features = prison.features || [];
   return (
     <div className="prison__location">
       <div className="field-title">
         {
-          prison.features.map((location, key) => {
-            let className = prison.features[0] === location ?
+          features.map((location, key) => {
+            let className = features[0] === location ?
               'field-title__location field-title__location_active' : 'field-title__location';
 
             return <div className={ className }

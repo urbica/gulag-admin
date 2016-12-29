@@ -2,6 +2,8 @@ import { assoc, compose, map, prop, reduce, values } from 'ramda';
 import { renameKeys, pickByRegExp } from './utils';
 
 export const getMaxPrisoners = (prison) => {
+  const features = prison.features || [];
+
   const getMaxPrisoners = compose(
     reduce(Math.max, 0),
     values,
@@ -12,7 +14,7 @@ export const getMaxPrisoners = (prison) => {
 
   const maxPrisoners = reduce((acc, feature) => {
     return Math.max(acc, getMaxPrisoners(feature));
-  }, 0, prison.features);
+  }, 0, features);
 
   return assoc('max_prisoners', maxPrisoners, prison);
 }

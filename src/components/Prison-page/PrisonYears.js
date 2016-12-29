@@ -7,14 +7,15 @@ for (let i = 1918; i <= 1960; i++) {
 
 const PrisonYears = (props) => {
   const { onClick, prison } = props;
+  const features = prison.features || [];
   return (
     <div className='prison__years'>
       <div className='field-title'>Годы существования лагеря</div>
       <div className='years__list'>
         {
           years.map((year, key) => {
-            const defaultChecked = prison.features[0] ?
-              prison.features[0].properties[year] : false;
+            const defaultChecked = features[0] ?
+              features[0].properties[year] : false;
 
             return <label key={ key } className='year'>
               <input

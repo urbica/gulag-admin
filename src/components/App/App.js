@@ -55,25 +55,28 @@ const App = React.createClass({
 
   submitPrison(prison) {
     let request;
+    let message;
     if (prison.id) {
       request = fetch(`http://gulag.urbica.co/backend/public/camps/id/${prison.id}`, {
         body: JSON.stringify(prison),
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
       });
+      message = `Лагерь "${prison.name_ru}" обновлён`;
     } else {
       request = fetch('http://gulag.urbica.co/backend/public/camps/id', {
         body: JSON.stringify(prison),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });
+      message = `Лагерь "${prison.name_ru}" добавлен`;
     }
 
     request
       .then(response => response.json())
       .then(newPrison => {
-        this.setState(assocPath(['prisons', prison.id], newPrison, this.state));
-        alert(`Лагерь "${prison.name_ru}" обновлён`);
+        this.setState(assocPath(['prisons', newPrison.id], newPrison, this.state));
+        alert(message);
       });
   },
 

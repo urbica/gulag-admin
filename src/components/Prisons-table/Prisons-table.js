@@ -32,6 +32,7 @@ class PrisonsTable extends Component {
                 return 0;
               })
               .map((prison, key) => {
+                const features = prison.features || [];
                 const url = `/admin/prisons/${prison.id}`;
                 const openPrison = browserHistory.push.bind(browserHistory, url);
                 return (
@@ -39,7 +40,7 @@ class PrisonsTable extends Component {
                     <td className="prisons__cell" height='56'>{prison.name_ru}</td>
                     <td className="prisons__cell prisons__cell_period">
                       {
-                        prison.features.map((location, key) => {
+                        features.map((location, key) => {
                           const YEARS = Object.keys(location.properties);
                           if (YEARS.length === 3) {
                             return <div key={ key }>{ YEARS[0] };</div>

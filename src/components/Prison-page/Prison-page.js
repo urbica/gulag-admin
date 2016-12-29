@@ -15,6 +15,7 @@ import './Prison-page.css';
 class PrisonCard extends React.Component {
   render() {
     const { prison, updateHandler } = this.props;
+    const features = prison.features || [];
 
     const updateInput = lens => /* debounce */ (event) => {
       const { value } = event.target;
@@ -89,8 +90,8 @@ class PrisonCard extends React.Component {
             onClick={ this.props.addNewYear.bind(null, prison.id, 0) }
           />
           {
-            prison.features[0] &&
-              <PrisonStatistics feature={ prison.features[0] } />
+            features[0] &&
+              <PrisonStatistics feature={ features[0] } />
           }
           <div className="prison__top">
             <div className="prison__left">
