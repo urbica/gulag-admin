@@ -14,7 +14,7 @@ const calculatePeriod = (features) => {
 }
 
 const PrisonHeader = (props) => {
-  const { prison } = props;
+  const { prison, deleteHandler } = props;
   const features = prison.features || [];
   return (
     <header className='prison__header'>
@@ -26,7 +26,11 @@ const PrisonHeader = (props) => {
         </div>
       </div>
       <div>
-        <Button color={ 'red' } title={ 'удалить' }/>
+        <Button
+          color={ 'red' }
+          title={ 'удалить' }
+          onClick={ deleteHandler }
+        />
         <div className='prison__saved'>
           <div>Сохранено:</div>
           {/*<span className='prison__saved-date'>{ this.props.PRISON.edited.date }</span>*/}

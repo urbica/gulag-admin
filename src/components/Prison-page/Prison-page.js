@@ -14,7 +14,7 @@ import './Prison-page.css';
 
 class PrisonCard extends React.Component {
   render() {
-    const { prison, updateHandler } = this.props;
+    const { prison, updateHandler, deleteHandler } = this.props;
     const features = prison.features || [];
 
     const updateInput = lens => /* debounce */ (event) => {
@@ -30,7 +30,10 @@ class PrisonCard extends React.Component {
     return (
       <div className="prisonPage">
         <div className="container">
-          <PrisonHeader prison={ prison } />
+          <PrisonHeader
+            prison={ prison }
+            deleteHandler={ deleteHandler.bind(null, prison) }
+          />
           <div className="prison__top">
             <div className="prison__left">
               <DraftSwitch defaultChecked={ prison.published_ru } />

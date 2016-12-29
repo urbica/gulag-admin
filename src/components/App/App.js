@@ -1,8 +1,11 @@
 import React from 'react';
-import { assocPath, compose, map, head, groupBy, prop, test, isEmpty } from 'ramda';
 import addNewYear from '../../utils/add-new-year';
+import { assocPath, compose, dissocPath, map, head, groupBy, prop, test, isEmpty } from 'ramda';
+import { browserHistory } from 'react-router';
 import { directoryToOptions, fillMaxPrisoners } from '../../utils/preprocessing';
 import './App.css';
+
+const backendUrl = 'http://gulag.urbica.co/backend';
 
 const App = React.createClass({
   getInitialState() {
@@ -31,10 +34,10 @@ const App = React.createClass({
     const preprocess = compose(fillMaxPrisoners, groupById);
 
     Promise.all([
-      fetch('http://gulag.urbica.co/backend/public/camps.json').then(r => r.json()),
-      fetch('http://gulag.urbica.co/backend/public/activities.json').then(r => r.json()),
-      fetch('http://gulag.urbica.co/backend/public/places.json').then(r => r.json()),
-      fetch('http://gulag.urbica.co/backend/public/types.json').then(r => r.json())
+      fetch(`${backendUrl}/public/camps.json`).then(r => r.json()),
+      fetch(`${backendUrl}/public/activities.json`).then(r => r.json()),
+      fetch(`${backendUrl}/public/places.json`).then(r => r.json()),
+      fetch(`${backendUrl}/public/types.json`).then(r => r.json())
     ]).then(([prisons, activities, places, types]) => {
       this.setState({
         activities: activities,
@@ -57,14 +60,14 @@ const App = React.createClass({
     let request;
     let message;
     if (prison.id) {
-      request = fetch(`http://gulag.urbica.co/backend/public/camps/id/${prison.id}`, {
+      request = fetch(`${backendUrl}/public/camps/id/${prison.id}`, {
         body: JSON.stringify(prison),
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
       });
       message = `Лагерь "${prison.name_ru}" обновлён`;
     } else {
-      request = fetch('http://gulag.urbica.co/backend/public/camps/id', {
+      request = fetch(`${backendUrl}/public/camps/id`, {
         body: JSON.stringify(prison),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
@@ -75,9 +78,23 @@ const App = React.createClass({
     request
       .then(response => response.json())
       .then(newPrison => {
-        this.setState(assocPath(['prisons', newPrison.id], newPrison, this.state));
+        this.setState(assocPath(['prisons', newPrison.id], newPrison, this.state), () =>
+          browserHistory.push(`/admin/prisons/${newPrison.id}`)
+        );
         alert(message);
       });
+  },
+
+  deletePrison(prison) {
+    if (prison.id) {
+      if (confirm(`Удалить лагерь "${prison.name_ru}"?`)) {
+        fetch(`${backendUrl}/public/camps/id/${prison.id}`, { method: 'DELETE' })
+        .then(() => {
+          browserHistory.push('/admin/prisons');
+          this.setState(dissocPath(['prisons', `${prison.id}`], this.state));
+        });
+      }
+    }
   },
 
   addNewYear(prisonId, locationId, year) {
@@ -105,7 +122,8 @@ const App = React.createClass({
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),
         submitHandler: this.submitPrison,
-        updateHandler: this.updatePrison
+        updateHandler: this.updatePrison,
+        deleteHandler: this.deletePrison
       });
     }
     // /admin/prisons/prisonId -> <PrisonPage />
@@ -119,7 +137,8 @@ const App = React.createClass({
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),
         submitHandler: this.submitPrison,
-        updateHandler: this.updatePrison
+        updateHandler: this.updatePrison,
+        deleteHandler: this.deletePrison
       });
     }
 
