@@ -1,11 +1,12 @@
 import React from 'react';
 
 const TextInput = (props) => {
-  const { onChange, placeholder, defaultValue } = props;
+  const {onChange, placeholder, defaultValue} = props;
+  const className = props.lang !== 'en' ? 'input' : 'input input_en';
   return (
     <div className='inputWrapper'>
       <input
-        className='input'
+        className={ className }
         type='text'
         onChange={ onChange }
         placeholder={ placeholder }
@@ -14,6 +15,6 @@ const TextInput = (props) => {
       <div className='inputLine'/>
     </div>
   );
-}
+};
 
 export default TextInput;

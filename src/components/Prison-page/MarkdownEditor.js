@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { lensProp, not, over } from 'ramda';
+import {lensProp, not, over} from 'ramda';
 
 const MarkdownEditor = React.createClass({
   getInitialState() {
@@ -14,17 +14,18 @@ const MarkdownEditor = React.createClass({
   },
 
   render() {
-    const { onChange, source, title } = this.props;
-
+    const {lang, onChange, source, title} = this.props;
+    const inputName = lang !== 'en' ? 'input' : 'input input_en';
+    const descName = lang !== 'en' ? 'prison__description' : 'prison__description prison__description_en';
     return (
-      <div className='prison__description'>
+      <div className={ descName }>
         <div className='field-title'>{ title }</div>
         {
           this.state.preview &&
           <div className='inputWrapper'>
-            <button onClick={ this.togglePreview }>Редактировать</button> 
+            <button onClick={ this.togglePreview }>Редактировать</button>
             <ReactMarkdown
-              className='input'
+              className={ inputName }
               source={ source }
             />
             <div className='inputLine'/>
@@ -33,10 +34,10 @@ const MarkdownEditor = React.createClass({
         {
           !this.state.preview &&
           <div className='inputWrapper'>
-            <button onClick={ this.togglePreview }>Просмотр</button> 
+            <button onClick={ this.togglePreview }>Просмотр</button>
             <textarea
               onChange={ onChange }
-              className='input'
+              className={ inputName }
               defaultValue={ source }
             />
             <div className='inputLine'/>

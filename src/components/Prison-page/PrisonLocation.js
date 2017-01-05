@@ -25,7 +25,7 @@ const PrisonLocation = (props) => {
         <button className="field-title__plus">+</button>
       </div>
       <TextInput defaultValue={ prison.features[0].properties.location }/>
-      <TextInput />
+      <TextInput lang={ 'en' }/>
       <Map features={ prison.features }/>
     </div>
   );
