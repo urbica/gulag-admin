@@ -1,17 +1,19 @@
 import React from 'react';
+import './DraftSwitch.css';
 
 const DraftSwitch = (props) => {
-  const { defaultChecked } = props;
+  const {defaultChecked} = props;
+  const className = props.lang !== 'en' ? 'draft-switch' : 'draft-switch draft-switch_en';
   return (
-    <div className='draft-switch'>
-      <span className='draft'>черновик</span>
-      <label className='switch'>
-        <input type='checkbox' defaultChecked={ defaultChecked }/>
-        <div className='slider'/>
+    <div className={ className }>
+      <label>
+        <input type="checkbox" defaultChecked={ defaultChecked }/>
+        <span className="draft">черновик</span>
+        <div className="slider"/>
+        <span className="publish">опубликованно</span>
       </label>
-      <span className='published'>опубликовано</span>
     </div>
   );
-}
+};
 
 export default DraftSwitch;

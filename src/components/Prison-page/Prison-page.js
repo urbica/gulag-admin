@@ -9,16 +9,16 @@ import PrisonYears from './PrisonYears';
 import PrisonStatistics from './PrisonStatistics';
 import PrisonPhotos from './PrisonPhotos';
 import MarkdownEditor from './MarkdownEditor';
-import { lensProp, set } from 'ramda';
+import {lensProp, set} from 'ramda';
 import './Prison-page.css';
 
 class PrisonCard extends React.Component {
   render() {
-    const { prison, updateHandler, deleteHandler } = this.props;
+    const {prison, updateHandler, deleteHandler} = this.props;
     const features = prison.features || [];
 
     const updateInput = lens => /* debounce */ (event) => {
-      const { value } = event.target;
+      const {value} = event.target;
       updateHandler(set(lens, value, prison));
     }
 
@@ -36,7 +36,7 @@ class PrisonCard extends React.Component {
           />
           <div className="prison__top">
             <div className="prison__left">
-              <DraftSwitch defaultChecked={ prison.published_ru } />
+              <DraftSwitch defaultChecked={ prison.published_ru }/>
               <div className="prison__name">
                 <div className="field-title">название лагеря</div>
                 <TextInput
@@ -68,10 +68,10 @@ class PrisonCard extends React.Component {
               </div>
             </div>
             <div className="prison__right">
-              <DraftSwitch defaultChecked={ prison.published_en } />
+              <DraftSwitch defaultChecked={ prison.published_en } lang={ 'en' }/>
               <div className="prison__name">
                 <div className="field-title field-title_en">eng</div>
-                <TextInput placeholder={ 'Main name' } defaultValue={ prison.name_en } />
+                <TextInput placeholder={ 'Main name' } defaultValue={ prison.name_en }/>
                 <TextInput
                   placeholder={ 'Second name' }
                   defaultValue={ prison.addl_names_en }
@@ -87,14 +87,14 @@ class PrisonCard extends React.Component {
               </div>
             </div>
           </div>
-          <PrisonLocation prison={ prison } />
+          <PrisonLocation prison={ prison }/>
           <PrisonYears
             prison={ prison }
             onClick={ this.props.addNewYear.bind(null, prison.id, 0) }
           />
           {
             features[0] &&
-              <PrisonStatistics feature={ features[0] } />
+            <PrisonStatistics feature={ features[0] }/>
           }
           <div className="prison__top">
             <div className="prison__left">
