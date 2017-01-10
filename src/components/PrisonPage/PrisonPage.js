@@ -5,8 +5,6 @@ import DraftSwitch from './DraftSwitch';
 import TextInput from '../Inputs/TextInput';
 import SelectInput from '../Inputs/SelectInput';
 import PrisonLocation from '../PrisonLocation/PrisonLocation';
-import PrisonYears from './PrisonYears';
-import PrisonStatistics from './PrisonStatistics';
 import PrisonPhotos from './PrisonPhotos';
 import MarkdownEditor from './MarkdownEditor';
 import {lensProp, set} from 'ramda';
@@ -15,7 +13,6 @@ import './PrisonPage.css';
 class PrisonCard extends React.Component {
   render() {
     const {prison, updateHandler, deleteHandler} = this.props;
-    const features = prison.features || [];
 
     const updateInput = lens => /* debounce */ (event) => {
       const {value} = event.target;
@@ -92,15 +89,7 @@ class PrisonCard extends React.Component {
               </div>
             </div>
           </div>
-          <PrisonLocation prison={ prison }/>
-          <PrisonYears
-            prison={ prison }
-            onClick={ this.props.addNewYear.bind(null, prison.id, 0) }
-          />
-          {
-            features[0] &&
-            <PrisonStatistics feature={ features[0] }/>
-          }
+          <PrisonLocation prison={ prison } addNewYear={ this.props.addNewYear }/>
           <div className="prison__top">
             <div className="prison__left">
               <MarkdownEditor

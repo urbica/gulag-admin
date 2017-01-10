@@ -1,5 +1,7 @@
 import React from 'react';
 import Map from '../Map/Map';
+import PrisonYears from './PrisonYears';
+import PrisonStatistics from './PrisonStatistics';
 import TextInput from '../Inputs/TextInput';
 import classnames from 'classnames';
 
@@ -59,6 +61,14 @@ const PrisonLocation = React.createClass({
           className={ 'input_en' }
         />
         <Map features={ [selectedFeature] }/>
+        <PrisonYears
+          prison={ prison }
+          onClick={ this.props.addNewYear.bind(null, prison.id, this.state.selectedFeatureIndex) }
+        />
+        {
+          features[this.state.selectedFeatureIndex] &&
+          <PrisonStatistics feature={ features[this.state.selectedFeatureIndex] }/>
+        }
       </div>
     );
   }
