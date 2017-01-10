@@ -1,0 +1,20 @@
+.Select-control {
+  border: none;
+  border-radius: 0;
+  background-color: #f3f3f3;
+}
+
+.Select-control:hover {
+  box-shadow: none;
+}
+
+.is-open .Select-control {
+  border: 2px solid #000;
+  border-bottom: none;
+}
+
+.Select-menu-outer {
+  border: 2px solid #000;
+  border-top: none;
+  border-radius: 0;
+}
