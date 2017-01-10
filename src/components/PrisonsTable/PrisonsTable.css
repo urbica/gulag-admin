@@ -5,6 +5,7 @@
 
 .prisons thead {
   font-weight: bold;
+  user-select: none;
 }
 
 .prisons thead td {
@@ -13,13 +14,14 @@
   font-size: 14px;
   white-space: nowrap;
   padding: 0 40px 10px 0;
+  cursor: pointer;
 }
 
 .prisons thead td:last-child {
   padding-right: 0;
 }
 
-.prisons thead td:after {
+.prisons thead td.sort_DESC:after {
   position: absolute;
   margin-left: 5px;
   margin-top: 2px;
@@ -28,6 +30,18 @@
   border-style: solid;
   border-width: 10px 6px 0 6px;
   border-color: #000 transparent transparent transparent;
+  content: '';
+}
+
+.prisons thead td.sort_ASC:after {
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 2px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 6px 10px 6px;
+  border-color: transparent transparent #000 transparent;
   content: '';
 }
 

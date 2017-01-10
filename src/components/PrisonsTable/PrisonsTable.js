@@ -1,66 +1,84 @@
-import React, {Component} from 'react';
-import {browserHistory} from 'react-router';
-import {values} from 'ramda';
+import React from 'react';
+import PrisonRow from './PrisonRow';
+import classnames from 'classnames';
 import './PrisonsTable.css'
 
-class PrisonsTable extends Component {
+const SortTypes = { ASC: 'ASC', DESC: 'DESC' };
+const collator = new Intl.Collator('ru', {
+  ignorePunctuation: true,
+  numeric: true
+});
+
+class PrisonsTable extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortBy: 'name_ru',
+      sortDir: SortTypes.ASC
+    };
+  }
+
+  sort = (sortBy) => {
+    if (this.state.sortBy === sortBy) {
+      this.setState({
+        sortBy,
+        sortDir: this.state.sortDir === SortTypes.ASC ? SortTypes.DESC : SortTypes.ASC
+      });
+    } else {
+      this.setState({ sortBy, sortDir: SortTypes.ASC });
+    }
+  }
+
+  getOrderedPrisons = () => {
+    const { prisons } = this.props;
+    const { sortBy, sortDir } = this.state;
+    const comparator = (a, b) => collator.compare(a[sortBy], b[sortBy]);
+
+    if (sortDir === SortTypes.DESC) {
+      return prisons.sort(comparator).reverse();
+    }
+
+    return prisons.sort(comparator);
+  }
+
   render() {
+    const { sortBy, sortDir } = this.state;
+    const prisons = this.getOrderedPrisons();
+
+    const getClassNames = (attr) => classnames({
+      [`sort_${sortDir}`]: sortBy === attr
+    });
+
     return (
       <div className='container'>
         <table className='prisons'>
           <thead>
           <tr>
-            <td>Название</td>
+            <td
+              className={ getClassNames('name_ru') }
+              onClick={ this.sort.bind(this, 'name_ru') }
+            >
+              Название
+            </td>
             <td>Период</td>
             <td>Отредактировано</td>
             <td>Регион</td>
-            <td>Макс. числ.</td>
+            <td
+              className={ getClassNames('max_prisoners') }
+              onClick={ this.sort.bind(this, 'max_prisoners') }
+            >
+              Макс. числ.
+            </td>
             <td>Рус</td>
             <td>Eng</td>
           </tr>
           </thead>
           <tbody>
-          {
-            values(this.props.prisons)
-              .sort((a, b) => {
-                if (a['name_ru'] > b['name_ru']) {
-                  return 1;
-                }
-                if (a['name_ru'] < b['name_ru']) {
-                  return -1;
-                }
-                return 0;
-              })
-              .map((prison, key) => {
-                const features = prison.features || [];
-                const url = `/admin/prisons/${prison.id}`;
-                const openPrison = browserHistory.push.bind(browserHistory, url);
-                return (
-                  <tr key={key} onClick={ openPrison }>
-                    <td className='prisons__cell' height='56'>{prison.name_ru}</td>
-                    <td className='prisons__cell prisons__cell_period'>
-                      {
-                        features.map((location, key) => {
-                          const YEARS = Object.keys(location.properties);
-                          if (YEARS.length === 3) {
-                            return <div key={ key }>{ YEARS[0] };</div>
-                          } else if (YEARS.length > 2) {
-                            return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 3] };</div>
-                          } else return null
-                        })
-                      }
-                    </td>
-                    <td className='prisons__cell'>время</td>
-                    <td className='prisons__cell'>регион</td>
-                    <td className='prisons__cell prisons__strength'>
-                      { String(prison.max_prisoners).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ') }
-                    </td>
-                    <td className='prisons__cell'>{ prison.published_ru ? 'да' : 'нет' }</td>
-                    <td className='prisons__cell'>{ prison.published_en ? 'да' : 'нет' }</td>
-                  </tr>
-                )
-              })
-          }
+            {
+              prisons.map(prison =>
+                <PrisonRow prison={ prison } key={ prison.id } />
+              )
+            }
           </tbody>
         </table>
       </div>
