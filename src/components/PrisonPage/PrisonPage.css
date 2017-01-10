@@ -3,6 +3,11 @@
   padding-bottom: 80px;
 }
 
+.prisonPage .container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .prison__header {
   display: flex;
   justify-content: space-between;
@@ -50,6 +55,7 @@
 .prison__top {
   display: flex;
   justify-content: space-between;
+  width: 100%;
   margin-bottom: 55px;
 }
 
@@ -129,9 +135,10 @@
 
 .prison__location {
   display: flex;
-  margin-bottom: 30px;
   flex-wrap: wrap;
   justify-content: space-between;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 .prison__location .inputWrapper {
@@ -264,10 +271,15 @@
 }
 
 .prison__photo {
+  width: 100%;
   margin-bottom: 50px;
 }
 
 .prison__photo figure {
   display: inline-block;
   margin: 0 10px 0 0;
+}
+
+.prisonPage .button {
+  margin-left: auto;
 }
