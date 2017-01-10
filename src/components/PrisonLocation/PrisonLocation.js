@@ -1,5 +1,5 @@
 import React from 'react';
-import TextInput from './TextInput';
+import TextInput from '../Inputs/TextInput';
 import Map from '../Map/Map';
 
 const PrisonLocation = (props) => {

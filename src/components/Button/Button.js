@@ -1,8 +1,12 @@
 import React from 'react';
+import classnames from 'classnames';
 import './Button.css';
 
 const Button = (props) => {
-  const className = props.color ? 'button button_' + props.color : 'button';
+  const className = classnames('button', {
+    [`button_${props.color}`]: !!props.color
+  });
+
   return (
     <button className={ className } onClick={ props.onClick }>
       { props.title }

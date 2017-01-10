@@ -2,7 +2,7 @@ import React from 'react';
 import {values} from 'ramda';
 import Header from '../Header/Header';
 import Search from '../Search/Search';
-import PrisonsTable from '../Prisons-table/Prisons-table';
+import PrisonsTable from '../PrisonsTable/PrisonsTable';
 
 class IndexPage extends React.Component {
   render() {

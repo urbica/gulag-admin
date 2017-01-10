@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
-import LoginPage from './components/Login-page/Login-page';
-import IndexPage from './components/Index-page/Index-page';
-import PrisonPage from './components/Prison-page/Prison-page';
+import LoginPage from './components/LoginPage/LoginPage';
+import IndexPage from './components/IndexPage/IndexPage';
+import PrisonPage from './components/PrisonPage/PrisonPage';
 import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
 import 'normalize.css';
 

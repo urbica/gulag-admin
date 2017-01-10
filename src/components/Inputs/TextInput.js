@@ -1,8 +1,13 @@
 import React from 'react';
+import classnames from 'classnames';
 
 const TextInput = (props) => {
   const {onChange, placeholder, defaultValue} = props;
-  const className = props.lang !== 'en' ? 'input' : 'input input_en';
+
+  const className = classnames('input', {
+    'input_en': props.lang === 'en'
+  });
+
   return (
     <div className='inputWrapper'>
       <input

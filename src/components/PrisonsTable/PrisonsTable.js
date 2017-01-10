@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 import {values} from 'ramda';
-import './Prisons-table.css'
+import './PrisonsTable.css'
 
 class PrisonsTable extends Component {
   render() {
     return (
-      <div className="container">
-        <table className="prisons">
+      <div className='container'>
+        <table className='prisons'>
           <thead>
           <tr>
             <td>Название</td>
@@ -37,8 +37,8 @@ class PrisonsTable extends Component {
                 const openPrison = browserHistory.push.bind(browserHistory, url);
                 return (
                   <tr key={key} onClick={ openPrison }>
-                    <td className="prisons__cell" height='56'>{prison.name_ru}</td>
-                    <td className="prisons__cell prisons__cell_period">
+                    <td className='prisons__cell' height='56'>{prison.name_ru}</td>
+                    <td className='prisons__cell prisons__cell_period'>
                       {
                         features.map((location, key) => {
                           const YEARS = Object.keys(location.properties);
@@ -50,13 +50,13 @@ class PrisonsTable extends Component {
                         })
                       }
                     </td>
-                    <td className="prisons__cell">время</td>
-                    <td className="prisons__cell">регион</td>
-                    <td className="prisons__cell prisons__strength">
+                    <td className='prisons__cell'>время</td>
+                    <td className='prisons__cell'>регион</td>
+                    <td className='prisons__cell prisons__strength'>
                       { String(prison.max_prisoners).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ') }
                     </td>
-                    <td className="prisons__cell">{ prison.published_ru ? 'да' : 'нет' }</td>
-                    <td className="prisons__cell">{ prison.published_en ? 'да' : 'нет' }</td>
+                    <td className='prisons__cell'>{ prison.published_ru ? 'да' : 'нет' }</td>
+                    <td className='prisons__cell'>{ prison.published_en ? 'да' : 'нет' }</td>
                   </tr>
                 )
               })

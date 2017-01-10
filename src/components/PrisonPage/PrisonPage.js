@@ -2,15 +2,15 @@ import React from 'react';
 import Button from '../Button/Button';
 import PrisonHeader from './PrisonHeader';
 import DraftSwitch from './DraftSwitch';
-import TextInput from './TextInput';
-import SelectInput from './SelectInput';
-import PrisonLocation from './PrisonLocation';
+import TextInput from '../Inputs/TextInput';
+import SelectInput from '../Inputs/SelectInput';
+import PrisonLocation from '../PrisonLocation/PrisonLocation';
 import PrisonYears from './PrisonYears';
 import PrisonStatistics from './PrisonStatistics';
 import PrisonPhotos from './PrisonPhotos';
 import MarkdownEditor from './MarkdownEditor';
 import {lensProp, set} from 'ramda';
-import './Prison-page.css';
+import './PrisonPage.css';
 
 class PrisonCard extends React.Component {
   render() {
