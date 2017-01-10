@@ -40,14 +40,14 @@ class PrisonCard extends React.Component {
               <div className="prison__name">
                 <div className="field-title">название лагеря</div>
                 <TextInput
+                  value={ prison.name_ru }
                   onChange={ updateInput(lensProp('name_ru')) }
                   placeholder={ 'Название' }
-                  defaultValue={ prison.name_ru }
                 />
                 <TextInput
+                  value={ prison.addl_names_ru }
                   onChange={ updateInput(lensProp('addl_names_ru')) }
                   placeholder={ 'Дополнительные названия, если есть' }
-                  defaultValue={ prison.addl_names_ru }
                 />
               </div>
               <div className="prison__activity">
@@ -71,8 +71,15 @@ class PrisonCard extends React.Component {
               <DraftSwitch defaultChecked={ prison.published_en } lang={ 'en' }/>
               <div className="prison__name">
                 <div className="field-title field-title_en">eng</div>
-                <TextInput placeholder={ 'Main name' } defaultValue={ prison.name_en } lang={ 'en' }/>
-                <TextInput placeholder={ 'Second name' } defaultValue={ prison.addl_names_en } lang={ 'en' }
+                <TextInput
+                  value={ prison.name_en }
+                  className={ 'input_en' }
+                  placeholder={ 'Main name' }
+                />
+                <TextInput
+                  value={ prison.addl_names_en }
+                  className={ 'input_en' }
+                  placeholder={ 'Second name' }
                 />
               </div>
               <div className="prison__type">
