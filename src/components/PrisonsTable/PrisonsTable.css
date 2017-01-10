@@ -15,6 +15,12 @@
   white-space: nowrap;
   padding: 0 40px 10px 0;
   cursor: pointer;
+  transition: .2s;
+}
+
+.prisons thead td:hover {
+  opacity: .5;
+  transition: .2s;
 }
 
 .prisons thead td:last-child {
