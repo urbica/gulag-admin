@@ -12,7 +12,7 @@ import './PrisonPage.css';
 
 class PrisonCard extends React.Component {
   render() {
-    const {prison, updateHandler, deleteHandler} = this.props;
+    const {prison, updateHandler, deleteHandler, addNewYear} = this.props;
 
     const updateInput = lens => /* debounce */ (event) => {
       const {value} = event.target;
@@ -89,7 +89,7 @@ class PrisonCard extends React.Component {
               </div>
             </div>
           </div>
-          <PrisonLocation prison={ prison } addNewYear={ this.props.addNewYear }/>
+          <PrisonLocation prison={ prison } addNewYear={ addNewYear }/>
           <div className="prison__top">
             <div className="prison__left">
               <MarkdownEditor

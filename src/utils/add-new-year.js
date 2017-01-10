@@ -1,4 +1,4 @@
-import {compose, lensIndex, lensPath, set} from 'ramda';
+import {compose, lensIndex, lensPath, set, dissoc, lensProp, over} from 'ramda';
 
 function addNewYear(state, prisonId, locationId, year) {
   const PRISON = state.prisons[prisonId];
@@ -11,11 +11,11 @@ function addNewYear(state, prisonId, locationId, year) {
   const LENS_REMOVE = compose(
     lensPath(['prisons', prisonId, 'features']),
     lensIndex(locationId),
-    lensPath(['properties', year, 'peoples'])
+    lensProp('properties')
   );
 
   const NEW_STATE_ADD = set(LENS, 0, state);
-  const NEW_STATE_REMOVE = set(LENS_REMOVE, undefined, state);
+  const NEW_STATE_REMOVE = over(LENS_REMOVE, dissoc(year), state);
 
   if (!PRISON.features[locationId].properties[year]) {
     return(NEW_STATE_ADD)
