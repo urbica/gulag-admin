@@ -31,7 +31,7 @@ const PrisonLocation = React.createClass({
 
     return (
       <div className='prison__location'>
-        <div className='field-title'>
+        <div className='field-title field-title_locations'>
           {
             features.map((location, index) => {
               const onClick = this.selectFeature.bind(null, index);
@@ -41,12 +41,16 @@ const PrisonLocation = React.createClass({
 
               return (
                 <div className={ className } onClick={ onClick } key={ index }>
-                  Локация { index + 1 }
+                  Локация { features.length > 1 ? index + 1 : '' }
                 </div>
               );
             })
           }
           <button className='field-title__plus'>+</button>
+          <TextInput
+            value={ selectedFeature.geometry.coordinates[0] + ', ' + selectedFeature.geometry.coordinates[1] }
+            onChange={ this.update }
+          />
         </div>
         <TextInput
           placeholder='Название локации'

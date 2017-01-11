@@ -97,6 +97,15 @@
   outline: none;
 }
 
+/*noinspection CssInvalidPseudoSelector*/
+input::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
 .prison__name div:nth-child(2) input {
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
@@ -141,13 +150,18 @@
   margin-bottom: 30px;
 }
 
-.prison__location .inputWrapper {
+.prison__location > .inputWrapper {
   width: 48%;
   margin-bottom: 10px;
 }
 
 .prison__location .field-title {
   padding: 0;
+}
+
+.field-title_locations {
+  display: flex;
+  align-items: center;
 }
 
 .field-title__location {
@@ -180,6 +194,17 @@
 
 .field-title__plus:active {
   border-color: #000;
+}
+
+.field-title_locations .inputWrapper {
+  margin-left: auto;
+}
+
+.field-title_locations .input {
+  padding: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: right;
 }
 
 .prison__years {

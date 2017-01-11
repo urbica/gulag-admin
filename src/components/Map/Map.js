@@ -13,8 +13,8 @@ class Map extends React.PureComponent {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9',
       drag: true,
-      zoom: 1,
-      center: [70, 55],
+      zoom: 1.6,
+      center: [95, 62],
       scrollZoom: false
     });
 

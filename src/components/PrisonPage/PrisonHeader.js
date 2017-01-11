@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../Button/Button';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 const calculatePeriod = (features) => {
   return features.map((location, key) => {
@@ -8,13 +8,13 @@ const calculatePeriod = (features) => {
     if (YEARS.length === 3) {
       return <div key={ key }>{ YEARS[0] };</div>
     } else if (YEARS.length > 2) {
-      return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 3] };</div>
+      return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 1] };</div>
     } else return null
   });
-}
+};
 
 const PrisonHeader = (props) => {
-  const { prison, deleteHandler } = props;
+  const {prison, deleteHandler} = props;
   const features = prison.features || [];
   return (
     <header className='prison__header'>
@@ -39,6 +39,6 @@ const PrisonHeader = (props) => {
       </div>
     </header>
   );
-}
+};
 
 export default PrisonHeader;
