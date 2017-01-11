@@ -3,7 +3,7 @@
   padding-bottom: 80px;
 }
 
-.prisonPage .container{
+.prisonPage .container {
   display: flex;
   flex-wrap: wrap;
 }
@@ -97,6 +97,11 @@
   outline: none;
 }
 
+.input_inside {
+  padding: 0;
+  background-color: transparent;
+}
+
 /*noinspection CssInvalidPseudoSelector*/
 input::-webkit-contacts-auto-fill-button {
   visibility: hidden;
@@ -107,7 +112,7 @@ input::-webkit-contacts-auto-fill-button {
 }
 
 .prison__name div:nth-child(2) input {
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
 .input:hover {
@@ -142,146 +147,7 @@ input::-webkit-contacts-auto-fill-button {
   margin-bottom: 50px;
 }
 
-.prison__location {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 30px;
-}
-
-.prison__location > .inputWrapper {
-  width: 48%;
-  margin-bottom: 10px;
-}
-
-.prison__location .field-title {
-  padding: 0;
-}
-
-.field-title_locations {
-  display: flex;
-  align-items: center;
-}
-
-.field-title__location {
-  display: inline-block;
-  color: rgba(0, 0, 0, .5);
-  padding: 8px 24px;
-}
-
-.field-title__location_active {
-  color: #fff;
-  background-color: #4a4a4a;
-}
-
-.field-title__plus {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  border: solid 1px #b2b2b2;
-  border-radius: 2px;
-  background-color: transparent;
-  color: rgba(0, 0, 0, .5);
-  outline: none;
-}
-
-.field-title__plus:hover {
-  color: #000;
-  background-color: #f0f0f0;
-  cursor: pointer;
-}
-
-.field-title__plus:active {
-  border-color: #000;
-}
-
-.field-title_locations .inputWrapper {
-  margin-left: auto;
-}
-
-.field-title_locations .input {
-  padding: 8px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: right;
-}
-
-.prison__years {
-  margin-bottom: 58px;
-}
-
-.years__list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.year {
-  width: 59.5px;
-  text-align: center;
-  margin-right: 6px;
-  margin-bottom: 10px;
-}
-
-.year input {
-  display: none;
-}
-
-.year span {
-  display: inline-block;
-  width: 100%;
-  padding-top: 6px;
-  padding-bottom: 5px;
-  border-radius: 3px;
-  font-size: 16px;
-}
-
-.year span:hover {
-  background-color: #f3f3f3;
-  cursor: pointer;
-}
-
-.year input:checked + span {
-  color: #fff;
-  background-color: #4a4a4a;
-}
-
-.year input:checked + span:hover {
-  background: rgba(0,0,0,1) ;
-}
-
-.amount {
-  display: inline-block;
-  position: relative;
-  width: 150px;
-  padding: 13px 13px 12px 64px;
-  margin-right: 10px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  background-color: #f3f3f3;
-}
-
-.amount:hover {
-  background-color: #f9f9f9;
-}
-
-.amount__year {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: .5;
-}
-
-.amount__input {
-  width: 100%;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  outline: none;
-}
-
-.prison__description textarea{
+.prison__description textarea {
   min-width: 100%;
   max-width: 100%;
   min-height: 400px;
@@ -291,7 +157,7 @@ input::-webkit-contacts-auto-fill-button {
   outline: none;
 }
 
-.prison__description_en textarea{
+.prison__description_en textarea {
   background-color: #ebecf6;
 }
 

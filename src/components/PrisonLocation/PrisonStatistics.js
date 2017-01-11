@@ -11,7 +11,7 @@ const PrisonStatistics = (props) => {
           return <label className='amount' key={ year }>
             <span className='amount__year'>{ year }:</span>
             <MaskedInput
-              className='amount__input input'
+              className='input input_inside'
               type='text'
               value={ feature.properties[year].peoples }
               mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/,]}
