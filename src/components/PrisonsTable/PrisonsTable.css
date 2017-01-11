@@ -73,7 +73,12 @@
 }
 
 .prisons__strength {
-  white-space: nowrap;
+  text-align: left;
+}
+
+.prisons__strength span {
+  display: inline-block;
+  width: 57px;
   text-align: right;
 }
 
