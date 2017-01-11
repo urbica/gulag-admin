@@ -1,7 +1,8 @@
 import React from 'react';
+import MaskedInput from 'react-text-mask';
 
 const PrisonStatistics = (props) => {
-  const { feature } = props;
+  const {feature} = props;
   return (
     <div className='prison__amount'>
       <div className='field-title'>количество заключенных по годам</div>
@@ -9,15 +10,19 @@ const PrisonStatistics = (props) => {
         Object.keys(feature.properties).map((year) => {
           return <label className='amount' key={ year }>
             <span className='amount__year'>{ year }:</span>
-            <input className='amount__input input'
-                   type='text'
-                   defaultValue={ feature.properties[year].peoples }/>
+            <MaskedInput
+              className='amount__input input'
+              type='text'
+              value={ feature.properties[year].peoples }
+              mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/,]}
+              guide={ false }
+            />
             <div className='inputLine'/>
           </label>
         })
       }
     </div>
   );
-}
+};
 
 export default PrisonStatistics;
