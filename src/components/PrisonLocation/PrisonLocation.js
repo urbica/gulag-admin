@@ -16,21 +16,18 @@ const PrisonLocation = React.createClass({
   },
 
   selectFeature(selectedFeatureIndex) {
-    this.setState({ selectedFeatureIndex });
+    this.setState({selectedFeatureIndex});
   },
 
   render() {
-    const { prison } = this.props;
+    const {prison} = this.props;
     const features = prison.features || [];
 
     const selectedFeature = features[this.state.selectedFeatureIndex] || {
-      type: 'Feature',
-      properties: {
-        location: '',
-        location_en: ''
-      },
-      geometry: { type: 'Point', coordinates: [0, 0] }
-    };
+        type: 'Feature',
+        properties: {},
+        geometry: {type: 'Point', coordinates: [0, 0]}
+      };
 
     return (
       <div className='prison__location'>
@@ -52,11 +49,13 @@ const PrisonLocation = React.createClass({
           <button className='field-title__plus'>+</button>
         </div>
         <TextInput
-          value={ selectedFeature.properties.location }
+          placeholder='Название локации'
+          value={ prison.location_ru }
           onChange={ this.update }
         />
         <TextInput
-          value={ selectedFeature.properties.location_en }
+          placeholder='Location name'
+          value={ prison.location_en }
           onChange={ this.update }
           className={ 'input_en' }
         />
