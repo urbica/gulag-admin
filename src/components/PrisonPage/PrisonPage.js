@@ -52,6 +52,7 @@ class PrisonCard extends React.Component {
                 <SelectInput
                   value={ prison.activity_id }
                   options={ this.props.activityOptions }
+                  clearable={ false }
                   onChange={ updateSelect(lensProp('activity_id')) }
                 />
               </div>
@@ -60,6 +61,7 @@ class PrisonCard extends React.Component {
                 <SelectInput
                   value={ prison.place_id }
                   options={ this.props.placeOptions }
+                  clearable={ false }
                   onChange={ updateSelect(lensProp('place_id')) }
                 />
               </div>
@@ -84,6 +86,7 @@ class PrisonCard extends React.Component {
                 <SelectInput
                   value={ prison.type_id }
                   options={ this.props.typeOptions }
+                  clearable={ false }
                   onChange={ updateSelect(lensProp('type_id')) }
                 />
               </div>
