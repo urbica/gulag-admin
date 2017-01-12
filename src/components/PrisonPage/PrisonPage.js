@@ -24,9 +24,9 @@ class PrisonCard extends React.Component {
       updateHandler(set(lens, value, prison));
     };
 
-    const updateLocation = lens => () => {
-
-    };
+    // const updateLocation = lens => () => {
+    //
+    // };
 
     return (
       <div className="prisonPage">
