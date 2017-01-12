@@ -1,11 +1,13 @@
 import React from 'react';
 import addNewYear from '../../utils/add-new-year';
-import { assocPath, compose, dissocPath, map, head, groupBy, prop, test, isEmpty } from 'ramda';
+import { concat, assocPath, compose, dissocPath, map, head, groupBy, over,
+  prop, test, isEmpty, lensPath } from 'ramda';
 import { browserHistory } from 'react-router';
-import { directoryToOptions, fillMaxPrisoners } from '../../utils/preprocessing';
+import { directoryToOptions, fillMaxPrisoners, fillPhotos } from '../../utils/preprocessing';
 import './App.css';
 
-const backendUrl = 'http://gulag.urbica.co/backend';
+const backendUrl = 'http://localhost:4000';
+// const backendUrl = 'http://gulag.urbica.co/backend';
 
 const App = React.createClass({
   getInitialState() {
@@ -31,14 +33,20 @@ const App = React.createClass({
 
   componentWillMount() {
     const groupById = compose(map(head), groupBy(prop('id')));
-    const preprocess = compose(fillMaxPrisoners, groupById);
 
     Promise.all([
       fetch(`${backendUrl}/public/camps.json`).then(r => r.json()),
+      fetch(`${backendUrl}/public/uploads.json`).then(r => r.json()),
       fetch(`${backendUrl}/public/activities.json`).then(r => r.json()),
       fetch(`${backendUrl}/public/places.json`).then(r => r.json()),
       fetch(`${backendUrl}/public/types.json`).then(r => r.json())
-    ]).then(([prisons, activities, places, types]) => {
+    ]).then(([prisons, photos, activities, places, types]) => {
+      const photosById = groupBy(prop('camp_id'), photos);
+      const preprocess = compose(
+        fillPhotos(photosById, backendUrl),
+        fillMaxPrisoners,
+        groupById
+      );
       this.setState({
         activities: activities,
         places: places,
@@ -46,6 +54,23 @@ const App = React.createClass({
         prisons: preprocess(prisons)
       });
     });
+  },
+
+  uploadPhotos(prisonId, photos) {
+    let uploads = new FormData();
+    uploads.append('camp_id', prisonId);
+    Array.from(photos).forEach(photo => uploads.append('path', photo));
+
+    fetch(`${backendUrl}/public/uploads/id`, {
+      method: 'POST',
+      body: uploads
+    })
+    .then(response => response.json())
+    .then(response => {
+      const photosLens = lensPath(['prisons', prisonId, 'photos']);
+      this.setState(over(photosLens, concat(response)));
+    })
+    .catch(error => console.error(error));
   },
 
   updatePrison(prison) {
@@ -129,13 +154,15 @@ const App = React.createClass({
     // /admin/prisons/prisonId -> <PrisonPage />
     else if (test(/\/admin\/prisons\/\d+/, pathname)) {
       const { prisonId } = this.props.router.params;
+      const prison = this.state.prisons[prisonId];
       return React.cloneElement(this.props.children, {
-        prison: this.state.prisons[prisonId],
+        prison: prison,
         changeDropDownItem: this.changeDropDownItem,
         addNewYear: this.addNewYear,
         activityOptions: directoryToOptions(this.state.activities),
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),
+        uploadHandler: this.uploadPhotos,
         submitHandler: this.submitPrison,
         updateHandler: this.updatePrison,
         deleteHandler: this.deletePrison

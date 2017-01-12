@@ -12,7 +12,7 @@ import './PrisonPage.css';
 
 class PrisonCard extends React.Component {
   render() {
-    const {prison, updateHandler, deleteHandler, addNewYear} = this.props;
+    const {prison, uploadHandler, updateHandler, deleteHandler, addNewYear} = this.props;
 
     const updateInput = lens => /* debounce */ (event) => {
       const {value} = event.target;
@@ -110,11 +110,14 @@ class PrisonCard extends React.Component {
               />
             </div>
           </div>
-          <PrisonPhotos />
+          <PrisonPhotos
+            prison={ prison }
+            uploadHandler={ uploadHandler }
+          />
           <Button
             color={'orange'}
             title={'сохранить'}
-            onClick={ this.props.submitHandler.bind(null, this.props.prison) }
+            onClick={ this.props.submitHandler.bind(null, prison) }
           />
         </div>
       </div>

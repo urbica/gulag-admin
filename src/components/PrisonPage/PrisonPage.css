@@ -171,6 +171,11 @@ input::-webkit-contacts-auto-fill-button {
   margin: 0 10px 0 0;
 }
 
+.prison__photo figure img {
+  width: 150px;
+  height: 100px;
+}
+
 .prisonPage .button {
   margin-left: auto;
 }

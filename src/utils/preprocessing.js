@@ -1,4 +1,4 @@
-import { assoc, compose, map, prop, reduce, values } from 'ramda';
+import { curryN, assoc, compose, map, merge, prop, reduce, toPairs, values } from 'ramda';
 import { renameKeys, pickByRegExp } from './utils';
 
 export const getMaxPrisoners = (prison) => {
@@ -22,5 +22,14 @@ export const getMaxPrisoners = (prison) => {
 export const fillMaxPrisoners = (prisons) => {
   return map(getMaxPrisoners, prisons);
 }
+
+export const fillPhotos = curryN(3, (photosById, backendUrl, prisons) => {
+  return reduce((acc, [prisonId, photos]) => {
+    acc[prisonId].photos = map(photo => merge(photo, {
+      path: `${backendUrl}/${photo.path}`
+    }), photos);
+    return acc;
+  }, prisons, toPairs(photosById));
+});
 
 export const directoryToOptions = map(renameKeys({ id: 'value', name: 'label' }));
