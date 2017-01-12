@@ -12,17 +12,21 @@ import './PrisonPage.css';
 
 class PrisonCard extends React.Component {
   render() {
-    const {prison, updateHandler, deleteHandler, addNewYear} = this.props;
+    const {prison, updateHandler, deleteHandler, toggleYear} = this.props;
 
     const updateInput = lens => /* debounce */ (event) => {
       const {value} = event.target;
       updateHandler(set(lens, value, prison));
-    }
+    };
 
     const updateSelect = lens => /* debounce */ (option) => {
       const value = option ? option.value : undefined;
       updateHandler(set(lens, value, prison));
-    }
+    };
+
+    const updateLocation = lens => () => {
+
+    };
 
     return (
       <div className="prisonPage">
@@ -92,7 +96,7 @@ class PrisonCard extends React.Component {
               </div>
             </div>
           </div>
-          <PrisonLocation prison={ prison } addNewYear={ addNewYear }/>
+          <PrisonLocation prison={ prison } toggleYear={ toggleYear }/>
           <div className="prison__top">
             <div className="prison__left">
               <MarkdownEditor

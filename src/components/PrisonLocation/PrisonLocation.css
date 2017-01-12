@@ -27,6 +27,7 @@
   padding: 8px 24px 6px;
   color: rgba(0, 0, 0, .5);
   text-align: center;
+  cursor: pointer;
   transition: .3s;
 }
 
@@ -48,6 +49,7 @@
   background: none;
   outline: none;
   opacity: .5;
+  cursor: pointer;
   transition: .3s;
 }
 
@@ -81,6 +83,56 @@
 
 .field-title__location_active button:active {
   border-color: #fff;
+}
+
+.location-delete {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.location-delete_show {
+  display: block;
+}
+
+.location-delete span {
+  display: inline-block;
+  width: 50%;
+  padding: 8px 6px 6px;
+  font-weight: normal;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.location-delete span:first-child {
+  background-color: #d0011b;
+  color: #fff;
+}
+
+.location-delete span:first-child:hover {
+  background-color: #E47D8A;
+}
+
+.location-delete span:first-child:active {
+  background-color: #f1bac1;
+  color: rgba(255, 255, 255, .5);
+}
+
+.location-delete span:last-child {
+  background-color: #f3f3f3;
+  color: #000;
+}
+
+.location-delete span:last-child:hover {
+  background-color: #d8d8d8;
+}
+
+.location-delete span:last-child:active {
+  background-color: #f3f3f3;
+  color: rgba(0, 0, 0, .5);
 }
 
 .field-title__plus {
