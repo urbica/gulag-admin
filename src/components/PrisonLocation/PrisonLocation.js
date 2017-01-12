@@ -30,14 +30,15 @@ const PrisonLocation = React.createClass({
   },
 
   render() {
-    const {prison} = this.props;
+    const {prison, addLocation, removeLocation} = this.props;
     const features = prison.features || [];
+    const newLocation = {
+      type: 'Feature',
+      properties: {},
+      geometry: {type: 'Point', coordinates: [90, 62]}
+    };
 
-    const selectedFeature = features[this.state.selectedFeatureIndex] || {
-        type: 'Feature',
-        properties: {},
-        geometry: {type: 'Point', coordinates: [0, 0]}
-      };
+    const selectedFeature = features[this.state.selectedFeatureIndex] || newLocation;
 
     return (
       <div className='prison__location'>
@@ -62,14 +63,19 @@ const PrisonLocation = React.createClass({
                     </svg>
                   </button>
                   <div className={ classNameDelete }>
-                    <span>Удалить</span>
+                    <span onClick={ removeLocation.bind(null, index) }>Удалить</span>
                     <span onClick={ this.closeDeleteMenu }>Отмена</span>
                   </div>
                 </div>
               );
             })
           }
-          <button className='field-title__plus'>+</button>
+          <button
+            className='field-title__plus'
+            onClick={ addLocation.bind(null, newLocation) }
+          >
+            +
+          </button>
           <TextInput
             value={ selectedFeature.geometry.coordinates[0] + ', ' + selectedFeature.geometry.coordinates[1] }
             onChange={ this.update }
