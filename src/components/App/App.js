@@ -6,8 +6,7 @@ import { browserHistory } from 'react-router';
 import { directoryToOptions, fillMaxPrisoners, fillPhotos } from '../../utils/preprocessing';
 import './App.css';
 
-const backendUrl = 'http://localhost:4000';
-// const backendUrl = 'http://gulag.urbica.co/backend';
+const backendUrl = 'http://gulag.urbica.co/backend';
 
 const App = React.createClass({
   getInitialState() {
