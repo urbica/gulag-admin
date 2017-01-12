@@ -77,7 +77,7 @@ const App = React.createClass({
     if (prison.id) {
       this.setState(assocPath(['prisons', prison.id], prison, this.state));
     } else {
-      this.setState({ newPrison: prison });
+      this.setState({newPrison: prison});
     }
   },
 
@@ -88,14 +88,14 @@ const App = React.createClass({
       request = fetch(`${backendUrl}/public/camps/id/${prison.id}`, {
         body: JSON.stringify(prison),
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' }
+        headers: {'Content-Type': 'application/json'}
       });
       message = `Лагерь "${prison.name_ru}" обновлён`;
     } else {
       request = fetch(`${backendUrl}/public/camps/id`, {
         body: JSON.stringify(prison),
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: {'Content-Type': 'application/json'}
       });
       message = `Лагерь "${prison.name_ru}" добавлен`;
     }
@@ -113,22 +113,22 @@ const App = React.createClass({
   deletePrison(prison) {
     if (prison.id) {
       if (confirm(`Удалить лагерь "${prison.name_ru}"?`)) {
-        fetch(`${backendUrl}/public/camps/id/${prison.id}`, { method: 'DELETE' })
-        .then(() => {
-          browserHistory.push('/admin/prisons');
-          this.setState(dissocPath(['prisons', `${prison.id}`], this.state));
-        });
+        fetch(`${backendUrl}/public/camps/id/${prison.id}`, {method: 'DELETE'})
+          .then(() => {
+            browserHistory.push('/admin/prisons');
+            this.setState(dissocPath(['prisons', `${prison.id}`], this.state));
+          });
       }
     }
   },
 
-  addNewYear(prisonId, locationId, year) {
+  toggleYear(prisonId, locationId, year) {
     this.setState(addNewYear(this.state, prisonId, locationId, year))
   },
 
   renderChildren() {
     if (isEmpty(this.state.prisons)) return null;
-    const { pathname } = this.props.router.location;
+    const {pathname} = this.props.router.location;
 
     // /admin || /admin/prisons -> <IndexPage />
     if (test(/^(\/admin\/?|\/admin\/prisons\/?)$/, pathname)) {
@@ -142,7 +142,7 @@ const App = React.createClass({
       return React.cloneElement(this.props.children, {
         prison: prison,
         changeDropDownItem: this.changeDropDownItem,
-        addNewYear: this.addNewYear,
+        toggleYear: this.toggleYear,
         activityOptions: directoryToOptions(this.state.activities),
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),
@@ -158,7 +158,7 @@ const App = React.createClass({
       return React.cloneElement(this.props.children, {
         prison: prison,
         changeDropDownItem: this.changeDropDownItem,
-        addNewYear: this.addNewYear,
+        toggleYear: this.toggleYear,
         activityOptions: directoryToOptions(this.state.activities),
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),

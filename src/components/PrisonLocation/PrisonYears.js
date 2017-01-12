@@ -6,7 +6,7 @@ for (let i = 1918; i <= 1960; i++) {
 }
 
 const PrisonYears = (props) => {
-  const { onClick, prison } = props;
+  const {toggleYear, prison} = props;
   const features = prison.features || [];
   return (
     <div className='prison__years'>
@@ -20,7 +20,7 @@ const PrisonYears = (props) => {
             return <label key={ key } className='year'>
               <input
                 type='checkbox'
-                onClick={ onClick.bind(null, year) }
+                onClick={ toggleYear.bind(null, year) }
                 defaultChecked={ defaultChecked }
               />
               <span>{ year }</span>

@@ -7,22 +7,30 @@ import SelectInput from '../Inputs/SelectInput';
 import PrisonLocation from '../PrisonLocation/PrisonLocation';
 import PrisonPhotos from './PrisonPhotos';
 import MarkdownEditor from './MarkdownEditor';
-import {lensProp, set} from 'ramda';
+import {lensProp, set, append, remove, over} from 'ramda';
 import './PrisonPage.css';
 
 class PrisonCard extends React.Component {
   render() {
-    const {prison, uploadHandler, updateHandler, deleteHandler, addNewYear} = this.props;
+    const {prison, uploadHandler, updateHandler, deleteHandler, toggleYear} = this.props;
 
     const updateInput = lens => /* debounce */ (event) => {
       const {value} = event.target;
       updateHandler(set(lens, value, prison));
-    }
+    };
 
     const updateSelect = lens => /* debounce */ (option) => {
       const value = option ? option.value : undefined;
       updateHandler(set(lens, value, prison));
-    }
+    };
+
+    const addLocation = location => {
+      updateHandler(over(lensProp('features'), append(location), prison))
+    };
+
+    const removeLocation = locationId => {
+      updateHandler(over(lensProp('features'), remove(locationId, 1), prison));
+    };
 
     return (
       <div className="prisonPage">
@@ -92,7 +100,12 @@ class PrisonCard extends React.Component {
               </div>
             </div>
           </div>
-          <PrisonLocation prison={ prison } addNewYear={ addNewYear }/>
+          <PrisonLocation
+            prison={ prison }
+            addLocation={ addLocation }
+            removeLocation={ removeLocation }
+            toggleYear={ toggleYear }
+          />
           <div className="prison__top">
             <div className="prison__left">
               <MarkdownEditor

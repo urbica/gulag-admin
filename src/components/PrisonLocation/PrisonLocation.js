@@ -9,7 +9,8 @@ import './PrisonLocation.css';
 const PrisonLocation = React.createClass({
   getInitialState() {
     return ({
-      selectedFeatureIndex: 0
+      selectedFeatureIndex: 0,
+      showDeleteMenu: false
     });
   },
 
@@ -20,15 +21,24 @@ const PrisonLocation = React.createClass({
     this.setState({selectedFeatureIndex});
   },
 
-  render() {
-    const {prison} = this.props;
-    const features = prison.features || [];
+  openDeleteMenu() {
+    this.setState({showDeleteMenu: true})
+  },
 
-    const selectedFeature = features[this.state.selectedFeatureIndex] || {
-        type: 'Feature',
-        properties: {},
-        geometry: {type: 'Point', coordinates: [0, 0]}
-      };
+  closeDeleteMenu() {
+    this.setState({showDeleteMenu: false})
+  },
+
+  render() {
+    const {prison, addLocation, removeLocation} = this.props;
+    const features = prison.features || [];
+    const newLocation = {
+      type: 'Feature',
+      properties: {},
+      geometry: {type: 'Point', coordinates: [90, 62]}
+    };
+
+    const selectedFeature = features[this.state.selectedFeatureIndex] || newLocation;
 
     return (
       <div className='prison__location'>
@@ -39,20 +49,33 @@ const PrisonLocation = React.createClass({
               const className = classnames('field-title__location', {
                 'field-title__location_active': this.state.selectedFeatureIndex === index
               });
+              const classNameDelete = classnames('location-delete', {
+                'location-delete_show': this.state.showDeleteMenu && this.state.selectedFeatureIndex === index
+              });
 
               return (
                 <div className={ className } onClick={ onClick } key={ index }>
                   Локация { features.length > 1 ? index + 1 : '' }
-                  <button>
+                  <button onClick={ this.openDeleteMenu }>
                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6">
-                      <path d="M2.828 2.12L.708 0 0 .707l2.12 2.12L0 4.95l.707.707 2.12-2.12 2.123 2.12.707-.707-2.12-2.122 2.12-2.12L4.95 0 2.828 2.12z"/>
+                      <path
+                        d="M2.828 2.12L.708 0 0 .707l2.12 2.12L0 4.95l.707.707 2.12-2.12 2.123 2.12.707-.707-2.12-2.122 2.12-2.12L4.95 0 2.828 2.12z"/>
                     </svg>
                   </button>
+                  <div className={ classNameDelete }>
+                    <span onClick={ removeLocation.bind(null, index) }>Удалить</span>
+                    <span onClick={ this.closeDeleteMenu }>Отмена</span>
+                  </div>
                 </div>
               );
             })
           }
-          <button className='field-title__plus'>+</button>
+          <button
+            className='field-title__plus'
+            onClick={ addLocation.bind(null, newLocation) }
+          >
+            +
+          </button>
           <TextInput
             value={ selectedFeature.geometry.coordinates[0] + ', ' + selectedFeature.geometry.coordinates[1] }
             onChange={ this.update }
@@ -72,7 +95,7 @@ const PrisonLocation = React.createClass({
         <Map features={ [selectedFeature] }/>
         <PrisonYears
           prison={ prison }
-          onClick={ this.props.addNewYear.bind(null, prison.id, this.state.selectedFeatureIndex) }
+          toggleYear={ this.props.toggleYear.bind(null, prison.id, this.state.selectedFeatureIndex) }
         />
         {
           features[this.state.selectedFeatureIndex] &&
