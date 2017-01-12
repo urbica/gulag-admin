@@ -4448,7 +4448,7 @@ react-select@1.0.0-rc.2:
     classnames "^2.2.4"
     react-input-autosize "^1.1.0"
 
-react-text-mask@^0.19.0:
+react-text-mask@0.19.0:
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/react-text-mask/-/react-text-mask-0.19.0.tgz#ed7d67adf2821870f1e3f30ed6fe39ce4ca6ccf6"
 

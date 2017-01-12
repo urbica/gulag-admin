@@ -7,6 +7,10 @@ import IndexPage from './components/IndexPage/IndexPage';
 import PrisonPage from './components/PrisonPage/PrisonPage';
 import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
 
+// if (module.hot) {
+//   module.hot.accept()
+// }
+
 ReactDOM.render(
   <Router history={ browserHistory }>
     <Route path='/' component={ App }>

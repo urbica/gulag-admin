@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import {lensProp, not, over} from 'ramda';
+import { lensProp, not, over } from 'ramda';
 
-const MarkdownEditor = React.createClass({
-  getInitialState() {
-    return {
+class MarkdownEditor extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
       preview: false
     };
-  },
+  }
 
-  togglePreview() {
-    this.setState(over(lensProp('preview'), not, this.state));
-  },
+  togglePreview = () => {
+    this.setState(over(lensProp('preview'), not));
+  }
 
   render() {
     const {lang, onChange, source, title} = this.props;
@@ -46,6 +47,6 @@ const MarkdownEditor = React.createClass({
       </div>
     );
   }
-});
+};
 
 export default MarkdownEditor;
