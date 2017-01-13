@@ -6,7 +6,7 @@ import TextInput from '../Inputs/TextInput';
 import SelectInput from '../Inputs/SelectInput';
 import PrisonLocation from '../PrisonLocation/PrisonLocation';
 import PrisonPhotos from './PrisonPhotos';
-import MarkdownEditor from './MarkdownEditor';
+import MarkdownEditor from '../Inputs/MarkdownEditor';
 import {lensProp, set, append, remove, over} from 'ramda';
 import './PrisonPage.css';
 
@@ -119,7 +119,8 @@ class PrisonCard extends React.Component {
                 title={ 'eng' }
                 source={ prison.description_en }
                 onChange={ updateInput(lensProp('description_en')) }
-                lang={ 'en' }
+                inputClassName={ 'input_en' }
+                containerClassName={ 'prison__description_en' }
               />
             </div>
           </div>
