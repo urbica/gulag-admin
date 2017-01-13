@@ -139,10 +139,13 @@
   position: relative;
   width: 20px;
   height: 20px;
+  padding: 0;
   border: solid 1px #b2b2b2;
   border-radius: 2px;
+  margin-left: 3px;
   background-color: transparent;
   color: rgba(0, 0, 0, .5);
+  text-align: center;
   outline: none;
 }
 
@@ -161,7 +164,7 @@
 }
 
 .field-title_locations .input {
-  padding: 8px 8px 6px;
+  padding: 8px 8px 5px;
   font-size: 12px;
   font-weight: bold;
   text-align: right;

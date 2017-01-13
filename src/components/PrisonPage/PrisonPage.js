@@ -7,12 +7,12 @@ import SelectInput from '../Inputs/SelectInput';
 import PrisonLocation from '../PrisonLocation/PrisonLocation';
 import PrisonPhotos from './PrisonPhotos';
 import MarkdownEditor from '../Inputs/MarkdownEditor';
-import {lensProp, set, append, remove, over} from 'ramda';
+import {lensProp, set} from 'ramda';
 import './PrisonPage.css';
 
 class PrisonCard extends React.Component {
   render() {
-    const {prison, uploadHandler, updateHandler, deleteHandler, toggleYear} = this.props;
+    const {prison, uploadHandler, updateHandler, deleteHandler} = this.props;
 
     const updateInput = lens => /* debounce */ (event) => {
       const {value} = event.target;
@@ -24,12 +24,8 @@ class PrisonCard extends React.Component {
       updateHandler(set(lens, value, prison));
     };
 
-    const addLocation = location => {
-      updateHandler(over(lensProp('features'), append(location), prison))
-    };
-
-    const removeLocation = locationId => {
-      updateHandler(over(lensProp('features'), remove(locationId, 1), prison));
+    const updateFeatures = features => {
+      updateHandler(set(lensProp('features'), features, prison));
     };
 
     return (
@@ -82,11 +78,13 @@ class PrisonCard extends React.Component {
                   value={ prison.name_en }
                   className={ 'input_en' }
                   placeholder={ 'Main name' }
+                  onChange={ updateInput(lensProp('name_en')) }
                 />
                 <TextInput
                   value={ prison.addl_names_en }
                   className={ 'input_en' }
                   placeholder={ 'Second name' }
+                  onChange={ updateInput(lensProp('addl_names_en')) }
                 />
               </div>
               <div className="prison__type">
@@ -100,11 +98,20 @@ class PrisonCard extends React.Component {
               </div>
             </div>
           </div>
+          <TextInput
+            placeholder='Название локации'
+            value={ prison.location_ru }
+            onChange={ updateInput(lensProp('location_ru')) }
+          />
+          <TextInput
+            placeholder='Location name'
+            value={ prison.location_en }
+            className={ 'input_en' }
+            onChange={ updateInput(lensProp('location_en')) }
+          />
           <PrisonLocation
-            prison={ prison }
-            addLocation={ addLocation }
-            removeLocation={ removeLocation }
-            toggleYear={ toggleYear }
+            features={ prison.features }
+            updateFeatures={ updateFeatures }
           />
           <div className="prison__top">
             <div className="prison__left">

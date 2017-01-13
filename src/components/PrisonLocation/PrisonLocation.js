@@ -4,6 +4,7 @@ import PrisonYears from './PrisonYears';
 import PrisonStatistics from './PrisonStatistics';
 import TextInput from '../Inputs/TextInput';
 import classnames from 'classnames';
+import {lensProp, set, append, remove, compose, lensPath, lensIndex, path, over, dissoc} from 'ramda';
 import './PrisonLocation.css';
 
 const PrisonLocation = React.createClass({
@@ -14,7 +15,14 @@ const PrisonLocation = React.createClass({
     });
   },
 
-  update() {
+  addFeature(feature, features) {
+    const newFeatures = append(feature, features);
+    this.props.updateFeatures(newFeatures);
+  },
+
+  removeFeature(locationId, features) {
+    const newFeatures = remove(locationId, 1, features);
+    this.props.updateFeatures(newFeatures);
   },
 
   selectFeature(selectedFeatureIndex) {
@@ -29,16 +37,37 @@ const PrisonLocation = React.createClass({
     this.setState({showDeleteMenu: false})
   },
 
+  toggleYear(year, features) {
+    const featureId = this.state.selectedFeatureIndex;
+
+    const lens = compose(
+      lensIndex(featureId),
+      lensPath(['properties', year, 'peoples'])
+    );
+    const lensRemove = compose(
+      lensIndex(featureId),
+      lensProp('properties')
+    );
+
+    if (!features[featureId].properties[year]) {
+      this.props.updateFeatures(
+        set(lens, 0, features)
+      )
+    } else {
+      this.props.updateFeatures(
+        over(lensRemove, dissoc(year), features)
+      )
+    }
+  },
+
   render() {
-    const {prison, addLocation, removeLocation} = this.props;
-    const features = prison.features || [];
-    const newLocation = {
+    const features = this.props.features || [];
+    const newFeature = {
       type: 'Feature',
       properties: {},
       geometry: {type: 'Point', coordinates: [90, 62]}
     };
-
-    const selectedFeature = features[this.state.selectedFeatureIndex] || newLocation;
+    const selectedFeature = features[this.state.selectedFeatureIndex] || newFeature;
 
     return (
       <div className='prison__location'>
@@ -63,7 +92,7 @@ const PrisonLocation = React.createClass({
                     </svg>
                   </button>
                   <div className={ classNameDelete }>
-                    <span onClick={ removeLocation.bind(null, index) }>Удалить</span>
+                    <span onClick={ this.removeFeature.bind(null, index, features) }>Удалить</span>
                     <span onClick={ this.closeDeleteMenu }>Отмена</span>
                   </div>
                 </div>
@@ -72,30 +101,18 @@ const PrisonLocation = React.createClass({
           }
           <button
             className='field-title__plus'
-            onClick={ addLocation.bind(null, newLocation) }
+            onClick={ this.addFeature.bind(null, newFeature, features) }
           >
             +
           </button>
           <TextInput
             value={ selectedFeature.geometry.coordinates[0] + ', ' + selectedFeature.geometry.coordinates[1] }
-            onChange={ this.update }
           />
         </div>
-        <TextInput
-          placeholder='Название локации'
-          value={ prison.location_ru }
-          onChange={ this.update }
-        />
-        <TextInput
-          placeholder='Location name'
-          value={ prison.location_en }
-          onChange={ this.update }
-          className={ 'input_en' }
-        />
         <Map features={ [selectedFeature] }/>
         <PrisonYears
-          prison={ prison }
-          toggleYear={ this.props.toggleYear.bind(null, prison.id, this.state.selectedFeatureIndex) }
+          features={ features }
+          toggleYear={ this.toggleYear }
         />
         {
           features[this.state.selectedFeatureIndex] &&

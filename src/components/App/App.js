@@ -1,5 +1,4 @@
 import React from 'react';
-import addNewYear from '../../utils/add-new-year';
 import { browserHistory } from 'react-router';
 import './App.css';
 
@@ -126,10 +125,6 @@ const App = React.createClass({
     }
   },
 
-  toggleYear(prisonId, locationId, year) {
-    this.setState(addNewYear(this.state, prisonId, locationId, year))
-  },
-
   renderChildren() {
     if (isEmpty(this.state.prisons)) return null;
     const {pathname} = this.props.router.location;
@@ -146,7 +141,6 @@ const App = React.createClass({
       return React.cloneElement(this.props.children, {
         prison: prison,
         changeDropDownItem: this.changeDropDownItem,
-        toggleYear: this.toggleYear,
         activityOptions: directoryToOptions(this.state.activities),
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),
@@ -162,7 +156,6 @@ const App = React.createClass({
       return React.cloneElement(this.props.children, {
         prison: prison,
         changeDropDownItem: this.changeDropDownItem,
-        toggleYear: this.toggleYear,
         activityOptions: directoryToOptions(this.state.activities),
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),

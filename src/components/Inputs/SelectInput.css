@@ -5,6 +5,10 @@
   background-color: #f3f3f3;
 }
 
+.Select-control:hover {
+  background-color: #f9f9f9;
+}
+
 .Select-placeholder,
 .Select--single > .Select-control .Select-value {
   line-height: 44px;
