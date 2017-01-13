@@ -2,7 +2,7 @@ import React from 'react';
 import MaskedInput from 'react-text-mask';
 
 const PrisonStatistics = (props) => {
-  const {feature} = props;
+  const {feature, onChange} = props;
   return (
     <div className='prison__amount'>
       <div className='field-title'>количество заключенных по годам</div>
@@ -16,6 +16,7 @@ const PrisonStatistics = (props) => {
               value={ feature.properties[year].peoples }
               mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/,]}
               guide={ false }
+              onChange={ onChange.bind(null, year) }
             />
             <div className='inputLine'/>
           </label>

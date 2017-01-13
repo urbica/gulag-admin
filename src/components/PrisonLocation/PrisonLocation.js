@@ -71,6 +71,18 @@ const PrisonLocation = React.createClass({
     }
   },
 
+  updatePrisonersAmount(year, event) {
+    const features = this.props.features;
+    const {value} = event.target;
+    const lens = compose(
+      lensIndex(this.state.selectedFeatureIndex),
+      lensPath(['properties', year, 'peoples'])
+    );
+    const newFeatures = set(lens, parseInt(value, 10), features);
+
+    this.props.updateFeatures(newFeatures);
+  },
+
   render() {
     const features = this.props.features || [];
     const newFeature = {
@@ -128,7 +140,10 @@ const PrisonLocation = React.createClass({
         />
         {
           features[this.state.selectedFeatureIndex] &&
-          <PrisonStatistics feature={ features[this.state.selectedFeatureIndex] }/>
+          <PrisonStatistics
+            feature={ features[this.state.selectedFeatureIndex] }
+            onChange={ this.updatePrisonersAmount }
+          />
         }
       </div>
     );

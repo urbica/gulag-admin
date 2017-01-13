@@ -21,7 +21,7 @@ const PrisonRow = (props) => {
           })
         }
       </td>
-      <td className='prisons__cell'>время</td>
+      <td className='prisons__cell'>{ prison.updated_at }</td>
       <td className='prisons__cell'>регион</td>
       <td className='prisons__cell prisons__strength'>
         <span>{ String(prison.max_prisoners).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ') }</span>
