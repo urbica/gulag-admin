@@ -1,10 +1,10 @@
 import React from 'react';
+import CoorinatesInput from './CoordinatesInput';
 import Map from '../Map/Map';
 import PrisonYears from './PrisonYears';
 import PrisonStatistics from './PrisonStatistics';
-import TextInput from '../Inputs/TextInput';
 import classnames from 'classnames';
-import {lensProp, set, append, remove, compose, lensPath, lensIndex, path, over, dissoc} from 'ramda';
+import {lensProp, set, append, remove, compose, lensPath, lensIndex, over, dissoc} from 'ramda';
 import './PrisonLocation.css';
 
 const PrisonLocation = React.createClass({
@@ -35,6 +35,17 @@ const PrisonLocation = React.createClass({
 
   closeDeleteMenu() {
     this.setState({showDeleteMenu: false})
+  },
+
+  updateCoordinates(coordinates) {
+    const features = this.props.features;
+    const lens = compose(
+      lensIndex(this.state.selectedFeatureIndex),
+      lensPath(['geometry', 'coordinates'])
+    );
+    const newFeatures = set(lens, coordinates, features);
+
+    this.props.updateFeatures(newFeatures);
   },
 
   toggleYear(year, features) {
@@ -105,8 +116,9 @@ const PrisonLocation = React.createClass({
           >
             +
           </button>
-          <TextInput
-            value={ selectedFeature.geometry.coordinates[0] + ', ' + selectedFeature.geometry.coordinates[1] }
+          <CoorinatesInput
+            coordinates={ selectedFeature.geometry.coordinates }
+            updateCoordinates={ this.updateCoordinates }
           />
         </div>
         <Map features={ [selectedFeature] }/>
