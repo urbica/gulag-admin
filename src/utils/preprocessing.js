@@ -1,4 +1,5 @@
-import { curryN, assoc, compose, map, merge, prop, reduce, toPairs, values } from 'ramda';
+import { curryN, assoc, compose, concat, map, evolve, prop, reduce,
+  toPairs, values } from 'ramda';
 import { renameKeys, pickByRegExp } from './utils';
 
 export const getMaxPrisoners = (prison) => {
@@ -23,11 +24,12 @@ export const fillMaxPrisoners = (prisons) => {
   return map(getMaxPrisoners, prisons);
 }
 
+export const concatUrl = (url, property) =>
+  evolve({ [`${property}`]: concat(`${url}/`) });
+
 export const fillPhotos = curryN(3, (photosById, backendUrl, prisons) => {
   return reduce((acc, [prisonId, photos]) => {
-    acc[prisonId].photos = map(photo => merge(photo, {
-      path: `${backendUrl}/${photo.path}`
-    }), photos);
+    acc[prisonId].photos = map(concatUrl(backendUrl, 'path'), photos);
     return acc;
   }, prisons, toPairs(photosById));
 });

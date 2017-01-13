@@ -1,12 +1,14 @@
 import React from 'react';
 import addNewYear from '../../utils/add-new-year';
-import { concat, assocPath, compose, dissocPath, map, head, groupBy, over,
-  prop, test, isEmpty, lensPath } from 'ramda';
 import { browserHistory } from 'react-router';
-import { directoryToOptions, fillMaxPrisoners, fillPhotos } from '../../utils/preprocessing';
+import { always, concat, evolve, assocPath, compose, dissocPath, map, head,
+  groupBy, over, prop, test, ifElse, isEmpty, isNil, lensPath } from 'ramda';
+import { concatUrl, directoryToOptions, fillMaxPrisoners,
+  fillPhotos } from '../../utils/preprocessing';
 import './App.css';
 
-const backendUrl = 'http://gulag.urbica.co/backend';
+const backendUrl = 'http://localhost:4000';
+// const backendUrl = 'http://gulag.urbica.co/backend';
 
 const App = React.createClass({
   getInitialState() {
@@ -67,7 +69,9 @@ const App = React.createClass({
     .then(response => response.json())
     .then(response => {
       const photosLens = lensPath(['prisons', prisonId, 'photos']);
-      this.setState(over(photosLens, concat(response)));
+      const newPhotos = map(concatUrl(backendUrl, 'path'), response);
+      const setPhotos = ifElse(isNil, always(newPhotos), concat(newPhotos));
+      this.setState(over(photosLens, setPhotos));
     })
     .catch(error => console.error(error));
   },
