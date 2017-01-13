@@ -1,14 +1,15 @@
 import React from 'react';
 import addNewYear from '../../utils/add-new-year';
 import { browserHistory } from 'react-router';
-import { always, concat, evolve, assocPath, compose, dissocPath, map, head,
-  groupBy, over, prop, test, ifElse, isEmpty, isNil, lensPath } from 'ramda';
-import { concatUrl, directoryToOptions, fillMaxPrisoners,
-  fillPhotos } from '../../utils/preprocessing';
 import './App.css';
 
-const backendUrl = 'http://localhost:4000';
-// const backendUrl = 'http://gulag.urbica.co/backend';
+import { always, concat, assocPath, compose, dissocPath, map, head,
+  groupBy, over, prop, test, ifElse, isEmpty, isNil, lensPath } from 'ramda';
+
+import { concatUrl, directoryToOptions, fillMaxPrisoners,
+  fillPhotos } from '../../utils/preprocessing';
+
+const backendUrl = 'http://gulag.urbica.co/backend';
 
 const App = React.createClass({
   getInitialState() {
