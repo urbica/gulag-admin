@@ -97,6 +97,10 @@
   outline: none;
 }
 
+.input:hover {
+  background-color: #f9f9f9;
+}
+
 .input_inside {
   padding: 0;
   background-color: transparent;
@@ -115,13 +119,13 @@ input::-webkit-contacts-auto-fill-button {
   border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
-.input:hover {
-  background-color: #f9f9f9;
-}
-
 .input_en {
   color: #3949ab;
   background-color: #ebecf6;
+}
+
+.input_en:hover {
+  background-color: #F5F5FA;
 }
 
 .inputLine {
