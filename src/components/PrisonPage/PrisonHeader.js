@@ -28,9 +28,8 @@ const PrisonHeader = (props) => {
       <div>
         <Button
           color={ 'red' }
-          title={ 'удалить' }
           onClick={ deleteHandler }
-        />
+        >удалить</Button>
         <div className='prison__saved'>
           <div>Сохранено:</div>
           {/*<span className='prison__saved-date'>{ this.props.PRISON.edited.date }</span>*/}

@@ -1,23 +1,49 @@
 import React from 'react';
-import classnames from 'classnames';
-import './Button.css';
+import styled from 'styled-components';
 
-const Button = (props) => {
-  const className = classnames('button', {
-    [`button_${props.color}`]: !!props.color
-  });
+const border = {
+  orange: '#ffceb2',
+  red: '#f1bac1'
+};
+const color = {
+  orange: '#ff5c00',
+  red: '#d0021b'
+};
+const hover = {
+  bgColor: {
+    orange: '#fff5f0',
+    red: '#fcf1f3'
+  },
+};
+const active = {
+  bdc: {
+    orange: '#ff5c00',
+    red: '#d0011b'
+  }
+};
 
-  return (
-    <button className={ className } onClick={ props.onClick }>
-      { props.title }
-    </button>
-  )
-}
+const Button = styled.button`
+  width: 120px;
+  font-size: 12px;
+  padding: 7px 0 5px;
+  border: 1px solid ${props => border[props.color] || '#b2b2b2'};
+  background-color: transparent;
+  color: ${props => color[props.color] || '#000'};
+  font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  outline: none;
+  cursor: pointer;
+  &:hover {
+    background-color: ${props => hover.bgColor[props.color] || '#f0f0f0'};
+  }
+  &:active {
+    border-color: ${props => active.bdc[props.color] || '#000'};
+  }
+`;
 
 Button.propTypes = {
   color: React.PropTypes.string,
-  title: React.PropTypes.string.isRequired,
-  onClick: React.PropTypes.func
 };
 
 export default Button;

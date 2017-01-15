@@ -137,9 +137,8 @@ class PrisonCard extends React.Component {
           />
           <Button
             color={'orange'}
-            title={'сохранить'}
             onClick={ this.props.submitHandler.bind(null, prison) }
-          />
+          >сохранить</Button>
         </div>
       </div>
     );

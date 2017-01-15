@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Button from '../Button/Button';
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 import './Header.css'
 
 class Header extends Component {
@@ -10,7 +10,7 @@ class Header extends Component {
       <header className="header">
         <div className="container">
           <div className="header__left">
-            <Button title={'выйти'}/>
+            <Button>выйти</Button>
           </div>
           <div className="header__middle">
             <div className="header__top">
@@ -33,10 +33,9 @@ class Header extends Component {
           </div>
           <div className="header__right">
             <Button
-              title={'добавить'}
               color={'orange'}
               onClick={ createPrison }
-            />
+            >добавить</Button>
           </div>
         </div>
       </header>
