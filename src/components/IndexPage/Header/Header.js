@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import Button from '../Button/Button';
+import React from 'react';
+import Button from '../../Button';
 import {browserHistory} from 'react-router';
 import './Header.css'
 
-class Header extends Component {
+class Header extends React.Component {
   render() {
     const createPrison = browserHistory.push.bind(browserHistory, '/admin/prisons/new');
     return (

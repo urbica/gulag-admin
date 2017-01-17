@@ -4,8 +4,8 @@ import 'normalize.css';
 import App from './components/App/App';
 import LoginPage from './components/LoginPage/LoginPage';
 import IndexPage from './components/IndexPage/IndexPage';
-import PrisonPage from './components/PrisonPage/PrisonPage';
-import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
+import PrisonPage from './components/PrisonPage/PrisonPage.jsx';
+import {Router, Route, IndexRedirect, IndexRoute, browserHistory} from 'react-router'
 
 // if (module.hot) {
 //   module.hot.accept()
@@ -14,10 +14,10 @@ import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-
 ReactDOM.render(
   <Router history={ browserHistory }>
     <Route path='/' component={ App }>
-      <IndexRedirect to='/admin' />
+      <IndexRedirect to='/admin'/>
       <Route path='login' component={ LoginPage }/>
       <Route path='admin'>
-        <IndexRoute component={ IndexPage } />
+        <IndexRoute component={ IndexPage }/>
         <Route path='prisons' component={ IndexPage }/>
         <Route path='prisons/:prisonId' component={ PrisonPage }/>
       </Route>

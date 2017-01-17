@@ -1,6 +1,6 @@
 import React from 'react';
 import CoorinatesInput from './CoordinatesInput';
-import Map from '../Map/Map';
+import Map from './Map/Map';
 import PrisonYears from './PrisonYears';
 import PrisonStatistics from './PrisonStatistics';
 import classnames from 'classnames';

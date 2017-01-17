@@ -1,14 +1,54 @@
 import React from 'react';
-import Button from '../Button/Button';
-import PrisonHeader from './PrisonHeader';
+import Container from '../Container';
+import PrisonHeader from './PrisonHeader.jsx';
 import DraftSwitch from './DraftSwitch.jsx';
-import TextInput from '../Inputs/TextInput';
-import SelectInput from '../Inputs/SelectInput';
-import PrisonLocation from '../PrisonLocation/PrisonLocation';
+import TextInput from './Inputs/TextInput';
+import SelectInput from './Inputs/SelectInput';
+import PrisonLocation from './PrisonLocation/PrisonLocation';
+import MarkdownEditor from './Inputs/MarkdownEditor';
 import PrisonPhotos from './PrisonPhotos';
-import MarkdownEditor from '../Inputs/MarkdownEditor';
+import Button from '../Button';
 import {lensProp, set} from 'ramda';
+import styled from 'styled-components';
 import './PrisonPage.css';
+
+const PrisonPage = styled.div`
+  padding-top: 50px;
+  padding-bottom: 80px;
+`;
+
+const HalfContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 33px;
+`;
+
+const Half = styled.div`
+  width: 48%;
+`;
+
+const PrisonName = styled.div`
+  margin-bottom: 33px;
+  & div:nth-child(2) input {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  }
+`;
+
+const FieldTitle = styled.div`
+  width: 100%;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+  ${props => props.english && 'color: #3949ab'};
+`;
+
+const SaveButton = styled(Button)`
+  margin-left: auto;
+`;
 
 class PrisonCard extends React.Component {
   render() {
@@ -33,21 +73,21 @@ class PrisonCard extends React.Component {
     };
 
     return (
-      <div className="prisonPage">
-        <div className="container">
+      <PrisonPage>
+        <Container>
           <PrisonHeader
             prison={ prison }
             deleteHandler={ deleteHandler.bind(null, prison) }
           />
-          <div className="prison__top">
-            <div className="prison__left">
+          <HalfContainer>
+            <Half>
               <DraftSwitch
                 lang={ 'ru' }
                 defaultChecked={ prison.published_ru }
                 updateDraft={ updateDraft }
               />
-              <div className="prison__name">
-                <div className="field-title">название лагеря</div>
+              <PrisonName>
+                <FieldTitle>название лагеря</FieldTitle>
                 <TextInput
                   value={ prison.name_ru }
                   onChange={ updateInput(lensProp('name_ru')) }
@@ -58,9 +98,9 @@ class PrisonCard extends React.Component {
                   onChange={ updateInput(lensProp('addl_names_ru')) }
                   placeholder={ 'Дополнительные названия, если есть' }
                 />
-              </div>
+              </PrisonName>
               <div className="prison__activity">
-                <div className="field-title">Основная деятельность</div>
+                <FieldTitle>Основная деятельность</FieldTitle>
                 <SelectInput
                   value={ prison.activity_id }
                   options={ this.props.activityOptions }
@@ -69,7 +109,7 @@ class PrisonCard extends React.Component {
                 />
               </div>
               <div className="prison__place">
-                <div className="field-title">Регион</div>
+                <FieldTitle>Регион</FieldTitle>
                 <SelectInput
                   value={ prison.place_id }
                   options={ this.props.placeOptions }
@@ -77,15 +117,15 @@ class PrisonCard extends React.Component {
                   onChange={ updateSelect(lensProp('place_id')) }
                 />
               </div>
-            </div>
-            <div className="prison__right">
+            </Half>
+            <Half>
               <DraftSwitch
                 lang={ 'en' }
                 defaultChecked={ prison.published_en }
                 updateDraft={ updateDraft }
               />
-              <div className="prison__name">
-                <div className="field-title field-title_en">eng</div>
+              <PrisonName>
+                <FieldTitle english>eng</FieldTitle>
                 <TextInput
                   value={ prison.name_en }
                   className={ 'input_en' }
@@ -98,9 +138,9 @@ class PrisonCard extends React.Component {
                   placeholder={ 'Second name' }
                   onChange={ updateInput(lensProp('addl_names_en')) }
                 />
-              </div>
+              </PrisonName>
               <div className="prison__type">
-                <div className="field-title">Тип лагеря</div>
+                <FieldTitle>Тип лагеря</FieldTitle>
                 <SelectInput
                   value={ prison.type_id }
                   options={ this.props.typeOptions }
@@ -108,32 +148,38 @@ class PrisonCard extends React.Component {
                   onChange={ updateSelect(lensProp('type_id')) }
                 />
               </div>
-            </div>
-          </div>
-          <TextInput
-            placeholder='Название локации'
-            value={ prison.location_ru }
-            onChange={ updateInput(lensProp('location_ru')) }
-          />
-          <TextInput
-            placeholder='Location name'
-            value={ prison.location_en }
-            className={ 'input_en' }
-            onChange={ updateInput(lensProp('location_en')) }
-          />
+            </Half>
+          </HalfContainer>
+          <HalfContainer>
+            <Half>
+              <TextInput
+                placeholder='Название локации'
+                value={ prison.location_ru }
+                onChange={ updateInput(lensProp('location_ru')) }
+              />
+            </Half>
+            <Half>
+              <TextInput
+                placeholder='Location name'
+                value={ prison.location_en }
+                className={ 'input_en' }
+                onChange={ updateInput(lensProp('location_en')) }
+              />
+            </Half>
+          </HalfContainer>
           <PrisonLocation
             features={ prison.features }
             updateFeatures={ updateFeatures }
           />
-          <div className="prison__top">
-            <div className="prison__left">
+          <HalfContainer>
+            <Half>
               <MarkdownEditor
                 title={ 'Описание лагеря' }
                 source={ prison.description_ru }
                 onChange={ updateInput(lensProp('description_ru')) }
               />
-            </div>
-            <div className="prison__right">
+            </Half>
+            <Half>
               <MarkdownEditor
                 title={ 'eng' }
                 source={ prison.description_en }
@@ -141,18 +187,18 @@ class PrisonCard extends React.Component {
                 inputClassName={ 'input_en' }
                 containerClassName={ 'prison__description_en' }
               />
-            </div>
-          </div>
+            </Half>
+          </HalfContainer>
           <PrisonPhotos
             prison={ prison }
             uploadHandler={ uploadHandler }
           />
-          <Button
+          <SaveButton
             color={'orange'}
             onClick={ this.props.submitHandler.bind(null, prison) }
-          >сохранить</Button>
-        </div>
-      </div>
+          >сохранить</SaveButton>
+        </Container>
+      </PrisonPage>
     );
   }
 }
