@@ -1,7 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
-import { lensProp, not, over } from 'ramda';
+import {lensProp, not, over} from 'ramda';
+import FieldTitle from '../../FieldTitle';
 
 class MarkdownEditor extends React.PureComponent {
   constructor(props) {
@@ -13,16 +14,16 @@ class MarkdownEditor extends React.PureComponent {
 
   togglePreview = () => {
     this.setState(over(lensProp('preview'), not));
-  }
+  };
 
   render() {
-    const { inputClassName, containerClassName, onChange, source, title } = this.props;
+    const {inputClassName, containerClassName, onChange, source, title} = this.props;
     const inputClassNames = classnames('input', inputClassName);
     const containerClassNames = classnames('prison__description', containerClassName);
 
     return (
       <div className={ containerClassNames }>
-        <div className='field-title'>{ title }</div>
+        <FieldTitle>{ title }</FieldTitle>
         {
           this.state.preview &&
           <div className='inputWrapper'>
@@ -46,6 +47,6 @@ class MarkdownEditor extends React.PureComponent {
       </div>
     );
   }
-};
+}
 
 export default MarkdownEditor;

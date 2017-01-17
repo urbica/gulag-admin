@@ -2,6 +2,7 @@ import React from 'react';
 import Container from '../Container';
 import PrisonHeader from './PrisonHeader.jsx';
 import DraftSwitch from './DraftSwitch.jsx';
+import FieldTitle from '../FieldTitle';
 import TextInput from './Inputs/TextInput';
 import SelectInput from './Inputs/SelectInput';
 import PrisonLocation from './PrisonLocation/PrisonLocation';
@@ -23,22 +24,11 @@ const Half = styled.div`
   width: 48%;
 `;
 
-const PrisonName = styled.div`
+const Fieldset = styled.div`
   margin-bottom: 33px;
   & div:nth-child(2) input {
     border-bottom: 1px solid rgba(0, 0, 0, .1);
   }
-`;
-
-const FieldTitle = styled.div`
-  width: 100%;
-  padding: 6px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, .3);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 12px;
-  ${props => props.english && 'color: #3949ab'};
 `;
 
 const SaveButton = styled(Button)`
@@ -81,7 +71,7 @@ class PrisonCard extends React.Component {
                 defaultChecked={ prison.published_ru }
                 updateDraft={ updateDraft }
               />
-              <PrisonName>
+              <Fieldset>
                 <FieldTitle>название лагеря</FieldTitle>
                 <TextInput
                   value={ prison.name_ru }
@@ -93,8 +83,8 @@ class PrisonCard extends React.Component {
                   onChange={ updateInput(lensProp('addl_names_ru')) }
                   placeholder={ 'Дополнительные названия, если есть' }
                 />
-              </PrisonName>
-              <div className="prison__activity">
+              </Fieldset>
+              <Fieldset>
                 <FieldTitle>Основная деятельность</FieldTitle>
                 <SelectInput
                   value={ prison.activity_id }
@@ -102,7 +92,7 @@ class PrisonCard extends React.Component {
                   clearable={ false }
                   onChange={ updateSelect(lensProp('activity_id')) }
                 />
-              </div>
+              </Fieldset>
               <div className="prison__place">
                 <FieldTitle>Регион</FieldTitle>
                 <SelectInput
@@ -119,7 +109,7 @@ class PrisonCard extends React.Component {
                 defaultChecked={ prison.published_en }
                 updateDraft={ updateDraft }
               />
-              <PrisonName>
+              <Fieldset>
                 <FieldTitle english>eng</FieldTitle>
                 <TextInput
                   value={ prison.name_en }
@@ -133,7 +123,7 @@ class PrisonCard extends React.Component {
                   placeholder={ 'Second name' }
                   onChange={ updateInput(lensProp('addl_names_en')) }
                 />
-              </PrisonName>
+              </Fieldset>
               <div className="prison__type">
                 <FieldTitle>Тип лагеря</FieldTitle>
                 <SelectInput

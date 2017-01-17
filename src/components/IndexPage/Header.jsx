@@ -1,6 +1,7 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import Button from '../Button';
+import FieldTitle from '../FieldTitle';
 import styled from 'styled-components';
 
 const HeaderWrap = styled.header`
@@ -22,9 +23,8 @@ const HeaderMiddle = styled.div`
   font-weight: bold;
 `;
 
-const HeaderTitle = styled.div`
-  border-bottom: 1px solid #000;
-  margin-bottom: 10px;
+const HeaderTitle = styled(FieldTitle)`
+  font-size: 14px;
 `;
 
 const HeaderBottom = styled.div`

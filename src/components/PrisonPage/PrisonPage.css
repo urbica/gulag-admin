@@ -1,73 +1,3 @@
-.prisonPage {
-  padding-top: 50px;
-  padding-bottom: 80px;
-}
-
-.prisonPage .container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.prison__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex: 100%;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, .3);
-  margin-bottom: 50px;
-}
-
-.prison__back-link {
-  font-size: 12px;
-  font-weight: bold;
-  color: #000;
-  text-transform: uppercase;
-}
-
-.prison__title-name {
-  max-width: 600px;
-  margin-bottom: 10px;
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.prison__title-period {
-  opacity: 0.5;
-  font-size: 12px;
-  font-weight: normal;
-  text-align: center;
-  color: #000;
-}
-
-.prison__saved {
-  margin-top: 5px;
-  opacity: 0.5;
-  font-size: 12px;
-  font-weight: normal;
-}
-
-.prison__saved-date {
-  margin-right: 3px;
-}
-
-.prison__top {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 33px;
-}
-
-.prison__left,
-.prison__right {
-  width: 48%;
-}
-
-.prison__name {
-  margin-bottom: 33px;
-}
-
 .field-title {
   width: 100%;
   padding: 6px 0;
@@ -76,10 +6,6 @@
   text-transform: uppercase;
   font-weight: bold;
   font-size: 12px;
-}
-
-.field-title_en {
-  color: #3949ab;
 }
 
 .inputWrapper {
@@ -115,10 +41,6 @@ input::-webkit-contacts-auto-fill-button {
   right: 0;
 }
 
-.prison__name div:nth-child(2) input {
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
-}
-
 .input_en {
   color: #3949ab;
   background-color: #ebecf6;
@@ -147,10 +69,6 @@ input::-webkit-contacts-auto-fill-button {
   width: 100%;
 }
 
-.prison__activity {
-  margin-bottom: 33px;
-}
-
 .prison__description textarea {
   min-width: 100%;
   max-width: 100%;
@@ -163,23 +81,4 @@ input::-webkit-contacts-auto-fill-button {
 
 .prison__description_en textarea {
   background-color: #ebecf6;
-}
-
-.prison__photo {
-  width: 100%;
-  margin-bottom: 50px;
-}
-
-.prison__photo figure {
-  display: inline-block;
-  margin: 0 10px 0 0;
-}
-
-.prison__photo figure img {
-  width: 150px;
-  height: 100px;
-}
-
-.prisonPage .button {
-  margin-left: auto;
 }
