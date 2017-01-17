@@ -60,12 +60,16 @@ const Publish = styled.span`
 `;
 
 const DraftSwitch = (props) => {
-  const {defaultChecked, lang} = props;
+  const {defaultChecked, lang, updateDraft} = props;
 
   return (
     <Wrap>
       <Label>
-        <input type='checkbox' defaultChecked={ defaultChecked }/>
+        <input
+          type='checkbox'
+          checked={ defaultChecked }
+          onChange={ updateDraft.bind(null, 'published_' + lang, !defaultChecked) }
+        />
         <Draft lang={ lang }>черновик</Draft>
         <Slider lang={ lang }/>
         <Publish lang={ lang }>опубликованно</Publish>

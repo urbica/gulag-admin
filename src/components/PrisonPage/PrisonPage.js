@@ -24,6 +24,10 @@ class PrisonCard extends React.Component {
       updateHandler(set(lens, value, prison));
     };
 
+    const updateDraft = (key, value) => {
+      updateHandler(set(lensProp(key), value, prison));
+    };
+
     const updateFeatures = features => {
       updateHandler(set(lensProp('features'), features, prison));
     };
@@ -37,7 +41,11 @@ class PrisonCard extends React.Component {
           />
           <div className="prison__top">
             <div className="prison__left">
-              <DraftSwitch defaultChecked={ prison.published_ru }/>
+              <DraftSwitch
+                lang={ 'ru' }
+                defaultChecked={ prison.published_ru }
+                updateDraft={ updateDraft }
+              />
               <div className="prison__name">
                 <div className="field-title">название лагеря</div>
                 <TextInput
@@ -71,7 +79,11 @@ class PrisonCard extends React.Component {
               </div>
             </div>
             <div className="prison__right">
-              <DraftSwitch defaultChecked={ prison.published_en } lang={ 'en' }/>
+              <DraftSwitch
+                lang={ 'en' }
+                defaultChecked={ prison.published_en }
+                updateDraft={ updateDraft }
+              />
               <div className="prison__name">
                 <div className="field-title field-title_en">eng</div>
                 <TextInput
