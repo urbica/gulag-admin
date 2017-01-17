@@ -18,13 +18,11 @@
 .field-title_locations {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .field-title__location {
   position: relative;
-  display: inline-block;
-  width: 120px;
-  padding: 8px 24px 6px;
   color: rgba(0, 0, 0, .5);
   text-align: center;
   cursor: pointer;
@@ -53,7 +51,7 @@
   transition: .3s;
 }
 
-.field-title__location:hover button {
+.field-title__location_active:hover button {
   display: block;
   transition: .3s;
 }

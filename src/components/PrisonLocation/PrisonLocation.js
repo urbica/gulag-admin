@@ -6,6 +6,14 @@ import PrisonStatistics from './PrisonStatistics';
 import classnames from 'classnames';
 import {lensProp, set, append, remove, compose, lensPath, lensIndex, over, dissoc} from 'ramda';
 import './PrisonLocation.css';
+import styled from 'styled-components';
+
+const LocationTab = styled.span`
+  display: inline-block;
+  width: 120px;
+  height: 100%;
+  padding: 8px 24px 6px;
+`;
 
 const PrisonLocation = React.createClass({
   getInitialState() {
@@ -23,9 +31,11 @@ const PrisonLocation = React.createClass({
   removeFeature(locationId, features) {
     const newFeatures = remove(locationId, 1, features);
     this.props.updateFeatures(newFeatures);
+    this.closeDeleteMenu();
   },
 
   selectFeature(selectedFeatureIndex) {
+    this.closeDeleteMenu();
     this.setState({selectedFeatureIndex});
   },
 
@@ -106,8 +116,8 @@ const PrisonLocation = React.createClass({
               });
 
               return (
-                <div className={ className } onClick={ onClick } key={ index }>
-                  Локация { features.length > 1 ? index + 1 : '' }
+                <div className={ className } key={ index }>
+                  <LocationTab onClick={ onClick }>Локация { features.length > 1 ? index + 1 : '' }</LocationTab>
                   <button onClick={ this.openDeleteMenu }>
                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6">
                       <path

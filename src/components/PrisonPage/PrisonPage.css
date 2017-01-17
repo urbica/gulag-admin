@@ -56,7 +56,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 55px;
+  margin-bottom: 33px;
 }
 
 .prison__left,
@@ -148,7 +148,7 @@ input::-webkit-contacts-auto-fill-button {
 }
 
 .prison__activity {
-  margin-bottom: 50px;
+  margin-bottom: 33px;
 }
 
 .prison__description textarea {
