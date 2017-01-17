@@ -12,11 +12,6 @@ import {lensProp, set} from 'ramda';
 import styled from 'styled-components';
 import './PrisonPage.css';
 
-const PrisonPage = styled.div`
-  padding-top: 50px;
-  padding-bottom: 80px;
-`;
-
 const HalfContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -73,7 +68,7 @@ class PrisonCard extends React.Component {
     };
 
     return (
-      <PrisonPage>
+      <div>
         <Container>
           <PrisonHeader
             prison={ prison }
@@ -198,7 +193,7 @@ class PrisonCard extends React.Component {
             onClick={ this.props.submitHandler.bind(null, prison) }
           >сохранить</SaveButton>
         </Container>
-      </PrisonPage>
+      </div>
     );
   }
 }

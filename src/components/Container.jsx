@@ -4,7 +4,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 1024px;
-  padding: 0 20px;
+  padding: 50px 20px 80px;
   margin: auto;
 `;
 

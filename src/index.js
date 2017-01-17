@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'normalize.css';
 import App from './components/App/App';
 import LoginPage from './components/LoginPage/LoginPage';
-import IndexPage from './components/IndexPage/IndexPage';
+import IndexPage from './components/IndexPage/IndexPage.jsx';
 import PrisonPage from './components/PrisonPage/PrisonPage.jsx';
 import {Router, Route, IndexRedirect, IndexRoute, browserHistory} from 'react-router'
 

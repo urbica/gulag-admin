@@ -3,7 +3,7 @@ import PrisonRow from './PrisonRow';
 import classnames from 'classnames';
 import './PrisonsTable.css'
 
-const SortTypes = { ASC: 'ASC', DESC: 'DESC' };
+const SortTypes = {ASC: 'ASC', DESC: 'DESC'};
 const collator = new Intl.Collator('ru', {
   ignorePunctuation: true,
   numeric: true
@@ -25,13 +25,13 @@ class PrisonsTable extends React.PureComponent {
         sortDir: this.state.sortDir === SortTypes.ASC ? SortTypes.DESC : SortTypes.ASC
       });
     } else {
-      this.setState({ sortBy, sortDir: SortTypes.ASC });
+      this.setState({sortBy, sortDir: SortTypes.ASC});
     }
-  }
+  };
 
   getOrderedPrisons = () => {
-    const { prisons } = this.props;
-    const { sortBy, sortDir } = this.state;
+    const {prisons} = this.props;
+    const {sortBy, sortDir} = this.state;
     const comparator = (a, b) => collator.compare(a[sortBy], b[sortBy]);
 
     if (sortDir === SortTypes.DESC) {
@@ -39,10 +39,10 @@ class PrisonsTable extends React.PureComponent {
     }
 
     return prisons.sort(comparator);
-  }
+  };
 
   render() {
-    const { sortBy, sortDir } = this.state;
+    const {sortBy, sortDir} = this.state;
     const prisons = this.getOrderedPrisons();
 
     const getClassNames = (attr) => classnames({
@@ -50,38 +50,36 @@ class PrisonsTable extends React.PureComponent {
     });
 
     return (
-      <div className='container'>
-        <table className='prisons'>
-          <thead>
-          <tr>
-            <td
-              className={ getClassNames('name_ru') }
-              onClick={ this.sort.bind(this, 'name_ru') }
-            >
-              Название
-            </td>
-            <td>Период</td>
-            <td>Отредактировано</td>
-            <td>Регион</td>
-            <td
-              className={ getClassNames('max_prisoners') }
-              onClick={ this.sort.bind(this, 'max_prisoners') }
-            >
-              Макс. числ.
-            </td>
-            <td>Рус</td>
-            <td>Eng</td>
-          </tr>
-          </thead>
-          <tbody>
-            {
-              prisons.map(prison =>
-                <PrisonRow prison={ prison } key={ prison.id } />
-              )
-            }
-          </tbody>
-        </table>
-      </div>
+      <table className='prisons'>
+        <thead>
+        <tr>
+          <td
+            className={ getClassNames('name_ru') }
+            onClick={ this.sort.bind(this, 'name_ru') }
+          >
+            Название
+          </td>
+          <td>Период</td>
+          <td>Отредактировано</td>
+          <td>Регион</td>
+          <td
+            className={ getClassNames('max_prisoners') }
+            onClick={ this.sort.bind(this, 'max_prisoners') }
+          >
+            Макс. числ.
+          </td>
+          <td>Рус</td>
+          <td>Eng</td>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          prisons.map(prison =>
+            <PrisonRow prison={ prison } key={ prison.id }/>
+          )
+        }
+        </tbody>
+      </table>
     )
   }
 }
