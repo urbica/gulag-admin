@@ -8,6 +8,18 @@ import {lensProp, set, append, remove, compose, lensPath, lensIndex, over, disso
 import './PrisonLocation.css';
 import styled from 'styled-components';
 
+const PrisonLocations = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 33px;
+  & > .inputWrapper {
+    width: 48%;
+    margin-bottom: 10px;
+  }
+`;
+
 const LocationTab = styled.span`
   display: inline-block;
   width: 120px;
@@ -103,7 +115,7 @@ const PrisonLocation = React.createClass({
     const selectedFeature = features[this.state.selectedFeatureIndex] || newFeature;
 
     return (
-      <div className='prison__location'>
+      <PrisonLocations>
         <div className='field-title field-title_locations'>
           {
             features.map((location, index) => {
@@ -146,6 +158,7 @@ const PrisonLocation = React.createClass({
         <Map features={ [selectedFeature] }/>
         <PrisonYears
           features={ features }
+          selectedFeatureIndex={ this.state.selectedFeatureIndex }
           toggleYear={ this.toggleYear }
         />
         {
@@ -155,7 +168,7 @@ const PrisonLocation = React.createClass({
             onChange={ this.updatePrisonersAmount }
           />
         }
-      </div>
+      </PrisonLocations>
     );
   }
 });

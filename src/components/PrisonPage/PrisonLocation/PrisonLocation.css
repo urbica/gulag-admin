@@ -1,20 +1,3 @@
-.prison__location {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 30px;
-}
-
-.prison__location > .inputWrapper {
-  width: 48%;
-  margin-bottom: 10px;
-}
-
-.prison__location .field-title {
-  padding: 0;
-}
-
 .field-title_locations {
   display: flex;
   align-items: center;
@@ -166,49 +149,6 @@
   font-size: 12px;
   font-weight: bold;
   text-align: right;
-}
-
-.prison__years {
-  margin-bottom: 58px;
-}
-
-.years__list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.year {
-  width: 59.5px;
-  text-align: center;
-  margin-right: 6px;
-  margin-bottom: 10px;
-}
-
-.year input {
-  display: none;
-}
-
-.year span {
-  display: inline-block;
-  width: 100%;
-  padding-top: 6px;
-  padding-bottom: 5px;
-  border-radius: 3px;
-  font-size: 16px;
-}
-
-.year span:hover {
-  background-color: #f3f3f3;
-  cursor: pointer;
-}
-
-.year input:checked + span {
-  color: #fff;
-  background-color: #4a4a4a;
-}
-
-.year input:checked + span:hover {
-  background: rgba(0, 0, 0, 1);
 }
 
 .amount {
