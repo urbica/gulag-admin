@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const FieldTitle = styled.div`
@@ -10,5 +11,9 @@ const FieldTitle = styled.div`
   font-size: 12px;
   ${props => props.english && 'color: #3949ab'};
 `;
+
+FieldTitle.propTypes = {
+  english: React.PropTypes.bool
+};
 
 export default FieldTitle;

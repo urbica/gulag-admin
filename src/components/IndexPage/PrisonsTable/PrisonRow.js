@@ -13,10 +13,10 @@ const PrisonRow = (props) => {
         {
           features.map((location, key) => {
             const YEARS = Object.keys(location.properties);
-            if (YEARS.length === 3) {
+            if (YEARS.length === 1) {
               return <div key={ key }>{ YEARS[0] };</div>
-            } else if (YEARS.length > 2) {
-              return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 3] };</div>
+            } else if (YEARS.length > 1) {
+              return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 1] };</div>
             } else return null
           })
         }

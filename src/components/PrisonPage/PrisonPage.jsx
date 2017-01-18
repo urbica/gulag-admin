@@ -37,7 +37,7 @@ const SaveButton = styled(Button)`
 
 class PrisonCard extends React.Component {
   render() {
-    const {prison, uploadHandler, updateHandler, deleteHandler} = this.props;
+    const {prison, uploadHandler, updateHandler, deleteHandler, submitHandler} = this.props;
 
     const updateInput = lens => /* debounce */ (event) => {
       const {value} = event.target;
@@ -170,7 +170,6 @@ class PrisonCard extends React.Component {
                 source={ prison.description_en }
                 onChange={ updateInput(lensProp('description_en')) }
                 inputClassName={ 'input_en' }
-                containerClassName={ 'prison__description_en' }
               />
             </Half>
           </HalfContainer>
@@ -180,7 +179,7 @@ class PrisonCard extends React.Component {
           />
           <SaveButton
             color={'orange'}
-            onClick={ this.props.submitHandler.bind(null, prison) }
+            onClick={ submitHandler.bind(null, prison) }
           >сохранить</SaveButton>
         </Container>
       </div>
