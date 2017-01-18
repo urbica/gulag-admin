@@ -46,9 +46,9 @@ const PrisonSaved = styled.div`
 const calculatePeriod = (features) => {
   return features.map((location, key) => {
     const YEARS = Object.keys(location.properties);
-    if (YEARS.length === 3) {
+    if (YEARS.length === 1) {
       return <div key={ key }>{ YEARS[0] };</div>
-    } else if (YEARS.length > 2) {
+    } else if (YEARS.length > 1) {
       return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 1] };</div>
     } else return null
   });
