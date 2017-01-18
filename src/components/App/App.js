@@ -2,11 +2,10 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import './App.css';
 
-import { always, concat, assocPath, compose, dissocPath, map, head,
-  groupBy, over, prop, test, ifElse, isEmpty, isNil, lensPath } from 'ramda';
+import { always, concat, assocPath, dissoc, dissocPath, map, over, test,
+  ifElse, isEmpty, isNil, lensPath } from 'ramda';
 
-import { concatUrl, directoryToOptions, fillMaxPrisoners,
-  fillPhotos } from '../../utils/preprocessing';
+import { fetchData, concatUrl, directoryToOptions } from '../../utils/utils';
 
 const backendUrl = 'http://gulag.urbica.co/backend';
 
@@ -16,6 +15,7 @@ const App = React.createClass({
       activities: [],
       places: [],
       types: [],
+      token: localStorage.getItem('token'),
       prisons: {},
       newPrison: {
         id: undefined,
@@ -33,27 +33,42 @@ const App = React.createClass({
   },
 
   componentWillMount() {
-    const groupById = compose(map(head), groupBy(prop('id')));
-
-    Promise.all([
-      fetch(`${backendUrl}/public/camps.json`).then(r => r.json()),
-      fetch(`${backendUrl}/public/uploads.json`).then(r => r.json()),
-      fetch(`${backendUrl}/public/activities.json`).then(r => r.json()),
-      fetch(`${backendUrl}/public/places.json`).then(r => r.json()),
-      fetch(`${backendUrl}/public/types.json`).then(r => r.json())
-    ]).then(([prisons, photos, activities, places, types]) => {
-      const photosById = groupBy(prop('camp_id'), photos);
-      const preprocess = compose(
-        fillPhotos(photosById, backendUrl),
-        fillMaxPrisoners,
-        groupById
-      );
-      this.setState({
-        activities: activities,
-        places: places,
-        types: types,
-        prisons: preprocess(prisons)
+    const { token } = this.state;
+    if (!token) {
+      browserHistory.push('/login');
+    } else {
+      fetchData({ backendUrl, token })
+      .then(({ activities, places, types, prisons }) => {
+        this.setState({ activities, places, types, prisons });
       });
+    }
+  },
+
+  login(password) {
+    const credentials = { email: 'hello@urbica.co', password };
+
+    fetch(`${backendUrl}/login`, {
+      body: JSON.stringify(credentials),
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(response => response.json())
+    .then(({ token }) => {
+      localStorage.setItem('token', token);
+      return fetchData({ backendUrl, token })
+      .then(({ activities, places, types, prisons }) => {
+        this.setState({ activities, places, types, prisons, token }, () => {
+          browserHistory.push('/admin');
+        });
+      });
+    })
+    .catch(error => console.error(error));
+  },
+
+  logout() {
+    localStorage.removeItem('token');
+    this.setState(dissoc('token'), () => {
+      browserHistory.push('/login');
     });
   },
 
@@ -62,9 +77,12 @@ const App = React.createClass({
     uploads.append('camp_id', prisonId);
     Array.from(photos).forEach(photo => uploads.append('path', photo));
 
-    fetch(`${backendUrl}/public/uploads/id`, {
+    fetch(`${backendUrl}/api/public/uploads/id`, {
       method: 'POST',
-      body: uploads
+      body: uploads,
+      headers: {
+        Authorization: `Bearer ${this.state.token}`
+      }
     })
     .then(response => response.json())
     .then(response => {
@@ -91,14 +109,20 @@ const App = React.createClass({
       request = fetch(`${backendUrl}/public/camps/id/${prison.id}`, {
         body: JSON.stringify(prison),
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'}
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+          'Content-Type': 'application/json'
+        }
       });
       message = `Лагерь "${prison.name_ru}" обновлён`;
     } else {
       request = fetch(`${backendUrl}/public/camps/id`, {
         body: JSON.stringify(prison),
         method: 'POST',
-        headers: {'Content-Type': 'application/json'}
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+          'Content-Type': 'application/json'
+        }
       });
       message = `Лагерь "${prison.name_ru}" добавлен`;
     }
@@ -116,23 +140,38 @@ const App = React.createClass({
   deletePrison(prison) {
     if (prison.id) {
       if (confirm(`Удалить лагерь "${prison.name_ru}"?`)) {
-        fetch(`${backendUrl}/public/camps/id/${prison.id}`, {method: 'DELETE'})
-          .then(() => {
-            browserHistory.push('/admin/prisons');
-            this.setState(dissocPath(['prisons', `${prison.id}`], this.state));
-          });
+        fetch(`${backendUrl}/public/camps/id/${prison.id}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${this.state.token}`
+          }
+        }).then(() => {
+          browserHistory.push('/admin/prisons');
+          this.setState(dissocPath(['prisons', `${prison.id}`], this.state));
+        });
       }
     }
   },
 
   renderChildren() {
-    if (isEmpty(this.state.prisons)) return null;
     const {pathname} = this.props.router.location;
+
+    // /login -> <LoginPage />
+    if (test(/^(\/login\/?)$/, pathname)) {
+      return React.cloneElement(this.props.children, {
+        onSubmit: this.login
+      });
+    }
+
+    if (isEmpty(this.state.prisons)) {
+      return null;
+    }
 
     // /admin || /admin/prisons -> <IndexPage />
     if (test(/^(\/admin\/?|\/admin\/prisons\/?)$/, pathname)) {
       return React.cloneElement(this.props.children, {
-        prisons: this.state.prisons
+        prisons: this.state.prisons,
+        onLogout: this.logout
       });
     }
     // /admin/prisons/new -> <PrisonPage />

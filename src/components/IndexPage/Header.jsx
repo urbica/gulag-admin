@@ -56,7 +56,7 @@ class Header extends React.Component {
     const createPrison = browserHistory.push.bind(browserHistory, '/admin/prisons/new');
     return (
       <HeaderWrap>
-        <Button>выйти</Button>
+        <Button onClick={ this.props.onLogout }>выйти</Button>
         <HeaderMiddle>
           <HeaderTitle>Карточки лагерей</HeaderTitle>
           <HeaderBottom>

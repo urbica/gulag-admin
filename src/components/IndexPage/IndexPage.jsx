@@ -17,6 +17,7 @@ const IndexPage = (props) => {
           prisonsAmount={ prisons.length }
           ru_prisonsAmount={ prisons_ru_count }
           en_prisonsAmount={ prisons_en_count  }
+          onLogout={ props.onLogout }
         />
         <Search/>
         <PrisonsTable prisons={ prisons }/>
