@@ -41,7 +41,7 @@ const YearSpan = styled.span`
   }
   input:disabled + & {
     color: #fff;
-    opacity: .3;
+    background-color: rgba(74,74,74,.3);
   }
 `;
 
@@ -61,6 +61,7 @@ class PrisonYears extends React.Component {
         const years = Object.keys(feature.properties);
         yearsDisabled = yearsDisabled.concat(years);
       }
+      return null;
     });
 
     return (
