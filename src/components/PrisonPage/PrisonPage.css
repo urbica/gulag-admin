@@ -67,17 +67,3 @@ input::-webkit-contacts-auto-fill-button {
 .input:focus + .inputLine {
   width: 100%;
 }
-
-.prison__description textarea {
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 400px;
-  padding: 12px;
-  border: none;
-  background-color: #f3f3f3;
-  outline: none;
-}
-
-.prison__description_en textarea {
-  background-color: #ebecf6;
-}

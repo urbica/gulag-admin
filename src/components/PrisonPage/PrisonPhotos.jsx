@@ -1,4 +1,5 @@
 import React from 'react';
+import FieldTitle from '../FieldTitle';
 import styled from 'styled-components';
 
 const Photos = styled.div`
@@ -7,10 +8,25 @@ const Photos = styled.div`
   & figure {
     display: inline-block;
     margin: 0 10px 0 0;
+    vertical-align: top;
     & img {
       width: 150px;
       height: 100px;
     }
+  }
+`;
+
+const UploadPhoto = styled.div`
+  display: inline-block;
+  width: 150px;
+  height: 100px;
+  padding: 38px 0 44px;
+  border: dashed 1px #979797;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  & + input {
+    display: none;
   }
 `;
 
@@ -33,16 +49,19 @@ class PrisonPhotos extends React.PureComponent {
     const photos = this.props.prison.photos || [];
     return (
       <Photos>
-        <div className='field-title'>фотографии</div>
+        <FieldTitle>фотографии</FieldTitle>
         {
           photos.map(photo =>
             <PrisonPhoto key={ photo.id } { ...photo } />
           )
         }
-        <input
-          type='file'
-          ref='photos'
-          onChange={ this.uploadPhotos }/>
+        <label>
+          <UploadPhoto>Загрузить</UploadPhoto>
+          <input
+            type='file'
+            ref='photos'
+            onChange={ this.uploadPhotos }/>
+        </label>
       </Photos>
     );
   }
