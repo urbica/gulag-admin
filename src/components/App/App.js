@@ -96,7 +96,7 @@ const App = React.createClass({
 
   updatePrison(prison) {
     if (prison.id) {
-      this.setState(assocPath(['prisons', prison.id], prison, this.state));
+      this.setState(assocPath(['prisons', prison.id], prison));
     } else {
       this.setState({newPrison: prison});
     }
@@ -129,8 +129,8 @@ const App = React.createClass({
 
     request
       .then(response => response.json())
-      .then(newPrison => {
-        this.setState(assocPath(['prisons', newPrison.id], newPrison, this.state), () =>
+      .then(([newPrison]) => {
+        this.setState(assocPath(['prisons', newPrison.id], newPrison), () =>
           browserHistory.push(`/admin/prisons/${newPrison.id}`)
         );
         alert(message);
@@ -147,7 +147,7 @@ const App = React.createClass({
           }
         }).then(() => {
           browserHistory.push('/admin/prisons');
-          this.setState(dissocPath(['prisons', `${prison.id}`], this.state));
+          this.setState(dissocPath(['prisons', `${prison.id}`]));
         });
       }
     }

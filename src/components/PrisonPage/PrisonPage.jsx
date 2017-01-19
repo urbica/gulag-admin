@@ -74,12 +74,12 @@ class PrisonCard extends React.Component {
               <Fieldset>
                 <FieldTitle>название лагеря</FieldTitle>
                 <TextInput
-                  value={ prison.name_ru }
+                  value={ prison.name_ru || '' }
                   onChange={ updateInput(lensProp('name_ru')) }
                   placeholder={ 'Название' }
                 />
                 <TextInput
-                  value={ prison.addl_names_ru }
+                  value={ prison.addl_names_ru || '' }
                   onChange={ updateInput(lensProp('addl_names_ru')) }
                   placeholder={ 'Дополнительные названия, если есть' }
                 />
@@ -112,13 +112,13 @@ class PrisonCard extends React.Component {
               <Fieldset>
                 <FieldTitle english>eng</FieldTitle>
                 <TextInput
-                  value={ prison.name_en }
+                  value={ prison.name_en || '' }
                   className={ 'input_en' }
                   placeholder={ 'Main name' }
                   onChange={ updateInput(lensProp('name_en')) }
                 />
                 <TextInput
-                  value={ prison.addl_names_en }
+                  value={ prison.addl_names_en || '' }
                   className={ 'input_en' }
                   placeholder={ 'Second name' }
                   onChange={ updateInput(lensProp('addl_names_en')) }
@@ -139,35 +139,35 @@ class PrisonCard extends React.Component {
             <Half>
               <TextInput
                 placeholder='Название локации'
-                value={ prison.location_ru }
+                value={ prison.location_ru || '' }
                 onChange={ updateInput(lensProp('location_ru')) }
               />
             </Half>
             <Half>
               <TextInput
                 placeholder='Location name'
-                value={ prison.location_en }
+                value={ prison.location_en || '' }
                 className={ 'input_en' }
                 onChange={ updateInput(lensProp('location_en')) }
               />
             </Half>
           </HalfContainer>
           <PrisonLocation
-            features={ prison.features }
+            features={ prison.features || [] }
             updateFeatures={ updateFeatures }
           />
           <HalfContainer>
             <Half>
               <MarkdownEditor
                 title={ 'Описание лагеря' }
-                source={ prison.description_ru }
+                source={ prison.description_ru || '' }
                 onChange={ updateInput(lensProp('description_ru')) }
               />
             </Half>
             <Half>
               <MarkdownEditor
                 title={ 'eng' }
-                source={ prison.description_en }
+                source={ prison.description_en || '' }
                 onChange={ updateInput(lensProp('description_en')) }
                 inputClassName={ 'input_en' }
               />
