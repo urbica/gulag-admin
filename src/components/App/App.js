@@ -106,7 +106,7 @@ const App = React.createClass({
     let request;
     let message;
     if (prison.id) {
-      request = fetch(`${backendUrl}/public/camps/id/${prison.id}`, {
+      request = fetch(`${backendUrl}/api/public/camps/id/${prison.id}`, {
         body: JSON.stringify(prison),
         method: 'PUT',
         headers: {
@@ -116,7 +116,7 @@ const App = React.createClass({
       });
       message = `Лагерь "${prison.name_ru}" обновлён`;
     } else {
-      request = fetch(`${backendUrl}/public/camps/id`, {
+      request = fetch(`${backendUrl}/api/public/camps/id`, {
         body: JSON.stringify(prison),
         method: 'POST',
         headers: {
@@ -140,7 +140,7 @@ const App = React.createClass({
   deletePrison(prison) {
     if (prison.id) {
       if (confirm(`Удалить лагерь "${prison.name_ru}"?`)) {
-        fetch(`${backendUrl}/public/camps/id/${prison.id}`, {
+        fetch(`${backendUrl}/api/public/camps/id/${prison.id}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${this.state.token}`

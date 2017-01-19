@@ -1,4 +1,4 @@
-image: node:7.3
+image: node:7
 
 cache:
   paths:
@@ -8,7 +8,7 @@ stages:
   - build
   - deploy
 
-build_job:
+build:
   stage: build
   variables:
     NODE_ENV: test
@@ -21,7 +21,7 @@ build_job:
     paths:
       - node_modules/
 
-deploy_job:
+deploy:
   stage: deploy
   before_script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -30,4 +30,8 @@ deploy_job:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script: npm run deploy
-  environment: production
+  environment:
+    name: production
+    url: http://gulag.urbica.co
+  only:
+    - master
