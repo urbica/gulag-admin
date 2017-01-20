@@ -16,9 +16,7 @@ const PrisonRow = (props) => {
   return (
     <tr onClick={ openPrison }>
       <td className='prisons__cell' height='56'>{prison.name_ru}</td>
-      <td className='prisons__cell prisons__cell_period'>
-        { getPeriods(features) }
-      </td>
+      <td className='prisons__cell prisons__cell_period'>{ getPeriods(features) }</td>
       <td className='prisons__cell'>{ (new Date(prison.updated_at)).toLocaleString() }</td>
       <td className='prisons__cell'>регион</td>
       <td className='prisons__cell prisons__strength'>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom'
 import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
 import {lensProp, not, over} from 'ramda';
@@ -34,12 +35,20 @@ class MarkdownEditor extends React.PureComponent {
     };
   }
 
+  onBlur = () => {
+    const el = findDOMNode(this.refs.textarea);
+    this.props.onBlur({
+      selectionStart: el.selectionStart,
+      selectionEnd: el.selectionEnd
+    });
+  };
+
   togglePreview = () => {
     this.setState(over(lensProp('preview'), not));
   };
 
   render() {
-    const {inputClassName, onChange, source, title} = this.props;
+    const {inputClassName, onChange, onFocus, source, title} = this.props;
     const inputClassNames = classnames('input', inputClassName);
 
     return (
@@ -66,10 +75,13 @@ class MarkdownEditor extends React.PureComponent {
               </PreviewButton>
             </DescriptionTitle>
             <TextArea
+              ref='textarea'
+              value={ source }
+              onBlur={ this.onBlur }
+              onFocus={ onFocus }
+              english={ title === 'eng' }
               onChange={ onChange }
               className={ inputClassNames }
-              defaultValue={ source }
-              english={ title === 'eng' }
             />
             <div className='inputLine'/>
           </div>

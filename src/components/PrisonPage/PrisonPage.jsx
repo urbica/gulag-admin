@@ -9,7 +9,7 @@ import PrisonLocation from './PrisonLocation/PrisonLocation';
 import MarkdownEditor from './Inputs/MarkdownEditor';
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
-import {lensProp, set} from 'ramda';
+import {__, curryN, identity, lensProp, path, pipe, set} from 'ramda';
 import styled from 'styled-components';
 import './PrisonPage.css';
 
@@ -36,26 +36,45 @@ const SaveButton = styled(Button)`
 `;
 
 class PrisonCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      markdownState: {
+        field: 'description_ru',
+        selectionEnd: 0
+      }
+    };
+  }
+
+  markdownOnBlur = (field, { selectionEnd }) => {
+    this.setState(set(lensProp('markdownState'), { field, selectionEnd }));
+  };
+
+  photoOnClick = (url) => {
+    const { prison, updateHandler } = this.props;
+    const { field, selectionEnd } = this.state.markdownState;
+
+    const imageMarkup = `![](${url})`;
+
+    const value = prison[field];
+    const newValue = [
+      value.slice(0, selectionEnd),
+      imageMarkup,
+      value.slice(selectionEnd)
+    ].join('');
+
+    updateHandler(set(lensProp(field), newValue, prison));
+  };
+
   render() {
     const {prison, uploadHandler, updateHandler, deleteHandler, submitHandler} = this.props;
 
-    const updateInput = lens => /* debounce */ (event) => {
-      const {value} = event.target;
-      updateHandler(set(lens, value, prison));
-    };
+    const updateFrom = curryN(2, (getValue, lens) =>
+      pipe(getValue, set(lens, __, prison), updateHandler));
 
-    const updateSelect = lens => /* debounce */ (option) => {
-      const value = option ? option.value : undefined;
-      updateHandler(set(lens, value, prison));
-    };
-
-    const updateDraft = (key, value) => {
-      updateHandler(set(lensProp(key), value, prison));
-    };
-
-    const updateFeatures = features => {
-      updateHandler(set(lensProp('features'), features, prison));
-    };
+    const updateField = updateFrom(identity);
+    const updateInput = updateFrom(path(['target', 'value']));
+    const updateSelect = updateFrom(path(['value']));
 
     return (
       <div>
@@ -68,8 +87,8 @@ class PrisonCard extends React.Component {
             <Half>
               <DraftSwitch
                 lang={ 'ru' }
-                defaultChecked={ prison.published_ru }
-                updateDraft={ updateDraft }
+                checked={ prison.published_ru }
+                onChange={ updateField(lensProp('published_ru')) }
               />
               <Fieldset>
                 <FieldTitle>название лагеря</FieldTitle>
@@ -106,8 +125,8 @@ class PrisonCard extends React.Component {
             <Half>
               <DraftSwitch
                 lang={ 'en' }
-                defaultChecked={ prison.published_en }
-                updateDraft={ updateDraft }
+                checked={ prison.published_en }
+                onChange={ updateField(lensProp('published_en')) }
               />
               <Fieldset>
                 <FieldTitle english>eng</FieldTitle>
@@ -154,13 +173,14 @@ class PrisonCard extends React.Component {
           </HalfContainer>
           <PrisonLocation
             features={ prison.features || [] }
-            updateFeatures={ updateFeatures }
+            updateFeatures={ updateField(lensProp('features')) }
           />
           <HalfContainer>
             <Half>
               <MarkdownEditor
                 title={ 'Описание лагеря' }
                 source={ prison.description_ru || '' }
+                onBlur={ this.markdownOnBlur.bind(this, 'description_ru') }
                 onChange={ updateInput(lensProp('description_ru')) }
               />
             </Half>
@@ -168,6 +188,7 @@ class PrisonCard extends React.Component {
               <MarkdownEditor
                 title={ 'eng' }
                 source={ prison.description_en || '' }
+                onBlur={ this.markdownOnBlur.bind(this, 'description_en') }
                 onChange={ updateInput(lensProp('description_en')) }
                 inputClassName={ 'input_en' }
               />
@@ -175,12 +196,15 @@ class PrisonCard extends React.Component {
           </HalfContainer>
           <PrisonPhotos
             prison={ prison }
+            onClick={ this.photoOnClick }
             uploadHandler={ uploadHandler }
           />
           <SaveButton
             color={'orange'}
             onClick={ submitHandler.bind(null, prison) }
-          >сохранить</SaveButton>
+          >
+            сохранить
+          </SaveButton>
         </Container>
       </div>
     );

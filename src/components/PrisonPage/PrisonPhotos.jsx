@@ -6,6 +6,7 @@ const Photos = styled.div`
   width: 100%;
   margin-bottom: 50px;
   & figure {
+    cursor: pointer;
     display: inline-block;
     margin: 0 10px 0 0;
     vertical-align: top;
@@ -31,9 +32,9 @@ const UploadPhoto = styled.div`
 `;
 
 const PrisonPhoto = (props) => {
-  const {path, id} = props;
+  const {path, id} = props.photo;
   return (
-    <figure>
+    <figure onClick={ props.onClick.bind(null, path) }>
       <img src={ path } role='presentation'/>
       <figcaption>{ id }</figcaption>
     </figure>
@@ -46,13 +47,18 @@ class PrisonPhotos extends React.PureComponent {
   };
 
   render() {
+    const { onClick } = this.props;
     const photos = this.props.prison.photos || [];
     return (
       <Photos>
         <FieldTitle>фотографии</FieldTitle>
         {
           photos.map(photo =>
-            <PrisonPhoto key={ photo.id } { ...photo } />
+            <PrisonPhoto
+              key={ photo.id }
+              photo={ photo }
+              onClick={ onClick }
+            />
           )
         }
         <label>
