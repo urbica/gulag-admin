@@ -1,5 +1,5 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom'
+import {findDOMNode} from 'react-dom'
 import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
 import {lensProp, not, over} from 'ramda';
@@ -23,7 +23,7 @@ const TextArea = styled.textarea`
   min-height: 400px;
   padding: 12px;
   border: none;
-  background-color: ${props => !props.english ? '#f3f3f3' : '#ebecf6'};
+  background-color: ${props => props.color !== 'blue' ? '#f3f3f3' : '#ebecf6'};
   outline: none;
 `;
 
@@ -48,7 +48,7 @@ class MarkdownEditor extends React.PureComponent {
   };
 
   render() {
-    const {inputClassName, onChange, onFocus, source, title} = this.props;
+    const {inputClassName, onChange, onFocus, source, title, color} = this.props;
     const inputClassNames = classnames('input', inputClassName);
 
     return (
@@ -56,7 +56,7 @@ class MarkdownEditor extends React.PureComponent {
         {
           this.state.preview &&
           <div className='inputWrapper'>
-            <DescriptionTitle english={ title === 'eng' }>
+            <DescriptionTitle color={ color }>
               { title }
               <PreviewButton onClick={ this.togglePreview }>
                 Редактировать
@@ -68,7 +68,7 @@ class MarkdownEditor extends React.PureComponent {
         {
           !this.state.preview &&
           <div className='inputWrapper'>
-            <DescriptionTitle english={ title === 'eng' }>
+            <DescriptionTitle color={ color }>
               { title }
               <PreviewButton onClick={ this.togglePreview }>
                 Просмотр
@@ -79,7 +79,7 @@ class MarkdownEditor extends React.PureComponent {
               value={ source }
               onBlur={ this.onBlur }
               onFocus={ onFocus }
-              english={ title === 'eng' }
+              color={ color }
               onChange={ onChange }
               className={ inputClassNames }
             />

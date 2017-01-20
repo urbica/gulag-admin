@@ -43,7 +43,7 @@ const Button = styled.button`
 `;
 
 Button.propTypes = {
-  color: React.PropTypes.string,
+  color: React.PropTypes.oneOf(['orange', 'red'])
 };
 
 export default Button;

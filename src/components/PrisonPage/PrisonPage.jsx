@@ -46,13 +46,13 @@ class PrisonCard extends React.Component {
     };
   }
 
-  markdownOnBlur = (field, { selectionEnd }) => {
-    this.setState(set(lensProp('markdownState'), { field, selectionEnd }));
+  markdownOnBlur = (field, {selectionEnd}) => {
+    this.setState(set(lensProp('markdownState'), {field, selectionEnd}));
   };
 
   photoOnClick = (url) => {
-    const { prison, updateHandler } = this.props;
-    const { field, selectionEnd } = this.state.markdownState;
+    const {prison, updateHandler} = this.props;
+    const {field, selectionEnd} = this.state.markdownState;
 
     const imageMarkup = `![](${url})`;
 
@@ -129,7 +129,7 @@ class PrisonCard extends React.Component {
                 onChange={ updateField(lensProp('published_en')) }
               />
               <Fieldset>
-                <FieldTitle english>eng</FieldTitle>
+                <FieldTitle color={ 'blue' }>eng</FieldTitle>
                 <TextInput
                   value={ prison.name_en || '' }
                   className={ 'input_en' }
@@ -191,6 +191,7 @@ class PrisonCard extends React.Component {
                 onBlur={ this.markdownOnBlur.bind(this, 'description_en') }
                 onChange={ updateInput(lensProp('description_en')) }
                 inputClassName={ 'input_en' }
+                color={ 'blue' }
               />
             </Half>
           </HalfContainer>
