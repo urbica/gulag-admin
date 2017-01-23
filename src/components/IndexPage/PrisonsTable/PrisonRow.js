@@ -1,12 +1,6 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
-
-const getPeriods = (features) =>
-  features
-    .map(feature => Object.keys(feature.properties).map(year => parseInt(year, 10)))
-    .filter(years => years.length > 0)
-    .map(years => `${Math.min.apply(Math, years)} — ${Math.max.apply(Math, years)}`)
-    .join('; ');
+import { browserHistory } from 'react-router';
+import { getPeriods } from '../../../utils/utils';
 
 const PrisonRow = (props) => {
   const {prison} = props;

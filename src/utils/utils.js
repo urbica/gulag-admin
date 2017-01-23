@@ -74,3 +74,10 @@ export const fetchData = ({ token }) =>
     })
     .catch(error => reject(error));
   });
+
+export const getPeriods = (prison) =>
+  (prison.features || [])
+    .map(feature => Object.keys(feature.properties).map(year => parseInt(year, 10)))
+    .filter(years => years.length > 0)
+    .map(years => `${Math.min.apply(Math, years)} — ${Math.max.apply(Math, years)}`)
+    .join('; ');

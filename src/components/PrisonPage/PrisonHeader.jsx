@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '../Button';
 import {Link} from 'react-router';
 import styled from 'styled-components';
+import { getPeriods } from '../../utils/utils';
 
 const Header = styled.header`
   display: flex;
@@ -43,20 +44,8 @@ const PrisonSaved = styled.div`
   font-weight: normal;
 `;
 
-const calculatePeriod = (features) => {
-  return features.map((location, key) => {
-    const YEARS = Object.keys(location.properties);
-    if (YEARS.length === 1) {
-      return <div key={ key }>{ YEARS[0] };</div>
-    } else if (YEARS.length > 1) {
-      return <div key={ key }>{ YEARS[0] + ' – ' + YEARS[YEARS.length - 1] };</div>
-    } else return null
-  });
-};
-
 const PrisonHeader = (props) => {
-  const {prison, deleteHandler} = props;
-  const features = prison.features || [];
+  const { prison, deleteHandler } = props;
 
   return (
     <Header>
@@ -65,7 +54,7 @@ const PrisonHeader = (props) => {
       </BackLink>
       <div>
         <PrisonName>{ prison.name_ru }</PrisonName>
-        <PrisonPeriod>{ calculatePeriod(features) }</PrisonPeriod>
+        <PrisonPeriod>{ getPeriods(prison) }</PrisonPeriod>
       </div>
       <div>
         <Button color={ 'red' }
@@ -75,7 +64,7 @@ const PrisonHeader = (props) => {
         </Button>
         <PrisonSaved>
           <div>Сохранено:</div>
-          <span>{ prison.updated_at }</span>
+          <span>{ (new Date(prison.updated_at)).toLocaleString() }</span>
         </PrisonSaved>
       </div>
     </Header>
