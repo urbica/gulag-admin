@@ -7,8 +7,6 @@ import { always, concat, assocPath, dissoc, dissocPath, map, over, test,
 
 import { fetchData, concatUrl, directoryToOptions } from '../../utils/utils';
 
-const backendUrl = 'http://gulag.urbica.co/backend';
-
 const App = React.createClass({
   getInitialState() {
     return {
@@ -37,7 +35,7 @@ const App = React.createClass({
     if (!token) {
       browserHistory.push('/login');
     } else {
-      fetchData({ backendUrl, token })
+      fetchData({ token })
       .then(({ activities, places, types, prisons }) => {
         this.setState({ activities, places, types, prisons });
       });
@@ -47,7 +45,7 @@ const App = React.createClass({
   login(password) {
     const credentials = { email: 'hello@urbica.co', password };
 
-    fetch(`${backendUrl}/login`, {
+    fetch('/login', {
       body: JSON.stringify(credentials),
       method: 'POST',
       headers: {'Content-Type': 'application/json'}
@@ -55,7 +53,7 @@ const App = React.createClass({
     .then(response => response.json())
     .then(({ token }) => {
       localStorage.setItem('token', token);
-      return fetchData({ backendUrl, token })
+      return fetchData({ token })
       .then(({ activities, places, types, prisons }) => {
         this.setState({ activities, places, types, prisons, token }, () => {
           browserHistory.push('/admin');
@@ -77,7 +75,7 @@ const App = React.createClass({
     uploads.append('camp_id', prisonId);
     Array.from(photos).forEach(photo => uploads.append('path', photo));
 
-    fetch(`${backendUrl}/api/public/uploads/id`, {
+    fetch('/api/public/uploads/id', {
       method: 'POST',
       body: uploads,
       headers: {
@@ -87,7 +85,7 @@ const App = React.createClass({
     .then(response => response.json())
     .then(response => {
       const photosLens = lensPath(['prisons', prisonId, 'photos']);
-      const newPhotos = map(concatUrl(backendUrl, 'path'), response);
+      const newPhotos = map(concatUrl(window.location.origin, 'path'), response);
       const setPhotos = ifElse(isNil, always(newPhotos), concat(newPhotos));
       this.setState(over(photosLens, setPhotos));
     })
@@ -106,7 +104,7 @@ const App = React.createClass({
     let request;
     let message;
     if (prison.id) {
-      request = fetch(`${backendUrl}/api/public/camps/id/${prison.id}`, {
+      request = fetch(`/api/public/camps/id/${prison.id}`, {
         body: JSON.stringify(prison),
         method: 'PUT',
         headers: {
@@ -116,7 +114,7 @@ const App = React.createClass({
       });
       message = `Лагерь "${prison.name_ru}" обновлён`;
     } else {
-      request = fetch(`${backendUrl}/api/public/camps/id`, {
+      request = fetch('/api/public/camps/id', {
         body: JSON.stringify(prison),
         method: 'POST',
         headers: {
@@ -140,7 +138,7 @@ const App = React.createClass({
   deletePrison(prison) {
     if (prison.id) {
       if (confirm(`Удалить лагерь "${prison.name_ru}"?`)) {
-        fetch(`${backendUrl}/api/public/camps/id/${prison.id}`, {
+        fetch(`/api/public/camps/id/${prison.id}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${this.state.token}`

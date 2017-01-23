@@ -37,30 +37,30 @@ export const fillMaxPrisoners = (prisons) => {
 export const concatUrl = (url, property) =>
   evolve({ [`${property}`]: concat(`${url}/`) });
 
-export const fillPhotos = curryN(3, (photosById, backendUrl, prisons) => {
+export const fillPhotos = curryN(2, (photosById, prisons) => {
   return reduce((acc, [prisonId, photos]) => {
-    acc[prisonId].photos = map(concatUrl(backendUrl, 'path'), photos);
+    acc[prisonId].photos = map(concatUrl(window.location.origin, 'path'), photos);
     return acc;
   }, prisons, toPairs(photosById));
 });
 
 export const directoryToOptions = map(renameKeys({ id: 'value', name: 'label' }));
 
-export const fetchData = ({ backendUrl, token}) =>
+export const fetchData = ({ token }) =>
   new Promise((resolve, reject) => {
     const groupById = compose(map(head), groupBy(prop('id')));
     const options = { headers: { Authorization: `Bearer ${token}` } };
 
     Promise.all([
-      fetch(`${backendUrl}/api/public/camps.json`, options).then(r => r.json()),
-      fetch(`${backendUrl}/api/public/uploads.json`, options).then(r => r.json()),
-      fetch(`${backendUrl}/api/public/activities.json`, options).then(r => r.json()),
-      fetch(`${backendUrl}/api/public/places.json`, options).then(r => r.json()),
-      fetch(`${backendUrl}/api/public/types.json`, options).then(r => r.json())
+      fetch('/api/public/camps.json', options).then(r => r.json()),
+      fetch('/api/public/uploads.json', options).then(r => r.json()),
+      fetch('/api/public/activities.json', options).then(r => r.json()),
+      fetch('/api/public/places.json', options).then(r => r.json()),
+      fetch('/api/public/types.json', options).then(r => r.json())
     ]).then(([prisons, photos, activities, places, types]) => {
       const photosById = groupBy(prop('camp_id'), photos);
       const preprocess = compose(
-        fillPhotos(photosById, backendUrl),
+        fillPhotos(photosById),
         fillMaxPrisoners,
         groupById
       );
