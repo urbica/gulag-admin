@@ -169,6 +169,7 @@ const App = React.createClass({
     if (test(/^(\/admin\/?|\/admin\/prisons\/?)$/, pathname)) {
       return React.cloneElement(this.props.children, {
         prisons: this.state.prisons,
+        places: this.state.places,
         onLogout: this.logout
       });
     }

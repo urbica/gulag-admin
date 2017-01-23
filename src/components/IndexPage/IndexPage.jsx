@@ -50,7 +50,7 @@ class IndexPage extends React.Component {
             onLogout={ this.props.onLogout }
           />
           <Search search={ search }/>
-          <PrisonsTable prisons={ prisons }/>
+          <PrisonsTable prisons={ prisons } places={ this.props.places }/>
         </Container>
       </div>
     );
