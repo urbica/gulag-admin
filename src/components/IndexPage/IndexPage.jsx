@@ -28,9 +28,13 @@ class IndexPage extends React.Component {
       prisons = prisons.filter(prison => {
         const nameRu = prison.name_ru.toLowerCase();
         const nameEn = prison.name_en.toLowerCase();
+        const addlNameRu = prison.addl_names_ru.toLowerCase();
+        const addlNameEn = prison.addl_names_en.toLowerCase();
         const maxPrisoners = String(prison.max_prisoners).toLowerCase();
 
         return nameRu.match(searchQuery)
+          || addlNameRu.match(searchQuery)
+          || addlNameEn.match(searchQuery)
           || nameEn.match(searchQuery)
           || maxPrisoners.match(searchQuery);
       });
