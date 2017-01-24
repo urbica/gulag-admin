@@ -9,7 +9,7 @@ import PrisonLocation from './PrisonLocation/PrisonLocation';
 import MarkdownEditor from './Inputs/MarkdownEditor';
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
-import {__, curryN, identity, lensProp, path, pipe, set} from 'ramda';
+import {__, curryN, identity, lensPath, lensProp, path, pipe, set, view} from 'ramda';
 import styled from 'styled-components';
 import './PrisonPage.css';
 
@@ -40,30 +40,30 @@ class PrisonCard extends React.Component {
     super(props);
     this.state = {
       markdownState: {
-        field: 'description_ru',
+        fieldPath: ['description', 'ru'],
         selectionEnd: 0
       }
     };
   }
 
-  markdownOnBlur = (field, {selectionEnd}) => {
-    this.setState(set(lensProp('markdownState'), {field, selectionEnd}));
+  markdownOnBlur = (fieldPath, {selectionEnd}) => {
+    this.setState(set(lensProp('markdownState'), { fieldPath, selectionEnd }));
   };
 
   photoOnClick = (url) => {
-    const {prison, updateHandler} = this.props;
-    const {field, selectionEnd} = this.state.markdownState;
+    const { prison, updateHandler } = this.props;
+    const { fieldPath, selectionEnd } = this.state.markdownState;
 
     const imageMarkup = `![](${url})`;
 
-    const value = prison[field];
+    const value = view(lensPath(fieldPath), prison);
     const newValue = [
       value.slice(0, selectionEnd),
       imageMarkup,
       value.slice(selectionEnd)
     ].join('');
 
-    updateHandler(set(lensProp(field), newValue, prison));
+    updateHandler(set(lensPath(fieldPath), newValue, prison));
   };
 
   render() {
@@ -87,19 +87,19 @@ class PrisonCard extends React.Component {
             <Half>
               <DraftSwitch
                 lang={ 'ru' }
-                checked={ prison.published_ru }
-                onChange={ updateField(lensProp('published_ru')) }
+                checked={ prison.published.ru }
+                onChange={ updateField(lensPath(['published', 'ru'])) }
               />
               <Fieldset>
                 <FieldTitle>название лагеря</FieldTitle>
                 <TextInput
-                  value={ prison.name_ru || '' }
-                  onChange={ updateInput(lensProp('name_ru')) }
+                  value={ prison.name.ru || '' }
+                  onChange={ updateInput(lensPath(['name', 'ru'])) }
                   placeholder={ 'Название' }
                 />
                 <TextInput
-                  value={ prison.addl_names_ru || '' }
-                  onChange={ updateInput(lensProp('addl_names_ru')) }
+                  value={ prison.additional_names.ru || '' }
+                  onChange={ updateInput(lensPath(['additional_names', 'ru'])) }
                   placeholder={ 'Дополнительные названия, если есть' }
                 />
               </Fieldset>
@@ -125,22 +125,22 @@ class PrisonCard extends React.Component {
             <Half>
               <DraftSwitch
                 lang={ 'en' }
-                checked={ prison.published_en }
-                onChange={ updateField(lensProp('published_en')) }
+                checked={ prison.published.en }
+                onChange={ updateField(lensPath(['published', 'en'])) }
               />
               <Fieldset>
                 <FieldTitle color={ 'blue' }>name of the camp</FieldTitle>
                 <TextInput
-                  value={ prison.name_en || '' }
+                  value={ prison.name.en || '' }
                   className={ 'input_en' }
                   placeholder={ 'Main name' }
-                  onChange={ updateInput(lensProp('name_en')) }
+                  onChange={ updateInput(lensPath(['name', 'en'])) }
                 />
                 <TextInput
-                  value={ prison.addl_names_en || '' }
+                  value={ prison.additional_names.en || '' }
                   className={ 'input_en' }
                   placeholder={ 'Second name' }
-                  onChange={ updateInput(lensProp('addl_names_en')) }
+                  onChange={ updateInput(lensPath(['additional_names', 'en'])) }
                 />
               </Fieldset>
               <div className="prison__type">
@@ -158,16 +158,16 @@ class PrisonCard extends React.Component {
             <Half>
               <TextInput
                 placeholder='Название локации'
-                value={ prison.location_ru || '' }
-                onChange={ updateInput(lensProp('location_ru')) }
+                value={ prison.location.ru || '' }
+                onChange={ updateInput(lensPath(['location', 'ru'])) }
               />
             </Half>
             <Half>
               <TextInput
                 placeholder='Location name'
-                value={ prison.location_en || '' }
+                value={ prison.location.en || '' }
                 className={ 'input_en' }
-                onChange={ updateInput(lensProp('location_en')) }
+                onChange={ updateInput(lensPath(['location', 'en'])) }
               />
             </Half>
           </HalfContainer>
@@ -179,17 +179,17 @@ class PrisonCard extends React.Component {
             <Half>
               <MarkdownEditor
                 title={ 'Описание лагеря' }
-                source={ prison.description_ru || '' }
-                onBlur={ this.markdownOnBlur.bind(this, 'description_ru') }
-                onChange={ updateInput(lensProp('description_ru')) }
+                source={ prison.description.ru || '' }
+                onBlur={ this.markdownOnBlur.bind(this, ['description', 'ru']) }
+                onChange={ updateInput(lensPath(['description', 'ru'])) }
               />
             </Half>
             <Half>
               <MarkdownEditor
                 title={ 'description' }
-                source={ prison.description_en || '' }
-                onBlur={ this.markdownOnBlur.bind(this, 'description_en') }
-                onChange={ updateInput(lensProp('description_en')) }
+                source={ prison.description.en || '' }
+                onBlur={ this.markdownOnBlur.bind(this, ['description', 'en']) }
+                onChange={ updateInput(lensPath(['description', 'en'])) }
                 inputClassName={ 'input_en' }
                 color={ 'blue' }
               />

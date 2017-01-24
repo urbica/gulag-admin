@@ -17,26 +17,24 @@ class IndexPage extends React.Component {
     const searchQuery = this.state.searchQuery.trim().toLowerCase();
     let prisons = values(this.props.prisons);
     const prisonsAmount = prisons.length;
-    const prisons_ru_count = prisons.filter(prison => prison.published_ru).length;
-    const prisons_en_count = prisons.filter(prison => prison.published_en).length;
+    const prisons_ru_count = prisons.filter(prison => prison.published.ru).length;
+    const prisons_en_count = prisons.filter(prison => prison.published.en).length;
 
     const search = (e) => {
       this.setState({ searchQuery: e.target.value });
     };
 
-    if (searchQuery.length > 0) {
+    if (searchQuery.length > 2) {
       prisons = prisons.filter(prison => {
-        const nameRu = prison.name_ru.toLowerCase();
-        const nameEn = prison.name_en.toLowerCase();
-        const addlNameRu = prison.addl_names_ru.toLowerCase();
-        const addlNameEn = prison.addl_names_en.toLowerCase();
-        const maxPrisoners = String(prison.max_prisoners).toLowerCase();
+        const searchString = [
+          prison.name.ru,
+          prison.name.en,
+          prison.additional_names.ru,
+          prison.additional_names.en,
+          prison.max_prisoners
+        ].join(' ').toLowerCase();
 
-        return nameRu.match(searchQuery)
-          || addlNameRu.match(searchQuery)
-          || addlNameEn.match(searchQuery)
-          || nameEn.match(searchQuery)
-          || maxPrisoners.match(searchQuery);
+        return searchString.match(searchQuery);
       });
     }
 

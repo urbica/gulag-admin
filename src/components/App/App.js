@@ -17,14 +17,26 @@ const App = React.createClass({
       prisons: {},
       newPrison: {
         id: undefined,
-        name_ru: '',
-        name_en: '',
-        addl_names_ru: '',
-        addl_names_en: '',
-        description_ru: '',
-        description_en: '',
-        published_ru: false,
-        published_en: false,
+        name: {
+          ru: '',
+          en: '',
+          de: ''
+        },
+        additional_names: {
+          ru: '',
+          en: '',
+          de: ''
+        },
+        description: {
+          ru: '',
+          en: '',
+          de: ''
+        },
+        published: {
+          ru: false,
+          en: false,
+          de: false
+        },
         features: []
       }
     };
@@ -112,7 +124,7 @@ const App = React.createClass({
           'Content-Type': 'application/json'
         }
       });
-      message = `Лагерь "${prison.name_ru}" обновлён`;
+      message = `Лагерь "${prison.name.ru}" обновлён`;
     } else {
       request = fetch('/api/public/camps/id', {
         body: JSON.stringify(prison),
@@ -122,7 +134,7 @@ const App = React.createClass({
           'Content-Type': 'application/json'
         }
       });
-      message = `Лагерь "${prison.name_ru}" добавлен`;
+      message = `Лагерь "${prison.name.ru}" добавлен`;
     }
 
     request
@@ -137,7 +149,7 @@ const App = React.createClass({
 
   deletePrison(prison) {
     if (prison.id) {
-      if (confirm(`Удалить лагерь "${prison.name_ru}"?`)) {
+      if (confirm(`Удалить лагерь "${prison.name.ru}"?`)) {
         fetch(`/api/public/camps/id/${prison.id}`, {
           method: 'DELETE',
           headers: {

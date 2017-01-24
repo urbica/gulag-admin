@@ -53,7 +53,7 @@ const PrisonHeader = (props) => {
         ← к таблице лагерей
       </BackLink>
       <div>
-        <PrisonName>{ prison.name_ru }</PrisonName>
+        <PrisonName>{ prison.name.ru }</PrisonName>
         <PrisonPeriod>{ getPeriods(prison) }</PrisonPeriod>
       </div>
       <div>

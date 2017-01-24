@@ -1,6 +1,7 @@
 import React from 'react';
 import PrisonRow from './PrisonRow';
 import classnames from 'classnames';
+import { equals, lensPath, view } from 'ramda';
 import './PrisonsTable.css'
 
 const SortTypes = { ASC: 'ASC', DESC: 'DESC' };
@@ -13,13 +14,13 @@ class PrisonsTable extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      sortBy: 'name_ru',
+      sortBy: ['name', 'ru'],
       sortDir: SortTypes.ASC
     };
   }
 
   sort = (sortBy) => {
-    if (this.state.sortBy === sortBy) {
+    if (equals(this.state.sortBy, sortBy)) {
       this.setState({
         sortBy,
         sortDir: this.state.sortDir === SortTypes.ASC ? SortTypes.DESC : SortTypes.ASC
@@ -32,7 +33,8 @@ class PrisonsTable extends React.PureComponent {
   getOrderedPrisons = () => {
     const { prisons } = this.props;
     const { sortBy, sortDir } = this.state;
-    const comparator = (a, b) => collator.compare(a[sortBy], b[sortBy]);
+    const getValue = view(lensPath(sortBy));
+    const comparator = (a, b) => collator.compare(getValue(a), getValue(b));
 
     if (sortDir === SortTypes.DESC) {
       return prisons.sort(comparator).reverse();
@@ -55,7 +57,7 @@ class PrisonsTable extends React.PureComponent {
         <tr>
           <td
             className={ getClassNames('name_ru') }
-            onClick={ this.sort.bind(this, 'name_ru') }
+            onClick={ this.sort.bind(this, ['name', 'ru']) }
           >
             Название
           </td>
@@ -64,7 +66,7 @@ class PrisonsTable extends React.PureComponent {
           <td>Регион</td>
           <td
             className={ getClassNames('max_prisoners') }
-            onClick={ this.sort.bind(this, 'max_prisoners') }
+            onClick={ this.sort.bind(this, ['max_prisoners']) }
           >
             Макс. числ.
           </td>
