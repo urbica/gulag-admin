@@ -27,6 +27,11 @@ const App = React.createClass({
           en: '',
           de: ''
         },
+        location: {
+          ru: '',
+          en: '',
+          de: ''
+        },
         description: {
           ru: '',
           en: '',
