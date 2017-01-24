@@ -78,9 +78,6 @@ const getFeatures = (object) => {
 
   const statistics = merge(yearRangesToObject(yearRanges), getStatistics(object));
 
-  console.log(statistics);
-  console.log('\n\n\n');
-
   if (features.length > 0) {
     features[0].properties = statistics;
   }
