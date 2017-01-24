@@ -21,6 +21,7 @@ const InputWrap = styled.label`
   & input {
     width: 100%;
     padding: 0;
+    padding-right: 100px;
     border: none;
     border-bottom: 1px solid rgba(0,0,0,.2);
     font-family: 'PT Sans';

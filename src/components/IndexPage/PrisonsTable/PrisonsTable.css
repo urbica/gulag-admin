@@ -69,7 +69,7 @@
 }
 
 .prisons__cell_period {
-  white-space: nowrap;
+  white-space: pre;
 }
 
 .prisons__strength {

@@ -1,5 +1,7 @@
-import R, { compose, groupBy, head, map, nthArg, pickBy, prop, test, uncurryN,
-  reduce, values, assoc, evolve, concat, curryN, toPairs } from 'ramda';
+import R, {
+  compose, groupBy, head, map, nthArg, pickBy, prop, test, uncurryN,
+  reduce, values, assoc, evolve, concat, curryN, toPairs
+} from 'ramda';
 
 export const renameKeys = R.curry((keysMap, obj) =>
   R.reduce((acc, key) => {
@@ -28,11 +30,11 @@ export const getMaxPrisoners = (prison) => {
   }, 0, features);
 
   return assoc('max_prisoners', maxPrisoners, prison);
-}
+};
 
 export const fillMaxPrisoners = (prisons) => {
   return map(getMaxPrisoners, prisons);
-}
+};
 
 export const concatUrl = (url, property) =>
   evolve({ [`${property}`]: concat(`${url}/`) });
@@ -72,12 +74,15 @@ export const fetchData = ({ token }) =>
         prisons: preprocess(prisons)
       });
     })
-    .catch(error => reject(error));
+      .catch(error => reject(error));
   });
 
 export const getPeriods = (prison) =>
   (prison.features || [])
     .map(feature => Object.keys(feature.properties).map(year => parseInt(year, 10)))
     .filter(years => years.length > 0)
-    .map(years => `${Math.min.apply(Math, years)} — ${Math.max.apply(Math, years)}`)
-    .join('; ');
+    .map(years => {
+      if (years.length === 1) {
+        return `${years[0]};\n`
+      } else return `${Math.min.apply(Math, years)} — ${Math.max.apply(Math, years)};\n`
+    });
