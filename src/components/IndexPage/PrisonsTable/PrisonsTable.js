@@ -3,7 +3,7 @@ import PrisonRow from './PrisonRow';
 import classnames from 'classnames';
 import './PrisonsTable.css'
 
-const SortTypes = {ASC: 'ASC', DESC: 'DESC'};
+const SortTypes = { ASC: 'ASC', DESC: 'DESC' };
 const collator = new Intl.Collator('ru', {
   ignorePunctuation: true,
   numeric: true
@@ -25,13 +25,13 @@ class PrisonsTable extends React.PureComponent {
         sortDir: this.state.sortDir === SortTypes.ASC ? SortTypes.DESC : SortTypes.ASC
       });
     } else {
-      this.setState({sortBy, sortDir: SortTypes.ASC});
+      this.setState({ sortBy, sortDir: SortTypes.ASC });
     }
   };
 
   getOrderedPrisons = () => {
-    const {prisons} = this.props;
-    const {sortBy, sortDir} = this.state;
+    const { prisons } = this.props;
+    const { sortBy, sortDir } = this.state;
     const comparator = (a, b) => collator.compare(a[sortBy], b[sortBy]);
 
     if (sortDir === SortTypes.DESC) {
@@ -42,7 +42,7 @@ class PrisonsTable extends React.PureComponent {
   };
 
   render() {
-    const {sortBy, sortDir} = this.state;
+    const { sortBy, sortDir } = this.state;
     const prisons = this.getOrderedPrisons();
 
     const getClassNames = (attr) => classnames({
@@ -75,7 +75,7 @@ class PrisonsTable extends React.PureComponent {
         <tbody>
         {
           prisons.map(prison =>
-            <PrisonRow prison={ prison } key={ prison.id }/>
+            <PrisonRow prison={ prison } key={ prison.id } places={ this.props.places }/>
           )
         }
         </tbody>

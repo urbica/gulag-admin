@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const draft = {
+  ru: 'черновик',
+  en: 'draft'
+};
+
+const publish = {
+  ru: 'опубликованно',
+  en: 'publish'
+};
+
 const Wrap = styled.div`
   margin-bottom: 20px;
 `;
@@ -60,7 +70,7 @@ const Publish = styled.span`
 `;
 
 const DraftSwitch = (props) => {
-  const {checked, lang, onChange} = props;
+  const { checked, lang, onChange } = props;
 
   return (
     <Wrap>
@@ -70,9 +80,9 @@ const DraftSwitch = (props) => {
           checked={ checked }
           onChange={ onChange.bind(null, !checked) }
         />
-        <Draft lang={ lang }>черновик</Draft>
+        <Draft lang={ lang }>{ draft[lang] }</Draft>
         <Slider lang={ lang }/>
-        <Publish lang={ lang }>опубликованно</Publish>
+        <Publish lang={ lang }>{ publish[lang] }</Publish>
       </Label>
     </Wrap>
   );

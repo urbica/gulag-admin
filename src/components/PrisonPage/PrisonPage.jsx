@@ -129,7 +129,7 @@ class PrisonCard extends React.Component {
                 onChange={ updateField(lensProp('published_en')) }
               />
               <Fieldset>
-                <FieldTitle color={ 'blue' }>eng</FieldTitle>
+                <FieldTitle color={ 'blue' }>name of the camp</FieldTitle>
                 <TextInput
                   value={ prison.name_en || '' }
                   className={ 'input_en' }
@@ -186,7 +186,7 @@ class PrisonCard extends React.Component {
             </Half>
             <Half>
               <MarkdownEditor
-                title={ 'eng' }
+                title={ 'description' }
                 source={ prison.description_en || '' }
                 onBlur={ this.markdownOnBlur.bind(this, 'description_en') }
                 onChange={ updateInput(lensProp('description_en')) }
