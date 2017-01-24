@@ -132,13 +132,13 @@ class PrisonCard extends React.Component {
                 <FieldTitle color={ 'blue' }>name of the camp</FieldTitle>
                 <TextInput
                   value={ prison.name.en || '' }
-                  className={ 'input_en' }
+                  desc={ 'input_en' }
                   placeholder={ 'Main name' }
                   onChange={ updateInput(lensPath(['name', 'en'])) }
                 />
                 <TextInput
                   value={ prison.additional_names.en || '' }
-                  className={ 'input_en' }
+                  desc={ 'input_en' }
                   placeholder={ 'Second name' }
                   onChange={ updateInput(lensPath(['additional_names', 'en'])) }
                 />
@@ -166,7 +166,7 @@ class PrisonCard extends React.Component {
               <TextInput
                 placeholder='Location name'
                 value={ prison.location.en || '' }
-                className={ 'input_en' }
+                desc={ 'input_en' }
                 onChange={ updateInput(lensPath(['location', 'en'])) }
               />
             </Half>

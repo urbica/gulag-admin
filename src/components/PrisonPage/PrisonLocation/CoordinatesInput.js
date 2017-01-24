@@ -1,31 +1,17 @@
 import React from 'react';
+import TextInput from '../Inputs/TextInput';
 import styled from 'styled-components';
 
-const InputWrap = styled.label`
-  position: relative;
-  padding-left: 120px;
-  padding: 8px 8px 5px;
+const InputWrap = styled.div`
   margin-left: auto;
-  background-color: #f3f3f3;
-  &:hover {
-    background-color: #f9f9f9;
+  & label {
+    padding: 8px 8px 5px;
+    & input {
+      font-size: 12px;
+      font-weight: bold;
+      text-align: right;
+    }
   }
-`;
-
-const InputDesc = styled.span`
-  opacity: .5;
-`;
-
-const Input = styled.input`
-  width: auto !important;
-  border: none;
-  border-radius: 0;
-  font-family: 'PT Sans', sans-serif;
-  background-color: #f3f3f3;
-  outline: none;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: right;
 `;
 
 const CoordinatesInput = (props) => {
@@ -40,16 +26,12 @@ const CoordinatesInput = (props) => {
 
   return (
     <InputWrap>
-      <InputDesc>долгота, широта</InputDesc>
-      <Input
-        className='input'
-        type='text'
+      <TextInput
+        desc='широта, долгота'
         value={ value }
         onChange={ changeHandler }
       />
-      <div className='inputLine'/>
     </InputWrap>
-
   );
 };
 

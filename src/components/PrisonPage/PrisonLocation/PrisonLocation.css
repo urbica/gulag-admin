@@ -140,17 +140,6 @@
   border-color: #000;
 }
 
-.field-title_locations .inputWrapper {
-  margin-left: auto;
-}
-
-.field-title_locations .input {
-  padding: 8px 8px 5px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: right;
-}
-
 .amount {
   display: inline-block;
   position: relative;

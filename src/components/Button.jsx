@@ -34,7 +34,8 @@ const Button = styled.button`
   text-transform: uppercase;
   outline: none;
   cursor: pointer;
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: ${props => hover.bgColor[props.color] || '#f0f0f0'};
   }
   &:active {
