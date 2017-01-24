@@ -3,7 +3,7 @@ import Container from '../Container';
 import PrisonHeader from './PrisonHeader.jsx';
 import DraftSwitch from './DraftSwitch.jsx';
 import FieldTitle from '../FieldTitle';
-import TextInput from './Inputs/TextInput';
+import TextInput from '../TextInput';
 import SelectInput from './Inputs/SelectInput';
 import PrisonLocation from './PrisonLocation/PrisonLocation';
 import MarkdownEditor from './Inputs/MarkdownEditor';

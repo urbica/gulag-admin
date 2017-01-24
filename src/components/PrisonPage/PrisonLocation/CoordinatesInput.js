@@ -1,5 +1,5 @@
 import React from 'react';
-import TextInput from '../Inputs/TextInput';
+import TextInput from '../../TextInput';
 import styled from 'styled-components';
 
 const InputWrap = styled.div`
