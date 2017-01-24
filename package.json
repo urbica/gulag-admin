@@ -2,9 +2,17 @@
   "name": "gulag-admin",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "pm2": "2.2.3",
-    "react-scripts": "0.8.5"
+  "scripts": {
+    "build": "react-scripts build",
+    "deploy": "pm2 deploy process.yml production",
+    "deploy:setup": "pm2 deploy process.yml production setup",
+    "eject": "react-scripts eject",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom",
+    "db:migrate": "knex migrate:latest --knexfile ./db/config.js",
+    "db:migration": "knex migrate:make --knexfile ./db/config.js",
+    "db:rollback": "knex migrate:rollback --knexfile ./db/config.js",
+    "db:seed": "knex seed:run --knexfile ./db/config.js"
   },
   "dependencies": {
     "classnames": "2.2.5",
@@ -18,13 +26,11 @@
     "react-text-mask": "0.19.0",
     "styled-components": "1.3.1"
   },
-  "scripts": {
-    "build": "react-scripts build",
-    "deploy": "pm2 deploy process.yml production",
-    "deploy:setup": "pm2 deploy process.yml production setup",
-    "eject": "react-scripts eject",
-    "start": "react-scripts start",
-    "test": "react-scripts test --env=jsdom"
+  "devDependencies": {
+    "knex": "0.12.6",
+    "pg": "6.1.2",
+    "pm2": "2.3.0",
+    "react-scripts": "0.8.5"
   },
   "eslintConfig": {
     "extends": "react-app"
