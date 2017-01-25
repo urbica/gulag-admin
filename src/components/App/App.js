@@ -2,10 +2,12 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import './App.css';
 
-import { always, concat, assocPath, dissoc, dissocPath, map, over, test,
-  ifElse, isEmpty, isNil, lensPath } from 'ramda';
+import {
+  always, concat, assocPath, dissoc, dissocPath, map, over, test,
+  ifElse, isEmpty, isNil, lensPath
+} from 'ramda';
 
-import { fetchData, concatUrl, directoryToOptions } from '../../utils/utils';
+import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../../utils/utils';
 
 const App = React.createClass({
   getInitialState() {
@@ -54,9 +56,9 @@ const App = React.createClass({
       browserHistory.push('/login');
     } else {
       fetchData({ token })
-      .then(({ activities, places, types, prisons, photos }) => {
-        this.setState({ activities, places, types, prisons, photos });
-      });
+        .then(({ activities, places, types, prisons, photos }) => {
+          this.setState({ activities, places, types, prisons, photos });
+        });
     }
   },
 
@@ -66,19 +68,19 @@ const App = React.createClass({
     fetch('/login', {
       body: JSON.stringify(credentials),
       method: 'POST',
-      headers: {'Content-Type': 'application/json'}
+      headers: { 'Content-Type': 'application/json' }
     })
-    .then(response => response.json())
-    .then(({ token }) => {
-      localStorage.setItem('token', token);
-      return fetchData({ token })
-      .then(({ activities, places, types, prisons, photos }) => {
-        this.setState({ activities, places, types, prisons, token, photos }, () => {
-          browserHistory.push('/admin');
-        });
-      });
-    })
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(({ token }) => {
+        localStorage.setItem('token', token);
+        return fetchData({ token })
+          .then(({ activities, places, types, prisons, photos }) => {
+            this.setState({ activities, places, types, prisons, token, photos }, () => {
+              browserHistory.push('/admin');
+            });
+          });
+      })
+      .catch(error => console.error(error));
   },
 
   logout() {
@@ -100,21 +102,21 @@ const App = React.createClass({
         Authorization: `Bearer ${this.state.token}`
       }
     })
-    .then(response => response.json())
-    .then(response => {
-      const photosLens = lensPath(['photos', prisonId]);
-      const newPhotos = map(concatUrl(window.location.origin, 'path'), response);
-      const setPhotos = ifElse(isNil, always(newPhotos), concat(newPhotos));
-      this.setState(over(photosLens, setPhotos));
-    })
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(response => {
+        const photosLens = lensPath(['photos', prisonId]);
+        const newPhotos = map(concatUrl(window.location.origin, 'path'), response);
+        const setPhotos = ifElse(isNil, always(newPhotos), concat(newPhotos));
+        this.setState(over(photosLens, setPhotos));
+      })
+      .catch(error => console.error(error));
   },
 
   updatePrison(prison) {
     if (prison.id) {
-      this.setState(assocPath(['prisons', prison.id], prison));
+      this.setState(assocPath(['prisons', prison.id], getMaxPrisoners(prison)));
     } else {
-      this.setState({newPrison: prison});
+      this.setState({ newPrison: getMaxPrisoners(prison) });
     }
   },
 
@@ -146,7 +148,7 @@ const App = React.createClass({
     request
       .then(response => response.json())
       .then(([newPrison]) => {
-        this.setState(assocPath(['prisons', newPrison.id], newPrison), () =>
+        this.setState(assocPath(['prisons', newPrison.id], getMaxPrisoners(newPrison)), () =>
           browserHistory.push(`/admin/prisons/${newPrison.id}`)
         );
         alert(message);
@@ -170,7 +172,7 @@ const App = React.createClass({
   },
 
   renderChildren() {
-    const {pathname} = this.props.router.location;
+    const { pathname } = this.props.router.location;
 
     // /login -> <LoginPage />
     if (test(/^(\/login\/?)$/, pathname)) {
