@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '../Button';
 import styled from 'styled-components';
 import FieldTitle from '../FieldTitle';
-import { browserHistory } from 'react-router';
 
 const HeaderWrap = styled.header`
   display: flex;
@@ -53,8 +52,7 @@ const En = styled.div`
 
 class Header extends React.Component {
   render() {
-    const { prisonsCount, publishedRuCount, publishedEnCount } = this.props;
-    const createPrison = browserHistory.push.bind(browserHistory, '/admin/prisons/new');
+    const { createPrison, prisonsCount, publishedRuCount, publishedEnCount } = this.props;
 
     return (
       <HeaderWrap>

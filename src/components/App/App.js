@@ -9,44 +9,45 @@ import {
 
 import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../../utils/utils';
 
+const prisonTemplate = {
+  id: undefined,
+  name: {
+    ru: 'Новый лагерь',
+    en: 'New prison',
+    de: 'Neue Gefängnis'
+  },
+  additional_names: {
+    ru: '',
+    en: '',
+    de: ''
+  },
+  location: {
+    ru: '',
+    en: '',
+    de: ''
+  },
+  description: {
+    ru: '',
+    en: '',
+    de: ''
+  },
+  published: {
+    ru: false,
+    en: false,
+    de: false
+  },
+  features: []
+}
+
 const App = React.createClass({
   getInitialState() {
     return {
       activities: [],
       places: [],
       types: [],
-      token: localStorage.getItem('token'),
       photos: {},
       prisons: {},
-      newPrison: {
-        id: undefined,
-        name: {
-          ru: '',
-          en: '',
-          de: ''
-        },
-        additional_names: {
-          ru: '',
-          en: '',
-          de: ''
-        },
-        location: {
-          ru: '',
-          en: '',
-          de: ''
-        },
-        description: {
-          ru: '',
-          en: '',
-          de: ''
-        },
-        published: {
-          ru: false,
-          en: false,
-          de: false
-        },
-        features: []
-      }
+      token: localStorage.getItem('token')
     };
   },
 
@@ -110,6 +111,23 @@ const App = React.createClass({
         this.setState(over(photosLens, setPhotos));
       })
       .catch(error => console.error(error));
+  },
+
+  createPrison(prison) {
+    fetch('/api/public/camps/id', {
+      body: JSON.stringify(prison),
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(([newPrison]) => {
+      this.setState(assocPath(['prisons', newPrison.id], newPrison), () =>
+        browserHistory.push(`/admin/prisons/${newPrison.id}`)
+      );
+    });
   },
 
   updatePrison(prison) {
@@ -190,22 +208,8 @@ const App = React.createClass({
       return React.cloneElement(this.props.children, {
         prisons: this.state.prisons,
         places: this.state.places,
-        onLogout: this.logout
-      });
-    }
-    // /admin/prisons/new -> <PrisonPage />
-    else if (test(/\/admin\/prisons\/new/, pathname)) {
-      const prison = this.state.newPrison;
-      return React.cloneElement(this.props.children, {
-        prison: prison,
-        changeDropDownItem: this.changeDropDownItem,
-        activityOptions: directoryToOptions(this.state.activities),
-        placeOptions: directoryToOptions(this.state.places),
-        typeOptions: directoryToOptions(this.state.types),
-        uploadHandler: this.uploadPhotos,
-        submitHandler: this.submitPrison,
-        updateHandler: this.updatePrison,
-        deleteHandler: this.deletePrison
+        onLogout: this.logout,
+        createPrison: this.createPrison.bind(this, prisonTemplate)
       });
     }
     // /admin/prisons/prisonId -> <PrisonPage />
