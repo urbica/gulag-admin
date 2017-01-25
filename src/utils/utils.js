@@ -53,6 +53,16 @@ export const fetchData = ({ token }) =>
     const groupById = compose(map(head), groupBy(prop('id')));
     const options = { headers: { Authorization: `Bearer ${token}` } };
 
+    const preprocessPhotos = compose(
+      groupBy(prop('camp_id')),
+      map(concatUrl(window.location.origin, 'path'))
+    );
+
+    const preprocessPrisons = compose(
+      fillMaxPrisoners,
+      groupById
+    );
+
     Promise.all([
       fetch('/api/public/camps.json', options).then(r => r.json()),
       fetch('/api/public/uploads.json', options).then(r => r.json()),
@@ -60,21 +70,14 @@ export const fetchData = ({ token }) =>
       fetch('/api/public/places.json', options).then(r => r.json()),
       fetch('/api/public/types.json', options).then(r => r.json())
     ]).then(([prisons, photos, activities, places, types]) => {
-      const photosById = groupBy(prop('camp_id'), photos);
-      const preprocess = compose(
-        fillPhotos(photosById),
-        fillMaxPrisoners,
-        groupById
-      );
-
       resolve({
         activities: activities,
         places: places,
         types: types,
-        prisons: preprocess(prisons)
+        photos: preprocessPhotos(photos),
+        prisons: preprocessPrisons(prisons)
       });
-    })
-      .catch(error => reject(error));
+    }).catch(error => reject(error));
   });
 
 export const getPeriods = (prison) =>

@@ -43,12 +43,14 @@ const PrisonPhoto = (props) => {
 
 class PrisonPhotos extends React.PureComponent {
   uploadPhotos = () => {
-    this.props.uploadHandler(this.props.prison.id, this.refs.photos.files);
+    const { uploadHandler } = this.props;
+    uploadHandler(this.refs.photos.files);
   };
 
   render() {
     const { onClick } = this.props;
-    const photos = this.props.prison.photos || [];
+    const photos = this.props.photos || [];
+
     return (
       <Photos>
         <FieldTitle>фотографии</FieldTitle>

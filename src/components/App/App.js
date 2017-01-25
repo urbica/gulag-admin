@@ -14,6 +14,7 @@ const App = React.createClass({
       places: [],
       types: [],
       token: localStorage.getItem('token'),
+      photos: {},
       prisons: {},
       newPrison: {
         id: undefined,
@@ -53,8 +54,8 @@ const App = React.createClass({
       browserHistory.push('/login');
     } else {
       fetchData({ token })
-      .then(({ activities, places, types, prisons }) => {
-        this.setState({ activities, places, types, prisons });
+      .then(({ activities, places, types, prisons, photos }) => {
+        this.setState({ activities, places, types, prisons, photos });
       });
     }
   },
@@ -71,8 +72,8 @@ const App = React.createClass({
     .then(({ token }) => {
       localStorage.setItem('token', token);
       return fetchData({ token })
-      .then(({ activities, places, types, prisons }) => {
-        this.setState({ activities, places, types, prisons, token }, () => {
+      .then(({ activities, places, types, prisons, photos }) => {
+        this.setState({ activities, places, types, prisons, token, photos }, () => {
           browserHistory.push('/admin');
         });
       });
@@ -101,7 +102,7 @@ const App = React.createClass({
     })
     .then(response => response.json())
     .then(response => {
-      const photosLens = lensPath(['prisons', prisonId, 'photos']);
+      const photosLens = lensPath(['photos', prisonId]);
       const newPhotos = map(concatUrl(window.location.origin, 'path'), response);
       const setPhotos = ifElse(isNil, always(newPhotos), concat(newPhotos));
       this.setState(over(photosLens, setPhotos));
@@ -210,6 +211,7 @@ const App = React.createClass({
       const prison = this.state.prisons[prisonId];
       return React.cloneElement(this.props.children, {
         prison: prison,
+        photos: this.state.photos[prisonId],
         changeDropDownItem: this.changeDropDownItem,
         activityOptions: directoryToOptions(this.state.activities),
         placeOptions: directoryToOptions(this.state.places),

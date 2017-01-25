@@ -67,7 +67,8 @@ class PrisonCard extends React.Component {
   };
 
   render() {
-    const {prison, uploadHandler, updateHandler, deleteHandler, submitHandler} = this.props;
+    const { prison, photos, uploadHandler, updateHandler,
+      deleteHandler, submitHandler } = this.props;
 
     const updateFrom = curryN(2, (getValue, lens) =>
       pipe(getValue, set(lens, __, prison), updateHandler));
@@ -196,9 +197,9 @@ class PrisonCard extends React.Component {
             </Half>
           </HalfContainer>
           <PrisonPhotos
-            prison={ prison }
+            photos={ photos }
             onClick={ this.photoOnClick }
-            uploadHandler={ uploadHandler }
+            uploadHandler={ uploadHandler.bind(null, prison.id) }
           />
           <SaveButton
             color={'orange'}
