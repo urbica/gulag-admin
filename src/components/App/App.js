@@ -200,6 +200,7 @@ const App = React.createClass({
         activityOptions: directoryToOptions(this.state.activities),
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),
+        uploadHandler: this.uploadPhotos,
         submitHandler: this.submitPrison,
         updateHandler: this.updatePrison,
         deleteHandler: this.deletePrison
