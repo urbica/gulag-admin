@@ -13,19 +13,13 @@ class IndexPage extends React.Component {
     };
   }
 
-  render() {
-    const searchQuery = this.state.searchQuery.trim().toLowerCase();
-    let prisons = values(this.props.prisons);
-    const prisonsAmount = prisons.length;
-    const prisons_ru_count = prisons.filter(prison => prison.published.ru).length;
-    const prisons_en_count = prisons.filter(prison => prison.published.en).length;
+  onSearchChange = (searchQuery) => {
+    this.setState({ searchQuery });
+  }
 
-    const search = (e) => {
-      this.setState({ searchQuery: e.target.value });
-    };
-
-    if (searchQuery.length > 2) {
-      prisons = prisons.filter(prison => {
+  filterBySearch = (searchQuery, prisons) => {
+    if (searchQuery.length > 0) {
+      return prisons.filter(prison => {
         const searchString = [
           prison.name.ru,
           prison.name.en,
@@ -34,21 +28,42 @@ class IndexPage extends React.Component {
           prison.max_prisoners
         ].join(' ').toLowerCase();
 
-        return searchString.match(searchQuery);
+        return searchString.match(searchQuery.trim().toLowerCase());
       });
     }
+
+    return prisons;
+  }
+
+  render() {
+    const prisons = values(this.props.prisons);
+    const prisonsCount = prisons.length;
+
+    const { publishedRuCount, publishedEnCount } = prisons.reduce((acc, prison) => {
+      if (prison.published.ru) acc['publishedRuCount'] += 1;
+      if (prison.published.en) acc['publishedEnCount'] += 1;
+      return acc;
+    }, { publishedRuCount: 0, publishedEnCount: 0 });
+
+    const filteredPrisons = this.filterBySearch(this.state.searchQuery, prisons);
 
     return (
       <div>
         <Container>
           <Header
-            prisonsAmount={ prisonsAmount }
-            ru_prisonsAmount={ prisons_ru_count }
-            en_prisonsAmount={ prisons_en_count  }
+            prisonsCount={ prisonsCount }
+            publishedRuCount={ publishedRuCount }
+            publishedEnCount={ publishedEnCount  }
             onLogout={ this.props.onLogout }
           />
-          <Search search={ search }/>
-          <PrisonsTable prisons={ prisons } places={ this.props.places }/>
+          <Search
+            value={ this.state.searchQuery }
+            onChange={ this.onSearchChange }
+          />
+          <PrisonsTable
+            prisons={ filteredPrisons }
+            places={ this.props.places }
+          />
         </Container>
       </div>
     );

@@ -1,8 +1,8 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 import Button from '../Button';
-import FieldTitle from '../FieldTitle';
 import styled from 'styled-components';
+import FieldTitle from '../FieldTitle';
+import { browserHistory } from 'react-router';
 
 const HeaderWrap = styled.header`
   display: flex;
@@ -36,7 +36,7 @@ const Rus = styled.div`
   margin-right: 40px;
 `;
 
-const PrisonsAmount = styled.div`
+const PrisonsCount = styled.div`
   font-size: 36px;
   & span {
     display: inline-block;
@@ -53,7 +53,9 @@ const En = styled.div`
 
 class Header extends React.Component {
   render() {
+    const { prisonsCount, publishedRuCount, publishedEnCount } = this.props;
     const createPrison = browserHistory.push.bind(browserHistory, '/admin/prisons/new');
+
     return (
       <HeaderWrap>
         <Button onClick={ this.props.onLogout }>выйти</Button>
@@ -61,15 +63,15 @@ class Header extends React.Component {
           <HeaderTitle>Карточки лагерей</HeaderTitle>
           <HeaderBottom>
             <Rus>
-              <PrisonsAmount>
-                { this.props.ru_prisonsAmount } <span>/{ this.props.prisonsAmount }</span>
-              </PrisonsAmount>
+              <PrisonsCount>
+                { publishedRuCount } <span>/{ prisonsCount }</span>
+              </PrisonsCount>
               Опубликовано на русском
             </Rus>
             <En>
-              <PrisonsAmount>
-                { this.props.en_prisonsAmount } <span>/{ this.props.prisonsAmount }</span>
-              </PrisonsAmount>
+              <PrisonsCount>
+                { publishedEnCount } <span>/{ prisonsCount }</span>
+              </PrisonsCount>
               На английском
             </En>
           </HeaderBottom>

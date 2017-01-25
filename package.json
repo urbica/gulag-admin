@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "classnames": "2.2.5",
+    "debounce": "1.0.0",
     "normalize.css": "5.0.0",
     "ramda": "0.23.0",
     "react": "15.4.2",
@@ -36,5 +37,5 @@
     "extends": "react-app"
   },
   "homepage": "/admin",
-  "proxy": "http://gulag.urbica.co"
+  "proxy": "http://localhost:4000"
 }
