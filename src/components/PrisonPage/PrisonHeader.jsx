@@ -57,8 +57,9 @@ const PrisonHeader = (props) => {
         <PrisonPeriod>{ getPeriods(prison) }</PrisonPeriod>
       </div>
       <div>
-        <Button color={ 'red' }
-                onClick={ deleteHandler }
+        <Button
+          color={ 'red' }
+          onClick={ deleteHandler }
         >
           удалить
         </Button>

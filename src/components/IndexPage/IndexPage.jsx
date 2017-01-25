@@ -55,6 +55,7 @@ class IndexPage extends React.Component {
             publishedRuCount={ publishedRuCount }
             publishedEnCount={ publishedEnCount  }
             onLogout={ this.props.onLogout }
+            createPrison={ this.props.createPrison }
           />
           <Search
             value={ this.state.searchQuery }
