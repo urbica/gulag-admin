@@ -27,7 +27,7 @@ const Half = styled.div`
 
 const Fieldset = styled.div`
   margin-bottom: 33px;
-  & div:nth-child(2) input {
+  & label:first-of-type {
     border-bottom: 1px solid rgba(0, 0, 0, .1);
   }
 `;
