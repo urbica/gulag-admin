@@ -1,7 +1,8 @@
 import React from 'react';
 import PrisonRow from './PrisonRow';
-import classnames from 'classnames';
-import { equals, lensPath, view } from 'ramda';
+import styled from 'styled-components';
+import { comparator, equals, lensPath, view } from 'ramda';
+import { getFirstYearInFeatures } from '../../../utils/utils';
 import './PrisonsTable.css'
 
 const SortTypes = { ASC: 'ASC', DESC: 'DESC' };
@@ -9,6 +10,54 @@ const collator = new Intl.Collator('ru', {
   ignorePunctuation: true,
   numeric: true
 });
+
+const getSortTriangleStyles = (sortDir) => {
+  switch (sortDir) {
+    case SortTypes.ASC: return `
+      &:after {
+        position: absolute;
+        margin-left: 5px;
+        margin-top: 2px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 6px 10px 6px;
+        border-color: transparent transparent #000 transparent;
+        content: '';
+      }
+    `;
+    case SortTypes.DESC: return `
+      &:after {
+        position: absolute;
+        margin-left: 5px;
+        margin-top: 2px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 6px 0 6px;
+        border-color: #000 transparent transparent transparent;
+        content: '';
+      }
+    `;
+    default: return '';
+  }
+}
+
+const ColumnHeader = styled.td`
+  border-top: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  white-space: nowrap;
+  padding: 0 40px 10px 0;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .5;
+    transition: .2s;
+  }
+
+  ${props => getSortTriangleStyles(props.sortDir)};
+`;
 
 class PrisonsTable extends React.PureComponent {
   constructor(props) {
@@ -31,47 +80,100 @@ class PrisonsTable extends React.PureComponent {
   };
 
   getOrderedPrisons = () => {
-    const { prisons } = this.props;
+    const { prisons, places } = this.props;
     const { sortBy, sortDir } = this.state;
-    const getValue = view(lensPath(sortBy));
-    const comparator = (a, b) => collator.compare(getValue(a), getValue(b));
 
-    if (sortDir === SortTypes.DESC) {
-      return prisons.sort(comparator).reverse();
+    const getComparator = (sortBy) => {
+      if (sortBy[0] === 'name') {
+        return (a, b) => {
+          const aName = view(lensPath(sortBy), a);
+          const bName = view(lensPath(sortBy), b);
+          return collator.compare(aName, bName);
+        }
+      } else if (sortBy[0] === 'period') {
+        return comparator((a, b) => {
+          const aFirstYear = getFirstYearInFeatures(a.features);
+          const bFirstYear = getFirstYearInFeatures(b.features);
+          return aFirstYear < bFirstYear
+        });
+      } else if (sortBy[0] === 'updated_at') {
+        return comparator((a, b) => new Date(a.updated_at) < new Date(b.updated_at));
+      } else if (sortBy[0] === 'place_id') {
+        return (a, b) => {
+          const aPlaceName = view(lensPath([a.place_id, 'name']), places);
+          const bPlaceName = view(lensPath([b.place_id, 'name']), places);
+          return collator.compare(aPlaceName, bPlaceName);
+        }
+      } else if (sortBy[0] === 'max_prisoners') {
+        return comparator((a, b) => a.max_prisoners < b.max_prisoners);
+      } else if (sortBy[0] === 'published') {
+        return comparator((a, b) => {
+          const aPublished = view(lensPath(sortBy), a);
+          const bPublished = view(lensPath(sortBy), b);
+          return aPublished < bPublished;
+        });
+      }
     }
 
-    return prisons.sort(comparator);
+    const comp = getComparator(sortBy);
+
+    if (sortDir === SortTypes.DESC) {
+      return prisons.sort(comp).reverse();
+    }
+
+    return prisons.sort(comp);
   };
 
   render() {
-    const { sortBy, sortDir } = this.state;
+    const { sortDir } = this.state;
     const prisons = this.getOrderedPrisons();
-
-    const getClassNames = (attr) => classnames({
-      [`sort_${sortDir}`]: sortBy === attr
-    });
 
     return (
       <table className='prisons'>
         <thead>
         <tr>
-          <td
-            className={ getClassNames('name_ru') }
+          <ColumnHeader
             onClick={ this.sort.bind(this, ['name', 'ru']) }
+            sortDir={ equals(this.state.sortBy, ['name', 'ru']) ? sortDir : '' }
           >
             Название
-          </td>
-          <td>Период</td>
-          <td>Отредактировано</td>
-          <td>Регион</td>
-          <td
-            className={ getClassNames('max_prisoners') }
+          </ColumnHeader>
+          <ColumnHeader
+            onClick={ this.sort.bind(this, ['period']) }
+            sortDir={ equals(this.state.sortBy, ['period']) ? sortDir : '' }
+          >
+            Период
+          </ColumnHeader>
+          <ColumnHeader
+            onClick={ this.sort.bind(this, ['updated_at']) }
+            sortDir={ equals(this.state.sortBy, ['updated_at']) ? sortDir : '' }
+          >
+            Отредактировано
+          </ColumnHeader>
+          <ColumnHeader
+            onClick={ this.sort.bind(this, ['place_id']) }
+            sortDir={ equals(this.state.sortBy, ['place_id']) ? sortDir : '' }
+          >
+            Регион
+          </ColumnHeader>
+          <ColumnHeader
             onClick={ this.sort.bind(this, ['max_prisoners']) }
+            sortDir={ equals(this.state.sortBy, ['max_prisoners']) ? sortDir : '' }
           >
             Макс. числ.
-          </td>
-          <td>Рус</td>
-          <td>Eng</td>
+          </ColumnHeader>
+          <ColumnHeader
+            onClick={ this.sort.bind(this, ['published', 'ru']) }
+            sortDir={ equals(this.state.sortBy, ['published', 'ru']) ? sortDir : '' }
+          >
+            Рус
+          </ColumnHeader>
+          <ColumnHeader
+            onClick={ this.sort.bind(this, ['published', 'en']) }
+            sortDir={ equals(this.state.sortBy, ['published', 'en']) ? sortDir : '' }
+          >
+            Eng
+          </ColumnHeader>
         </tr>
         </thead>
         <tbody>
