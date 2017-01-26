@@ -1,91 +1,89 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const draft = {
-  ru: 'черновик',
-  en: 'draft'
-};
-
-const publish = {
-  ru: 'опубликованно',
-  en: 'publish'
-};
-
-const Wrap = styled.div`
-  margin-bottom: 20px;
-`;
-
 const Label = styled.label`
-  font-size: 12px;
-  font-family: 'PT Sans', sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
+  position: relative;
+  border-radius: 20px;
+  margin: auto;
+  margin-bottom: 50px;
+  overflow: hidden;
   cursor: pointer;
   & input {
     display: none;
   }
 `;
 
-const Draft = styled.span`
-  margin-right: 8px;
-  color: ${props => props.lang !== 'en' ? 'rgba(0,0,0,1)' : '#3949ab'};
-  transition: .4s;
-  input:checked + & {
-    color: ${props => props.lang !== 'en' ? 'rgba(0,0,0,.3)' : 'rgba(57,73,171,.3)'};
-    transition: .4s;
+const Switcher = styled.div`
+  width: 200%;
+  margin-left: 0;
+  transition: margin 0.3s ease-in 0s;
+  &:before,
+  &:after {
+    display: block;
+    float: left;
+    width: 50%;
+    padding: 0;
+    line-height: 44px;
+    font-size: 12px;
+    font-family: 'PT Sans';
+    font-weight: bold;
+    text-transform: uppercase;
+    box-sizing: border-box;
   }
-`;
-
-const Slider = styled.div`
-  position: relative;
-  display: inline-block;
-  width: 32px;
-  height: 16px;
-  border-radius: 25px;
-  margin-right: 8px;
-  background-color: ${props => props.lang !== 'en' ? '#D1D1D1' : '#ebecf6'};
-  vertical-align: text-bottom;
-  &::before {
-    position: absolute;
-    content: '';
-    height: 16px;
-    width: 16px;
-    background-color: ${props => props.lang !== 'en' ? '#000' : '#3949ab'};
-    border-radius: 50%;
-    transition: .4s;
-    input:checked ~ & {
-      transform: translateX(16px);
-      transition: .4s;
-    }
+  &:before {
+    content: "черновик";
+    padding-left: 10px;
+    background-color: #f3f3f3;
+    color: rgba(0, 0, 0, .3);
   }
-`;
-
-const Publish = styled.span`
-  color: ${props => props.lang !== 'en' ? 'rgba(0,0,0,.3)' : 'rgba(57,73,171,.3)'};
-  transition: .4s;
+  &:after {
+    content: "опубликован";
+    padding-right: 10px;
+    background-color: #000;
+    color: #fff;
+    text-align: right;
+  }
   input:checked ~ & {
-    color: ${props => props.lang !== 'en' ? 'rgba(0,0,0,1)' : '#3949ab'};
-    transition: .4s;
+    margin-left: -100%;
+  }
+`;
+
+const Circle = styled.div`
+  width: 32px;
+  margin: 6px;
+  background: #000;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #999999;
+  border-radius: 20px;
+  transition: all 0.3s ease-in 0s;
+  input:checked ~ & {
+    right: 115px;
+    background: #fff;
   }
 `;
 
 const DraftSwitch = (props) => {
-  const { checked, lang, onChange } = props;
+  const { published, onChange } = props;
 
   return (
-    <Wrap>
-      <Label>
-        <input
-          type='checkbox'
-          checked={ checked }
-          onChange={ onChange.bind(null, !checked) }
-        />
-        <Draft lang={ lang }>{ draft[lang] }</Draft>
-        <Slider lang={ lang }/>
-        <Publish lang={ lang }>{ publish[lang] }</Publish>
-      </Label>
-    </Wrap>
+    <Label>
+      <input
+        type="checkbox"
+        checked={ published }
+        onChange={ onChange.bind(null, !published) }
+      />
+      <Switcher/>
+      <Circle/>
+    </Label>
   );
+};
+
+DraftSwitch.propTypes = {
+  published: React.PropTypes.bool.isRequired,
+  onChange: React.PropTypes.func.isRequired
 };
 
 export default DraftSwitch;

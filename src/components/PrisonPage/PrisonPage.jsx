@@ -103,13 +103,12 @@ class PrisonCard extends React.Component {
             activeLang={ this.state.activeLang }
             onChange={ this.langChange }
           />
+          <DraftSwitch
+            published={ prison.published[this.state.activeLang] }
+            onChange={ updateField(lensPath(['published', this.state.activeLang])) }
+          />
           <HalfContainer>
             <Half>
-              <DraftSwitch
-                lang={ 'ru' }
-                checked={ prison.published.ru }
-                onChange={ updateField(lensPath(['published', 'ru'])) }
-              />
               <Fieldset>
                 <FieldTitle>название лагеря</FieldTitle>
                 <TextInput
@@ -143,11 +142,6 @@ class PrisonCard extends React.Component {
               </div>
             </Half>
             <Half>
-              <DraftSwitch
-                lang={ 'en' }
-                checked={ prison.published.en }
-                onChange={ updateField(lensPath(['published', 'en'])) }
-              />
               <Fieldset>
                 <FieldTitle color={ 'blue' }>name of the camp</FieldTitle>
                 <TextInput
