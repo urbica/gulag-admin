@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '../Container';
 import PrisonHeader from './PrisonHeader.jsx';
+import LanguageSwitcher from './LanguageSwitcher.jsx';
 import DraftSwitch from './DraftSwitch.jsx';
 import FieldTitle from '../FieldTitle';
 import TextInput from '../TextInput';
@@ -9,7 +10,7 @@ import PrisonLocation from './PrisonLocation/PrisonLocation';
 import MarkdownEditor from './Inputs/MarkdownEditor';
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
-import {__, curryN, identity, lensPath, lensProp, path, pipe, set, view} from 'ramda';
+import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 'ramda';
 import styled from 'styled-components';
 import './PrisonPage.css';
 
@@ -35,10 +36,17 @@ const SaveButton = styled(Button)`
   margin-left: auto;
 `;
 
+const languages = {
+  ru: 'русский',
+  en: 'english',
+  de: 'deutsch'
+};
+
 class PrisonCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeLang: 'ru',
       markdownState: {
         fieldPath: ['description', 'ru'],
         selectionEnd: 0
@@ -46,7 +54,11 @@ class PrisonCard extends React.Component {
     };
   }
 
-  markdownOnBlur = (fieldPath, {selectionEnd}) => {
+  langChange = (lang) => {
+    this.setState({ activeLang: lang })
+  };
+
+  markdownOnBlur = (fieldPath, { selectionEnd }) => {
     this.setState(set(lensProp('markdownState'), { fieldPath, selectionEnd }));
   };
 
@@ -67,8 +79,10 @@ class PrisonCard extends React.Component {
   };
 
   render() {
-    const { prison, photos, uploadHandler, updateHandler,
-      deleteHandler, submitHandler } = this.props;
+    const {
+      prison, photos, uploadHandler, updateHandler,
+      deleteHandler, submitHandler
+    } = this.props;
 
     const updateFrom = curryN(2, (getValue, lens) =>
       pipe(getValue, set(lens, __, prison), updateHandler));
@@ -83,6 +97,11 @@ class PrisonCard extends React.Component {
           <PrisonHeader
             prison={ prison }
             deleteHandler={ deleteHandler.bind(null, prison) }
+          />
+          <LanguageSwitcher
+            languages={ languages }
+            activeLang={ this.state.activeLang }
+            onChange={ this.langChange }
           />
           <HalfContainer>
             <Half>

@@ -28,6 +28,9 @@ const InputWrap = styled.label`
     font-size: 48px;
     font-weight: bold;
     outline: none;
+    &::placeholder {
+      color: #e5e5e5;
+    }
   }
 `;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../Button';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import styled from 'styled-components';
 import { getPeriods } from '../../utils/utils';
 
@@ -11,7 +11,7 @@ const Header = styled.header`
   flex: 100%;
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, .3);
-  margin-bottom: 50px;
+  margin-bottom: 13px;
 `;
 
 const BackLink = styled(Link)`
