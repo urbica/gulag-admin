@@ -112,16 +112,39 @@ class PrisonCard extends React.Component {
               <Fieldset>
                 <FieldTitle>название лагеря</FieldTitle>
                 <TextInput
-                  value={ prison.name.ru || '' }
-                  onChange={ updateInput(lensPath(['name', 'ru'])) }
+                  value={ prison.name[this.state.activeLang] || '' }
+                  onChange={ updateInput(lensPath(['name', this.state.activeLang])) }
                   placeholder={ 'Название' }
                 />
                 <TextInput
-                  value={ prison.additional_names.ru || '' }
-                  onChange={ updateInput(lensPath(['additional_names', 'ru'])) }
+                  value={ prison.additional_names[this.state.activeLang] || '' }
+                  onChange={ updateInput(lensPath(['additional_names', this.state.activeLang])) }
                   placeholder={ 'Дополнительные названия, если есть' }
                 />
               </Fieldset>
+            </Half>
+            <Half>
+              <FieldTitle>Название локации</FieldTitle>
+              <TextInput
+                placeholder={ 'Название' }
+                value={ prison.location[this.state.activeLang] || '' }
+                onChange={ updateInput(lensPath(['location', this.state.activeLang])) }
+              />
+            </Half>
+          </HalfContainer>
+          <MarkdownEditor
+            title={ 'Описание лагеря' }
+            source={ prison.description[this.state.activeLang] || '' }
+            onBlur={ this.markdownOnBlur.bind(this, ['description', this.state.activeLang]) }
+            onChange={ updateInput(lensPath(['description', this.state.activeLang])) }
+          />
+          <PrisonPhotos
+            photos={ photos }
+            onClick={ this.photoOnClick }
+            uploadHandler={ uploadHandler.bind(null, prison.id) }
+          />
+          <HalfContainer>
+            <Half>
               <Fieldset>
                 <FieldTitle>Основная деятельность</FieldTitle>
                 <SelectInput
@@ -131,7 +154,7 @@ class PrisonCard extends React.Component {
                   onChange={ updateSelect(lensProp('activity_id')) }
                 />
               </Fieldset>
-              <div className="prison__place">
+              <Fieldset>
                 <FieldTitle>Регион</FieldTitle>
                 <SelectInput
                   value={ prison.place_id }
@@ -139,25 +162,10 @@ class PrisonCard extends React.Component {
                   clearable={ false }
                   onChange={ updateSelect(lensProp('place_id')) }
                 />
-              </div>
+              </Fieldset>
             </Half>
             <Half>
               <Fieldset>
-                <FieldTitle color={ 'blue' }>name of the camp</FieldTitle>
-                <TextInput
-                  value={ prison.name.en || '' }
-                  desc={ 'input_en' }
-                  placeholder={ 'Main name' }
-                  onChange={ updateInput(lensPath(['name', 'en'])) }
-                />
-                <TextInput
-                  value={ prison.additional_names.en || '' }
-                  desc={ 'input_en' }
-                  placeholder={ 'Second name' }
-                  onChange={ updateInput(lensPath(['additional_names', 'en'])) }
-                />
-              </Fieldset>
-              <div className="prison__type">
                 <FieldTitle>Тип лагеря</FieldTitle>
                 <SelectInput
                   value={ prison.type_id }
@@ -165,54 +173,12 @@ class PrisonCard extends React.Component {
                   clearable={ false }
                   onChange={ updateSelect(lensProp('type_id')) }
                 />
-              </div>
-            </Half>
-          </HalfContainer>
-          <HalfContainer>
-            <Half>
-              <TextInput
-                placeholder='Название локации'
-                value={ prison.location.ru || '' }
-                onChange={ updateInput(lensPath(['location', 'ru'])) }
-              />
-            </Half>
-            <Half>
-              <TextInput
-                placeholder='Location name'
-                value={ prison.location.en || '' }
-                desc={ 'input_en' }
-                onChange={ updateInput(lensPath(['location', 'en'])) }
-              />
+              </Fieldset>
             </Half>
           </HalfContainer>
           <PrisonLocation
             features={ prison.features || [] }
             updateFeatures={ updateField(lensProp('features')) }
-          />
-          <HalfContainer>
-            <Half>
-              <MarkdownEditor
-                title={ 'Описание лагеря' }
-                source={ prison.description.ru || '' }
-                onBlur={ this.markdownOnBlur.bind(this, ['description', 'ru']) }
-                onChange={ updateInput(lensPath(['description', 'ru'])) }
-              />
-            </Half>
-            <Half>
-              <MarkdownEditor
-                title={ 'description' }
-                source={ prison.description.en || '' }
-                onBlur={ this.markdownOnBlur.bind(this, ['description', 'en']) }
-                onChange={ updateInput(lensPath(['description', 'en'])) }
-                inputClassName={ 'input_en' }
-                color={ 'blue' }
-              />
-            </Half>
-          </HalfContainer>
-          <PrisonPhotos
-            photos={ photos }
-            onClick={ this.photoOnClick }
-            uploadHandler={ uploadHandler.bind(null, prison.id) }
           />
           <SaveButton
             color={'orange'}
