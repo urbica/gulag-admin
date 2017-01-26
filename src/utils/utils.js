@@ -1,13 +1,14 @@
-import R, {
-  compose, groupBy, head, map, nthArg, pickBy, prop, test, uncurryN,
-  reduce, values, assoc, evolve, concat, curryN, toPairs
+import {
+  __, apply, compose, curry, flatten, groupBy, gt, head, ifElse, keys, length, map,
+  min, nthArg, pickBy, pipe, prop, test, uncurryN, or, reduce, values, assoc, evolve,
+  concat, curryN, toPairs
 } from 'ramda';
 
-export const renameKeys = R.curry((keysMap, obj) =>
-  R.reduce((acc, key) => {
+export const renameKeys = curry((keysMap, obj) =>
+  reduce((acc, key) => {
     acc[keysMap[key] || key] = obj[key];
     return acc;
-  }, {}, R.keys(obj))
+  }, {}, keys(obj))
 );
 
 export const pickByRegExp = uncurryN(2, RegExp =>
@@ -79,6 +80,17 @@ export const fetchData = ({ token }) =>
       });
     }).catch(error => reject(error));
   });
+
+export const getFirstYearInFeatures = pipe(
+    map(pipe(prop('properties'), keys)),
+    flatten,
+    map(Number),
+    ifElse(
+      compose(gt(2), length),
+      compose(or(__, null), head),
+      apply(min)
+    )
+  );
 
 export const getPeriods = (prison) =>
   (prison.features || [])
