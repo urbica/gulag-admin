@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import './App.css';
 
 import {
-  always, concat, assocPath, dissoc, dissocPath, map, over, test,
+  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, test,
   ifElse, isEmpty, isNil, lensPath
 } from 'ramda';
 
@@ -139,8 +139,9 @@ const App = React.createClass({
 
   submitPrison(prison) {
     if (prison.id) {
-      fetch(`/api/public/camps/id/${prison.id}`, {
-        body: JSON.stringify(prison),
+      const newPrison = assoc('updated_at', (new Date()).toISOString(), prison);
+      fetch(`/api/public/camps/id/${newPrison.id}`, {
+        body: JSON.stringify(newPrison),
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${this.state.token}`,
@@ -148,9 +149,9 @@ const App = React.createClass({
         }
       })
       .then(response => response.json())
-      .then(([newPrison]) => {
-        this.setState(assocPath(['prisons', newPrison.id], getMaxPrisoners(newPrison)), () =>
-          browserHistory.push(`/admin/prisons/${newPrison.id}`)
+      .then(([submittedPrison]) => {
+        this.setState(assocPath(['prisons', submittedPrison.id], getMaxPrisoners(submittedPrison)), () =>
+          browserHistory.push(`/admin/prisons/${submittedPrison.id}`)
         );
         alert(`Лагерь "${prison.name.ru}" обновлён`);
       });
