@@ -132,45 +132,29 @@ const App = React.createClass({
 
   updatePrison(prison) {
     if (prison.id) {
-      this.setState(assocPath(['prisons', prison.id], getMaxPrisoners(prison)));
-    } else {
-      this.setState({ newPrison: getMaxPrisoners(prison) });
+      const newPrison = getMaxPrisoners(prison);
+      this.setState(assocPath(['prisons', prison.id], newPrison));
     }
   },
 
   submitPrison(prison) {
-    let request;
-    let message;
     if (prison.id) {
-      request = fetch(`/api/public/camps/id/${prison.id}`, {
+      fetch(`/api/public/camps/id/${prison.id}`, {
         body: JSON.stringify(prison),
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${this.state.token}`,
           'Content-Type': 'application/json'
         }
-      });
-      message = `Лагерь "${prison.name.ru}" обновлён`;
-    } else {
-      request = fetch('/api/public/camps/id', {
-        body: JSON.stringify(prison),
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      message = `Лагерь "${prison.name.ru}" добавлен`;
-    }
-
-    request
+      })
       .then(response => response.json())
       .then(([newPrison]) => {
         this.setState(assocPath(['prisons', newPrison.id], getMaxPrisoners(newPrison)), () =>
           browserHistory.push(`/admin/prisons/${newPrison.id}`)
         );
-        alert(message);
+        alert(`Лагерь "${prison.name.ru}" обновлён`);
       });
+    }
   },
 
   deletePrison(prison) {
