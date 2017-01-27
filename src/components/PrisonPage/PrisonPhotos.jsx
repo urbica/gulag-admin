@@ -4,13 +4,31 @@ import styled from 'styled-components';
 
 const Photos = styled.div`
   & figure {
-    cursor: pointer;
+    position: relative;
     display: inline-block;
     margin: 0 10px 0 0;
     vertical-align: top;
+    cursor: pointer;
     & img {
       width: 150px;
       height: 100px;
+    }
+    & button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: none;
+      padding: 3px 10px;
+      border: none;
+      background-color: #000;
+      color: #fff;
+      font-family: 'PT Sans';
+      font-size: 14px;
+      opacity: .7;
+      cursor: pointer;
+    }
+    &:hover button {
+      display: block;
     }
   }
 `;
@@ -30,11 +48,16 @@ const UploadPhoto = styled.div`
 `;
 
 const PrisonPhoto = (props) => {
-  const {path, id} = props.photo;
+  const { path, id } = props.photo;
   return (
-    <figure onClick={ props.onClick.bind(null, path) }>
-      <img src={ path } role='presentation'/>
+    <figure>
+      <img
+        src={ path }
+        role='presentation'
+        onClick={ props.onClick.bind(null, path) }
+      />
       <figcaption>{ id }</figcaption>
+      <button onClick={ () => console.log('delete photo') }>Удалить</button>
     </figure>
   );
 };

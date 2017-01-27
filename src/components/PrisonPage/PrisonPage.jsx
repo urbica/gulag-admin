@@ -29,10 +29,26 @@ const SixCenter = styled(Six)`
 
 const MarkdownDesc = styled.div`
   margin-top: 30px;
-  color: #000;
   opacity: 0.5;
   & div {
     margin-bottom: 10px;
+  }
+`;
+
+const Separator = styled.fieldset`
+  width: 100%;
+  padding: 0;
+  border-color: #000;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  opacity: 0.3;
+  & legend {
+    padding: 0 10px;
+    margin: auto;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
   }
 `;
 
@@ -155,7 +171,7 @@ class PrisonCard extends React.Component {
             <div>*курсив*</div>
             <div>**полужирное начертание**</div>
             <div>* элемент маркированного списка</div>
-            <div>[Текст ссылки](http://gulag.urbica.co)</div>
+            <div>[urbica.co](http://urbica.co)</div>
             <div>![Alt-текст](http://lorempixel.com/100/100)</div>
           </MarkdownDesc>
         </Two>
@@ -166,6 +182,11 @@ class PrisonCard extends React.Component {
             uploadHandler={ uploadHandler.bind(null, prison.id) }
           />
         </Six>
+        <SixCenter>
+          <Separator>
+            <legend>Информация, общая для всех языков</legend>
+          </Separator>
+        </SixCenter>
         <Three>
           <Fieldset>
             <FieldTitle>Основная деятельность</FieldTitle>

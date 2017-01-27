@@ -16,6 +16,10 @@ export const Six = styled(Block)`
   flex: 0 0 100%;
 `;
 
+export const Five = styled(Block)`
+  flex: 0 0 calc(500% / 6);  
+`;
+
 export const Four = styled(Block)`
   flex: 0 0 calc(400% / 6);
 `;
