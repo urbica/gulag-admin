@@ -1,12 +1,12 @@
 import React from 'react';
 import { values } from 'ramda';
 import styled from 'styled-components';
-import { Container, One } from '../Layout';
+import { Container, Six } from '../Layout';
 import Header from './Header';
 import Search from './Search';
 import PrisonsTable from './PrisonsTable/PrisonsTable';
 
-const OneFlex = styled(One)`
+const SixFlex = styled(Six)`
   display: flex;
 `;
 
@@ -54,7 +54,7 @@ class IndexPage extends React.Component {
 
     return (
       <Container>
-        <One>
+        <Six>
           <Header
             prisonsCount={ prisonsCount }
             publishedRuCount={ publishedRuCount }
@@ -62,19 +62,19 @@ class IndexPage extends React.Component {
             onLogout={ this.props.onLogout }
             createPrison={ this.props.createPrison }
           />
-        </One>
-        <OneFlex>
+        </Six>
+        <SixFlex>
           <Search
             value={ this.state.searchQuery }
             onChange={ this.onSearchChange }
           />
-        </OneFlex>
-        <One>
+        </SixFlex>
+        <Six>
           <PrisonsTable
             prisons={ filteredPrisons }
             places={ this.props.places }
           />
-        </One>
+        </Six>
       </Container>
     );
   }

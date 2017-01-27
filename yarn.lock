@@ -5380,9 +5380,9 @@ style-loader@0.13.1:
   dependencies:
     loader-utils "^0.2.7"
 
-styled-components@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-1.4.0.tgz#a094d2ebd1c3227cd591d4d999d48860bf3f76b7"
+styled-components@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-1.4.1.tgz#4bf11aa1fb8512cc9d7634d26f1cd5ea77c2b1ad"
   dependencies:
     buffer "^5.0.2"
     css-to-react-native "^1.0.6"
@@ -5391,6 +5391,7 @@ styled-components@1.4.0:
     inline-style-prefixer "^2.0.5"
     is-function "^1.0.1"
     is-plain-object "^2.0.1"
+    supports-color "^3.1.2"
 
 supports-color@^2.0.0:
   version "2.0.0"

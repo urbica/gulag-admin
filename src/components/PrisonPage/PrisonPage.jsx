@@ -1,7 +1,7 @@
 import React from 'react';
 import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 'ramda';
 import styled from 'styled-components';
-import { Container, One, Two } from '../Layout';
+import { Container, Six, Four, Three, Two } from '../Layout';
 import PrisonHeader from './PrisonHeader.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
 import DraftSwitch from './DraftSwitch.jsx';
@@ -21,13 +21,22 @@ const Fieldset = styled.div`
   }
 `;
 
-const OneCenter = styled(One)`
+const SixCenter = styled(Six)`
   display: flex;
   justify-content: center;
   align-items: center;  
 `;
 
-const OneRight = styled(One)`
+const MarkdownDesc = styled.div`
+  margin-top: 30px;
+  color: #000;
+  opacity: 0.5;
+  & div {
+    margin-bottom: 10px;
+  }
+`;
+
+const SixRight = styled(Six)`
   display: flex;
   justify-content: flex-end;
 `;
@@ -89,26 +98,26 @@ class PrisonCard extends React.Component {
 
     return (
       <Container>
-        <One>
+        <Six>
           <PrisonHeader
             prison={ prison }
             deleteHandler={ deleteHandler.bind(null, prison) }
           />
-        </One>
-        <One>
+        </Six>
+        <Six>
           <LanguageSwitcher
             languages={ languages }
             activeLang={ this.state.activeLang }
             onChange={ this.langChange }
           />
-        </One>
-        <OneCenter>
+        </Six>
+        <SixCenter>
           <DraftSwitch
             published={ prison.published[this.state.activeLang] }
             onChange={ updateField(lensPath(['published', this.state.activeLang])) }
           />
-        </OneCenter>
-        <Two>
+        </SixCenter>
+        <Three>
           <Fieldset>
             <FieldTitle>название лагеря</FieldTitle>
             <TextInput
@@ -122,31 +131,42 @@ class PrisonCard extends React.Component {
               placeholder={ 'Дополнительные названия, если есть' }
             />
           </Fieldset>
-        </Two>
-        <Two>
+        </Three>
+        <Three>
           <FieldTitle>Название локации</FieldTitle>
           <TextInput
             placeholder={ 'Название' }
             value={ prison.location[this.state.activeLang] || '' }
             onChange={ updateInput(lensPath(['location', this.state.activeLang])) }
           />
-        </Two>
-        <One>
+        </Three>
+        <Four>
           <MarkdownEditor
             title={ 'Описание лагеря' }
             source={ prison.description[this.state.activeLang] || '' }
             onBlur={ this.markdownOnBlur.bind(this, ['description', this.state.activeLang]) }
             onChange={ updateInput(lensPath(['description', this.state.activeLang])) }
           />
-        </One>
-        <One>
+        </Four>
+        <Two>
+          <MarkdownDesc>
+            <div>## Заголовок</div>
+            <div>#### Заголовок четвёртого уровня</div>
+            <div>*курсив*</div>
+            <div>**полужирное начертание**</div>
+            <div>* элемент маркированного списка</div>
+            <div>[Текст ссылки](http://gulag.urbica.co)</div>
+            <div>![Alt-текст](http://lorempixel.com/100/100)</div>
+          </MarkdownDesc>
+        </Two>
+        <Six>
           <PrisonPhotos
             photos={ photos }
             onClick={ this.photoOnClick }
             uploadHandler={ uploadHandler.bind(null, prison.id) }
           />
-        </One>
-        <Two>
+        </Six>
+        <Three>
           <Fieldset>
             <FieldTitle>Основная деятельность</FieldTitle>
             <SelectInput
@@ -165,8 +185,8 @@ class PrisonCard extends React.Component {
               onChange={ updateSelect(lensProp('place_id')) }
             />
           </Fieldset>
-        </Two>
-        <Two>
+        </Three>
+        <Three>
           <Fieldset>
             <FieldTitle>Тип лагеря</FieldTitle>
             <SelectInput
@@ -176,21 +196,21 @@ class PrisonCard extends React.Component {
               onChange={ updateSelect(lensProp('type_id')) }
             />
           </Fieldset>
-        </Two>
-        <One>
+        </Three>
+        <Six>
           <PrisonLocation
             features={ prison.features || [] }
             updateFeatures={ updateField(lensProp('features')) }
           />
-        </One>
-        <OneRight>
+        </Six>
+        <SixRight>
           <Button
             color={'orange'}
             onClick={ submitHandler.bind(null, prison) }
           >
             сохранить
           </Button>
-        </OneRight>
+        </SixRight>
       </Container>
     );
   }
