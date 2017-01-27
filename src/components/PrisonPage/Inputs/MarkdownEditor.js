@@ -7,11 +7,6 @@ import FieldTitle from '../../FieldTitle';
 import Button from '../../Button';
 import styled from 'styled-components';
 
-const Wrap = styled.div`
-  width: 100%;
-  margin-bottom: 32px;
-`;
-
 const DescriptionTitle = styled(FieldTitle)`
   position: relative;
 `;
@@ -57,7 +52,7 @@ class MarkdownEditor extends React.PureComponent {
     const inputClassNames = classnames('input', inputClassName);
 
     return (
-      <Wrap>
+      <div>
         {
           this.state.preview &&
           <div className='inputWrapper'>
@@ -91,7 +86,7 @@ class MarkdownEditor extends React.PureComponent {
             <div className='inputLine'/>
           </div>
         }
-      </Wrap>
+      </div>
     );
   }
 }

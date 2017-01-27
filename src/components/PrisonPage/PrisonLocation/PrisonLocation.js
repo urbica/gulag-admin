@@ -13,7 +13,6 @@ const PrisonLocations = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 33px;
   & > .inputWrapper {
     width: 48%;
     margin-bottom: 10px;

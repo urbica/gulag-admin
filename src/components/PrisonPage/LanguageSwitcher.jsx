@@ -7,7 +7,6 @@ const LangChangerWrap = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 5px;
-  margin-bottom: 50px;
   background-color: #f3f3f3;
 `;
 

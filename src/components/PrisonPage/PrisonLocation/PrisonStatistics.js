@@ -1,10 +1,15 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
+import styled from 'styled-components';
+
+const Wrap = styled.div`
+  width: 100%;
+`;
 
 const PrisonStatistics = (props) => {
   const {feature, onChange} = props;
   return (
-    <div className='prison__amount'>
+    <Wrap>
       <div className='field-title'>количество заключенных по годам</div>
       {
         Object.keys(feature.properties).map((year) => {
@@ -22,7 +27,7 @@ const PrisonStatistics = (props) => {
           </label>
         })
       }
-    </div>
+    </Wrap>
   );
 };
 

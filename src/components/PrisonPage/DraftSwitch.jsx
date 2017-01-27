@@ -4,8 +4,6 @@ import styled from 'styled-components';
 const Label = styled.label`
   position: relative;
   border-radius: 20px;
-  margin: auto;
-  margin-bottom: 50px;
   overflow: hidden;
   cursor: pointer;
   & input {

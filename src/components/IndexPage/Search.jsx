@@ -7,7 +7,6 @@ import searchIcon from './search.svg';
 const SearchWrap = styled.label`
   position: relative;
   width: 100%;
-  margin-bottom: 30px;
   cursor: text;
   & img {
     position: absolute;
@@ -27,7 +26,7 @@ const Search = (props) => {
   const handleOnChange = (event) => {
     event.persist();
     delayedOnChange(event);
-  }
+  };
 
   return (
     <SearchWrap>
@@ -35,7 +34,7 @@ const Search = (props) => {
         onChange={ handleOnChange }
         placeholder={ 'Поиск' }
       />
-      <img src={ searchIcon } alt={ 'Search' } />
+      <img src={ searchIcon } alt={ 'Search' }/>
     </SearchWrap>
   )
 };

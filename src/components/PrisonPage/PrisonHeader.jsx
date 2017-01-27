@@ -11,7 +11,6 @@ const Header = styled.header`
   flex: 100%;
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, .3);
-  margin-bottom: 13px;
 `;
 
 const BackLink = styled(Link)`

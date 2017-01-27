@@ -1,5 +1,7 @@
 import React from 'react';
-import Container from '../Container';
+import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 'ramda';
+import styled from 'styled-components';
+import { Container, One, Two } from '../Layout';
 import PrisonHeader from './PrisonHeader.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
 import DraftSwitch from './DraftSwitch.jsx';
@@ -10,30 +12,24 @@ import PrisonLocation from './PrisonLocation/PrisonLocation';
 import MarkdownEditor from './Inputs/MarkdownEditor';
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
-import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 'ramda';
-import styled from 'styled-components';
 import './PrisonPage.css';
 
-const HalfContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 33px;
-`;
-
-const Half = styled.div`
-  width: 48%;
-`;
-
 const Fieldset = styled.div`
-  margin-bottom: 33px;
+  margin-bottom: 30px;
   & label:first-of-type {
     border-bottom: 1px solid rgba(0, 0, 0, .1);
   }
 `;
 
-const SaveButton = styled(Button)`
-  margin-left: auto;
+const OneCenter = styled(One)`
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+`;
+
+const OneRight = styled(One)`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const languages = {
@@ -92,102 +88,110 @@ class PrisonCard extends React.Component {
     const updateSelect = updateFrom(path(['value']));
 
     return (
-      <div>
-        <Container>
+      <Container>
+        <One>
           <PrisonHeader
             prison={ prison }
             deleteHandler={ deleteHandler.bind(null, prison) }
           />
+        </One>
+        <One>
           <LanguageSwitcher
             languages={ languages }
             activeLang={ this.state.activeLang }
             onChange={ this.langChange }
           />
+        </One>
+        <OneCenter>
           <DraftSwitch
             published={ prison.published[this.state.activeLang] }
             onChange={ updateField(lensPath(['published', this.state.activeLang])) }
           />
-          <HalfContainer>
-            <Half>
-              <Fieldset>
-                <FieldTitle>название лагеря</FieldTitle>
-                <TextInput
-                  value={ prison.name[this.state.activeLang] || '' }
-                  onChange={ updateInput(lensPath(['name', this.state.activeLang])) }
-                  placeholder={ 'Название' }
-                />
-                <TextInput
-                  value={ prison.additional_names[this.state.activeLang] || '' }
-                  onChange={ updateInput(lensPath(['additional_names', this.state.activeLang])) }
-                  placeholder={ 'Дополнительные названия, если есть' }
-                />
-              </Fieldset>
-            </Half>
-            <Half>
-              <FieldTitle>Название локации</FieldTitle>
-              <TextInput
-                placeholder={ 'Название' }
-                value={ prison.location[this.state.activeLang] || '' }
-                onChange={ updateInput(lensPath(['location', this.state.activeLang])) }
-              />
-            </Half>
-          </HalfContainer>
+        </OneCenter>
+        <Two>
+          <Fieldset>
+            <FieldTitle>название лагеря</FieldTitle>
+            <TextInput
+              value={ prison.name[this.state.activeLang] || '' }
+              onChange={ updateInput(lensPath(['name', this.state.activeLang])) }
+              placeholder={ 'Название' }
+            />
+            <TextInput
+              value={ prison.additional_names[this.state.activeLang] || '' }
+              onChange={ updateInput(lensPath(['additional_names', this.state.activeLang])) }
+              placeholder={ 'Дополнительные названия, если есть' }
+            />
+          </Fieldset>
+        </Two>
+        <Two>
+          <FieldTitle>Название локации</FieldTitle>
+          <TextInput
+            placeholder={ 'Название' }
+            value={ prison.location[this.state.activeLang] || '' }
+            onChange={ updateInput(lensPath(['location', this.state.activeLang])) }
+          />
+        </Two>
+        <One>
           <MarkdownEditor
             title={ 'Описание лагеря' }
             source={ prison.description[this.state.activeLang] || '' }
             onBlur={ this.markdownOnBlur.bind(this, ['description', this.state.activeLang]) }
             onChange={ updateInput(lensPath(['description', this.state.activeLang])) }
           />
+        </One>
+        <One>
           <PrisonPhotos
             photos={ photos }
             onClick={ this.photoOnClick }
             uploadHandler={ uploadHandler.bind(null, prison.id) }
           />
-          <HalfContainer>
-            <Half>
-              <Fieldset>
-                <FieldTitle>Основная деятельность</FieldTitle>
-                <SelectInput
-                  value={ prison.activity_id }
-                  options={ this.props.activityOptions }
-                  clearable={ false }
-                  onChange={ updateSelect(lensProp('activity_id')) }
-                />
-              </Fieldset>
-              <Fieldset>
-                <FieldTitle>Регион</FieldTitle>
-                <SelectInput
-                  value={ prison.place_id }
-                  options={ this.props.placeOptions }
-                  clearable={ false }
-                  onChange={ updateSelect(lensProp('place_id')) }
-                />
-              </Fieldset>
-            </Half>
-            <Half>
-              <Fieldset>
-                <FieldTitle>Тип лагеря</FieldTitle>
-                <SelectInput
-                  value={ prison.type_id }
-                  options={ this.props.typeOptions }
-                  clearable={ false }
-                  onChange={ updateSelect(lensProp('type_id')) }
-                />
-              </Fieldset>
-            </Half>
-          </HalfContainer>
+        </One>
+        <Two>
+          <Fieldset>
+            <FieldTitle>Основная деятельность</FieldTitle>
+            <SelectInput
+              value={ prison.activity_id }
+              options={ this.props.activityOptions }
+              clearable={ false }
+              onChange={ updateSelect(lensProp('activity_id')) }
+            />
+          </Fieldset>
+          <Fieldset>
+            <FieldTitle>Регион</FieldTitle>
+            <SelectInput
+              value={ prison.place_id }
+              options={ this.props.placeOptions }
+              clearable={ false }
+              onChange={ updateSelect(lensProp('place_id')) }
+            />
+          </Fieldset>
+        </Two>
+        <Two>
+          <Fieldset>
+            <FieldTitle>Тип лагеря</FieldTitle>
+            <SelectInput
+              value={ prison.type_id }
+              options={ this.props.typeOptions }
+              clearable={ false }
+              onChange={ updateSelect(lensProp('type_id')) }
+            />
+          </Fieldset>
+        </Two>
+        <One>
           <PrisonLocation
             features={ prison.features || [] }
             updateFeatures={ updateField(lensProp('features')) }
           />
-          <SaveButton
+        </One>
+        <OneRight>
+          <Button
             color={'orange'}
             onClick={ submitHandler.bind(null, prison) }
           >
             сохранить
-          </SaveButton>
-        </Container>
-      </div>
+          </Button>
+        </OneRight>
+      </Container>
     );
   }
 }

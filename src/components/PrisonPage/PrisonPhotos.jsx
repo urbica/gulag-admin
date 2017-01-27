@@ -3,8 +3,6 @@ import FieldTitle from '../FieldTitle';
 import styled from 'styled-components';
 
 const Photos = styled.div`
-  width: 100%;
-  margin-bottom: 50px;
   & figure {
     cursor: pointer;
     display: inline-block;

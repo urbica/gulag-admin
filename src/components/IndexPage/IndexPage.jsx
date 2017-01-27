@@ -1,9 +1,14 @@
 import React from 'react';
-import Container from '../Container';
+import { values } from 'ramda';
+import styled from 'styled-components';
+import { Container, One } from '../Layout';
 import Header from './Header';
 import Search from './Search';
 import PrisonsTable from './PrisonsTable/PrisonsTable';
-import { values } from 'ramda';
+
+const OneFlex = styled(One)`
+  display: flex;
+`;
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -15,7 +20,7 @@ class IndexPage extends React.Component {
 
   onSearchChange = (searchQuery) => {
     this.setState({ searchQuery });
-  }
+  };
 
   filterBySearch = (searchQuery, prisons) => {
     if (searchQuery.length > 0) {
@@ -33,7 +38,7 @@ class IndexPage extends React.Component {
     }
 
     return prisons;
-  }
+  };
 
   render() {
     const prisons = values(this.props.prisons);
@@ -48,8 +53,8 @@ class IndexPage extends React.Component {
     const filteredPrisons = this.filterBySearch(this.state.searchQuery, prisons);
 
     return (
-      <div>
-        <Container>
+      <Container>
+        <One>
           <Header
             prisonsCount={ prisonsCount }
             publishedRuCount={ publishedRuCount }
@@ -57,16 +62,20 @@ class IndexPage extends React.Component {
             onLogout={ this.props.onLogout }
             createPrison={ this.props.createPrison }
           />
+        </One>
+        <OneFlex>
           <Search
             value={ this.state.searchQuery }
             onChange={ this.onSearchChange }
           />
+        </OneFlex>
+        <One>
           <PrisonsTable
             prisons={ filteredPrisons }
             places={ this.props.places }
           />
-        </Container>
-      </div>
+        </One>
+      </Container>
     );
   }
 }

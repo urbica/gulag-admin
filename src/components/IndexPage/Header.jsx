@@ -8,8 +8,6 @@ const HeaderWrap = styled.header`
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  margin-bottom: 50px;
-  font-family: 'PT Sans', sans-serif;
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
