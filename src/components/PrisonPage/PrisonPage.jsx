@@ -21,12 +21,6 @@ const Fieldset = styled.div`
   }
 `;
 
-const SixCenter = styled(Six)`
-  display: flex;
-  justify-content: center;
-  align-items: center;  
-`;
-
 const MarkdownDesc = styled.div`
   margin-top: 30px;
   opacity: 0.5;
@@ -50,11 +44,6 @@ const Separator = styled.fieldset`
     font-size: 12px;
     font-weight: bold;
   }
-`;
-
-const SixRight = styled(Six)`
-  display: flex;
-  justify-content: flex-end;
 `;
 
 const languages = {
@@ -127,12 +116,14 @@ class PrisonCard extends React.Component {
             onChange={ this.langChange }
           />
         </Six>
-        <SixCenter>
+        <Six justify="center"
+             align="center"
+        >
           <DraftSwitch
             published={ prison.published[this.state.activeLang] }
             onChange={ updateField(lensPath(['published', this.state.activeLang])) }
           />
-        </SixCenter>
+        </Six>
         <Three>
           <Fieldset>
             <FieldTitle>название лагеря</FieldTitle>
@@ -182,11 +173,11 @@ class PrisonCard extends React.Component {
             uploadHandler={ uploadHandler.bind(null, prison.id) }
           />
         </Six>
-        <SixCenter>
+        <Six>
           <Separator>
             <legend>Информация, общая для всех языков</legend>
           </Separator>
-        </SixCenter>
+        </Six>
         <Three>
           <Fieldset>
             <FieldTitle>Основная деятельность</FieldTitle>
@@ -224,14 +215,14 @@ class PrisonCard extends React.Component {
             updateFeatures={ updateField(lensProp('features')) }
           />
         </Six>
-        <SixRight>
+        <Six justify="end">
           <Button
             color={'orange'}
             onClick={ submitHandler.bind(null, prison) }
           >
             сохранить
           </Button>
-        </SixRight>
+        </Six>
       </Container>
     );
   }
