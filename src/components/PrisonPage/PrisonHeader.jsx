@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../Button';
+import moment from 'moment';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 import { getPeriods } from '../../utils/utils';
@@ -64,7 +65,7 @@ const PrisonHeader = (props) => {
         </Button>
         <PrisonSaved>
           <div>Сохранено:</div>
-          <span>{ (new Date(prison.updated_at)).toLocaleString() }</span>
+          <span>{ moment(prison.updated_at).format('DD.MM.YYYY, HH:mm:ss') }</span>
         </PrisonSaved>
       </div>
     </Header>
