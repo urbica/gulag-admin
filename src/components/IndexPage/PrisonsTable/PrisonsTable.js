@@ -174,6 +174,12 @@ class PrisonsTable extends React.PureComponent {
           >
             Eng
           </ColumnHeader>
+          <ColumnHeader
+            onClick={ this.sort.bind(this, ['published', 'de']) }
+            sortDir={ equals(this.state.sortBy, ['published', 'de']) ? sortDir : '' }
+          >
+            Deu
+          </ColumnHeader>
         </tr>
         </thead>
         <tbody>

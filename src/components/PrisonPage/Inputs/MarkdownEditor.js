@@ -17,6 +17,12 @@ const PreviewButton = styled(Button)`
   bottom: -1px;
 `;
 
+const MarkdownWrap = styled.div`
+  & img {
+    max-width: 100%;
+  }
+`;
+
 const TextArea = styled.textarea`
   min-width: 100%;
   max-width: 100%;
@@ -52,7 +58,7 @@ class MarkdownEditor extends React.PureComponent {
     const inputClassNames = classnames('input', inputClassName);
 
     return (
-      <div>
+      <MarkdownWrap>
         {
           this.state.preview &&
           <div className='inputWrapper'>
@@ -86,7 +92,7 @@ class MarkdownEditor extends React.PureComponent {
             <div className='inputLine'/>
           </div>
         }
-      </div>
+      </MarkdownWrap>
     );
   }
 }

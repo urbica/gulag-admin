@@ -167,17 +167,17 @@ class PrisonCard extends React.Component {
           </MarkdownDesc>
         </Two>
         <Six>
+          <Separator>
+            <legend>Информация, общая для всех языков</legend>
+          </Separator>
+        </Six>
+        <Six>
           <PrisonPhotos
             photos={ photos }
             onClick={ this.photoOnClick }
             deletePhoto={ deletePhoto.bind(null, prison.id) }
             uploadHandler={ uploadHandler.bind(null, prison.id) }
           />
-        </Six>
-        <Six>
-          <Separator>
-            <legend>Информация, общая для всех языков</legend>
-          </Separator>
         </Six>
         <Three>
           <Fieldset>

@@ -24,7 +24,7 @@
 }
 
 .prisons thead td:last-child {
-  padding-right: 0;
+  padding-right: 20px;
 }
 
 .prisons thead td.sort_DESC:after {

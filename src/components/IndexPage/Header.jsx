@@ -28,9 +28,11 @@ const HeaderBottom = styled.div`
   display: flex;
 `;
 
-const Rus = styled.div`
-  flex-grow: 2;
-  margin-right: 40px;
+const Lang = styled.div`
+  margin-right: 15px;
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
 const PrisonsCount = styled.div`
@@ -44,13 +46,9 @@ const PrisonsCount = styled.div`
   }
 `;
 
-const En = styled.div`
-  color: #3949ab;
-`;
-
 class Header extends React.Component {
   render() {
-    const { createPrison, prisonsCount, publishedRuCount, publishedEnCount } = this.props;
+    const { createPrison, prisonsCount, publishedRuCount, publishedEnCount, publishedDeCount } = this.props;
 
     return (
       <HeaderWrap>
@@ -58,18 +56,24 @@ class Header extends React.Component {
         <HeaderMiddle>
           <HeaderTitle>Карточки лагерей</HeaderTitle>
           <HeaderBottom>
-            <Rus>
+            <Lang>
               <PrisonsCount>
-                { publishedRuCount } <span>/{ prisonsCount }</span>
+                { publishedRuCount }<span>/{ prisonsCount }</span>
               </PrisonsCount>
-              Опубликовано на русском
-            </Rus>
-            <En>
+              На русском
+            </Lang>
+            <Lang>
               <PrisonsCount>
-                { publishedEnCount } <span>/{ prisonsCount }</span>
+                { publishedEnCount }<span>/{ prisonsCount }</span>
               </PrisonsCount>
               На английском
-            </En>
+            </Lang>
+            <Lang>
+              <PrisonsCount>
+                { publishedDeCount }<span>/{ prisonsCount }</span>
+              </PrisonsCount>
+              На немецком
+            </Lang>
           </HeaderBottom>
         </HeaderMiddle>
         <Button

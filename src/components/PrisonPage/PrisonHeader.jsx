@@ -19,6 +19,12 @@ const BackLink = styled(Link)`
   font-weight: bold;
   color: #000;
   text-transform: uppercase;
+  text-decoration: none;
+  transition: .2s;
+  &:hover {
+    opacity: .5;
+    transition: .2s;
+  }
 `;
 
 const PrisonName = styled.div`
@@ -65,7 +71,7 @@ const PrisonHeader = (props) => {
         </Button>
         <PrisonSaved>
           <div>Сохранено:</div>
-          <span>{ moment(prison.updated_at).format('DD.MM.YYYY, HH:mm:ss') }</span>
+          <span>{ moment(prison.updated_at).locale('ru').format('DD MMM YYYY, HH:mm:ss') }</span>
         </PrisonSaved>
       </div>
     </Header>

@@ -36,8 +36,16 @@ const prisonTemplate = {
     en: false,
     de: false
   },
-  features: []
-}
+  features: [
+    {
+      geometry: {
+        coordinates: [90, 62],
+        type: 'Point'
+      },
+      properties: {}
+    }
+  ]
+};
 
 const App = React.createClass({
   getInitialState() {

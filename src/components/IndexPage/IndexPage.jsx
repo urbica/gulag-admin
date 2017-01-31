@@ -44,11 +44,12 @@ class IndexPage extends React.Component {
     const prisons = values(this.props.prisons);
     const prisonsCount = prisons.length;
 
-    const { publishedRuCount, publishedEnCount } = prisons.reduce((acc, prison) => {
+    const { publishedRuCount, publishedEnCount, publishedDeCount } = prisons.reduce((acc, prison) => {
       if (prison.published.ru) acc['publishedRuCount'] += 1;
       if (prison.published.en) acc['publishedEnCount'] += 1;
+      if (prison.published.de) acc['publishedDeCount'] += 1;
       return acc;
-    }, { publishedRuCount: 0, publishedEnCount: 0 });
+    }, { publishedRuCount: 0, publishedEnCount: 0, publishedDeCount: 0 });
 
     const filteredPrisons = this.filterBySearch(this.state.searchQuery, prisons);
 
@@ -58,7 +59,8 @@ class IndexPage extends React.Component {
           <Header
             prisonsCount={ prisonsCount }
             publishedRuCount={ publishedRuCount }
-            publishedEnCount={ publishedEnCount  }
+            publishedEnCount={ publishedEnCount }
+            publishedDeCount={ publishedDeCount }
             onLogout={ this.props.onLogout }
             createPrison={ this.props.createPrison }
           />
