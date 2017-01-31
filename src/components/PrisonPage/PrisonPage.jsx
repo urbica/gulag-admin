@@ -91,7 +91,7 @@ class PrisonCard extends React.Component {
   render() {
     const {
       prison, photos, uploadHandler, updateHandler,
-      deleteHandler, submitHandler
+      deleteHandler, submitHandler, deletePhoto
     } = this.props;
 
     const updateFrom = curryN(2, (getValue, lens) =>
@@ -170,6 +170,7 @@ class PrisonCard extends React.Component {
           <PrisonPhotos
             photos={ photos }
             onClick={ this.photoOnClick }
+            deletePhoto={ deletePhoto.bind(null, prison.id) }
             uploadHandler={ uploadHandler.bind(null, prison.id) }
           />
         </Six>

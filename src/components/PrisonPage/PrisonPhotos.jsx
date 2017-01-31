@@ -57,7 +57,7 @@ const PrisonPhoto = (props) => {
         onClick={ props.onClick.bind(null, path) }
       />
       <figcaption>{ id }</figcaption>
-      <button onClick={ () => console.log('delete photo') }>Удалить</button>
+      <button onClick={ props.onDelete }>Удалить</button>
     </figure>
   );
 };
@@ -66,6 +66,13 @@ class PrisonPhotos extends React.PureComponent {
   uploadPhotos = () => {
     const { uploadHandler } = this.props;
     uploadHandler(this.refs.photos.files);
+  };
+
+  deletePhoto = (photoId) => {
+    const { deletePhoto } = this.props;
+    if (confirm('Удалить фото?')) {
+      deletePhoto(photoId);
+    }
   };
 
   render() {
@@ -81,6 +88,7 @@ class PrisonPhotos extends React.PureComponent {
               key={ photo.id }
               photo={ photo }
               onClick={ onClick }
+              onDelete={ this.deletePhoto.bind(this, photo.id) }
             />
           )
         }

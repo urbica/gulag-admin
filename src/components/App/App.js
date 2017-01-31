@@ -3,8 +3,8 @@ import { browserHistory } from 'react-router';
 import './App.css';
 
 import {
-  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, test,
-  ifElse, isEmpty, isNil, lensPath
+  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
+  reject, test, ifElse, isEmpty, isNil, lensPath
 } from 'ramda';
 
 import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../../utils/utils';
@@ -113,6 +113,19 @@ const App = React.createClass({
       .catch(error => console.error(error));
   },
 
+  deletePhoto(prisonId, photoId) {
+    if (prisonId && photoId) {
+      fetch(`/api/public/uploads/id/${photoId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${this.state.token}` }
+      })
+      .then(() => {
+        this.setState(over(lensPath(['photos', prisonId]), reject(propEq('id', photoId))));
+      })
+      .catch(error => console.error(error));
+    }
+  },
+
   createPrison(prison) {
     fetch('/api/public/camps/id', {
       body: JSON.stringify(prison),
@@ -209,6 +222,7 @@ const App = React.createClass({
         placeOptions: directoryToOptions(this.state.places),
         typeOptions: directoryToOptions(this.state.types),
         uploadHandler: this.uploadPhotos,
+        deletePhoto: this.deletePhoto,
         submitHandler: this.submitPrison,
         updateHandler: this.updatePrison,
         deleteHandler: this.deletePrison
