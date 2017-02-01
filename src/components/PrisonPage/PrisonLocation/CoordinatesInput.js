@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const InputWrap = styled.div`
   margin-left: auto;
   & label {
+    width: 275px;
     padding: 8px 8px 5px;
     & input {
       font-size: 12px;
@@ -16,11 +17,13 @@ const InputWrap = styled.div`
 
 const CoordinatesInput = (props) => {
   const { coordinates, updateCoordinates } = props;
-  const value = `${coordinates[0]}, ${coordinates[1]}`;
+  const value = `${coordinates[1]}, ${coordinates[0]}`;
 
   const changeHandler = (event) => {
-    const { value } = event.target;
-    const newCoordinates = value.split(/, /);
+    const { value }= event.target;
+    const regexp = /^(\d{1,3}(\.\d+)?),\s*(\d{1,3}(\.\d+)?)$/;
+    const match = regexp.exec(value);
+    const newCoordinates = match ? [match[3], match[1]] : [0, 0];
     updateCoordinates(newCoordinates);
   };
 
