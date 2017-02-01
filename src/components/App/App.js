@@ -214,6 +214,7 @@ const App = React.createClass({
       return React.cloneElement(this.props.children, {
         prisons: this.state.prisons,
         places: this.state.places,
+        types: this.state.types,
         onLogout: this.logout,
         createPrison: this.createPrison.bind(this, prisonTemplate)
       });

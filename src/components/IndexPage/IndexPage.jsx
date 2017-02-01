@@ -1,14 +1,9 @@
 import React from 'react';
 import { values } from 'ramda';
-import styled from 'styled-components';
 import { Container, Six } from '../Layout';
 import Header from './Header';
 import Search from './Search';
 import PrisonsTable from './PrisonsTable/PrisonsTable';
-
-const SixFlex = styled(Six)`
-  display: flex;
-`;
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -65,16 +60,20 @@ class IndexPage extends React.Component {
             createPrison={ this.props.createPrison }
           />
         </Six>
-        <SixFlex>
+        <Six>
+
+        </Six>
+        <Six justify="center">
           <Search
             value={ this.state.searchQuery }
             onChange={ this.onSearchChange }
           />
-        </SixFlex>
+        </Six>
         <Six>
           <PrisonsTable
             prisons={ filteredPrisons }
             places={ this.props.places }
+            types={ this.props.types }
           />
         </Six>
       </Container>

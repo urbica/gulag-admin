@@ -3,13 +3,13 @@ import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 
 import styled from 'styled-components';
 import { Container, Six, Four, Three, Two } from '../Layout';
 import PrisonHeader from './PrisonHeader.jsx';
-import LanguageSwitcher from './LanguageSwitcher.jsx';
+import LanguageSwitcher from '../LanguageSwitcher.jsx';
 import DraftSwitch from './DraftSwitch.jsx';
 import FieldTitle from '../FieldTitle';
 import TextInput from '../TextInput';
-import SelectInput from './Inputs/SelectInput';
+import SelectInput from '../Inputs/SelectInput';
 import PrisonLocation from './PrisonLocation/PrisonLocation';
-import MarkdownEditor from './Inputs/MarkdownEditor';
+import MarkdownEditor from '../Inputs/MarkdownEditor';
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
 import './PrisonPage.css';
@@ -201,7 +201,7 @@ class PrisonCard extends React.Component {
         </Three>
         <Three>
           <Fieldset>
-            <FieldTitle>Тип лагеря</FieldTitle>
+            <FieldTitle>Тип объекта</FieldTitle>
             <SelectInput
               value={ prison.type_id }
               options={ this.props.typeOptions }

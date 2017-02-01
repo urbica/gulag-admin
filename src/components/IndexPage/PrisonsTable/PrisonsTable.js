@@ -13,7 +13,8 @@ const collator = new Intl.Collator('ru', {
 
 const getSortTriangleStyles = (sortDir) => {
   switch (sortDir) {
-    case SortTypes.ASC: return `
+    case SortTypes.ASC:
+      return `
       &:after {
         position: absolute;
         margin-left: 5px;
@@ -26,7 +27,8 @@ const getSortTriangleStyles = (sortDir) => {
         content: '';
       }
     `;
-    case SortTypes.DESC: return `
+    case SortTypes.DESC:
+      return `
       &:after {
         position: absolute;
         margin-left: 5px;
@@ -39,9 +41,10 @@ const getSortTriangleStyles = (sortDir) => {
         content: '';
       }
     `;
-    default: return '';
+    default:
+      return '';
   }
-}
+};
 
 const ColumnHeader = styled.td`
   border-top: none;
@@ -80,7 +83,7 @@ class PrisonsTable extends React.PureComponent {
   };
 
   getOrderedPrisons = () => {
-    const { prisons, places } = this.props;
+    const { prisons, places, types } = this.props;
     const { sortBy, sortDir } = this.state;
 
     const getComparator = (sortBy) => {
@@ -104,6 +107,12 @@ class PrisonsTable extends React.PureComponent {
           const bPlaceName = view(lensPath([b.place_id, 'name']), places);
           return collator.compare(aPlaceName, bPlaceName);
         }
+      } else if (sortBy[0] === 'type_id') {
+        return (a, b) => {
+          const aTypesName = view(lensPath([a.type_id, 'name']), types);
+          const bTypesName = view(lensPath([b.type_id, 'name']), types);
+          return collator.compare(aTypesName, bTypesName);
+        }
       } else if (sortBy[0] === 'max_prisoners') {
         return comparator((a, b) => a.max_prisoners < b.max_prisoners);
       } else if (sortBy[0] === 'published') {
@@ -113,7 +122,7 @@ class PrisonsTable extends React.PureComponent {
           return aPublished < bPublished;
         });
       }
-    }
+    };
 
     const comp = getComparator(sortBy);
 
@@ -157,6 +166,12 @@ class PrisonsTable extends React.PureComponent {
             Регион
           </ColumnHeader>
           <ColumnHeader
+            onClick={ this.sort.bind(this, ['type_id']) }
+            sortDir={ equals(this.state.sortBy, ['type_id']) ? sortDir : '' }
+          >
+            Тип лагеря
+          </ColumnHeader>
+          <ColumnHeader
             onClick={ this.sort.bind(this, ['max_prisoners']) }
             sortDir={ equals(this.state.sortBy, ['max_prisoners']) ? sortDir : '' }
           >
@@ -185,7 +200,12 @@ class PrisonsTable extends React.PureComponent {
         <tbody>
         {
           prisons.map(prison =>
-            <PrisonRow prison={ prison } key={ prison.id } places={ this.props.places }/>
+            <PrisonRow
+              prison={ prison }
+              key={ prison.id }
+              places={ this.props.places }
+              types={ this.props.types }
+            />
           )
         }
         </tbody>

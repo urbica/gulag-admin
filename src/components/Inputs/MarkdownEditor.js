@@ -1,10 +1,10 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom'
+import { findDOMNode } from 'react-dom'
 import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
-import {lensProp, not, over} from 'ramda';
-import FieldTitle from '../../FieldTitle';
-import Button from '../../Button';
+import { lensProp, not, over } from 'ramda';
+import FieldTitle from '../FieldTitle';
+import Button from '../Button';
 import styled from 'styled-components';
 
 const DescriptionTitle = styled(FieldTitle)`
@@ -54,7 +54,7 @@ class MarkdownEditor extends React.PureComponent {
   };
 
   render() {
-    const {inputClassName, onChange, onFocus, source, title, color} = this.props;
+    const { inputClassName, onChange, onFocus, source, title, color } = this.props;
     const inputClassNames = classnames('input', inputClassName);
 
     return (

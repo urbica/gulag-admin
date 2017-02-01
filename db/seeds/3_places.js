@@ -12,7 +12,8 @@ const seed = (knex) => {
     { id: 9, name: 'Украина и Прибалтика' },
     { id: 10, name: 'Поволжье' },
     { id: 11, name: 'Средняя Азия' },
-    { id: 12, name: 'Москва и Подмосковье' }
+    { id: 12, name: 'Москва и Подмосковье' },
+    { id: 13, name: 'Германия' }
   ];
 
   return knex('places').insert(places);

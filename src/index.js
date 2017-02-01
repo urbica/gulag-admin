@@ -4,6 +4,7 @@ import 'normalize.css';
 import App from './components/App/App';
 import LoginPage from './components/LoginPage/LoginPage.jsx';
 import IndexPage from './components/IndexPage/IndexPage.jsx';
+import PeriodPage from './components/PeriodPage/PeriodPage.jsx';
 import PrisonPage from './components/PrisonPage/PrisonPage.jsx';
 import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
 
@@ -20,6 +21,7 @@ ReactDOM.render(
         <IndexRoute component={ IndexPage }/>
         <Route path='prisons' component={ IndexPage }/>
         <Route path='prisons/:prisonId' component={ PrisonPage }/>
+        <Route path='period/:periodId' component={ PeriodPage }/>
       </Route>
     </Route>
   </Router>,
