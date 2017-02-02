@@ -61,7 +61,7 @@ class PeriodPage extends React.Component {
   };
 
   render() {
-    const { period, updateHandler }= this.props;
+    const { period, updateHandler, submitHandler }= this.props;
     const updateFrom = curryN(2, (getValue, lens) =>
       pipe(getValue, set(lens, __, period), updateHandler));
 
@@ -75,10 +75,13 @@ class PeriodPage extends React.Component {
               ← к таблице лагерей
             </Back>
             <div>
-              <Title>{ period.name }</Title>
-              <Period>{ period.period }</Period>
+              <Title>{ period.name[this.state.activeLang] }</Title>
+              <Period>{ `${period.year_start} – ${period.year_end}` }</Period>
             </div>
-            <Button color='orange'>Сохранить</Button>
+            <Button
+              color='orange'
+              onClick={ submitHandler.bind(null, period) }
+            >Сохранить</Button>
           </Header>
         </Six>
         <Six>

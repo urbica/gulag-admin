@@ -64,17 +64,23 @@ export const fetchData = ({ token }) =>
       groupById
     );
 
+    const preprocessPeriods = compose(
+      groupById
+    );
+
     Promise.all([
       fetch('/api/public/camps.json', options).then(r => r.json()),
       fetch('/api/public/uploads.json', options).then(r => r.json()),
       fetch('/api/public/activities.json', options).then(r => r.json()),
       fetch('/api/public/places.json', options).then(r => r.json()),
-      fetch('/api/public/types.json', options).then(r => r.json())
-    ]).then(([prisons, photos, activities, places, types]) => {
+      fetch('/api/public/types.json', options).then(r => r.json()),
+      fetch('/api/public/periods.json', options).then(r => r.json())
+    ]).then(([prisons, photos, activities, places, types, periods]) => {
       resolve({
         activities: activities,
         places: places,
         types: types,
+        periods: preprocessPeriods(periods),
         photos: preprocessPhotos(photos),
         prisons: preprocessPrisons(prisons)
       });
@@ -82,15 +88,15 @@ export const fetchData = ({ token }) =>
   });
 
 export const getFirstYearInFeatures = pipe(
-    map(pipe(prop('properties'), keys)),
-    flatten,
-    map(Number),
-    ifElse(
-      compose(gt(2), length),
-      compose(or(__, null), head),
-      apply(min)
-    )
-  );
+  map(pipe(prop('properties'), keys)),
+  flatten,
+  map(Number),
+  ifElse(
+    compose(gt(2), length),
+    compose(or(__, null), head),
+    apply(min)
+  )
+);
 
 export const getPeriods = (prison) =>
   (prison.features || [])

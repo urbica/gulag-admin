@@ -33,9 +33,9 @@ const Periods = (props) => {
         Object.keys(periods).map((index) => {
           return (
             <Button
-              key={ periods[index].name }
+              key={ index }
               onClick={ browserHistory.push.bind(browserHistory, `/admin/period/${index}`) }
-            >{ periods[index].name }</Button>
+            >{ periods[index].name.ru }</Button>
           )
         })
       }
