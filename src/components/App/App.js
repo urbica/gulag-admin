@@ -228,7 +228,7 @@ const App = React.createClass({
       });
     }
 
-    if (isEmpty(this.state.prisons)) {
+    if (isEmpty(this.state.prisons) || isEmpty(this.state.periods)) {
       return null;
     }
 
