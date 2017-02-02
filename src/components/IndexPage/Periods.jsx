@@ -30,12 +30,12 @@ const Periods = (props) => {
     <Wrap>
       <Title>Периоды</Title>
       {
-        periods.map((period, index) => {
+        Object.keys(periods).map((index) => {
           return (
             <Button
-              key={ period.name }
-              onClick={ browserHistory.push.bind(browserHistory, `/admin/period/${index + 1}`) }
-            >{ period.name }</Button>
+              key={ periods[index].name }
+              onClick={ browserHistory.push.bind(browserHistory, `/admin/period/${index}`) }
+            >{ periods[index].name }</Button>
           )
         })
       }

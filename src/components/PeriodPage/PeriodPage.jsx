@@ -1,4 +1,5 @@
 import React from 'react';
+import { __, curryN, lensPath, lensProp, path, pipe, set } from 'ramda';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 import { Container, Six } from '../Layout.jsx';
@@ -55,8 +56,17 @@ class PeriodPage extends React.Component {
     this.setState({ activeLang: lang })
   };
 
+  markdownOnBlur = (fieldPath, { selectionEnd }) => {
+    this.setState(set(lensProp('markdownState'), { fieldPath, selectionEnd }));
+  };
+
   render() {
-    const { period }= this.props;
+    const { period, updateHandler }= this.props;
+    const updateFrom = curryN(2, (getValue, lens) =>
+      pipe(getValue, set(lens, __, period), updateHandler));
+
+    const updateInput = updateFrom(path(['target', 'value']));
+
     return (
       <Container>
         <Six>
@@ -82,6 +92,8 @@ class PeriodPage extends React.Component {
           <MarkdownEditor
             title={ 'Описание периода' }
             source={ period.description[this.state.activeLang] }
+            onBlur={ this.markdownOnBlur.bind(this, ['description', this.state.activeLang]) }
+            onChange={ updateInput(lensPath(['description', this.state.activeLang])) }
           />
         </Six>
       </Container>
