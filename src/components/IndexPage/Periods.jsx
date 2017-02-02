@@ -30,6 +30,7 @@ const Periods = (props) => {
     <Wrap>
       <Title>Периоды</Title>
       {
+        periods &&
         Object.keys(periods).map((index) => {
           return (
             <Button
