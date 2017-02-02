@@ -2,6 +2,7 @@ import React from 'react';
 import { values } from 'ramda';
 import { Container, Six } from '../Layout';
 import Header from './Header';
+import Periods from './Periods.jsx';
 import Search from './Search';
 import PrisonsTable from './PrisonsTable/PrisonsTable';
 
@@ -61,7 +62,7 @@ class IndexPage extends React.Component {
           />
         </Six>
         <Six>
-
+          <Periods periods={ this.props.periods }/>
         </Six>
         <Six justify="center">
           <Search

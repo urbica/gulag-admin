@@ -14,6 +14,29 @@ const Header = styled.header`
   border-bottom: 1px solid rgba(0,0,0,.3);
 `;
 
+const Back = styled(Link)`
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: .2s;
+  &:hover {
+    opacity: .5;
+  }
+`;
+
+const Title = styled.div`
+  font-size: 36px;
+  font-weight: bold;
+`;
+
+const Period = styled.div`
+  opacity: 0.5;
+  font-size: 12px;
+  text-align: center;
+`;
+
 const languages = {
   ru: 'русский',
   en: 'english',
@@ -33,14 +56,18 @@ class PeriodPage extends React.Component {
   };
 
   render() {
+    const { period }= this.props;
     return (
       <Container>
         <Six>
           <Header>
-            <Link to='/admin/prisons'>
+            <Back to='/admin/prisons'>
               ← к таблице лагерей
-            </Link>
-            Красный терор
+            </Back>
+            <div>
+              <Title>{ period.name }</Title>
+              <Period>{ period.period }</Period>
+            </div>
             <Button color='orange'>Сохранить</Button>
           </Header>
         </Six>
@@ -52,7 +79,10 @@ class PeriodPage extends React.Component {
           />
         </Six>
         <Six>
-          <MarkdownEditor/>
+          <MarkdownEditor
+            title={ 'Описание периода' }
+            source={ period.description[this.state.activeLang] }
+          />
         </Six>
       </Container>
     )

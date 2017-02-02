@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import FieldTitle from '../FieldTitle.jsx';
 import TextInput from '../TextInput';
 import debounce from 'debounce';
 import searchIcon from './search.svg';
+
+const Wrap = styled.div`
+  width: 100%;
+`;
 
 const SearchWrap = styled.label`
   position: relative;
@@ -10,13 +15,17 @@ const SearchWrap = styled.label`
   cursor: text;
   & img {
     position: absolute;
-    top: 50%;
+    bottom: 15px;
     left: 12px;
-    transform: translateY(-50%);
   }
   & label input {
     text-indent: 30px;
   }
+`;
+
+const Title = styled(FieldTitle)`
+  font-size: 48px;
+  text-transform: capitalize;
 `;
 
 const Search = (props) => {
@@ -29,13 +38,16 @@ const Search = (props) => {
   };
 
   return (
-    <SearchWrap>
-      <TextInput
-        onChange={ handleOnChange }
-        placeholder={ 'Поиск' }
-      />
-      <img src={ searchIcon } alt={ 'Search' }/>
-    </SearchWrap>
+    <Wrap>
+      <Title>Лагеря</Title>
+      <SearchWrap>
+        <TextInput
+          onChange={ handleOnChange }
+          placeholder={ 'Поиск' }
+        />
+        <img src={ searchIcon } alt={ 'Search' }/>
+      </SearchWrap>
+    </Wrap>
   )
 };
 
