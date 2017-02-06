@@ -1,13 +1,14 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import './App.css';
-
 import {
-  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
-  reject, test, ifElse, isEmpty, isNil, lensPath
+  always, concat, assoc, assocPath, dissoc, dissocPath,
+  map, over, propEq, reject, test, ifElse, isNil, lensPath
 } from 'ramda';
-
-import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../../utils/utils';
+import {
+  fetchData, concatUrl,
+  directoryToOptions, getMaxPrisoners
+} from '../../utils/utils';
+import './App.css';
 
 const prisonTemplate = {
   id: undefined,
@@ -50,12 +51,12 @@ const prisonTemplate = {
 const App = React.createClass({
   getInitialState() {
     return {
-      activities: [],
-      places: [],
-      types: [],
-      periods: {},
-      photos: {},
-      prisons: {},
+      activities: null,
+      places: null,
+      types: null,
+      periods: null,
+      photos: null,
+      prisons: null,
       token: localStorage.getItem('token')
     };
   },
@@ -228,8 +229,8 @@ const App = React.createClass({
       });
     }
 
-    if (isEmpty(this.state.prisons) || isEmpty(this.state.periods)) {
-      return null;
+    if (!this.state.prisons || !this.state.periods) {
+      return <div style={{position:'absolute',top:'50%',left:'50%'}}>Загрузка...</div>;
     }
 
     // /admin || /admin/prisons -> <IndexPage />
