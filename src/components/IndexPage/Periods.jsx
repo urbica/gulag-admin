@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FieldTitle from '../FieldTitle.jsx';
 
@@ -14,9 +14,10 @@ const Title = styled(FieldTitle)`
   text-transform: capitalize;
 `;
 
-const Button = styled.div`
+const Button = styled(Link)`
   display: inline-block;
-  cursor: pointer;
+  color: #000;
+  text-decoration: none;
   transition: .2s;
   &:hover {
     opacity: .5;
@@ -33,9 +34,8 @@ const Periods = (props) => {
         periods &&
         Object.keys(periods).map((index) => {
           return (
-            <Button
-              key={ index }
-              onClick={ browserHistory.push.bind(browserHistory, `/admin/period/${index}`) }
+            <Button key={ index }
+                    to={ `/admin/period/${index}` }
             >{ periods[index].name.ru }</Button>
           )
         })

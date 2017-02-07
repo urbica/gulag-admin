@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../Button';
 import moment from 'moment';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPeriods } from '../../utils/utils';
 
@@ -55,7 +55,7 @@ const PrisonHeader = (props) => {
 
   return (
     <Header>
-      <BackLink to='/admin/prisons'>
+      <BackLink to='/admin'>
         ← к таблице лагерей
       </BackLink>
       <div>

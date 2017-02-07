@@ -1,13 +1,18 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
-import './App.css';
-
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import {
   always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
-  reject, test, ifElse, isEmpty, isNil, lensPath
+  reject, ifElse, isEmpty, isNil, lensPath
 } from 'ramda';
-
-import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../../utils/utils';
+import {
+  fetchData, concatUrl, directoryToOptions, getMaxPrisoners
+} from '../../utils/utils';
+import LoginPage from '../LoginPage/LoginPage.jsx'
+import IndexPage from '../IndexPage/IndexPage.jsx'
+import PeriodPage from '../PeriodPage/PeriodPage.jsx'
+import PrisonPage from '../PrisonPage/PrisonPage.jsx'
+import NoMatch from '../NoMatch'
+import './App.css'
 
 const prisonTemplate = {
   id: undefined,
@@ -61,10 +66,8 @@ const App = React.createClass({
   },
 
   componentWillMount() {
-    const { token } = this.state;
-    if (!token) {
-      browserHistory.push('/login');
-    } else {
+    const { token, prisons } = this.state;
+    if (token && isEmpty(prisons)) {
       fetchData({ token })
         .then(({ activities, places, types, periods, prisons, photos }) => {
           this.setState({ activities, places, types, periods, prisons, photos });
@@ -84,9 +87,9 @@ const App = React.createClass({
       .then(({ token }) => {
         localStorage.setItem('token', token);
         return fetchData({ token })
-          .then(({ activities, places, types, prisons, photos }) => {
-            this.setState({ activities, places, types, prisons, token, photos }, () => {
-              browserHistory.push('/admin');
+          .then(({ activities, places, types, periods, prisons, photos }) => {
+            this.setState({ activities, places, types, periods, prisons, token, photos }, () => {
+              window.history.pushState('/admin');
             });
           });
       })
@@ -96,7 +99,7 @@ const App = React.createClass({
   logout() {
     localStorage.removeItem('token');
     this.setState(dissoc('token'), () => {
-      browserHistory.push('/login');
+      window.history.pushState('/login');
     });
   },
 
@@ -116,7 +119,7 @@ const App = React.createClass({
       .then(response => response.json())
       .then(([submittedPeriod]) => {
         this.setState(assocPath(['periods', submittedPeriod.id], submittedPeriod), () =>
-          browserHistory.push(`/admin/periods/${submittedPeriod.id}`)
+          window.history.pushState(`/admin/period/${submittedPeriod.id}`)
         );
         alert(`Период "${period.name.ru}" обновлён`);
       });
@@ -169,7 +172,7 @@ const App = React.createClass({
       .then(response => response.json())
       .then(([newPrison]) => {
         this.setState(assocPath(['prisons', newPrison.id], newPrison), () =>
-          browserHistory.push(`/admin/prisons/${newPrison.id}`)
+          window.history.pushState(`/admin/prisons/${newPrison.id}`)
         );
       });
   },
@@ -195,7 +198,7 @@ const App = React.createClass({
         .then(response => response.json())
         .then(([submittedPrison]) => {
           this.setState(assocPath(['prisons', submittedPrison.id], getMaxPrisoners(submittedPrison)), () =>
-            browserHistory.push(`/admin/prisons/${submittedPrison.id}`)
+            window.history.pushState(`/admin/prisons/${submittedPrison.id}`)
           );
           alert(`Лагерь "${prison.name.ru}" обновлён`);
         });
@@ -211,76 +214,80 @@ const App = React.createClass({
             Authorization: `Bearer ${this.state.token}`
           }
         }).then(() => {
-          browserHistory.push('/admin/prisons');
+          window.history.pushState('/admin/prisons');
           this.setState(dissocPath(['prisons', `${prison.id}`]));
         });
       }
     }
   },
 
-  renderChildren() {
-    const { pathname } = this.props.router.location;
-
-    // /login -> <LoginPage />
-    if (test(/^(\/login\/?)$/, pathname)) {
-      return React.cloneElement(this.props.children, {
-        onSubmit: this.login
-      });
-    }
-
-    if (isEmpty(this.state.prisons) || isEmpty(this.state.periods)) {
-      return null;
-    }
-
-    // /admin || /admin/prisons -> <IndexPage />
-    if (test(/^(\/admin\/?|\/admin\/prisons\/?)$/, pathname)) {
-      return React.cloneElement(this.props.children, {
-        periods: this.state.periods,
-        prisons: this.state.prisons,
-        places: this.state.places,
-        types: this.state.types,
-        onLogout: this.logout,
-        createPrison: this.createPrison.bind(this, prisonTemplate)
-      });
-    }
-
-    // /admin/period/periodId -> <PeriodPage />
-    else if (test(/\/admin\/period\/\d+/, pathname)) {
-      const { periodId } = this.props.router.params;
-      return React.cloneElement(this.props.children, {
-        period: this.state.periods[periodId],
-        updateHandler: this.updatePeriod,
-        submitHandler: this.submitPeriod
-      });
-    }
-
-    // /admin/prisons/prisonId -> <PrisonPage />
-    else if (test(/\/admin\/prisons\/\d+/, pathname)) {
-      const { prisonId } = this.props.router.params;
-      const prison = this.state.prisons[prisonId];
-      return React.cloneElement(this.props.children, {
-        prison: prison,
-        photos: this.state.photos[prisonId],
-        changeDropDownItem: this.changeDropDownItem,
-        activityOptions: directoryToOptions(this.state.activities),
-        placeOptions: directoryToOptions(this.state.places),
-        typeOptions: directoryToOptions(this.state.types),
-        uploadHandler: this.uploadPhotos,
-        deletePhoto: this.deletePhoto,
-        submitHandler: this.submitPrison,
-        updateHandler: this.updatePrison,
-        deleteHandler: this.deletePrison
-      });
-    }
-
-    return this.props.children;
-  },
-
   render() {
+    const LoginRoute = ({ component, ...rest }) => (
+      <Route {...rest} render={props => (
+        !this.state.token ? (
+            React.createElement(component, props)
+          ) : (
+            <Redirect to={{
+              pathname: '/admin',
+              state: { from: props.location }
+            }}/>
+          )
+      )}/>
+    );
+
+    const PrivateRoute = ({ component, ...rest }) => (
+      <Route {...rest} render={props => (
+        this.state.token ? (
+            React.createElement(component, props)
+          ) : (
+            <Redirect to={{
+              pathname: '/login',
+              state: { from: props.location }
+            }}/>
+          )
+      )}/>
+    );
+
     return (
-      <div className='App'>
-        { this.renderChildren() }
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' render={ () => <div>root</div> }/>
+          <LoginRoute path='/login'
+                      component={ LoginPage }
+                      onSubmit={ this.login }
+          />
+          <PrivateRoute exact path='/admin'
+                        component={ IndexPage }
+                        periods={ this.state.periods }
+                        prisons={ this.state.prisons }
+                        places={ this.state.places }
+                        types={ this.state.types }
+                        onLogout={ this.logout }
+                        createPrison={ this.createPrison.bind(this, prisonTemplate) }
+          />
+          <PrivateRoute path='/admin/period/:periodId'
+                        component={ PeriodPage }
+                        period={ this.state.periods[1] }
+                        updateHandler={ this.updatePeriod }
+                        submitHandler={ this.submitPeriod }
+          />
+          <PrivateRoute path='/admin/prison/:prisonId'
+                        component={ PrisonPage }
+                        prison={ this.state.prisons[1] }
+                        photos={ this.state.photos[1] }
+                        changeDropDownItem={ this.changeDropDownItem}
+                        activityOptions={ directoryToOptions(this.state.activities) }
+                        placeOptions={ directoryToOptions(this.state.places) }
+                        typeOptions={ directoryToOptions(this.state.types) }
+                        uploadHandler={ this.uploadPhotos }
+                        deletePhoto={ this.deletePhoto }
+                        submitHandler={ this.submitPrison }
+                        updateHandler={ this.updatePrison }
+                        deleteHandler={ this.deletePrison }
+          />
+          <Route component={ NoMatch }/>
+        </Switch>
+      </BrowserRouter>
     );
   }
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { __, curryN, lensPath, lensProp, path, pipe, set } from 'ramda';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Six } from '../Layout.jsx';
 import Button from '../Button.jsx';
@@ -61,46 +61,46 @@ class PeriodPage extends React.Component {
   };
 
   render() {
-    const { period, updateHandler, submitHandler }= this.props;
+    const { period, updateHandler, submitHandler } = this.props;
     const updateFrom = curryN(2, (getValue, lens) =>
       pipe(getValue, set(lens, __, period), updateHandler));
 
     const updateInput = updateFrom(path(['target', 'value']));
 
-    return (
-      <Container>
-        <Six>
-          <Header>
-            <Back to='/admin/prisons'>
-              ← к таблице лагерей
-            </Back>
-            <div>
-              <Title>{ period.name[this.state.activeLang] }</Title>
-              <Period>{ `${period.year_start} – ${period.year_end}` }</Period>
-            </div>
-            <Button
-              color='orange'
-              onClick={ submitHandler.bind(null, period) }
-            >Сохранить</Button>
-          </Header>
-        </Six>
-        <Six>
-          <LanguageSwitcher
-            languages={ languages }
-            activeLang={ this.state.activeLang }
-            onChange={ this.langChange }
-          />
-        </Six>
-        <Six>
-          <MarkdownEditor
-            title={ 'Описание периода' }
-            source={ period.description[this.state.activeLang] }
-            onBlur={ this.markdownOnBlur.bind(this, ['description', this.state.activeLang]) }
-            onChange={ updateInput(lensPath(['description', this.state.activeLang])) }
-          />
-        </Six>
-      </Container>
-    )
+    return Boolean(period) ? (
+        <Container>
+          <Six>
+            <Header>
+              <Back to='/admin'>
+                ← к таблице лагерей
+              </Back>
+              <div>
+                <Title>{ period.name[this.state.activeLang] }</Title>
+                <Period>{ `${period.year_start} – ${period.year_end}` }</Period>
+              </div>
+              <Button
+                color='orange'
+                onClick={ submitHandler.bind(null, period) }
+              >Сохранить</Button>
+            </Header>
+          </Six>
+          <Six>
+            <LanguageSwitcher
+              languages={ languages }
+              activeLang={ this.state.activeLang }
+              onChange={ this.langChange }
+            />
+          </Six>
+          <Six>
+            <MarkdownEditor
+              title={ 'Описание периода' }
+              source={ period.description[this.state.activeLang] }
+              onBlur={ this.markdownOnBlur.bind(this, ['description', this.state.activeLang]) }
+              onChange={ updateInput(lensPath(['description', this.state.activeLang])) }
+            />
+          </Six>
+        </Container>
+      ) : <div>Загрузка</div>
   }
 }
 

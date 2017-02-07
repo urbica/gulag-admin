@@ -101,7 +101,7 @@ class PrisonCard extends React.Component {
     const updateInput = updateFrom(path(['target', 'value']));
     const updateSelect = updateFrom(path(['value']));
 
-    return (
+    return Boolean(prison) ? (
       <Container>
         <Six>
           <PrisonHeader
@@ -225,7 +225,7 @@ class PrisonCard extends React.Component {
           </Button>
         </Six>
       </Container>
-    );
+    ) : <div>Загрузка...</div>;
   }
 }
 
