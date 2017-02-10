@@ -1,14 +1,5 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
-
-const slide = keyframes`
-  from {
-    transform: translateX(calc(100% + 10px));
-  }
-  to {
-    transform: translateX(0);
-  }
-`;
+import styled from 'styled-components'
 
 const Wrap = styled.div`
   position: fixed;
@@ -22,7 +13,8 @@ const Wrap = styled.div`
   font-size: 14px;
   font-family: 'PT Sans', sans-serif;
   overflow: scroll;
-  animation: ${slide} .4s;
+  transition: .4s;
+  transform: translateX(${props => props.visible ? '0' : 'calc(100% + 10px)'});
   z-index: 1;
 `;
 
@@ -40,11 +32,12 @@ const Description = styled.div`
 `;
 
 const PeriodCard = (props) => {
-  const { period, currentLanguage } = props;
+  const { period, currentLanguage, visible, closeCard } = props;
 
   return Boolean(period) ?
     (
-      <Wrap>
+      <Wrap visible={ visible }>
+        <button onClick={ closeCard }>закрыть</button>
         <Period>{ `${period.year_start} – ${period.year_end}` }</Period>
         <Title>{ period.name[currentLanguage] }</Title>
         <Description>{ period.description[currentLanguage] }</Description>

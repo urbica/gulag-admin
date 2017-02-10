@@ -9,7 +9,9 @@ class IndexPage extends Component {
   state = {
     currentLanguage: 'ru',
     currentYear: 1918,
-    currentPrisons: []
+    currentPrisons: [],
+    currentPeriod: 1,
+    periodCardVisibility: true
   };
 
   componentWillReceiveProps(nextProps) {
@@ -19,17 +21,28 @@ class IndexPage extends Component {
     this.setState({ currentPrisons: filteredPrisons });
   }
 
+  closePeriodCard() {
+    this.setState({periodCardVisibility: false});
+  }
+
   render() {
+    const {
+      currentYear, currentPrisons,
+      periodCardVisibility, currentLanguage, currentPeriod
+    } = this.state;
+
     return (
       <div>
-        <Header currentYear={ this.state.currentYear }
-                currentPrisons={ this.state.currentPrisons }
+        <Header currentYear={ currentYear }
+                currentPrisons={ currentPrisons }
         />
-        <Year>{ this.state.currentYear }</Year>
-        <PeriodCard period={ this.props.periods[1] }
-                    currentLanguage={ this.state.currentLanguage }
+        <Year>{ currentYear }</Year>
+        <PeriodCard visible={ periodCardVisibility }
+                    period={ this.props.periods[currentPeriod] }
+                    currentLanguage={ currentLanguage }
+                    closeCard={ this.closePeriodCard.bind(this) }
         />
-        <Map currentPrisons={ this.state.currentPrisons }/>
+        <Map currentPrisons={ currentPrisons }/>
       </div>
     )
   }
