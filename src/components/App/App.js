@@ -7,8 +7,9 @@ import {
 import {
   fetchData, concatUrl, directoryToOptions, getMaxPrisoners
 } from '../../utils/utils';
-import LoginPage from '../LoginPage/LoginPage.jsx'
 import IndexPage from '../IndexPage/IndexPage.jsx'
+import LoginPage from '../LoginPage/LoginPage.jsx'
+import AdminPage from '../AdminPage/AdminPage.jsx'
 import PeriodPage from '../PeriodPage/PeriodPage.jsx'
 import PrisonPage from '../PrisonPage/PrisonPage.jsx'
 import NoMatch from '../NoMatch'
@@ -251,13 +252,17 @@ const App = React.createClass({
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' render={ () => <div>root</div> }/>
+          <Route exact path='/'
+                 component={ IndexPage }
+                 periods={ this.state.periods }
+                 prisons={ this.state.prisons }
+          />
           <LoginRoute path='/login'
                       component={ LoginPage }
                       onSubmit={ this.login }
           />
           <PrivateRoute exact path='/admin'
-                        component={ IndexPage }
+                        component={ AdminPage }
                         periods={ this.state.periods }
                         prisons={ this.state.prisons }
                         places={ this.state.places }

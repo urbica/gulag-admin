@@ -19,7 +19,7 @@ const TD = styled.td`
 
 const PrisonRow = (props) => {
   const { prison, places, types } = props;
-  const url = `/admin/prisons/${prison.id}`;
+  const url = `/admin/prison/${prison.id}`;
   const openPrison = browserHistory.push.bind(browserHistory, url);
   return (
     <tr onClick={ openPrison }>
