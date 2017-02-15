@@ -42,7 +42,7 @@ const PeriodCard = (props) => {
         <Title>{ period.name[currentLanguage] }</Title>
         <Description>{ period.description[currentLanguage] }</Description>
       </Wrap>
-    ) : <Wrap>Загрузка</Wrap>
+    ) : <Wrap visible={ visible }>Загрузка</Wrap>
 };
 
 export default PeriodCard

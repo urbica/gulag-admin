@@ -248,14 +248,18 @@ const App = React.createClass({
           )
       )}/>
     );
-
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/'
-                 component={ IndexPage }
-                 periods={ this.state.periods }
-                 prisons={ this.state.prisons }
+          <Route
+            exact
+            path='/'
+            render={() => (
+              <IndexPage
+                periods={this.state.periods}
+                prisons={this.state.prisons}
+              />
+            )}
           />
           <LoginRoute path='/login'
                       component={ LoginPage }
@@ -294,6 +298,7 @@ const App = React.createClass({
         </Switch>
       </BrowserRouter>
     );
+
   }
 });
 

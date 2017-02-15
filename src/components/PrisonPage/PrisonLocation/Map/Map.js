@@ -10,7 +10,7 @@ class Map extends React.PureComponent {
   componentDidMount() {
     mapboxgl.accessToken = accessToken;
     this.map = new mapboxgl.Map({
-      container: 'map',
+      container: 'adminMap',
       style: 'mapbox://styles/mapbox/streets-v9',
       drag: true,
       zoom: 1.6,
@@ -74,7 +74,7 @@ class Map extends React.PureComponent {
 
   render() {
     return (
-      <div id='map'></div>
+      <div id='adminMap'></div>
     );
   }
 };

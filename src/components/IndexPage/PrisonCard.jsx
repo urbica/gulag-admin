@@ -27,7 +27,7 @@ const PrisonCard = (props) => {
         <div>{ prison.name.ru }</div>
         <ReactMarkdown source={prison.description.ru}/>
       </Wrap>
-    ) : <Wrap>Загрузка</Wrap>
+    ) : <Wrap visible={ visible }>Загрузка</Wrap>
 };
 
 

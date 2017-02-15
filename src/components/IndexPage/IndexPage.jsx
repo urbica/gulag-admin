@@ -12,8 +12,8 @@ class IndexPage extends Component {
     currentYear: 1918,
     currentPrisons: [],
     currentPeriod: 1,
-    prisonCardVisibility: true,
-    periodCardVisibility: true
+    prisonCardVisibility: false,
+    periodCardVisibility: false
   };
 
   componentWillReceiveProps(nextProps) {
@@ -31,11 +31,20 @@ class IndexPage extends Component {
     this.setState({ periodCardVisibility: false });
   }
 
+  prisonsToFeatures(prisons) {
+    const features = [];
+
+    prisons.map(prison => prison.features.map(feature => features.push(feature)));
+
+    return features;
+  }
+
   render() {
     const {
       currentYear, currentPrisons, prisonCardVisibility,
       periodCardVisibility, currentLanguage, currentPeriod
     } = this.state;
+    const features = this.prisonsToFeatures(currentPrisons);
 
     return (
       <div>
@@ -44,6 +53,7 @@ class IndexPage extends Component {
           currentPrisons={currentPrisons}
         />
         <Year>{ currentYear }</Year>
+
         {
           this.props.periods &&
           <PeriodCard
@@ -62,7 +72,10 @@ class IndexPage extends Component {
             closeCard={this.closePrisonCard.bind(this)}
           />
         }
-        <Map/>
+        <Map
+          features={features}
+          slideUp={prisonCardVisibility}
+        />
       </div>
     )
   }
