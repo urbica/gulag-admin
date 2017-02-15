@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Year = styled.div`
-  position: absolute;
+  position: fixed;
   top: 72px;
   font-family: 'PT Sans', sans-serif;
   font-size: 200px;

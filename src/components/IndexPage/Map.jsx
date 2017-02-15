@@ -27,7 +27,7 @@ class Map extends React.PureComponent {
     });
 
     this.map.addControl(new mapboxgl.NavigationControl());
-    this.map.on('load', this.onLoad);
+    // this.map.on('load', this.onLoad);
   }
 
   shouldComponentUpdate() {
@@ -42,34 +42,34 @@ class Map extends React.PureComponent {
     }
   }
 
-  onLoad = () => {
-    const { prisons } = this.props;
-    const source = {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: prisons
-      }
-    };
-
-    this.map.addSource('prisons', source);
-
-    this.map.addLayer({
-      id: 'prisons',
-      type: 'circle',
-      source: 'prisons',
-      paint: {
-        'circle-radius': 5,
-        'circle-color': 'red'
-      }
-    });
-
-    setTimeout(() => {
-      const credits = ' <a href="http://urbica.co" target="_blank">© Urbica</a>';
-      const attrEls = document.getElementsByClassName('mapboxgl-ctrl-attrib');
-      if (attrEls.length > 0) attrEls[0].insertAdjacentHTML('beforeend', credits);
-    }, 500);
-  };
+  // onLoad = () => {
+  //   const { prisons } = this.props;
+  //   const source = {
+  //     type: 'geojson',
+  //     data: {
+  //       type: 'FeatureCollection',
+  //       features: prisons
+  //     }
+  //   };
+  //
+  //   this.map.addSource('prisons', source);
+  //
+  //   this.map.addLayer({
+  //     id: 'prisons',
+  //     type: 'circle',
+  //     source: 'prisons',
+  //     paint: {
+  //       'circle-radius': 5,
+  //       'circle-color': 'red'
+  //     }
+  //   });
+  //
+  //   setTimeout(() => {
+  //     const credits = ' <a href="http://urbica.co" target="_blank">© Urbica</a>';
+  //     const attrEls = document.getElementsByClassName('mapboxgl-ctrl-attrib');
+  //     if (attrEls.length > 0) attrEls[0].insertAdjacentHTML('beforeend', credits);
+  //   }, 500);
+  // };
 
   render() {
     return (
