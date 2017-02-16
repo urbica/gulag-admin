@@ -40,6 +40,22 @@ class Map extends React.PureComponent {
   }
 
   onLoad = () => {
+    this.map.addSource('chukotka', {
+      type: 'vector',
+      url: 'mapbox://gulagmap.72d3cpll'
+    });
+    this.map.addLayer({
+      'id': 'chukotka',
+      'type': 'fill',
+      'source': 'chukotka',
+      'source-layer': 'chukotka_patch-4b7lx1',
+      'layout': {},
+      'paint': {
+        'fill-color': '#1b2128',
+        'fill-opacity': 1
+      }
+    }, 'waterway');
+
     const { features } = this.props;
     const source = {
       type: 'geojson',
@@ -50,25 +66,50 @@ class Map extends React.PureComponent {
     };
 
     this.map.addSource('prisons', source);
+    this.map.addSource("cities", {
+      'type': 'vector',
+      'url': 'mapbox://gulagmap.1hzhi5te'
+    });
 
     this.map.addLayer({
       id: 'prisons',
       type: 'circle',
       source: 'prisons',
       paint: {
-        'circle-radius': 2,
-        'circle-color': 'red'
+        'circle-radius': 1.75,
+        'circle-color': '#ff2b00',
+        'circle-opacity': 1
       }
     });
 
     this.map.addLayer({
-      id: 'prisonsGalo',
+      id: 'prisonsHalo',
       type: 'circle',
       source: 'prisons',
       paint: {
-        'circle-radius': 5,
-        'circle-color': 'red',
-        'circle-opacity': .2
+        'circle-color': '#eb4200',
+        'circle-opacity': 0.3,
+        'circle-radius': {
+          property: 'peoples',
+          stops: [
+            [0, 2],
+            [200000, 200]
+          ]
+        }
+      }
+    });
+
+    this.map.addLayer({
+      "id": "cities_labels",
+      'type': 'symbol',
+      "source": "cities",
+      'source-layer': 'allCities-difd7x',
+      'layout': {
+        'text-field': '{historical_name}',
+        'text-size': 11
+      },
+      'paint': {
+        'text-color': '#555'
       }
     });
 
@@ -87,6 +128,6 @@ class Map extends React.PureComponent {
       />
     );
   }
-};
+}
 
 export default Map;

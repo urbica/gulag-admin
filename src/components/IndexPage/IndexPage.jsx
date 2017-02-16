@@ -34,7 +34,13 @@ class IndexPage extends Component {
   prisonsToFeatures(prisons) {
     const features = [];
 
-    prisons.map(prison => prison.features.map(feature => features.push(feature)));
+    prisons.map(prison => prison.features.map(feature =>
+      feature.properties[this.state.currentYear] ? features.push(feature) : null
+    ));
+
+    features.map(feature =>
+      feature.properties.peoples = feature.properties[this.state.currentYear].peoples
+    );
 
     return features;
   }
@@ -73,6 +79,7 @@ class IndexPage extends Component {
           />
         }
         <Map
+          currentYear={currentYear}
           features={features}
           slideUp={prisonCardVisibility}
         />
