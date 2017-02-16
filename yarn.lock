@@ -4730,14 +4730,14 @@ react-markdown@2.4.4:
     commonmark-react-renderer "^4.2.4"
     in-publish "^2.0.0"
 
-react-router-dom@4.0.0-beta.4:
-  version "4.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.0.0-beta.4.tgz#788f26a8cfd2669e6d615380da0ccefb33a941b1"
+react-router-dom@4.0.0-beta.6:
+  version "4.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.0.0-beta.6.tgz#bdbd8f2fea3def52970735778db03b24cc082a02"
   dependencies:
     history "^4.5.1"
-    react-router "^4.0.0-beta.4"
+    react-router "^4.0.0-beta.6"
 
-react-router@^4.0.0-beta.4:
+react-router@^4.0.0-beta.6:
   version "4.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.0.0-beta.6.tgz#561ac0bf1929960813bf201319ff85d821d5547b"
   dependencies:
@@ -4795,9 +4795,9 @@ react-scripts@0.8.5:
   optionalDependencies:
     fsevents "1.0.14"
 
-react-select@1.0.0-rc.2:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.2.tgz#9fc11b149a3dc1ac831289d21b40a59742f82f8d"
+react-select@1.0.0-rc.3:
+  version "1.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.3.tgz#94ade090522153067eff09282d0525249ea1d9e3"
   dependencies:
     classnames "^2.2.4"
     react-input-autosize "^1.1.0"

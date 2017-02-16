@@ -23,6 +23,12 @@ class IndexPage extends Component {
     this.setState({ currentPrisons: filteredPrisons });
   }
 
+  changeYear(upDown) {
+    upDown === 'up' ?
+      this.setState({ currentYear: this.state.currentYear + 1 }) :
+      this.setState({ currentYear: this.state.currentYear - 1 });
+  }
+
   closePrisonCard() {
     this.setState({ prisonCardVisibility: false });
   }
@@ -57,6 +63,7 @@ class IndexPage extends Component {
         <Header
           currentYear={currentYear}
           currentPrisons={currentPrisons}
+          demo={this.changeYear.bind(this)}
         />
         <Year>{ currentYear }</Year>
 
