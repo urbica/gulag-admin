@@ -1,124 +1,94 @@
-import React, { PropTypes } from 'react';
-import { path } from 'd3-path';
-import { extent } from 'd3-array';
-import { area, curveBasis } from 'd3-shape';
-import { scaleLinear, scaleTime } from 'd3-scale';
+import {
+  default as React,
+  Component,
+  PropTypes,
+} from 'react';
 
-const getContexts = (width, height, data) => {
-  const actualContext = path();
-  const expectedContext = path();
+import {
+  Xaxis,
+  Yaxis,
+  Xgrid,
+  Ygrid,
+  Legend
+} from 'react-d3-core';
 
-  const x = scaleTime()
-    .domain(extent(data, d => d.date))
-    .range([0, width]);
+import {
+  Bar,
+  Chart
+} from 'react-d3-shape';
 
-  const y = scaleLinear()
-    .domain(extent(data, d => d.expected))
-    .range([height, 0]);
+import CommonProps from './commonProps';
 
-  const actualAreaGenerator = area()
-    .x(d => x(d.date))
-    .y1(d => y(d.actual))
-    .y0(y(0))
-    .curve(curveBasis)
-    .context(actualContext)
-    .defined(d => !!d.actual);
+export default class BarChart extends Component {
 
-  const expectedAreaGenerator = area()
-    .x(d => x(d.date))
-    .y1(d => y(d.expected))
-    .y0(y(0))
-    .curve(curveBasis)
-    .context(expectedContext)
-    .defined(d => !!d.expected);
-
-  actualAreaGenerator(data);
-  expectedAreaGenerator(data);
-
-  return { actualContext, expectedContext };
-};
-
-const TrendAreaChart = (props) => {
-  const { data, actualStyle, expectedStyle, width, height, margins } = props;
-  const { actualContext, expectedContext } = getContexts(width, height, data);
-
-  const transform = `translate(${margins.left}, ${margins.top})`;
-
-  return (
-    <svg height={height} width={width}>
-      <g transform={transform}>
-        <path
-          d={expectedContext.toString()}
-          fill={actualStyle.fill}
-          style={expectedStyle}
-          stroke={expectedStyle.stroke}
-        />
-        <path
-          d={actualContext.toString()}
-          fill={actualStyle.fill}
-          style={actualStyle}
-          stroke={actualStyle.stroke}
-        />
-      </g>
-    </svg>
-  );
-};
-
-TrendAreaChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.any,
-    actual: PropTypes.any,
-    expected: PropTypes.any
-  })).isRequired,
-  margins: PropTypes.shape({
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number,
-    bottom: PropTypes.number
-  }),
-  actualStyle: PropTypes.shape({
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
-  expectedStyle: PropTypes.shape({
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
-};
-
-TrendAreaChart.defaultProps = {
-  actualStyle: {
-    fill: '#ee675a',
-    fillOpacity: 0.6,
-    stroke: '#ee675a',
-    strokeWidth: 2,
-    strokeOpacity: 1,
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round'
-  },
-  expectedStyle: {
-    fill: '#5e6066',
-    fillOpacity: 0.6,
-    stroke: '#5e6066',
-    strokeWidth: 2,
-    strokeOpacity: 1,
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round'
-  },
-  margins: {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
+  constructor(props) {
+    super(props);
   }
-};
 
-export default TrendAreaChart;
+  static defaultProps = {
+    onMouseOver: () => {
+    },
+    onMouseOut: () => {
+    },
+    ...CommonProps
+  }
+
+  static propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    margins: PropTypes.object.isRequired,
+    data: PropTypes.array.isRequired,
+    chartSeries: PropTypes.array.isRequired
+  }
+
+  render() {
+
+    const {
+      width,
+      height,
+      margins,
+      data,
+      chartSeries,
+      showXGrid,
+      showYGrid,
+      showLegend,
+      categoricalColors
+    } = this.props;
+
+    var xgrid, ygrid;
+
+    if (showXGrid) xgrid = <Xgrid/>
+    if (showYGrid) ygrid = <Ygrid/>
+
+    return (
+      <div>
+        {showLegend ?
+          <Legend
+            {...this.props}
+            width={width}
+            margins={margins}
+            chartSeries={chartSeries}
+            categoricalColors={categoricalColors}
+          />
+          : null
+        }
+        <Chart
+          {...this.props}
+          width={width}
+          height={height}
+          data={data}
+          chartSeries={chartSeries}
+        >
+          <Bar
+            chartSeries={chartSeries}
+          />
+          {xgrid}
+          {ygrid}
+          <Xaxis/>
+          <Yaxis/>
+          {this.props.children}
+        </Chart>
+      </div>
+    )
+  }
+}
