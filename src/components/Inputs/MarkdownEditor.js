@@ -29,7 +29,7 @@ const TextArea = styled.textarea`
   min-height: 400px;
   padding: 12px;
   border: none;
-  background-color: ${props => props.color !== 'blue' ? '#f3f3f3' : '#ebecf6'};
+  background-color: '#f3f3f3';
   outline: none;
 `;
 
