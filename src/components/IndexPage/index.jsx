@@ -3,16 +3,17 @@ import { values } from 'ramda'
 import Header from './Header'
 import Year from './Year'
 import styled from 'styled-components'
-import { BarChart } from 'react-d3-basic'
+import Chart from './Chart'
 import PrisonCard from './PrisonCard'
 import PeriodCard from './PeriodCard'
 import Map from './Map'
 
-const Chart = styled.div`
+const ChartWrap = styled.div`
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  width: 100%;
   z-index: 1;
 `;
 
@@ -38,6 +39,10 @@ class IndexPage extends Component {
       this.setState({ currentYear: this.state.currentYear + 1 }) :
       this.setState({ currentYear: this.state.currentYear - 1 });
   }
+
+  setYear = (data) => {
+    this.setState({ currentYear: data.year });
+  };
 
   closePrisonCard() {
     this.setState({ prisonCardVisibility: false });
@@ -243,8 +248,6 @@ class IndexPage extends Component {
       }
     ];
 
-    const margins = { top: 40, right: 100, bottom: 40, left: 100 };
-
     return (
       <div>
         <Header
@@ -253,33 +256,12 @@ class IndexPage extends Component {
           demo={this.changeYear.bind(this)}
         />
         <Year>{ currentYear }</Year>
-        <Chart>
-          <BarChart
-            title={'test'}
+        <ChartWrap>
+          <Chart
             data={data}
-            width={window.innerWidth - 100}
-            height={250}
-            margins={margins}
-            chartSeries={[
-              {
-                field: 'prisoners',
-                name: 'prisoners',
-                style: {
-                  'fill': '#fff',
-                  'fillOpacity': .1
-                }
-              }
-            ]}
-            x={d => d.year}
-            xScale={'ordinal'}
-            showLegend={false}
-            showXGrid={false}
-            showYGrid={false}
-            showYAxis={false}
-            categoricalColors={'rgb(255,255,255)'}
-            onMouseOver={(d, i) => console.log(d, i)}
+            setYear={this.setYear}
           />
-        </Chart>
+        </ChartWrap>
         {
           this.props.periods &&
           <PeriodCard

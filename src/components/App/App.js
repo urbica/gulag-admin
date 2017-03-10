@@ -7,7 +7,7 @@ import {
 import {
   fetchData, concatUrl, directoryToOptions, getMaxPrisoners
 } from '../../utils/utils';
-import IndexPage from '../IndexPage/IndexPage.jsx'
+import IndexPage from '../IndexPage'
 import LoginPage from '../LoginPage/LoginPage.jsx'
 import AdminPage from '../AdminPage/AdminPage.jsx'
 import PeriodPage from '../PeriodPage/PeriodPage.jsx'
