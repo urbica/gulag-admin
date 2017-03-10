@@ -12,8 +12,6 @@ build:
   stage: build
   variables:
     NODE_ENV: test
-  before_script:
-    - npm install yarn -g
   script:
     - yarn
     - npm run build
