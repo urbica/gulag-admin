@@ -45,6 +45,12 @@ class IndexPage extends Component {
     this.setState({ currentYear: data.year });
   };
 
+  openPeriod = (period) => {
+    this.setState({ currentPeriod: period },
+      this.setState({ periodCardVisibility: true })
+    );
+  };
+
   closePrisonCard() {
     this.setState({ prisonCardVisibility: false });
   }
@@ -262,6 +268,7 @@ class IndexPage extends Component {
             data={data}
             periods={this.props.periods}
             setYear={this.setYear}
+            openPeriod={this.openPeriod}
           />
         </ChartWrap>
         {

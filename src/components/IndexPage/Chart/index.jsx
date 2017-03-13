@@ -15,7 +15,7 @@ const margin = {
 };
 
 const Chart = (props) => {
-  const { data, periods, setYear } = props;
+  const { data, periods, setYear, openPeriod } = props;
 
   const xScale = scaleTime()
     .domain([new Date(1918, 0, 1), new Date(1960, 11, 31)])
@@ -45,6 +45,7 @@ const Chart = (props) => {
           xScale={xScale}
           height={height}
           margin={margin}
+          onClick={openPeriod}
         />
       }
       <Axis

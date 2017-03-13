@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { select } from 'd3-selection'
 
 const G = styled.g`
+  pointer-events: auto;
   font-size: 11px;
   & text {
     fill: #fff;
@@ -11,7 +12,7 @@ const G = styled.g`
 
 class Periods extends React.Component {
   componentDidMount() {
-    const { xScale, height, margin } = this.props;
+    const { xScale, height, margin, onClick } = this.props;
     const periods = Object.values(this.props.periods);
     const periodsArea = select(this.periodsArea);
 
@@ -37,7 +38,8 @@ class Periods extends React.Component {
           fill: ${(i % 2) ? '#fff' : '#000'};
           opacity: .1;
         `
-      });
+      })
+      .on('click', d => onClick(d.id));
 
     periodsArea
       .selectAll('text')
