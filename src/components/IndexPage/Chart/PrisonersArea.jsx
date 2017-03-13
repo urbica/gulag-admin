@@ -1,20 +1,29 @@
 import React from 'react'
 import { select } from 'd3-selection'
 import { max } from 'd3-array'
+import styled from 'styled-components'
 
-const barStyle = {
-  fill: '#fff',
-  opacity: '.25'
-};
-
-const lineStyle = {
-  stroke: '#fff',
-  strokeWidth: '2px'
-};
+const G = styled.g`
+  pointer-events: auto;
+  & rect {
+    fill: #fff;
+    opacity: .1;
+    transition: 2s;
+    &:hover {
+      cursor: pointer;
+      opacity: .2;
+      transition: .2s;
+    }
+  }
+  & line {
+    stroke: #fff;
+    stroke-width: 2px;
+  }
+`;
 
 class PrisonersArea extends React.PureComponent {
   componentDidMount() {
-    const { data, xScale, yScale, height } = this.props;
+    const { data, xScale, yScale, height, onClick } = this.props;
     const prisonersArea = select(this.area);
 
     yScale.domain([0, max(data, d => d.prisoners)]);
@@ -32,15 +41,11 @@ class PrisonersArea extends React.PureComponent {
       .attr("width", this.props.width / 42 - 1)
       .attr('height', d => height - yScale(d.prisoners))
       .attr('transform', 'translate(1, 0)')
-      .on('click', this.props.onClick.bind(null));
+      .on('click', onClick.bind(null));
 
-    const bar = prisonersArea.selectAll('rect');
-    Object.entries(barStyle).forEach(([key, value]) => {
-      bar.style(key, value);
-    });
-
-    prisonersArea.selectAll('line')
-      .data(this.props.data)
+    prisonersArea
+      .selectAll('line')
+      .data(data)
       .enter()
       .append("line")
       .attr("fill", "none")
@@ -54,17 +59,12 @@ class PrisonersArea extends React.PureComponent {
         return xScale(date) + (this.props.width / 42);
       })
       .attr("y2", d => yScale(d.prisoners));
-
-    const lines = prisonersArea.selectAll('line');
-    Object.entries(lineStyle).forEach(([key, value]) => {
-      lines.style(key, value);
-    });
   }
 
   render() {
     return (
-      <g
-        ref={ref => this.area = ref}
+      <G
+        innerRef={ref => this.area = ref}
         transform={`translate(${this.props.margin.right}, 1)`}
       />
     )

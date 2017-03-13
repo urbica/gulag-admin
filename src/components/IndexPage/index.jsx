@@ -14,6 +14,7 @@ const ChartWrap = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  pointer-events: none;
   z-index: 1;
 `;
 
@@ -259,6 +260,7 @@ class IndexPage extends Component {
         <ChartWrap>
           <Chart
             data={data}
+            periods={this.props.periods}
             setYear={this.setYear}
           />
         </ChartWrap>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { scaleTime, scaleLinear } from 'd3-scale'
+import { isEmpty } from 'ramda'
 import PrisonersArea from './PrisonersArea'
 import Axis from './Axis'
 import Periods from './Periods'
@@ -14,7 +15,7 @@ const margin = {
 };
 
 const Chart = (props) => {
-  const { data, setYear } = props;
+  const { data, periods, setYear } = props;
 
   const xScale = scaleTime()
     .domain([new Date(1918, 0, 1), new Date(1960, 11, 31)])
@@ -37,13 +38,21 @@ const Chart = (props) => {
         margin={margin}
         onClick={setYear}
       />
+      {
+        !isEmpty(periods) &&
+        <Periods
+          periods={periods}
+          xScale={xScale}
+          height={height}
+          margin={margin}
+        />
+      }
       <Axis
         height={height - margin.top - margin.bottom}
         margin={margin}
         orientation="bottom"
         scale={xScale}
       />
-      <Periods/>
     </svg>
   )
 };
