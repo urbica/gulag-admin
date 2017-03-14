@@ -45,6 +45,10 @@ class IndexPage extends Component {
     this.setState({ currentYear: data.year });
   };
 
+  openPrisonCard = () => {
+    this.setState({ prisonCardVisibility: true })
+  };
+
   openPeriod = (period) => {
     this.setState({ currentPeriod: period },
       this.setState({ periodCardVisibility: true })
@@ -60,15 +64,25 @@ class IndexPage extends Component {
   }
 
   prisonsToFeatures(prisons) {
-    const features = [];
+    const { currentYear } = this.state;
 
-    prisons.map(prison => prison.features.map(feature =>
-      feature.properties[this.state.currentYear] ? features.push(feature) : null
-    ));
+    const features = prisons.reduce((acc, prison) => {
+      const newFeatures = prison.features.reduce((acc, feature) => {
+        if (feature.properties[currentYear]) {
+          const newProperties = {
+            id: prison.id,
+            name: prison.name,
+            peoples: feature.properties[currentYear].peoples
+          };
 
-    features.map(feature =>
-      feature.properties.peoples = feature.properties[this.state.currentYear].peoples
-    );
+          return acc.concat([{ ...feature, properties: newProperties }]);
+        }
+        return acc
+      }, []);
+      return acc.concat(newFeatures);
+    }, []);
+
+    // console.log(features);
 
     return features;
   }
@@ -293,6 +307,7 @@ class IndexPage extends Component {
           currentYear={currentYear}
           features={features}
           slideUp={prisonCardVisibility}
+          openCard={this.openPrisonCard}
         />
       </div>
     )

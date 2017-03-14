@@ -8,6 +8,7 @@ const Year = styled.div`
   color: #fff;
   opacity: .2;
   z-index: 1;
+  pointer-events: none;
 `;
 
 export default Year
