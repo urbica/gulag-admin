@@ -57,9 +57,7 @@ class Periods extends React.Component {
 
   render() {
     return (
-      <G
-        innerRef={ref => this.periodsArea = ref}
-      />
+      <G innerRef={ref => this.periodsArea = ref}/>
     )
   }
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { select } from 'd3-selection'
-import { max } from 'd3-array'
 import styled from 'styled-components'
 
 const G = styled.g`
@@ -25,8 +24,6 @@ class PrisonersArea extends React.PureComponent {
   componentDidMount() {
     const { data, xScale, yScale, height, onClick } = this.props;
     const prisonersArea = select(this.area);
-
-    yScale.domain([0, max(data, d => d.prisoners)]);
 
     prisonersArea
       .selectAll('rect')
