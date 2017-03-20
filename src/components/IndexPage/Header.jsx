@@ -17,14 +17,12 @@ const Wrap = styled.header`
 `;
 
 const Header = (props) => {
-  const { currentYear, currentPrisons, demo } = props;
+  const { currentYear, currentPrisons } = props;
 
   return (
     <Wrap>
       <div>{ `${currentYear}\nгод` }</div>
       <div>{ currentPrisons.length }</div>
-      <button onClick={demo.bind(null, 'up')}>+ год</button>
-      <button onClick={demo.bind(null, 'down')}>- год</button>
     </Wrap>
   )
 };

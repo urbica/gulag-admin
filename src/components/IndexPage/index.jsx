@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import { values } from 'ramda'
 import Header from './Header'
 import Year from './Year'
-import styled from 'styled-components'
+import ChartButton from './ChartButton'
 import Chart from './Chart'
 import PrisonCard from './PrisonCard'
 import PeriodCard from './PeriodCard'
@@ -13,6 +14,7 @@ const ChartWrap = styled.div`
   bottom: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   pointer-events: none;
   z-index: 1;
@@ -25,7 +27,8 @@ class IndexPage extends Component {
     currentPrisons: [],
     currentPeriod: 1,
     prisonCardVisibility: false,
-    periodCardVisibility: false
+    periodCardVisibility: false,
+    isDemoPlayed: false
   };
 
   componentWillReceiveProps(nextProps) {
@@ -35,11 +38,16 @@ class IndexPage extends Component {
     this.setState({ currentPrisons: filteredPrisons });
   }
 
-  changeYear(upDown) {
-    upDown === 'up' ?
-      this.setState({ currentYear: this.state.currentYear + 1 }) :
-      this.setState({ currentYear: this.state.currentYear - 1 });
-  }
+  demo = () => {
+    const { isDemoPlayed } = this.state;
+    this.setState({ isDemoPlayed: !isDemoPlayed });
+
+    if (isDemoPlayed) {
+      clearInterval(this.playDemo)
+    } else {
+      this.playDemo = setInterval(() => this.setState({ currentYear: this.state.currentYear + 1 }), 1000)
+    }
+  };
 
   setYear = (data) => {
     this.setState({ currentYear: data.year });
@@ -274,16 +282,17 @@ class IndexPage extends Component {
         <Header
           currentYear={currentYear}
           currentPrisons={currentPrisons}
-          demo={this.changeYear.bind(this)}
         />
         <Year>{ currentYear }</Year>
         <ChartWrap>
+          <ChartButton onClick={this.demo}/>
           <Chart
             data={data}
             periods={this.props.periods}
             setYear={this.setYear}
             openPeriod={this.openPeriod}
           />
+          <ChartButton/>
         </ChartWrap>
         {
           this.props.periods &&

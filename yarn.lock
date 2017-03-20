@@ -1568,6 +1568,17 @@ d3-color@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.0.2.tgz#83cb4b3a9474e40795f009d97e97a15649830bbc"
 
+d3-dispatch@1:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/d3-dispatch/-/d3-dispatch-1.0.3.tgz#46e1491eaa9b58c358fce5be4e8bed626e7871f8"
+
+d3-drag@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/d3-drag/-/d3-drag-1.0.4.tgz#a9c1609f11dd5530ae275ebd64377ec54efb9d8f"
+  dependencies:
+    d3-dispatch "1"
+    d3-selection "1"
+
 d3-format@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.1.0.tgz#736775d5e6604421bef6c76d5746638a8e70d295"
@@ -1590,7 +1601,7 @@ d3-scale@1.0.5:
     d3-time "1"
     d3-time-format "2"
 
-d3-selection@1.0.5:
+d3-selection@1, d3-selection@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.0.5.tgz#948c73b41a44e28d1742ae2ff207c2aebca2734b"
 
