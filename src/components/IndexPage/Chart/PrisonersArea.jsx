@@ -38,7 +38,7 @@ class PrisonersArea extends PureComponent {
       .attr("width", width / 42 - 1)
       .attr('height', d => height - yScale(d.prisoners))
       .attr('transform', 'translate(1, 0)')
-      .on('click', onClick.bind(this));
+      .on('click', (d) => onClick(d.year));
 
     prisonersArea
       .selectAll('line')

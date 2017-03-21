@@ -11,7 +11,7 @@ const G = styled.g`
 
 class Slider extends PureComponent {
   componentDidMount() {
-    const { height, xScale, yScale, data } = this.props;
+    const { height, xScale, yScale, data, setYear } = this.props;
     const slider = select(this.g);
     const handle = slider.append('g');
 
@@ -40,6 +40,8 @@ class Slider extends PureComponent {
       handleLine
         .attr('y1', height - yScale(prisoners))
         .attr('transform', `translate(0, -${height - yScale(prisoners)})`);
+
+      setYear(year);
     };
 
     slider

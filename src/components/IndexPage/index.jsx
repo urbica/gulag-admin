@@ -52,12 +52,16 @@ class IndexPage extends Component {
     if (isDemoPlayed) {
       clearInterval(this.playDemo)
     } else {
-      this.playDemo = setInterval(() => this.setState({ currentYear: this.state.currentYear + 1 }), 1000)
+      this.playDemo = setInterval(() => {
+        if (this.state.currentYear < 1960) {
+          this.setYear(this.state.currentYear + 1)
+        } else clearInterval(this.playDemo)
+      }, 1000)
     }
   };
 
-  setYear(data) {
-    this.setState({ currentYear: data.year });
+  setYear(year) {
+    this.setState({ currentYear: year });
   };
 
   openPrisonCard() {
@@ -296,6 +300,7 @@ class IndexPage extends Component {
           <Chart
             data={data}
             periods={this.props.periods}
+            currentYear={currentYear}
             setYear={this.setYear}
             openPeriod={this.openPeriod}
           />

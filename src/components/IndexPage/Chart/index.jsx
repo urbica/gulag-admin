@@ -17,7 +17,7 @@ const width = 1200 - margin.left - margin.right;
 const height = 350 - margin.top - margin.bottom;
 
 const Chart = (props) => {
-  const { data, periods, setYear, openPeriod } = props;
+  const { data, periods, currentYear, setYear, openPeriod } = props;
 
   const xScale = scaleTime()
     .domain([new Date(1918, 0, 1), new Date(1960, 11, 31)])
@@ -63,6 +63,8 @@ const Chart = (props) => {
         xScale={xScale}
         yScale={yScale}
         data={data}
+        currentYear={currentYear}
+        setYear={setYear}
       />
     </svg>
   )
