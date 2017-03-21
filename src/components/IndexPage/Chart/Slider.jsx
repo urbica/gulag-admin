@@ -1,21 +1,14 @@
 import React, { PureComponent } from 'react'
 import { select, event } from 'd3-selection'
 import { drag } from 'd3-drag'
-import styled from 'styled-components'
-
-const G = styled.g`
-  & line {
-    pointer-events: stroke;
-  }
-`;
 
 class Slider extends PureComponent {
   componentDidMount() {
-    const { height, xScale, yScale, data, setYear } = this.props;
+    const { xScale, setYear } = this.props;
     const slider = select(this.g);
-    const handle = slider.append('g');
+    this.handle = slider.append('g');
 
-    const handleLine = handle
+    this.handleLine = this.handle
       .append('line')
       .attr('x1', 0)
       .attr('x2', 0)
@@ -24,43 +17,43 @@ class Slider extends PureComponent {
       .attr('stroke-width', 1)
       .attr('stroke', '#fff');
 
-    handle
+    this.handle
       .append("circle")
       .attr("r", 9);
-
-    const dragged = (date) => {
-      const year = date.getFullYear();
-      let prisoners = 0;
-
-      data.map(d => d.year === year ? prisoners = d.prisoners : 0);
-
-      handle
-        .attr('transform', `translate(${xScale(date)}, 0)`);
-
-      handleLine
-        .attr('y1', height - yScale(prisoners))
-        .attr('transform', `translate(0, -${height - yScale(prisoners)})`);
-
-      setYear(year);
-    };
 
     slider
       .append("line")
       .attr("x1", xScale.range()[0])
       .attr("x2", xScale.range()[1])
       .attr('stroke-width', 50)
+      .attr('pointer-events', 'stroke')
       .call(
         drag()
-          .on("start drag", () => dragged(xScale.invert(event.x)))
+          .on("start drag", () => setYear(xScale.invert(event.x).getFullYear()))
       );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { height, xScale, yScale, data } = this.props;
+    const { currentYear } = nextProps;
+    let prisoners = 0;
+
+    data.map(d => d.year === currentYear ? prisoners = d.prisoners : 0);
+
+    this.handle
+      .attr('transform', `translate(${xScale(new Date(currentYear, 6, 1))}, 0)`);
+
+    this.handleLine
+      .attr('y1', height - yScale(prisoners))
+      .attr('transform', `translate(0, -${height - yScale(prisoners)})`);
   }
 
   render() {
     const { height, margin } = this.props;
 
     return (
-      <G
-        innerRef={ref => this.g = ref}
+      <g
+        ref={ref => this.g = ref}
         transform={`translate(${margin.left}, ${height + margin.top})`}
       />
     )
