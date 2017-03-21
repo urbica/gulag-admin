@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { select, event } from 'd3-selection'
 import { drag } from 'd3-drag'
 import styled from 'styled-components'
@@ -9,11 +9,10 @@ const G = styled.g`
   }
 `;
 
-class Slider extends React.Component {
+class Slider extends PureComponent {
   componentDidMount() {
-    const { xScale, yScale, data, height } = this.props;
-    const slider = select(this.sliderGroup);
-
+    const { height, xScale, yScale, data } = this.props;
+    const slider = select(this.g);
     const handle = slider.append('g');
 
     const handleLine = handle
@@ -55,10 +54,12 @@ class Slider extends React.Component {
   }
 
   render() {
+    const { height, margin } = this.props;
+
     return (
       <G
-        innerRef={ref => this.sliderGroup = ref}
-        transform={`translate(${this.props.margin.left}, ${this.props.height})`}
+        innerRef={ref => this.g = ref}
+        transform={`translate(${margin.left}, ${height + margin.top})`}
       />
     )
   }

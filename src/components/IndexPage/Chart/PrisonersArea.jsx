@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { select } from 'd3-selection'
 import styled from 'styled-components'
 
@@ -20,10 +20,10 @@ const G = styled.g`
   }
 `;
 
-class PrisonersArea extends React.PureComponent {
+class PrisonersArea extends PureComponent {
   componentDidMount() {
-    const { data, xScale, yScale, height, onClick } = this.props;
-    const prisonersArea = select(this.area);
+    const { data, xScale, yScale, width, height, onClick } = this.props;
+    const prisonersArea = select(this.g);
 
     prisonersArea
       .selectAll('rect')
@@ -35,10 +35,10 @@ class PrisonersArea extends React.PureComponent {
         return xScale(date);
       })
       .attr('y', d => yScale(d.prisoners))
-      .attr("width", this.props.width / 42 - 1)
+      .attr("width", width / 42 - 1)
       .attr('height', d => height - yScale(d.prisoners))
       .attr('transform', 'translate(1, 0)')
-      .on('click', onClick.bind(null));
+      .on('click', onClick.bind(this));
 
     prisonersArea
       .selectAll('line')
@@ -53,16 +53,18 @@ class PrisonersArea extends React.PureComponent {
       .attr("y1", d => yScale(d.prisoners))
       .attr("x2", d => {
         const date = new Date(d.year, 0, 1);
-        return xScale(date) + (this.props.width / 42);
+        return xScale(date) + (width / 42);
       })
       .attr("y2", d => yScale(d.prisoners));
   }
 
   render() {
+    const { margin } = this.props;
+
     return (
       <G
-        innerRef={ref => this.area = ref}
-        transform={`translate(${this.props.margin.right}, 1)`}
+        innerRef={ref => this.g = ref}
+        transform={`translate(${margin.left}, ${margin.top})`}
       />
     )
   }

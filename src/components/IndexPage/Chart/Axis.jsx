@@ -40,49 +40,19 @@ class Axis extends PureComponent {
   }
 
   render() {
+    const { height, margin } = this.props;
+
     return (
       <g
         ref={(ref) => this.axis = ref}
-        transform={`translate(${this.props.margin.left}, ${this.props.height})`}
+        transform={`translate(${margin.left}, ${height + margin.top})`}
       />
     );
   }
 }
 
 Axis.propTypes = {
-  orientation: PropTypes.string.isRequired,
-  scale: PropTypes.func.isRequired,
-  transform: PropTypes.string,
-  ticks: PropTypes.func,
-  axisStyle: PropTypes.shape({
-    fill: PropTypes.string,
-    fillOpacity: PropTypes.string,
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
-  textStyle: PropTypes.shape({
-    fill: PropTypes.string,
-    fillOpacity: PropTypes.string,
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  })
-};
-
-Axis.defaultProps = {
-  ticks: undefined,
-  transform: undefined,
-  axisStyle: {
-    stroke: '#000'
-  },
-  textStyle: {
-    fill: '#000'
-  }
+  scale: PropTypes.func.isRequired
 };
 
 export default Axis;

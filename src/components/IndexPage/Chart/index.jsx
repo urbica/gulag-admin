@@ -7,63 +7,62 @@ import Axis from './Axis'
 import Slider from './Slider'
 import Periods from './Periods'
 
-const width = 1200;
-const height = 350;
 const margin = {
   top: 25,
   right: 180,
   bottom: 80,
   left: 180
 };
+const width = 1200 - margin.left - margin.right;
+const height = 350 - margin.top - margin.bottom;
 
 const Chart = (props) => {
   const { data, periods, setYear, openPeriod } = props;
 
   const xScale = scaleTime()
     .domain([new Date(1918, 0, 1), new Date(1960, 11, 31)])
-    .range([0, width - margin.left - margin.right])
+    .range([0, width])
     .clamp(true);
 
   const yScale = scaleLinear()
     .domain([0, max(data, d => d.prisoners)])
-    .range([height - margin.top - margin.bottom, 0]);
+    .range([height, 0]);
 
   return (
     <svg
-      height={height}
-      width={width}
+      width={width + margin.left + margin.right}
+      height={height + margin.top + margin.bottom}
     >
       <PrisonersArea
-        data={data}
+        width={width}
+        height={height}
+        margin={margin}
         xScale={xScale}
         yScale={yScale}
-        width={width - margin.left - margin.right}
-        height={height - margin.top - margin.bottom}
-        margin={margin}
+        data={data}
         onClick={setYear}
       />
       {
         !isEmpty(periods) &&
         <Periods
-          periods={periods}
-          xScale={xScale}
           height={height}
           margin={margin}
+          xScale={xScale}
+          periods={periods}
           onClick={openPeriod}
         />
       }
       <Axis
-        height={height - margin.top - margin.bottom}
+        height={height}
         margin={margin}
-        orientation="bottom"
         scale={xScale}
       />
       <Slider
-        data={data}
+        height={height}
+        margin={margin}
         xScale={xScale}
         yScale={yScale}
-        height={height - margin.top - margin.bottom}
-        margin={margin}
+        data={data}
       />
     </svg>
   )

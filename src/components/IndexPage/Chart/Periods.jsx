@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { select } from 'd3-selection'
 
@@ -10,14 +10,13 @@ const G = styled.g`
   }
 `;
 
-class Periods extends React.Component {
+class Periods extends PureComponent {
   componentDidMount() {
-    const { xScale, height, margin, onClick } = this.props;
+    const { xScale, margin, onClick } = this.props;
     const periods = Object.values(this.props.periods);
     const periodsArea = select(this.periodsArea);
 
     periodsArea
-      .attr('transform', `translate(${margin.left}, ${height - margin.bottom - margin.top})`)
       .selectAll('rect')
       .data(periods)
       .enter()
@@ -32,7 +31,7 @@ class Periods extends React.Component {
         const dateEnd = new Date(d.year_end, 0, 1);
         return xScale(dateEnd) - xScale(dateStart)
       })
-      .attr("height", margin.bottom - 1)
+      .attr("height", margin.bottom)
       .attr('style', (d, i) => {
         return `
           fill: ${(i % 2) ? '#fff' : '#000'};
@@ -56,8 +55,13 @@ class Periods extends React.Component {
   }
 
   render() {
+    const { height, margin } = this.props;
+
     return (
-      <G innerRef={ref => this.periodsArea = ref}/>
+      <G
+        innerRef={ref => this.periodsArea = ref}
+        transform={`translate(${margin.left}, ${margin.top + height})`}
+      />
     )
   }
 }

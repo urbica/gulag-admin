@@ -21,15 +21,22 @@ const ChartWrap = styled.div`
 `;
 
 class IndexPage extends Component {
-  state = {
-    currentLanguage: 'ru',
-    currentYear: 1918,
-    currentPrisons: [],
-    currentPeriod: 1,
-    prisonCardVisibility: false,
-    periodCardVisibility: false,
-    isDemoPlayed: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentLanguage: 'ru',
+      currentYear: 1918,
+      currentPrisons: [],
+      currentPeriod: 1,
+      prisonCardVisibility: false,
+      periodCardVisibility: false,
+      isDemoPlayed: false
+    };
+    this.demo = this.demo.bind(this);
+    this.setYear = this.setYear.bind(this);
+    this.openPrisonCard = this.openPrisonCard.bind(this);
+    this.openPeriod = this.openPeriod.bind(this);
+  }
 
   componentWillReceiveProps(nextProps) {
     const prisons = values(nextProps.prisons);
@@ -38,7 +45,7 @@ class IndexPage extends Component {
     this.setState({ currentPrisons: filteredPrisons });
   }
 
-  demo = () => {
+  demo() {
     const { isDemoPlayed } = this.state;
     this.setState({ isDemoPlayed: !isDemoPlayed });
 
@@ -49,15 +56,15 @@ class IndexPage extends Component {
     }
   };
 
-  setYear = (data) => {
+  setYear(data) {
     this.setState({ currentYear: data.year });
   };
 
-  openPrisonCard = () => {
+  openPrisonCard() {
     this.setState({ prisonCardVisibility: true })
   };
 
-  openPeriod = (period) => {
+  openPeriod(period) {
     this.setState({ currentPeriod: period },
       this.setState({ periodCardVisibility: true })
     );
