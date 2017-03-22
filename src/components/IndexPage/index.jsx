@@ -109,7 +109,8 @@ class IndexPage extends Component {
   render() {
     const {
       currentYear, currentPrisons, prisonCardVisibility,
-      periodCardVisibility, currentLanguage, currentPeriod
+      periodCardVisibility, currentLanguage, currentPeriod,
+      isDemoPlayed
     } = this.state;
     const features = this.prisonsToFeatures(currentPrisons);
 
@@ -296,7 +297,10 @@ class IndexPage extends Component {
         />
         <Year>{ currentYear }</Year>
         <ChartWrap>
-          <ChartButton onClick={this.demo}/>
+          <ChartButton
+            isDemoPlayed={isDemoPlayed}
+            onClick={this.demo}
+          />
           <Chart
             data={data}
             periods={this.props.periods}
