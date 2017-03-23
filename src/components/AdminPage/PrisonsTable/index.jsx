@@ -144,55 +144,55 @@ class PrisonsTable extends Component {
         <thead>
           <tr>
             <ColumnHeader
-              onClick={this.sort(['name', 'ru'])}
+              onClick={this.sort.bind(this, ['name', 'ru'])}
               sortDir={equals(this.state.sortBy, ['name', 'ru']) ? sortDir : ''}
             >
               Название
             </ColumnHeader>
             <ColumnHeader
-              onClick={this.sort(['period'])}
+              onClick={this.sort.bind(this, ['period'])}
               sortDir={equals(this.state.sortBy, ['period']) ? sortDir : ''}
             >
               Период
             </ColumnHeader>
             <ColumnHeader
-              onClick={this.sort(['updated_at'])}
+              onClick={this.sort.bind(this, ['updated_at'])}
               sortDir={equals(this.state.sortBy, ['updated_at']) ? sortDir : ''}
             >
               Отредактировано
             </ColumnHeader>
             <ColumnHeader
-              onClick={this.sort(['place_id'])}
+              onClick={this.sort.bind(this, ['place_id'])}
               sortDir={equals(this.state.sortBy, ['place_id']) ? sortDir : ''}
             >
               Регион
             </ColumnHeader>
             <ColumnHeader
-              onClick={this.sort(['type_id'])}
+              onClick={this.sort.bind(this, ['type_id'])}
               sortDir={equals(this.state.sortBy, ['type_id']) ? sortDir : ''}
             >
               Тип лагеря
             </ColumnHeader>
             <ColumnHeader
-              onClick={this.sort(['max_prisoners'])}
+              onClick={this.sort.bind(this, ['max_prisoners'])}
               sortDir={equals(this.state.sortBy, ['max_prisoners']) ? sortDir : ''}
             >
               Макс. числ.
             </ColumnHeader>
             <ColumnHeader
-              onClick={this.sort(['published', 'ru'])}
+              onClick={this.sort.bind(this, ['published', 'ru'])}
               sortDir={equals(this.state.sortBy, ['published', 'ru']) ? sortDir : ''}
             >
               Рус
             </ColumnHeader>
             <ColumnHeader
-              onClick={this.sort(['published', 'en'])}
+              onClick={this.sort.bind(this, ['published', 'en'])}
               sortDir={equals(this.state.sortBy, ['published', 'en']) ? sortDir : ''}
             >
               Eng
             </ColumnHeader>
             <ColumnHeader
-              onClick={this.sort(['published', 'de'])}
+              onClick={this.sort.bind(this, ['published', 'de'])}
               sortDir={equals(this.state.sortBy, ['published', 'de']) ? sortDir : ''}
             >
               Deu

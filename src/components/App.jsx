@@ -6,13 +6,15 @@ import {
 } from 'ramda';
 import 'normalize.css/normalize.css';
 import { injectGlobal } from 'styled-components';
+import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../utils/utils';
-import IndexPage from './IndexPage';
-import LoginPage from './LoginPage';
-import AdminPage from './AdminPage';
-import PeriodPage from './PeriodPage';
-import PrisonPage from './PrisonPage';
-import NoMatch from './NoMatch';
+// import IndexPage from './IndexPage';
+// import LoginPage from './LoginPage';
+// import AdminPage from './AdminPage';
+// import PeriodPage from './PeriodPage';
+// import PrisonPage from './PrisonPage';
+// import NoMatch from './NoMatch';
+import Router from './Router';
 
 // eslint-disable-next-line
 injectGlobal`
@@ -26,44 +28,6 @@ injectGlobal`
   }
 `;
 
-const prisonTemplate = {
-  id: undefined,
-  name: {
-    ru: 'Новый лагерь',
-    en: 'New prison',
-    de: 'Neue Gefängnis'
-  },
-  additional_names: {
-    ru: '',
-    en: '',
-    de: ''
-  },
-  location: {
-    ru: '',
-    en: '',
-    de: ''
-  },
-  description: {
-    ru: '',
-    en: '',
-    de: ''
-  },
-  published: {
-    ru: false,
-    en: false,
-    de: false
-  },
-  features: [
-    {
-      geometry: {
-        coordinates: [90, 62],
-        type: 'Point'
-      },
-      properties: {}
-    }
-  ]
-};
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -76,6 +40,8 @@ class App extends Component {
       prisons: {},
       token: localStorage.getItem('token')
     };
+
+    this.login = this.login.bind(this);
   }
 
   componentWillMount() {
@@ -89,6 +55,9 @@ class App extends Component {
   }
 
   login(password) {
+    console.log('login', password);
+    console.log('this', this);
+
     const credentials = { email: 'hello@urbica.co', password };
 
     fetch('/login', {
@@ -235,94 +204,29 @@ class App extends Component {
   }
 
   render() {
-    const LoginRoute = ({ component, ...rest }) => (
-      <Route
-        {...rest} render={props => (
-        !this.state.token ? (
-          React.createElement(component, props)
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/admin',
-              state: { from: props.location }
-            }}
-          />
-        )
-      )}
-      />
-    );
-
-    const PrivateRoute = ({ component, ...rest }) => (
-      <Route
-        {...rest}
-        render={props => (
-          this.state.token ? (
-            React.createElement(component, props)
-          ) : (
-            <Redirect
-              to={{
-                pathname: '/login',
-                state: { from: props.location }
-              }}
-            />
-          )
-        )}
-      />
-    );
-
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route
-            exact
-            path='/'
-            render={() => (
-              <IndexPage
-                periods={this.state.periods}
-                prisons={this.state.prisons}
-              />
-            )}
-          />
-          <LoginRoute
-            path='/login'
-            component={LoginPage}
-            onSubmit={this.login}
-          />
-          <PrivateRoute
-            exact path='/admin'
-            component={AdminPage}
-            periods={this.state.periods}
-            prisons={this.state.prisons}
-            places={this.state.places}
-            types={this.state.types}
-            onLogout={this.logout}
-            createPrison={this.createPrison.bind(this, prisonTemplate)}
-          />
-          <PrivateRoute
-            path='/admin/period/:periodId'
-            component={PeriodPage}
-            period={this.state.periods[1]}
-            updateHandler={this.updatePeriod}
-            submitHandler={this.submitPeriod}
-          />
-          <PrivateRoute
-            path='/admin/prison/:prisonId'
-            component={PrisonPage}
-            prison={this.state.prisons[1]}
-            photos={this.state.photos[1]}
-            changeDropDownItem={this.changeDropDownItem}
-            activityOptions={directoryToOptions(this.state.activities)}
-            placeOptions={directoryToOptions(this.state.places)}
-            typeOptions={directoryToOptions(this.state.types)}
-            uploadHandler={this.uploadPhotos}
-            deletePhoto={this.deletePhoto}
-            submitHandler={this.submitPrison}
-            updateHandler={this.updatePrison}
-            deleteHandler={this.deletePrison}
-          />
-          <Route component={NoMatch} />
-        </Switch>
-      </BrowserRouter>
+      <Router
+        periods={this.state.periods}
+        prisons={this.state.prisons}
+        photos={this.state.photos}
+        places={this.state.places}
+        types={this.state.types}
+        createPrison={this.createPrison.bind(this, prisonTemplate)}
+        updatePeriod={this.updatePeriod}
+        submitPeriod={this.submitPeriod}
+        changeDropDownItem={this.changeDropDownItem}
+        activityOptions={directoryToOptions(this.state.activities)}
+        placeOptions={directoryToOptions(this.state.places)}
+        typeOptions={directoryToOptions(this.state.types)}
+        uploadPhotos={this.uploadPhotos}
+        deletePhoto={this.deletePhoto}
+        submitPrison={this.submitPrison}
+        updatePrison={this.updatePrison}
+        deletePrison={this.deletePrison}
+        onLogin={this.login}
+        onLogout={this.logout}
+        isAuthenticated={!!this.state.token}
+      />
     );
   }
 }
