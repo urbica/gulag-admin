@@ -26,26 +26,26 @@ export const getMaxPrisoners = (prison) => {
     prop('properties')
   );
 
-  const maxPrisoners = reduce((acc, feature) => {
-    return Math.max(acc, getMaxPrisoners(feature));
-  }, 0, features);
+  const maxPrisoners = reduce((acc, feature) => (
+    Math.max(acc, getMaxPrisoners(feature))
+  ), 0, features);
 
   return assoc('max_prisoners', maxPrisoners, prison);
 };
 
-export const fillMaxPrisoners = (prisons) => {
-  return map(getMaxPrisoners, prisons);
-};
+export const fillMaxPrisoners = prisons => (
+  map(getMaxPrisoners, prisons)
+);
 
 export const concatUrl = (url, property) =>
   evolve({ [`${property}`]: concat(`${url}/`) });
 
-export const fillPhotos = curryN(2, (photosById, prisons) => {
-  return reduce((acc, [prisonId, photos]) => {
+export const fillPhotos = curryN(2, (photosById, prisons) => (
+  reduce((acc, [prisonId, photos]) => {
     acc[prisonId].photos = map(concatUrl(window.location.origin, 'path'), photos);
     return acc;
-  }, prisons, toPairs(photosById));
-});
+  }, prisons, toPairs(photosById))
+));
 
 export const directoryToOptions = map(renameKeys({ id: 'value', name: 'label' }));
 
@@ -104,6 +104,6 @@ export const getPeriods = (prison) =>
     .filter(years => years.length > 0)
     .map(years => {
       if (years.length === 1) {
-        return `${years[0]};\n`
+        return `${years[0]};\n`;
       } else return `${Math.min.apply(Math, years)} — ${Math.max.apply(Math, years)};\n`
     });

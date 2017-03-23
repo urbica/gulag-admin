@@ -52,12 +52,12 @@ const PrisonPhoto = (props) => {
   return (
     <figure>
       <img
-        src={ path }
-        role='presentation'
-        onClick={ props.onClick.bind(null, path) }
+        src={path}
+        alt={id}
+        onClick={props.onClick.bind(null, path)}
       />
       <figcaption>{ id }</figcaption>
-      <button onClick={ props.onDelete }>Удалить</button>
+      <button onClick={props.onDelete}>Удалить</button>
     </figure>
   );
 };
@@ -97,7 +97,7 @@ class PrisonPhotos extends React.PureComponent {
           <input
             type='file'
             ref='photos'
-            onChange={ this.uploadPhotos }/>
+            onChange={this.uploadPhotos} />
         </label>
       </Photos>
     );

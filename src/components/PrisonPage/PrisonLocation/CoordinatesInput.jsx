@@ -1,6 +1,6 @@
-import React from 'react';
-import TextInput from '../../TextInput';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
+import TextInput from '../../TextInput';
 
 const InputWrap = styled.div`
   margin-left: auto;
@@ -20,7 +20,7 @@ const CoordinatesInput = (props) => {
   const value = `${coordinates[1]}, ${coordinates[0]}`;
 
   const changeHandler = (event) => {
-    const { value }= event.target;
+    const { value } = event.target;
     const regexp = /^(\d{1,3}(\.\d+)?),\s*(\d{1,3}(\.\d+)?)$/;
     const match = regexp.exec(value);
     const newCoordinates = match ? [match[3], match[1]] : [0, 0];
@@ -31,11 +31,16 @@ const CoordinatesInput = (props) => {
     <InputWrap>
       <TextInput
         desc='широта, долгота'
-        value={ value }
-        onChange={ changeHandler }
+        value={value}
+        onChange={changeHandler}
       />
     </InputWrap>
   );
+};
+
+CoordinatesInput.propTypes = {
+  coordinates: PropTypes.arrayOf(PropTypes.object),
+  updateCoordinates: PropTypes.func
 };
 
 export default CoordinatesInput;

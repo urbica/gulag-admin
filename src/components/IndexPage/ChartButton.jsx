@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Wrap = styled.button`
   width: 102px;
@@ -75,13 +75,13 @@ const ChartButton = (props) => {
   return (
     <Wrap onClick={onClick}>
       <PlayButton>
-        <Left isPlay={isDemoPlayed}/>
-        <Right isPlay={isDemoPlayed}/>
-        <FirstTriangle isPlay={isDemoPlayed}/>
-        <SecondTriangle isPlay={isDemoPlayed}/>
+        <Left isPlay={isDemoPlayed} />
+        <Right isPlay={isDemoPlayed} />
+        <FirstTriangle isPlay={isDemoPlayed} />
+        <SecondTriangle isPlay={isDemoPlayed} />
       </PlayButton>
     </Wrap>
-  )
+  );
 };
 
-export default ChartButton
+export default ChartButton;

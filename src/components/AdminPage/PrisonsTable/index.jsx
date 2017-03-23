@@ -1,9 +1,9 @@
-import React from 'react';
-import PrisonRow from './PrisonRow';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { comparator, equals, lensPath, view } from 'ramda';
+import PrisonRow from './PrisonRow';
 import { getFirstYearInFeatures } from '../../../utils/utils';
-import './PrisonsTable.css'
+import './PrisonsTable.css';
 
 const SortTypes = { ASC: 'ASC', DESC: 'DESC' };
 const collator = new Intl.Collator('ru', {
@@ -62,27 +62,18 @@ const ColumnHeader = styled.td`
   ${props => getSortTriangleStyles(props.sortDir)};
 `;
 
-class PrisonsTable extends React.PureComponent {
+class PrisonsTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sortBy: ['name', 'ru'],
       sortDir: SortTypes.ASC
     };
+    this.sort = this.sort.bind(this);
+    this.getOrderedPrisons = this.getOrderedPrisons.bind(this);
   }
 
-  sort = (sortBy) => {
-    if (equals(this.state.sortBy, sortBy)) {
-      this.setState({
-        sortBy,
-        sortDir: this.state.sortDir === SortTypes.ASC ? SortTypes.DESC : SortTypes.ASC
-      });
-    } else {
-      this.setState({ sortBy, sortDir: SortTypes.ASC });
-    }
-  };
-
-  getOrderedPrisons = () => {
+  getOrderedPrisons() {
     const { prisons, places, types } = this.props;
     const { sortBy, sortDir } = this.state;
 
@@ -92,12 +83,12 @@ class PrisonsTable extends React.PureComponent {
           const aName = view(lensPath(sortBy), a);
           const bName = view(lensPath(sortBy), b);
           return collator.compare(aName, bName);
-        }
+        };
       } else if (sortBy[0] === 'period') {
         return comparator((a, b) => {
           const aFirstYear = getFirstYearInFeatures(a.features);
           const bFirstYear = getFirstYearInFeatures(b.features);
-          return aFirstYear < bFirstYear
+          return aFirstYear < bFirstYear;
         });
       } else if (sortBy[0] === 'updated_at') {
         return comparator((a, b) => new Date(a.updated_at) < new Date(b.updated_at));
@@ -106,13 +97,13 @@ class PrisonsTable extends React.PureComponent {
           const aPlaceName = view(lensPath([a.place_id, 'name']), places);
           const bPlaceName = view(lensPath([b.place_id, 'name']), places);
           return collator.compare(aPlaceName, bPlaceName);
-        }
+        };
       } else if (sortBy[0] === 'type_id') {
         return (a, b) => {
           const aTypesName = view(lensPath([a.type_id, 'name']), types);
           const bTypesName = view(lensPath([b.type_id, 'name']), types);
           return collator.compare(aTypesName, bTypesName);
-        }
+        };
       } else if (sortBy[0] === 'max_prisoners') {
         return comparator((a, b) => a.max_prisoners < b.max_prisoners);
       } else if (sortBy[0] === 'published') {
@@ -131,7 +122,18 @@ class PrisonsTable extends React.PureComponent {
     }
 
     return prisons.sort(comp);
-  };
+  }
+
+  sort(sortBy) {
+    if (equals(this.state.sortBy, sortBy)) {
+      this.setState({
+        sortBy,
+        sortDir: this.state.sortDir === SortTypes.ASC ? SortTypes.DESC : SortTypes.ASC
+      });
+    } else {
+      this.setState({ sortBy, sortDir: SortTypes.ASC });
+    }
+  }
 
   render() {
     const { sortDir } = this.state;
@@ -140,77 +142,77 @@ class PrisonsTable extends React.PureComponent {
     return (
       <table className='prisons'>
         <thead>
-        <tr>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['name', 'ru']) }
-            sortDir={ equals(this.state.sortBy, ['name', 'ru']) ? sortDir : '' }
-          >
-            Название
-          </ColumnHeader>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['period']) }
-            sortDir={ equals(this.state.sortBy, ['period']) ? sortDir : '' }
-          >
-            Период
-          </ColumnHeader>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['updated_at']) }
-            sortDir={ equals(this.state.sortBy, ['updated_at']) ? sortDir : '' }
-          >
-            Отредактировано
-          </ColumnHeader>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['place_id']) }
-            sortDir={ equals(this.state.sortBy, ['place_id']) ? sortDir : '' }
-          >
-            Регион
-          </ColumnHeader>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['type_id']) }
-            sortDir={ equals(this.state.sortBy, ['type_id']) ? sortDir : '' }
-          >
-            Тип лагеря
-          </ColumnHeader>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['max_prisoners']) }
-            sortDir={ equals(this.state.sortBy, ['max_prisoners']) ? sortDir : '' }
-          >
-            Макс. числ.
-          </ColumnHeader>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['published', 'ru']) }
-            sortDir={ equals(this.state.sortBy, ['published', 'ru']) ? sortDir : '' }
-          >
-            Рус
-          </ColumnHeader>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['published', 'en']) }
-            sortDir={ equals(this.state.sortBy, ['published', 'en']) ? sortDir : '' }
-          >
-            Eng
-          </ColumnHeader>
-          <ColumnHeader
-            onClick={ this.sort.bind(this, ['published', 'de']) }
-            sortDir={ equals(this.state.sortBy, ['published', 'de']) ? sortDir : '' }
-          >
-            Deu
-          </ColumnHeader>
-        </tr>
+          <tr>
+            <ColumnHeader
+              onClick={this.sort(['name', 'ru'])}
+              sortDir={equals(this.state.sortBy, ['name', 'ru']) ? sortDir : ''}
+            >
+              Название
+            </ColumnHeader>
+            <ColumnHeader
+              onClick={this.sort(['period'])}
+              sortDir={equals(this.state.sortBy, ['period']) ? sortDir : ''}
+            >
+              Период
+            </ColumnHeader>
+            <ColumnHeader
+              onClick={this.sort(['updated_at'])}
+              sortDir={equals(this.state.sortBy, ['updated_at']) ? sortDir : ''}
+            >
+              Отредактировано
+            </ColumnHeader>
+            <ColumnHeader
+              onClick={this.sort(['place_id'])}
+              sortDir={equals(this.state.sortBy, ['place_id']) ? sortDir : ''}
+            >
+              Регион
+            </ColumnHeader>
+            <ColumnHeader
+              onClick={this.sort(['type_id'])}
+              sortDir={equals(this.state.sortBy, ['type_id']) ? sortDir : ''}
+            >
+              Тип лагеря
+            </ColumnHeader>
+            <ColumnHeader
+              onClick={this.sort(['max_prisoners'])}
+              sortDir={equals(this.state.sortBy, ['max_prisoners']) ? sortDir : ''}
+            >
+              Макс. числ.
+            </ColumnHeader>
+            <ColumnHeader
+              onClick={this.sort(['published', 'ru'])}
+              sortDir={equals(this.state.sortBy, ['published', 'ru']) ? sortDir : ''}
+            >
+              Рус
+            </ColumnHeader>
+            <ColumnHeader
+              onClick={this.sort(['published', 'en'])}
+              sortDir={equals(this.state.sortBy, ['published', 'en']) ? sortDir : ''}
+            >
+              Eng
+            </ColumnHeader>
+            <ColumnHeader
+              onClick={this.sort(['published', 'de'])}
+              sortDir={equals(this.state.sortBy, ['published', 'de']) ? sortDir : ''}
+            >
+              Deu
+            </ColumnHeader>
+          </tr>
         </thead>
         <tbody>
-        {
-          prisons.map(prison =>
-            <PrisonRow
-              prison={ prison }
-              key={ prison.id }
-              places={ this.props.places }
-              types={ this.props.types }
-            />
-          )
-        }
+          {
+            prisons.map(prison =>
+              <PrisonRow
+                prison={prison}
+                key={prison.id}
+                places={this.props.places}
+                types={this.props.types}
+              />
+            )
+          }
         </tbody>
       </table>
-    )
+    );
   }
 }
 

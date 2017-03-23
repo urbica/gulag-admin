@@ -13,7 +13,7 @@ const hover = {
   bgColor: {
     orange: '#fff5f0',
     red: '#fcf1f3'
-  },
+  }
 };
 const active = {
   bdc: {

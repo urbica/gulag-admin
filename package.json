@@ -9,6 +9,7 @@
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
+    "lint": "eslint src",
     "db:migrate": "knex migrate:latest --knexfile ./db/config.js",
     "db:migration": "knex migrate:make --knexfile ./db/config.js",
     "db:rollback": "knex migrate:rollback --knexfile ./db/config.js",
@@ -34,13 +35,15 @@
     "styled-components": "1.4.4"
   },
   "devDependencies": {
+    "eslint": "3.18.0",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.10.3",
     "knex": "0.12.6",
     "pg": "6.1.2",
     "pm2": "2.3.0",
-    "react-scripts": "0.8.5"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "react-scripts": "0.9.5"
   },
   "homepage": "/admin",
   "proxy": "http://gulag.urbica.co"

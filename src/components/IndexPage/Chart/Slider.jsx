@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react'
-import { select, event } from 'd3-selection'
-import { drag } from 'd3-drag'
+import React, { PureComponent } from 'react';
+import { select, event } from 'd3-selection';
+import { drag } from 'd3-drag';
 
 class Slider extends PureComponent {
   componentDidMount() {
@@ -18,18 +18,18 @@ class Slider extends PureComponent {
       .attr('stroke', '#fff');
 
     this.handle
-      .append("circle")
-      .attr("r", 9);
+      .append('circle')
+      .attr('r', 9);
 
     slider
-      .append("line")
-      .attr("x1", xScale.range()[0])
-      .attr("x2", xScale.range()[1])
+      .append('line')
+      .attr('x1', xScale.range()[0])
+      .attr('x2', xScale.range()[1])
       .attr('stroke-width', 50)
       .attr('pointer-events', 'stroke')
       .call(
         drag()
-          .on("start drag", () => setYear(xScale.invert(event.x).getFullYear()))
+          .on('start drag', () => setYear(xScale.invert(event.x).getFullYear()))
       );
   }
 
@@ -53,11 +53,11 @@ class Slider extends PureComponent {
 
     return (
       <g
-        ref={ref => this.g = ref}
+        ref={ref => (this.g = ref)}
         transform={`translate(${margin.left}, ${height + margin.top})`}
       />
-    )
+    );
   }
 }
 
-export default Slider
+export default Slider;

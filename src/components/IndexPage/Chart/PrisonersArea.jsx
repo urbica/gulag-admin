@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react'
-import { select } from 'd3-selection'
-import styled from 'styled-components'
+import React, { PureComponent, PropTypes } from 'react';
+import { select } from 'd3-selection';
+import styled from 'styled-components';
 
 const G = styled.g`
   pointer-events: auto;
@@ -29,33 +29,33 @@ class PrisonersArea extends PureComponent {
       .selectAll('rect')
       .data(data)
       .enter()
-      .append("rect")
-      .attr("x", d => {
+      .append('rect')
+      .attr('x', (d) => {
         const date = new Date(d.year, 0, 1);
         return xScale(date);
       })
       .attr('y', d => yScale(d.prisoners))
-      .attr("width", width / 42 - 1)
+      .attr('width', (width / 42) - 1)
       .attr('height', d => height - yScale(d.prisoners))
       .attr('transform', 'translate(1, 0)')
-      .on('click', (d) => onClick(d.year));
+      .on('click', d => onClick(d.year));
 
     prisonersArea
       .selectAll('line')
       .data(data)
       .enter()
-      .append("line")
-      .attr("fill", "none")
-      .attr("x1", d => {
+      .append('line')
+      .attr('fill', 'none')
+      .attr('x1', (d) => {
         const date = new Date(d.year, 0, 1);
         return xScale(date) + 1;
       })
-      .attr("y1", d => yScale(d.prisoners))
-      .attr("x2", d => {
+      .attr('y1', d => yScale(d.prisoners))
+      .attr('x2', (d) => {
         const date = new Date(d.year, 0, 1);
         return xScale(date) + (width / 42);
       })
-      .attr("y2", d => yScale(d.prisoners));
+      .attr('y2', d => yScale(d.prisoners));
   }
 
   render() {
@@ -63,11 +63,31 @@ class PrisonersArea extends PureComponent {
 
     return (
       <G
-        innerRef={ref => this.g = ref}
+        innerRef={ref => (this.g = ref)}
         transform={`translate(${margin.left}, ${margin.top})`}
       />
-    )
+    );
   }
 }
 
-export default PrisonersArea
+PrisonersArea.propTypes = {
+  width: PropTypes.number,
+  height: PropTypes.number,
+  margin: PropTypes.shape({
+    top: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number
+  }),
+  xScale: PropTypes.func,
+  yScale: PropTypes.func,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      prisoners: PropTypes.number,
+      year: PropTypes.number
+    })
+  ),
+  onClick: PropTypes.func
+};
+
+export default PrisonersArea;

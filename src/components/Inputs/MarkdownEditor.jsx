@@ -68,7 +68,7 @@ class MarkdownEditor extends React.PureComponent {
                 Редактировать
               </PreviewButton>
             </DescriptionTitle>
-            <ReactMarkdown source={ source }/>
+            <ReactMarkdown source={ source } />
           </div>
         }
         {
@@ -89,7 +89,7 @@ class MarkdownEditor extends React.PureComponent {
               onChange={ onChange }
               className={ inputClassNames }
             />
-            <div className='inputLine'/>
+            <div className='inputLine' />
           </div>
         }
       </MarkdownWrap>

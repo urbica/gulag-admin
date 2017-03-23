@@ -7,25 +7,25 @@ const Wrap = styled.div`
 `;
 
 const PrisonStatistics = (props) => {
-  const {feature, onChange} = props;
+  const { feature, onChange } = props;
   return (
     <Wrap>
       <div className='field-title'>количество заключенных по годам</div>
       {
-        Object.keys(feature.properties).map((year) => {
-          return <label className='amount' key={ year }>
+        Object.keys(feature.properties).map(year => (
+          <label className='amount' key={year}>
             <span className='amount__year'>{ year }:</span>
             <MaskedInput
               className='input input_inside'
               type='text'
-              value={ feature.properties[year].peoples }
-              mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/,]}
-              guide={ false }
-              onChange={ onChange.bind(null, year) }
+              value={feature.properties[year].peoples}
+              mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+              guide={false}
+              onChange={onChange.bind(null, year)}
             />
-            <div className='inputLine'/>
+            <div className='inputLine' />
           </label>
-        })
+        ))
       }
     </Wrap>
   );

@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import { values } from 'ramda'
-import Header from './Header'
-import Year from './Year'
-import ChartButton from './ChartButton'
-import Chart from './Chart'
-import PrisonCard from './PrisonCard'
-import PeriodCard from './PeriodCard'
-import Map from './Map'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { values } from 'ramda';
+import Header from './Header';
+import Year from './Year';
+import ChartButton from './ChartButton';
+import Chart from './Chart';
+import PrisonCard from './PrisonCard';
+import PeriodCard from './PeriodCard';
+import Map from './Map';
 
 const ChartWrap = styled.div`
   position: fixed;
@@ -45,34 +45,34 @@ class IndexPage extends Component {
     this.setState({ currentPrisons: filteredPrisons });
   }
 
+  setYear(year) {
+    this.setState({ currentYear: year });
+  }
+
   demo() {
     const { isDemoPlayed } = this.state;
     this.setState({ isDemoPlayed: !isDemoPlayed });
 
     if (isDemoPlayed) {
-      clearInterval(this.playDemo)
+      clearInterval(this.playDemo);
     } else {
       this.playDemo = setInterval(() => {
         if (this.state.currentYear < 1960) {
-          this.setYear(this.state.currentYear + 1)
-        } else clearInterval(this.playDemo)
-      }, 1000)
+          this.setYear(this.state.currentYear + 1);
+        } else clearInterval(this.playDemo);
+      }, 1000);
     }
-  };
-
-  setYear(year) {
-    this.setState({ currentYear: year });
-  };
+  }
 
   openPrisonCard() {
-    this.setState({ prisonCardVisibility: true })
-  };
+    this.setState({ prisonCardVisibility: true });
+  }
 
   openPeriod(period) {
     this.setState({ currentPeriod: period },
       this.setState({ periodCardVisibility: true })
     );
-  };
+  }
 
   closePrisonCard() {
     this.setState({ prisonCardVisibility: false });
@@ -96,12 +96,10 @@ class IndexPage extends Component {
 
           return acc.concat([{ ...feature, properties: newProperties }]);
         }
-        return acc
+        return acc;
       }, []);
       return acc.concat(newFeatures);
     }, []);
-
-    // console.log(features);
 
     return features;
   }
@@ -308,7 +306,7 @@ class IndexPage extends Component {
             setYear={this.setYear}
             openPeriod={this.openPeriod}
           />
-          <ChartButton/>
+          <ChartButton />
         </ChartWrap>
         {
           this.props.periods &&
@@ -335,8 +333,8 @@ class IndexPage extends Component {
           openCard={this.openPrisonCard}
         />
       </div>
-    )
+    );
   }
 }
 
-export default IndexPage
+export default IndexPage;

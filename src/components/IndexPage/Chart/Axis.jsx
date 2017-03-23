@@ -6,7 +6,7 @@ const tickValues = [1918, 1923, 1930, 1937, 1941, 1945, 1953, 1960];
 const axisStyle = {
   stroke: '#fff',
   strokeWidth: 1,
-  opacity: .25
+  opacity: 0.25
 };
 const textStyle = {
   fill: '#fff'
@@ -44,7 +44,7 @@ class Axis extends PureComponent {
 
     return (
       <g
-        ref={(ref) => this.axis = ref}
+        ref={ref => (this.axis = ref)}
         transform={`translate(${margin.left}, ${height + margin.top})`}
       />
     );
@@ -52,7 +52,14 @@ class Axis extends PureComponent {
 }
 
 Axis.propTypes = {
-  scale: PropTypes.func.isRequired
+  scale: PropTypes.func.isRequired,
+  height: PropTypes.number,
+  margin: PropTypes.shape({
+    top: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number
+  })
 };
 
 export default Axis;

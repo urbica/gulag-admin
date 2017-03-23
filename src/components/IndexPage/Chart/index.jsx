@@ -1,20 +1,20 @@
-import React from 'react'
-import { scaleTime, scaleLinear } from 'd3-scale'
-import { max } from 'd3-array'
-import { isEmpty } from 'ramda'
-import PrisonersArea from './PrisonersArea'
-import Axis from './Axis'
-import Slider from './Slider'
-import Periods from './Periods'
+import React, { PropTypes } from 'react';
+import { scaleTime, scaleLinear } from 'd3-scale';
+import { max } from 'd3-array';
+import { isEmpty } from 'ramda';
+import PrisonersArea from './PrisonersArea';
+import Axis from './Axis';
+import Slider from './Slider';
+import Periods from './Periods';
 
 const margin = {
-  top: 25,
-  right: 180,
+  top: 5,
+  right: 20,
   bottom: 80,
-  left: 180
+  left: 20
 };
-const width = 1200 - margin.left - margin.right;
-const height = 350 - margin.top - margin.bottom;
+const width = 1000 - margin.left - margin.right;
+const height = 300 - margin.top - margin.bottom;
 
 const Chart = (props) => {
   const { data, periods, currentYear, setYear, openPeriod } = props;
@@ -67,7 +67,20 @@ const Chart = (props) => {
         setYear={setYear}
       />
     </svg>
-  )
+  );
 };
 
-export default Chart
+Chart.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      prisoners: PropTypes.number,
+      year: PropTypes.number
+    })
+  ),
+  periods: PropTypes.object,
+  currentYear: PropTypes.number,
+  setYear: PropTypes.func,
+  openPeriod: PropTypes.func
+};
+
+export default Chart;

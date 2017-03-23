@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import styled from 'styled-components';
 
 const LoginPageWrap = styled.div`
@@ -78,21 +78,25 @@ const PasswordReminder = styled.a`
   text-decoration: none;
 `;
 
-class LoginPage extends React.PureComponent {
-  handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      const password = this.refs.password;
-      this.props.onSubmit(password.value);
-    }
-  };
-
-  onClick = () => {
-    const password = this.refs.password;
-    this.props.onSubmit(password.value);
-  };
+class LoginPage extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
 
   componentDidMount() {
-    this.refs.password.focus();
+    this.input.focus();
+  }
+
+  onClick() {
+    this.props.onSubmit(this.input.value);
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.props.onSubmit(this.input.value);
+    }
   }
 
   render() {
@@ -103,13 +107,13 @@ class LoginPage extends React.PureComponent {
           <InputWrap>
             <input
               required
-              ref='password'
+              ref={ref => (this.input = ref)}
               type='password'
               placeholder='Введите пароль'
-              onKeyPress={ this.handleKeyPress }
+              onKeyPress={this.handleKeyPress}
             />
-            <Enter onClick={ this.onClick }>Enter</Enter>
-            <PasswordLine/>
+            <Enter onClick={this.onClick}>Enter</Enter>
+            <PasswordLine />
           </InputWrap>
           <PasswordReminder href='#'>Напомнить</PasswordReminder>
         </LoginForm>
@@ -117,5 +121,9 @@ class LoginPage extends React.PureComponent {
     );
   }
 }
+
+LoginPage.propTypes = {
+  onSubmit: PropTypes.func
+};
 
 export default LoginPage;

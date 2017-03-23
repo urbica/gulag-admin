@@ -1,6 +1,6 @@
-import React from 'react'
-import ReactMarkdown from 'react-markdown'
-import styled from 'styled-components'
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import styled from 'styled-components';
 
 const Wrap = styled.div`
   position: ${props => props.visible ? 'absolute' : 'fixed'};
@@ -22,13 +22,13 @@ const PrisonCard = (props) => {
 
   return Boolean(prison) ?
     (
-      <Wrap visible={ visible }>
+      <Wrap visible={visible}>
         <button onClick={closeCard}>закрыть</button>
         <div>{ prison.name.ru }</div>
-        <ReactMarkdown source={prison.description.ru}/>
+        <ReactMarkdown source={prison.description.ru} />
       </Wrap>
-    ) : <Wrap visible={ visible }>Загрузка</Wrap>
+    ) : <Wrap visible={visible}>Загрузка</Wrap>;
 };
 
 
-export default PrisonCard
+export default PrisonCard;

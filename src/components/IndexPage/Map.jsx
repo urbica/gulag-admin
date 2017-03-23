@@ -1,6 +1,6 @@
 /* global mapboxgl */
-import React from 'react';
-import styled from 'styled-components'
+import React, { PureComponent, PropTypes } from 'react';
+import styled from 'styled-components';
 
 const Wrap = styled.div`
   position: fixed;
@@ -15,7 +15,14 @@ const Wrap = styled.div`
 const accessToken = 'pk.eyJ1IjoiZ3VsYWdtYXAiLCJhIjoiY2lxa3VtaWtyMDAyZGhzbWI1aDQ3NGhtayJ9.D2IEMpF7p8yNtpY_2HUQlw';
 /* eslint-enable max-len */
 
-class Map extends React.PureComponent {
+class Map extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.onLoad = this.onLoad.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
   componentDidMount() {
     mapboxgl.accessToken = accessToken;
     this.map = new mapboxgl.Map({
@@ -27,7 +34,7 @@ class Map extends React.PureComponent {
       scrollZoom: false
     });
 
-    this.map.addControl(new mapboxgl.NavigationControl());
+    // this.map.addControl(new mapboxgl.NavigationControl());
     this.map.on('load', this.onLoad);
     this.map.on('mousemove', this.onMouseMove);
     this.map.on('click', this.onClick);
@@ -41,18 +48,18 @@ class Map extends React.PureComponent {
     }
   }
 
-  onLoad = () => {
+  onLoad() {
     this.map.addSource('chukotka', {
       type: 'vector',
       url: 'mapbox://gulagmap.72d3cpll'
     });
     this.map.addLayer({
-      'id': 'chukotka',
-      'type': 'fill',
-      'source': 'chukotka',
+      id: 'chukotka',
+      type: 'fill',
+      source: 'chukotka',
       'source-layer': 'chukotka_patch-4b7lx1',
-      'layout': {},
-      'paint': {
+      layout: {},
+      paint: {
         'fill-color': '#1b2128',
         'fill-opacity': 1
       }
@@ -63,14 +70,14 @@ class Map extends React.PureComponent {
       type: 'geojson',
       data: {
         type: 'FeatureCollection',
-        features: features
+        features
       }
     };
 
     this.map.addSource('prisons', source);
-    this.map.addSource("cities", {
-      'type': 'vector',
-      'url': 'mapbox://gulagmap.1hzhi5te'
+    this.map.addSource('cities', {
+      type: 'vector',
+      url: 'mapbox://gulagmap.1hzhi5te'
     });
 
     this.map.addLayer({
@@ -133,15 +140,15 @@ class Map extends React.PureComponent {
       filter: ['==', 'id', '']
     });
     this.map.addLayer({
-      "id": "cities_labels",
-      'type': 'symbol',
-      "source": "cities",
+      id: 'cities_labels',
+      type: 'symbol',
+      source: 'cities',
       'source-layer': 'allCities-difd7x',
-      'layout': {
+      layout: {
         'text-field': '{historical_name}',
         'text-size': 11
       },
-      'paint': {
+      paint: {
         'text-color': '#555'
       }
     });
@@ -151,9 +158,9 @@ class Map extends React.PureComponent {
       const attrEls = document.getElementsByClassName('mapboxgl-ctrl-attrib');
       if (attrEls.length > 0) attrEls[0].insertAdjacentHTML('beforeend', credits);
     }, 1000);
-  };
+  }
 
-  onMouseMove = e => {
+  onMouseMove(e) {
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['prisonsHalo'] });
     this.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
@@ -165,18 +172,20 @@ class Map extends React.PureComponent {
       this.map.setFilter('prisonsHalo_hover', ['==', 'id', '']);
       // this.map.setFilter("camps_labels", ["==", "name", ""]);
     }
-  };
+  }
 
-  onClick = e => {
+  onClick(e) {
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['prisonsHalo'] });
 
     if (features.length > 0) {
       const feature = features[0];
-      this.map.flyTo({center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]});
+      this.map.flyTo({
+        center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
+      });
 
       this.props.openCard();
     }
-  };
+  }
 
   render() {
     return (
@@ -187,5 +196,23 @@ class Map extends React.PureComponent {
     );
   }
 }
+
+Map.propTypes = {
+  features: PropTypes.arrayOf(
+    PropTypes.shape({
+      properties: PropTypes.shape({
+        id: PropTypes.number,
+        peoples: PropTypes.number,
+        name: PropTypes.shape({
+          ru: PropTypes.string,
+          en: PropTypes.string,
+          de: PropTypes.string
+        })
+      })
+    })
+  ),
+  openCard: PropTypes.func,
+  slideUp: PropTypes.bool
+};
 
 export default Map;

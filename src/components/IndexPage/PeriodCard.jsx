@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Wrap = styled.div`
   position: fixed;
@@ -36,13 +36,13 @@ const PeriodCard = (props) => {
 
   return Boolean(period) ?
     (
-      <Wrap visible={ visible }>
-        <button onClick={ closeCard }>закрыть</button>
+      <Wrap visible={visible}>
+        <button onClick={closeCard}>закрыть</button>
         <Period>{ `${period.year_start} – ${period.year_end}` }</Period>
         <Title>{ period.name[currentLanguage] }</Title>
         <Description>{ period.description[currentLanguage] }</Description>
       </Wrap>
-    ) : <Wrap visible={ visible }>Загрузка</Wrap>
+    ) : <Wrap visible={visible}>Загрузка</Wrap>;
 };
 
-export default PeriodCard
+export default PeriodCard;

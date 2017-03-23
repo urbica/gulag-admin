@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { browserHistory } from 'react-router';
@@ -22,7 +22,7 @@ const PrisonRow = (props) => {
   const url = `/admin/prison/${prison.id}`;
   const openPrison = browserHistory.push.bind(browserHistory, url);
   return (
-    <tr onClick={ openPrison }>
+    <tr onClick={openPrison}>
       <td className='prisons__cell' height='56'>{prison.name.ru}</td>
       <td className='prisons__cell prisons__cell_period'>{ getPeriods(prison) }</td>
       <td className='prisons__cell'>{ moment(prison.updated_at).locale('ru').format('DD MMM YYYY, HH:mm:ss') }</td>
@@ -31,11 +31,17 @@ const PrisonRow = (props) => {
       <td className='prisons__cell prisons__strength'>
         <span>{ String(prison.max_prisoners).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ') }</span>
       </td>
-      <TD published={ prison.published.ru }/>
-      <TD published={ prison.published.en }/>
-      <TD published={ prison.published.de }/>
+      <TD published={prison.published.ru} />
+      <TD published={prison.published.en} />
+      <TD published={prison.published.de} />
     </tr>
   );
+};
+
+PrisonRow.propTypes = {
+  prison: PropTypes.object,
+  places: PropTypes.object,
+  types: PropTypes.object
 };
 
 export default PrisonRow;

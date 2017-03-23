@@ -8,7 +8,7 @@ import DraftSwitch from './DraftSwitch.jsx';
 import FieldTitle from '../FieldTitle';
 import TextInput from '../TextInput';
 import SelectInput from '../Inputs/SelectInput';
-import PrisonLocation from './PrisonLocation/PrisonLocation';
+import PrisonLocation from './PrisonLocation';
 import MarkdownEditor from '../Inputs/MarkdownEditor';
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
@@ -62,17 +62,20 @@ class PrisonCard extends React.Component {
         selectionEnd: 0
       }
     };
+    this.langChange = this.langChange.bind(this);
+    this.markdownOnBlur = this.markdownOnBlur.bind(this);
+    this.photoOnClick = this.photoOnClick.bind(this);
   }
 
-  langChange = (lang) => {
+  langChange(lang) {
     this.setState({ activeLang: lang })
-  };
+  }
 
-  markdownOnBlur = (fieldPath, { selectionEnd }) => {
+  markdownOnBlur(fieldPath, { selectionEnd }) {
     this.setState(set(lensProp('markdownState'), { fieldPath, selectionEnd }));
-  };
+  }
 
-  photoOnClick = (url) => {
+  photoOnClick(url) {
     const { prison, updateHandler } = this.props;
     const { fieldPath, selectionEnd } = this.state.markdownState;
 
@@ -86,12 +89,11 @@ class PrisonCard extends React.Component {
     ].join('');
 
     updateHandler(set(lensPath(fieldPath), newValue, prison));
-  };
+  }
 
   render() {
     const {
-      prison, photos, uploadHandler, updateHandler,
-      deleteHandler, submitHandler, deletePhoto
+      prison, photos, uploadHandler, updateHandler, deleteHandler, submitHandler, deletePhoto
     } = this.props;
 
     const updateFrom = curryN(2, (getValue, lens) =>
@@ -105,54 +107,55 @@ class PrisonCard extends React.Component {
       <Container>
         <Six>
           <PrisonHeader
-            prison={ prison }
-            deleteHandler={ deleteHandler.bind(null, prison) }
+            prison={prison}
+            deleteHandler={deleteHandler.bind(null, prison)}
           />
         </Six>
         <Six>
           <LanguageSwitcher
-            languages={ languages }
-            activeLang={ this.state.activeLang }
-            onChange={ this.langChange }
+            languages={languages}
+            activeLang={this.state.activeLang}
+            onChange={this.langChange}
           />
         </Six>
-        <Six justify="center"
-             align="center"
+        <Six
+          justify='center'
+          align='center'
         >
           <DraftSwitch
-            published={ prison.published[this.state.activeLang] }
-            onChange={ updateField(lensPath(['published', this.state.activeLang])) }
+            published={prison.published[this.state.activeLang]}
+            onChange={updateField(lensPath(['published', this.state.activeLang]))}
           />
         </Six>
         <Three>
           <Fieldset>
             <FieldTitle>название лагеря</FieldTitle>
             <TextInput
-              value={ prison.name[this.state.activeLang] || '' }
-              onChange={ updateInput(lensPath(['name', this.state.activeLang])) }
-              placeholder={ 'Название' }
+              value={prison.name[this.state.activeLang] || ''}
+              onChange={updateInput(lensPath(['name', this.state.activeLang]))}
+              placeholder={'Название'}
             />
             <TextInput
-              value={ prison.additional_names[this.state.activeLang] || '' }
-              onChange={ updateInput(lensPath(['additional_names', this.state.activeLang])) }
-              placeholder={ 'Дополнительные названия, если есть' }
+              value={prison.additional_names[this.state.activeLang] || ''}
+              onChange={updateInput(lensPath(['additional_names', this.state.activeLang]))}
+              placeholder='Дополнительные названия, если есть'
             />
           </Fieldset>
         </Three>
         <Three>
           <FieldTitle>Название локации</FieldTitle>
           <TextInput
-            placeholder={ 'Название' }
-            value={ prison.location[this.state.activeLang] || '' }
-            onChange={ updateInput(lensPath(['location', this.state.activeLang])) }
+            placeholder='Название'
+            value={prison.location[this.state.activeLang] || ''}
+            onChange={updateInput(lensPath(['location', this.state.activeLang]))}
           />
         </Three>
         <Four>
           <MarkdownEditor
-            title={ 'Описание лагеря' }
-            source={ prison.description[this.state.activeLang] || '' }
-            onBlur={ this.markdownOnBlur.bind(this, ['description', this.state.activeLang]) }
-            onChange={ updateInput(lensPath(['description', this.state.activeLang])) }
+            title='Описание лагеря'
+            source={prison.description[this.state.activeLang] || ''}
+            onBlur={this.markdownOnBlur.bind(this, ['description', this.state.activeLang])}
+            onChange={updateInput(lensPath(['description', this.state.activeLang]))}
           />
         </Four>
         <Two>
@@ -173,29 +176,29 @@ class PrisonCard extends React.Component {
         </Six>
         <Six>
           <PrisonPhotos
-            photos={ photos }
-            onClick={ this.photoOnClick }
-            deletePhoto={ deletePhoto.bind(null, prison.id) }
-            uploadHandler={ uploadHandler.bind(null, prison.id) }
+            photos={photos}
+            onClick={this.photoOnClick}
+            deletePhoto={deletePhoto.bind(null, prison.id)}
+            uploadHandler={uploadHandler.bind(null, prison.id)}
           />
         </Six>
         <Three>
           <Fieldset>
             <FieldTitle>Основная деятельность</FieldTitle>
             <SelectInput
-              value={ prison.activity_id }
-              options={ this.props.activityOptions }
-              clearable={ false }
-              onChange={ updateSelect(lensProp('activity_id')) }
+              value={prison.activity_id}
+              options={this.props.activityOptions}
+              clearable={false}
+              onChange={updateSelect(lensProp('activity_id'))}
             />
           </Fieldset>
           <Fieldset>
             <FieldTitle>Регион</FieldTitle>
             <SelectInput
-              value={ prison.place_id }
-              options={ this.props.placeOptions }
-              clearable={ false }
-              onChange={ updateSelect(lensProp('place_id')) }
+              value={prison.place_id}
+              options={this.props.placeOptions}
+              clearable={false}
+              onChange={updateSelect(lensProp('place_id'))}
             />
           </Fieldset>
         </Three>
@@ -203,23 +206,23 @@ class PrisonCard extends React.Component {
           <Fieldset>
             <FieldTitle>Тип объекта</FieldTitle>
             <SelectInput
-              value={ prison.type_id }
-              options={ this.props.typeOptions }
-              clearable={ false }
-              onChange={ updateSelect(lensProp('type_id')) }
+              value={prison.type_id}
+              options={this.props.typeOptions}
+              clearable={false}
+              onChange={updateSelect(lensProp('type_id'))}
             />
           </Fieldset>
         </Three>
         <Six>
           <PrisonLocation
-            features={ prison.features || [] }
-            updateFeatures={ updateField(lensProp('features')) }
+            features={prison.features || []}
+            updateFeatures={updateField(lensProp('features'))}
           />
         </Six>
-        <Six justify="end">
+        <Six justify='end'>
           <Button
-            color={'orange'}
-            onClick={ submitHandler.bind(null, prison) }
+            color='orange'
+            onClick={submitHandler.bind(null, prison)}
           >
             сохранить
           </Button>
