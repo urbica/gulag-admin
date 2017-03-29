@@ -227,9 +227,7 @@ class PrisonCard extends React.Component {
         <Six justify='end'>
           <Button
             color='orange'
-            onClick={submitHandler.bind(null, prison)}
-            color={'orange'}
-            onClick={ submitHandler.bind(null, prison, { id: 'notes' }) }
+            onClick={submitHandler.bind(null, prison, { id: 'notes' })}
           >
             сохранить
           </Button>

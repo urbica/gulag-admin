@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+// import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import {
   always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq, reject, ifElse, isEmpty,
   isNil, lensPath

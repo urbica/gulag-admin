@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 import LoginPage from './LoginPage';
@@ -20,7 +20,5 @@ const LoginRoute = ({ isAuthenticated, component, ...rest }) => {
   };
   return <Route {...rest} render={render} />;
 };
-
-LoginRoute.propTypes = {};
 
 export default LoginRoute;
