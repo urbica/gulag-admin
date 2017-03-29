@@ -10,6 +10,7 @@ import TextInput from '../TextInput';
 import SelectInput from '../Inputs/SelectInput';
 import PrisonLocation from './PrisonLocation';
 import MarkdownEditor from '../Inputs/MarkdownEditor';
+import NotesInput from './NotesInput'
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
 import './PrisonPage.css';
@@ -170,6 +171,10 @@ class PrisonCard extends React.Component {
           </MarkdownDesc>
         </Two>
         <Six>
+          <FieldTitle>Заметки</FieldTitle>
+          <NotesInput/>
+        </Six>
+        <Six>
           <Separator>
             <legend>Информация, общая для всех языков</legend>
           </Separator>
@@ -223,6 +228,8 @@ class PrisonCard extends React.Component {
           <Button
             color='orange'
             onClick={submitHandler.bind(null, prison)}
+            color={'orange'}
+            onClick={ submitHandler.bind(null, prison, { id: 'notes' }) }
           >
             сохранить
           </Button>
