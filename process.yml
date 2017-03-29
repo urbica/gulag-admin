@@ -3,7 +3,7 @@ deploy:
     user: gulag
     host: gulag.urbica.co
     ref: origin/master
-    repo: ssh://git@gitlab.urbica.co:2222/gulag/gulag-admin.git
+    repo: ssh://git@gitlab.urbica.co:2222/gulag/gulag.git
     path: /srv/gulag/gulag-admin
     post-deploy: yarn && NODE_ENV=production npm run build
     env:
