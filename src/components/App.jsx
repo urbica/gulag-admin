@@ -22,7 +22,9 @@ injectGlobal`
     box-sizing: border-box;
   }
 
-  html {
+  body {
+    margin: 0;
+    background-color: #394554;
     font-family: 'PT Sans', sans-serif;
     font-size: 16px;
   }
