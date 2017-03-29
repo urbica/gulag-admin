@@ -1,33 +1,27 @@
-image: node:7
-
-cache:
-  paths:
-  - node_modules/
-
 stages:
-  - build
+  - test
   - deploy
 
-build:
-  stage: build
-  variables:
-    NODE_ENV: test
+test:
+  stage: test
+  image: node:7-alpine
   script:
-    - yarn
-    - npm run build
-  artifacts:
-    paths:
-      - node_modules/
+    - NODE_ENV=development yarn
+    # - NODE_ENV=development yarn run lint
+    # - NODE_ENV=development yarn test
+    - NODE_ENV=production yarn run build
 
 deploy:
+  image: alpine
   stage: deploy
   before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - apk add --no-cache openssh
     - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  script: npm run deploy
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  script:
+    - ssh gulag@gulag.urbica.co 'bash -s' < deploy.sh
   environment:
     name: production
     url: http://gulag.urbica.co

@@ -1,10 +1,8 @@
-deploy:
-  production:
-    user: gulag
-    host: gulag.urbica.co
-    ref: origin/master
-    repo: ssh://git@gitlab.urbica.co:2222/gulag/gulag.git
-    path: /srv/gulag/gulag-admin
-    post-deploy: yarn && NODE_ENV=production npm run build
-    env:
-      NODE_ENV: production
+apps:
+  - name: nest
+    script: index.js
+    args: --cache=false
+    node_args: --max_old_space_size=1024
+    exec_mode: cluster
+    instances: max
+    max_memory_restart: 1G
