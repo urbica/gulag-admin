@@ -1,5 +1,5 @@
 {
-  "name": "gulag-admin",
+  "name": "gulag",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -45,6 +45,5 @@
     "pm2": "2.3.0",
     "react-scripts": "0.9.5"
   },
-  "homepage": "/admin",
   "proxy": "http://gulag.urbica.co"
 }
