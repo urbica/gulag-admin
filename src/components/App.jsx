@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import {
   always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq, reject, ifElse, isEmpty,
   isNil, lensPath
@@ -8,12 +7,6 @@ import 'normalize.css/normalize.css';
 import { injectGlobal } from 'styled-components';
 import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../utils/utils';
-// import IndexPage from './IndexPage';
-// import LoginPage from './LoginPage';
-// import AdminPage from './AdminPage';
-// import PeriodPage from './PeriodPage';
-// import PrisonPage from './PrisonPage';
-// import NoMatch from './NoMatch';
 import Router from './Router';
 
 // eslint-disable-next-line
@@ -24,7 +17,6 @@ injectGlobal`
 
   body {
     margin: 0;
-    background-color: #394554;
     font-family: 'PT Sans', sans-serif;
     font-size: 16px;
   }
