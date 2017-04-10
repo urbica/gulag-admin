@@ -38,6 +38,19 @@ class IndexPage extends Component {
     this.openPeriod = this.openPeriod.bind(this);
   }
 
+  componentWillMount() {
+    let path = '';
+    if (this.props.match) {
+      path = this.props.match.path;
+    }
+
+    if (path === '/prison:id') {
+      this.openPrisonCard();
+    } else if (path === '/period:id') {
+      this.openPeriod(this.props.match.params.id);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     const prisons = values(nextProps.prisons);
     const filteredPrisons = prisons.filter(prison => prison.published[this.state.currentLanguage]);

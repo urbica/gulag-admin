@@ -1,13 +1,39 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import 'normalize.css/normalize.css';
+import { injectGlobal } from 'styled-components';
 import {
   always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq, reject, ifElse, isEmpty,
   isNil, lensPath
 } from 'ramda';
-import 'normalize.css/normalize.css';
-import { injectGlobal } from 'styled-components';
-import prisonTemplate from '../utils/prisonTemplate';
+import IndexPage from './IndexPage';
+import NoMatch from './NoMatch';
+// import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../utils/utils';
-import Router from './Router';
+// import Router from './Router';
+
+// const save = (<Router
+//   periods={this.state.periods}
+//   prisons={this.state.prisons}
+//   photos={this.state.photos}
+//   places={this.state.places}
+//   types={this.state.types}
+//   createPrison={this.createPrison.bind(this, prisonTemplate)}
+//   updatePeriod={this.updatePeriod}
+//   submitPeriod={this.submitPeriod}
+//   changeDropDownItem={this.changeDropDownItem}
+//   activityOptions={directoryToOptions(this.state.activities)}
+//   placeOptions={directoryToOptions(this.state.places)}
+//   typeOptions={directoryToOptions(this.state.types)}
+//   uploadPhotos={this.uploadPhotos}
+//   deletePhoto={this.deletePhoto}
+//   submitPrison={this.submitPrison}
+//   updatePrison={this.updatePrison}
+//   deletePrison={this.deletePrison}
+//   onLogin={this.login}
+//   onLogout={this.logout}
+//   isAuthenticated={!!this.state.token}
+// />);
 
 // eslint-disable-next-line
 injectGlobal`
@@ -38,12 +64,20 @@ class App extends Component {
     this.login = this.login.bind(this);
   }
 
+  // может стоит данные не только при пустом this.state.prisons, а каждый раз?
   componentWillMount() {
     const { token, prisons } = this.state;
     if (token && isEmpty(prisons)) {
       fetchData({ token })
         .then(({ activities, places, types, periods, prisons, photos }) => {
-          this.setState({ activities, places, types, periods, prisons, photos });
+          this.setState({
+            activities,
+            places,
+            types,
+            periods,
+            prisons,
+            photos
+          }, console.log('fetched'));
         });
     }
   }
@@ -198,29 +232,24 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <Router
-        periods={this.state.periods}
-        prisons={this.state.prisons}
-        photos={this.state.photos}
-        places={this.state.places}
-        types={this.state.types}
-        createPrison={this.createPrison.bind(this, prisonTemplate)}
-        updatePeriod={this.updatePeriod}
-        submitPeriod={this.submitPeriod}
-        changeDropDownItem={this.changeDropDownItem}
-        activityOptions={directoryToOptions(this.state.activities)}
-        placeOptions={directoryToOptions(this.state.places)}
-        typeOptions={directoryToOptions(this.state.types)}
-        uploadPhotos={this.uploadPhotos}
-        deletePhoto={this.deletePhoto}
-        submitPrison={this.submitPrison}
-        updatePrison={this.updatePrison}
-        deletePrison={this.deletePrison}
-        onLogin={this.login}
-        onLogout={this.logout}
-        isAuthenticated={!!this.state.token}
+    const { prisons, periods } = this.state;
+    const renderIndexPage = props => (
+      <IndexPage
+        prisons={prisons}
+        periods={periods}
+        {...props}
       />
+    );
+
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' render={renderIndexPage} />
+          <Route path='/prison:id' render={renderIndexPage} />
+          <Route path='/period:id' render={renderIndexPage} />
+          <Route component={NoMatch} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
