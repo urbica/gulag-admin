@@ -9,7 +9,8 @@ import {
 import IndexPage from './IndexPage';
 import NoMatch from './NoMatch';
 // import prisonTemplate from '../utils/prisonTemplate';
-import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../utils/utils';
+import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
+// import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../utils/utils';
 // import Router from './Router';
 
 // const save = (<Router
