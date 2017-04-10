@@ -183,7 +183,7 @@ class Map extends PureComponent {
         center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
       });
 
-      this.props.openCard();
+      this.props.openCard(feature.properties.id);
     }
   }
 

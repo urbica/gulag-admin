@@ -27,6 +27,7 @@ class IndexPage extends Component {
       currentLanguage: 'ru',
       currentYear: 1918,
       currentPrisons: [],
+      idPrisonToOpen: null,
       currentPeriod: 1,
       prisonCardVisibility: false,
       periodCardVisibility: false,
@@ -77,8 +78,8 @@ class IndexPage extends Component {
     }
   }
 
-  openPrisonCard() {
-    this.setState({ prisonCardVisibility: true });
+  openPrisonCard(id) {
+    this.setState({ prisonCardVisibility: true, idPrisonToOpen: id });
   }
 
   openPeriod(period) {
@@ -334,7 +335,7 @@ class IndexPage extends Component {
           this.props.prisons &&
           <PrisonCard
             visible={prisonCardVisibility}
-            prison={currentPrisons[1]}
+            prison={this.props.prisons[this.state.idPrisonToOpen]}
             currentLanguage={currentLanguage}
             closeCard={this.closePrisonCard.bind(this)}
           />
