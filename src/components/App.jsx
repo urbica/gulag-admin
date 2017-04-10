@@ -7,6 +7,7 @@ import {
   isNil, lensPath
 } from 'ramda';
 import IndexPage from './IndexPage';
+import AdminPage from './AdminPage';
 import NoMatch from './NoMatch';
 // import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
@@ -233,12 +234,21 @@ class App extends Component {
   }
 
   render() {
-    const { prisons, periods } = this.state;
+    const { prisons, periods, places, types, token } = this.state;
     const renderIndexPage = props => (
       <IndexPage
         prisons={prisons}
         periods={periods}
         {...props}
+      />
+    );
+    const renderAdminPage = () => (
+      <AdminPage
+        token={token}
+        prisons={prisons}
+        periods={periods}
+        places={places}
+        types={types}
       />
     );
 
@@ -248,6 +258,7 @@ class App extends Component {
           <Route exact path='/' render={renderIndexPage} />
           <Route path='/prison:id' render={renderIndexPage} />
           <Route path='/period:id' render={renderIndexPage} />
+          <Route exact path='/admin' render={renderAdminPage} />
           <Route component={NoMatch} />
         </Switch>
       </BrowserRouter>
