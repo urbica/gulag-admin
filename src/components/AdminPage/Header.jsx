@@ -1,6 +1,6 @@
-import React from 'react';
-import Button from '../Button';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
+import Button from '../Button';
 import FieldTitle from '../FieldTitle';
 
 const HeaderWrap = styled.header`
@@ -46,43 +46,52 @@ const PrisonsCount = styled.div`
   }
 `;
 
-class Header extends React.Component {
-  render() {
-    const { createPrison, prisonsCount, publishedRuCount, publishedEnCount, publishedDeCount } = this.props;
+const Header = (props) => {
+  const {
+    createPrison, prisonsCount, publishedRuCount, publishedEnCount, publishedDeCount, onLogout
+  } = props;
 
-    return (
-      <HeaderWrap>
-        <Button onClick={ this.props.onLogout }>выйти</Button>
-        <HeaderMiddle>
-          <HeaderTitle>Карточки лагерей</HeaderTitle>
-          <HeaderBottom>
-            <Lang>
-              <PrisonsCount>
-                { publishedRuCount }<span>/{ prisonsCount }</span>
-              </PrisonsCount>
-              На русском
-            </Lang>
-            <Lang>
-              <PrisonsCount>
-                { publishedEnCount }<span>/{ prisonsCount }</span>
-              </PrisonsCount>
-              На английском
-            </Lang>
-            <Lang>
-              <PrisonsCount>
-                { publishedDeCount }<span>/{ prisonsCount }</span>
-              </PrisonsCount>
-              На немецком
-            </Lang>
-          </HeaderBottom>
-        </HeaderMiddle>
-        <Button
-          color={'orange'}
-          onClick={ createPrison }
-        >добавить</Button>
-      </HeaderWrap>
-    )
-  }
-}
+  return (
+    <HeaderWrap>
+      <Button onClick={onLogout}>выйти</Button>
+      <HeaderMiddle>
+        <HeaderTitle>Карточки лагерей</HeaderTitle>
+        <HeaderBottom>
+          <Lang>
+            <PrisonsCount>
+              { publishedRuCount }<span>/{ prisonsCount }</span>
+            </PrisonsCount>
+            На русском
+          </Lang>
+          <Lang>
+            <PrisonsCount>
+              { publishedEnCount }<span>/{ prisonsCount }</span>
+            </PrisonsCount>
+            На английском
+          </Lang>
+          <Lang>
+            <PrisonsCount>
+              { publishedDeCount }<span>/{ prisonsCount }</span>
+            </PrisonsCount>
+            На немецком
+          </Lang>
+        </HeaderBottom>
+      </HeaderMiddle>
+      <Button
+        color='orange'
+        onClick={createPrison}
+      >добавить</Button>
+    </HeaderWrap>
+  );
+};
+
+Header.propTypes = {
+  createPrison: PropTypes.func,
+  prisonsCount: PropTypes.number,
+  publishedRuCount: PropTypes.number,
+  publishedEnCount: PropTypes.number,
+  publishedDeCount: PropTypes.number,
+  onLogout: PropTypes.func
+};
 
 export default Header;

@@ -28,21 +28,19 @@ const LanguageChanger = (props) => {
   return (
     <LangChangerWrap>
       {
-        Object.keys(languages).map((language, index) => {
-          return (
-            <Button
-              key={ index }
-              active={ language === activeLang }
-              width={ buttonWidth }
-              onClick={ onChange.bind(null, language)}
-            >
-              { languages[language] }
-            </Button>
-          )
-        })
+        Object.keys(languages).map((language, index) =>
+          <Button
+            key={index}
+            active={language === activeLang}
+            width={buttonWidth}
+            onClick={onChange.bind(null, language)}
+          >
+            { languages[language] }
+          </Button>
+        )
       }
     </LangChangerWrap>
-  )
+  );
 };
 
 LanguageChanger.propTypes = {

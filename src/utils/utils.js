@@ -77,9 +77,9 @@ export const fetchData = ({ token }) =>
       fetch('/api/public/periods.json', options).then(r => r.json())
     ]).then(([prisons, photos, activities, places, types, periods]) => {
       resolve({
-        activities: activities,
-        places: places,
-        types: types,
+        activities,
+        places,
+        types,
         periods: preprocessPeriods(periods),
         photos: preprocessPhotos(photos),
         prisons: preprocessPrisons(prisons)
@@ -98,12 +98,31 @@ export const getFirstYearInFeatures = pipe(
   )
 );
 
-export const getPeriods = (prison) =>
+export const getPeriods = prison =>
   (prison.features || [])
     .map(feature => Object.keys(feature.properties).map(year => parseInt(year, 10)))
     .filter(years => years.length > 0)
-    .map(years => {
+    .map((years) => {
       if (years.length === 1) {
         return `${years[0]};\n`;
-      } else return `${Math.min.apply(Math, years)} — ${Math.max.apply(Math, years)};\n`
+      }
+      return `${Math.min(...years)} — ${Math.max(...years)};\n`;
     });
+
+export const filterBySearch = (searchQuery, prisons) => {
+  if (searchQuery.length > 0) {
+    return prisons.filter((prison) => {
+      const searchString = [
+        prison.name.ru,
+        prison.name.en,
+        prison.additional_names.ru,
+        prison.additional_names.en,
+        prison.max_prisoners
+      ].join(' ').toLowerCase();
+
+      return searchString.match(searchQuery.trim().toLowerCase());
+    });
+  }
+
+  return prisons;
+};

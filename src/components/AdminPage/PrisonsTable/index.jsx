@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import styled from 'styled-components';
 import { comparator, equals, lensPath, view } from 'ramda';
 import PrisonRow from './PrisonRow';
@@ -215,5 +215,32 @@ class PrisonsTable extends Component {
     );
   }
 }
+
+PrisonsTable.propTypes = {
+  prisons: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.shape({
+      ru: PropTypes.string,
+      en: PropTypes.string,
+      de: PropTypes.string
+    }),
+    updated_at: PropTypes.string,
+    place_id: PropTypes.number,
+    type_id: PropTypes.number,
+    max_prisoners: PropTypes.number,
+    published: PropTypes.shape({
+      ru: PropTypes.bool,
+      en: PropTypes.bool,
+      de: PropTypes.bool
+    })
+  })),
+  places: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string
+  })),
+  types: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string
+  }))
+};
 
 export default PrisonsTable;

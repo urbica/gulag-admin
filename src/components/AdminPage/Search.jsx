@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import FieldTitle from '../FieldTitle.jsx';
-import TextInput from '../TextInput';
 import debounce from 'debounce';
+import FieldTitle from '../FieldTitle';
+import TextInput from '../TextInput';
 import searchIcon from './search.svg';
 
 const Wrap = styled.div`
@@ -29,7 +29,7 @@ const Title = styled(FieldTitle)`
 `;
 
 const Search = (props) => {
-  const onChange = (event) => props.onChange(event.target.value);
+  const onChange = event => props.onChange(event.target.value);
   const delayedOnChange = debounce(onChange, 300);
 
   const handleOnChange = (event) => {
@@ -42,13 +42,16 @@ const Search = (props) => {
       <Title>Лагеря</Title>
       <SearchWrap>
         <TextInput
-          onChange={ handleOnChange }
-          placeholder={ 'Поиск' }
+          onChange={handleOnChange}
+          placeholder='Поиск'
         />
-        <img src={ searchIcon } alt={ 'Search' }/>
+        <img
+          src={searchIcon}
+          alt='Search'
+        />
       </SearchWrap>
     </Wrap>
-  )
+  );
 };
 
 export default Search;

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import FieldTitle from '../FieldTitle.jsx';
+import FieldTitle from '../FieldTitle';
 
 const Wrap = styled.div`
   display: flex;
@@ -27,21 +27,25 @@ const Button = styled(Link)`
 
 const Periods = (props) => {
   const { periods } = props;
+
   return (
     <Wrap>
       <Title>Периоды</Title>
       {
         periods &&
-        Object.keys(periods).map((index) => {
-          return (
-            <Button key={ index }
-                    to={ `/admin/period/${index}` }
-            >{ periods[index].name.ru }</Button>
-          )
-        })
+        Object.keys(periods).map(index =>
+          <Button
+            key={index}
+            to={`/admin/period${index}`}
+          >{ periods[index].name.ru }</Button>
+        )
       }
     </Wrap>
-  )
+  );
+};
+
+Periods.propTypes = {
+  periods: PropTypes.object
 };
 
 export default Periods;

@@ -1,41 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { values } from 'ramda';
 import { Container, Six } from '../Layout';
 import Header from './Header';
 import Periods from './Periods';
 import Search from './Search';
 import PrisonsTable from './PrisonsTable';
+import { filterBySearch } from '../../utils/utils';
 
-class IndexPage extends Component {
+class AdminPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchQuery: ''
     };
     this.onSearchChange = this.onSearchChange.bind(this);
-    this.filterBySearch = this.filterBySearch.bind(this);
   }
 
   onSearchChange(searchQuery) {
     this.setState({ searchQuery });
-  }
-
-  filterBySearch(searchQuery, prisons) {
-    if (searchQuery.length > 0) {
-      return prisons.filter((prison) => {
-        const searchString = [
-          prison.name.ru,
-          prison.name.en,
-          prison.additional_names.ru,
-          prison.additional_names.en,
-          prison.max_prisoners
-        ].join(' ').toLowerCase();
-
-        return searchString.match(searchQuery.trim().toLowerCase());
-      });
-    }
-
-    return prisons;
   }
 
   render() {
@@ -43,8 +25,7 @@ class IndexPage extends Component {
     const prisonsCount = prisons.length;
 
     const {
-      publishedRuCount, publishedEnCount,
-      publishedDeCount
+      publishedRuCount, publishedEnCount, publishedDeCount
     } = prisons.reduce((acc, prison) => {
       if (prison.published.ru) acc.publishedRuCount += 1;
       if (prison.published.en) acc.publishedEnCount += 1;
@@ -52,7 +33,7 @@ class IndexPage extends Component {
       return acc;
     }, { publishedRuCount: 0, publishedEnCount: 0, publishedDeCount: 0 });
 
-    const filteredPrisons = this.filterBySearch(this.state.searchQuery, prisons);
+    const filteredPrisons = filterBySearch(this.state.searchQuery, prisons);
 
     return (
       <Container>
@@ -87,4 +68,23 @@ class IndexPage extends Component {
   }
 }
 
-export default IndexPage;
+AdminPage.propTypes = {
+  prisons: PropTypes.object,
+  onLogout: PropTypes.func,
+  createPrison: PropTypes.func,
+  periods: PropTypes.object,
+  places: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string
+    })
+  ),
+  types: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string
+    })
+  )
+};
+
+export default AdminPage;

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const NoMatch = (props) => {
   const { location } = props;
-  console.log(props);
+
   return (
     <div>
       <div>NoMatch { location.pathname }</div>
