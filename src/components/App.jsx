@@ -108,7 +108,7 @@ class App extends Component {
       .then(response => response.json())
       .then(([submittedPeriod]) => {
         this.setState(assocPath(['periods', submittedPeriod.id], submittedPeriod), () =>
-          window.history.pushState(`/admin/period/${submittedPeriod.id}`)
+          history.push(`/admin/period/${submittedPeriod.id}`)
         );
         alert(`Период "${period.name.ru}" обновлён`);
       });
@@ -161,7 +161,7 @@ class App extends Component {
       .then(response => response.json())
       .then(([newPrison]) => {
         this.setState(assocPath(['prisons', newPrison.id], newPrison), () =>
-          window.history.pushState(`/admin/prisons/${newPrison.id}`)
+          history.push(`/admin/prisons/${newPrison.id}`)
         );
       });
   }
@@ -187,7 +187,7 @@ class App extends Component {
         .then(response => response.json())
         .then(([submittedPrison]) => {
           this.setState(assocPath(['prisons', submittedPrison.id], getMaxPrisoners(submittedPrison)), () =>
-            window.history.pushState(`/admin/prisons/${submittedPrison.id}`)
+            history.push(`/admin/prisons/${submittedPrison.id}`)
           );
           alert(`Лагерь "${prison.name.ru}" обновлён`);
         });
@@ -203,7 +203,7 @@ class App extends Component {
             Authorization: `Bearer ${this.state.token}`
           }
         }).then(() => {
-          window.history.pushState('/admin/prisons');
+          history.push('/admin/prisons');
           this.setState(dissocPath(['prisons', `${prison.id}`]));
         });
       }
