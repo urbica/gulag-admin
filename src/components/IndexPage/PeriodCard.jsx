@@ -34,15 +34,18 @@ const Description = styled.div`
 const PeriodCard = (props) => {
   const { period, currentLanguage, visible, closeCard } = props;
 
-  return Boolean(period) ?
-    (
-      <Wrap visible={visible}>
-        <button onClick={closeCard}>закрыть</button>
-        <Period>{ `${period.year_start} – ${period.year_end}` }</Period>
-        <Title>{ period.name[currentLanguage] }</Title>
-        <Description>{ period.description[currentLanguage] }</Description>
-      </Wrap>
-    ) : <Wrap visible={visible}>Загрузка</Wrap>;
+  if (!period) {
+    return <Wrap visible={visible}>Загрузка</Wrap>;
+  }
+
+  return (
+    <Wrap visible={visible}>
+      <button onClick={closeCard}>закрыть</button>
+      <Period>{`${period.year_start} – ${period.year_end}`}</Period>
+      <Title>{period.name[currentLanguage]}</Title>
+      <Description>{period.description[currentLanguage]}</Description>
+    </Wrap>
+  );
 };
 
 export default PeriodCard;

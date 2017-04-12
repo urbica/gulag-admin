@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { values } from 'ramda';
-import { withRouter } from 'react-router'
+import { values, isEmpty } from 'ramda';
+import { withRouter } from 'react-router-dom';
 
 import Header from './Header';
 import Year from './Year';
@@ -206,8 +206,6 @@ class IndexPage extends Component {
       currentLanguage: 'ru',
       currentYear: 1918,
       currentPrisons: [],
-      idPrisonToOpen: null,
-      currentPeriod: 1,
       prisonCardVisibility: false,
       periodCardVisibility: false,
       isDemoPlayed: false
@@ -263,13 +261,28 @@ class IndexPage extends Component {
   }
 
   render() {
-    const {
-      currentYear, currentPrisons, prisonCardVisibility,
-      periodCardVisibility, currentLanguage, currentPeriod,
-      isDemoPlayed
-    } = this.state;
+    const { periods, prisons } = this.props;
+    const { currentYear, currentPrisons, currentLanguage, isDemoPlayed } = this.state;
 
     const features = prisonsToFeatures(currentPrisons, currentYear);
+
+    const PrisonCardWithRouter = withRouter(({ match }) => (
+      <PrisonCard
+        visible
+        prison={!isEmpty(prisons) && prisons[match.params.prisonId]}
+        closeCard={this.closePrisonCard.bind(this)}
+        currentLanguage={currentLanguage}
+      />
+    ));
+
+    const PeriodCardWithRouter = withRouter(({ match }) => (
+      <PeriodCard
+        visible
+        period={!isEmpty(periods) && periods[match.params.periodId]}
+        currentLanguage={currentLanguage}
+        closeCard={this.closePeriodCard.bind(this)}
+      />
+    ));
 
     return (
       <div>
@@ -285,51 +298,20 @@ class IndexPage extends Component {
           />
           <Chart
             data={data}
-            periods={this.props.periods}
+            periods={periods}
             currentYear={currentYear}
             setYear={this.setYear}
             openPeriod={this.openPeriodCard}
           />
           <ChartButton />
         </ChartWrap>
-        {
-          this.props.periods &&
-            <PublicRoute
-              path='/period:id'
-              component={PeriodCard}
-              closeCard={this.closePeriodCard.bind(this)}
-            />
-          /*
-          <PeriodCard
-            visible={periodCardVisibility}
-            period={this.props.periods[currentPeriod]}
-            currentLanguage={currentLanguage}
-            closeCard={this.closePeriodCard.bind(this)}
-          />
-          */
-        }
-        {
-          this.props.prisons &&
-            <PublicRoute
-              path='/prisons:id'
-              component={PrisonCard}
-              closeCard={this.closePrisonCard.bind(this)}
-            />
-          /*
-          <PrisonCard
-            visible={prisonCardVisibility}
-            prison={this.props.prisons[this.state.idPrisonToOpen]}
-            currentLanguage={currentLanguage}
-            closeCard={this.closePrisonCard.bind(this)}
-          />
-          */
-        }
         <Map
-          currentYear={currentYear}
           features={features}
-          slideUp={prisonCardVisibility}
           openCard={this.openPrisonCard}
+          currentYear={currentYear}
         />
+        <PublicRoute path='/prison:prisonId' component={PrisonCardWithRouter} />
+        <PublicRoute path='/period:periodId' component={PeriodCardWithRouter} />
       </div>
     );
   }

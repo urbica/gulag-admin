@@ -20,15 +20,17 @@ const Wrap = styled.div`
 const PrisonCard = (props) => {
   const { visible, prison, closeCard } = props;
 
-  return Boolean(prison) ?
-    (
-      <Wrap visible={visible}>
-        <button onClick={closeCard}>закрыть</button>
-        <div>{ prison.name.ru }</div>
-        <ReactMarkdown source={prison.description.ru} />
-      </Wrap>
-    ) : <Wrap visible={visible}>Загрузка</Wrap>;
-};
+  if (!prison) {
+    return <Wrap visible={visible}>Загрузка</Wrap>;
+  }
 
+  return (
+    <Wrap visible={visible}>
+      <button onClick={closeCard}>закрыть</button>
+      <div>{prison.name.ru}</div>
+      <ReactMarkdown source={prison.description.ru} />
+    </Wrap>
+  );
+};
 
 export default PrisonCard;
