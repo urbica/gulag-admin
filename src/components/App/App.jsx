@@ -4,17 +4,18 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { injectGlobal } from 'styled-components';
 import {
   always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
-  reject, ifElse, isNil, lensPath } from 'ramda';
+  reject, ifElse, isNil, lensPath
+} from 'ramda';
 import 'normalize.css/normalize.css';
 
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 
-import IndexPage from './IndexPage';
-import LoginPage from './LoginPage';
-import AdminPage from './AdminPage';
-import NoMatch from './NoMatch';
-import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
+import IndexPage from '../Map';
+import LoginPage from '../Admin/LoginPage';
+import AdminPage from '../Admin';
+import NoMatch from '../404/NoMatch';
+import { fetchData, concatUrl, getMaxPrisoners } from '../../utils/utils';
 
 // eslint-disable-next-line
 injectGlobal`
@@ -231,7 +232,12 @@ class App extends Component {
             isAuthenticated={!!token}
             onSubmit={this.login}
           />
-          <PublicRoute path='/' component={IndexPage} prisons={prisons} periods={periods} />
+          <PublicRoute
+            path='/'
+            component={IndexPage}
+            prisons={prisons}
+            periods={periods}
+          />
           <Route component={NoMatch} />
         </Switch>
       </BrowserRouter>

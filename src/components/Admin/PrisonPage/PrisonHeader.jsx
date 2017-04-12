@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../Button';
+import Button from '../Admin/Button';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';

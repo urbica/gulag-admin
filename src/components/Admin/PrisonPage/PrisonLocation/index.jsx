@@ -132,11 +132,12 @@ class PrisonLocation extends PureComponent {
                   className={className}
                   key={index}
                 >
-                  <LocationTab onClick={onClick}>Локация { features.length > 1 ? index + 1 : '' }</LocationTab>
+                  <LocationTab onClick={onClick}>
+                    Локация { features.length > 1 ? index + 1 : '' }
+                  </LocationTab>
                   <button onClick={this.openDeleteMenu}>
                     <svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'>
-                      <path
-                        d='M2.828 2.12L.708 0 0 .707l2.12 2.12L0 4.95l.707.707 2.12-2.12 2.123 2.12.707-.707-2.12-2.122 2.12-2.12L4.95 0 2.828 2.12z' />
+                      <path d='M2.828 2.12L.708 0 0 .707l2.12 2.12L0 4.95l.707.707 2.12-2.12 2.123 2.12.707-.707-2.12-2.122 2.12-2.12L4.95 0 2.828 2.12z' />
                     </svg>
                   </button>
                   <div className={classNameDelete}>

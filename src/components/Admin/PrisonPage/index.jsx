@@ -7,12 +7,12 @@ import LanguageSwitcher from '../LanguageSwitcher.jsx';
 import DraftSwitch from './DraftSwitch.jsx';
 import FieldTitle from '../FieldTitle';
 import TextInput from '../TextInput';
-import SelectInput from '../Inputs/SelectInput';
+import SelectInput from '../Admin/Inputs/SelectInput';
 import PrisonLocation from './PrisonLocation';
-import MarkdownEditor from '../Inputs/MarkdownEditor';
+import MarkdownEditor from '../Admin/Inputs/MarkdownEditor';
 import NotesInput from './NotesInput'
 import PrisonPhotos from './PrisonPhotos';
-import Button from '../Button';
+import Button from '../Admin/Button';
 import './PrisonPage.css';
 
 const Fieldset = styled.div`

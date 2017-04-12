@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import debounce from 'debounce';
-import FieldTitle from '../FieldTitle';
-import TextInput from '../TextInput';
+import FieldTitle from './FieldTitle';
+import TextInput from './TextInput';
 import searchIcon from './search.svg';
 
 const Wrap = styled.div`

@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
-// import { browserHistory } from 'react-router';
 import { getPeriods } from '../../../utils/utils';
 
 const TD = styled.td`
@@ -19,8 +19,7 @@ const TD = styled.td`
 
 const PrisonRow = (props) => {
   const { prison, places, types } = props;
-  // const url = `/admin/prison/${prison.id}`;
-  // const openPrison = browserHistory.push.bind(browserHistory, url);
+
   return (
     <tr>
       <td className='prisons__cell' height='56'>{prison.name.ru}</td>

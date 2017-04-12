@@ -10,7 +10,7 @@ import Chart from './Chart';
 import PrisonCard from './PrisonCard';
 import PeriodCard from './PeriodCard';
 import Map from './Map';
-import PublicRoute from '../PublicRoute';
+import PublicRoute from '../App/PublicRoute';
 import { prisonsToFeatures } from '../../utils/utils';
 
 const ChartWrap = styled.div`

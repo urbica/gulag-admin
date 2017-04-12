@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { values } from 'ramda';
-import { Container, Six } from '../Layout';
+import { Container, Six } from './Layout';
 import Header from './Header';
 import Periods from './Periods';
 import Search from './Search';

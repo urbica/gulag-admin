@@ -53,11 +53,11 @@ const TextInput = (props) => {
       <InputDesc>{ desc }</InputDesc>
       <Input
         type='text'
-        placeholder={ placeholder }
-        value={ value }
-        onChange={ onChange }
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
       />
-      <InputLine/>
+      <InputLine />
     </InputWrap>
   );
 };
