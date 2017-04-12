@@ -87,7 +87,9 @@ class LoginPage extends PureComponent {
   }
 
   componentDidMount() {
-    this.input.focus();
+    if (!this.props.isAuthenticated) {
+      this.input.focus();
+    }
   }
 
   onClick() {

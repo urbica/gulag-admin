@@ -48,11 +48,17 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const tmpToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHVyYmljYS5jbyIsImlhdCI6MTQ5MTk5NDkxNn0.x4SvDN38Dr-14pgDHJDDhlYP-rnpudBr6PcHr_FNMro';
-    fetchData({ token: tmpToken })
-      .then(({ periods, prisons }) => {
-        this.setState({ periods, prisons });
-      });
+    const { token } = this.state;
+
+    if (!token) {
+      const publicToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHVyYmljYS5jbyIsImlhdCI6MTQ5MTk5NDkxNn0.x4SvDN38Dr-14pgDHJDDhlYP-rnpudBr6PcHr_FNMro';
+      fetchData({ token: publicToken })
+        .then(({ periods, prisons }) => this.setState({ periods, prisons }));
+    } else {
+      fetchData({ token })
+        .then(({ activities, places, types, periods, prisons, photos }) =>
+          this.setState({ activities, places, types, periods, prisons, photos }));
+    }
   }
 
   login(password) {
@@ -70,14 +76,12 @@ class App extends Component {
           .then(({ activities, places, types, periods, prisons, photos }) => {
             this.setState({ activities, places, types, periods, prisons, token, photos }, () => {
               history.push('/admin');
-              window.location.reload(); // TODO: router does not handle URL changes
             });
           });
       })
       .catch(() => {
         localStorage.removeItem('token');
         history.push('/login');
-        window.location.reload();
       });
   }
 
@@ -85,7 +89,6 @@ class App extends Component {
     localStorage.removeItem('token');
     this.setState(dissoc('token'), () => {
       history.push('/login');
-      window.location.reload();
     });
   }
 
