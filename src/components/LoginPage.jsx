@@ -1,4 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LoginPageWrap = styled.div`
@@ -100,6 +101,10 @@ class LoginPage extends PureComponent {
   }
 
   render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to='/admin' />;
+    }
+
     return (
       <LoginPageWrap>
         <LoginForm>

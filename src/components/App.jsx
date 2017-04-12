@@ -234,7 +234,12 @@ class App extends Component {
             places={places}
             types={types}
           />
-          <PublicRoute path='/login' component={LoginPage} onSubmit={this.login} />
+          <PublicRoute
+            path='/login'
+            component={LoginPage}
+            isAuthenticated={!!token}
+            onSubmit={this.login}
+          />
           <PublicRoute path='/' component={IndexPage} prisons={prisons} periods={periods} />
           <Route component={NoMatch} />
         </Switch>
