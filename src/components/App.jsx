@@ -1,41 +1,20 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import 'normalize.css/normalize.css';
+import createBrowserHistory from 'history/createBrowserHistory';
 import { injectGlobal } from 'styled-components';
 import {
-  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq, reject, ifElse, isEmpty,
-  isNil, lensPath
-} from 'ramda';
+  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
+  reject, ifElse, isNil, lensPath } from 'ramda';
+import 'normalize.css/normalize.css';
+
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
+
 import IndexPage from './IndexPage';
+import LoginPage from './LoginPage';
 import AdminPage from './AdminPage';
 import NoMatch from './NoMatch';
-// import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
-// import { fetchData, concatUrl, directoryToOptions, getMaxPrisoners } from '../utils/utils';
-// import Router from './Router';
-
-// const save = (<Router
-//   periods={this.state.periods}
-//   prisons={this.state.prisons}
-//   photos={this.state.photos}
-//   places={this.state.places}
-//   types={this.state.types}
-//   createPrison={this.createPrison.bind(this, prisonTemplate)}
-//   updatePeriod={this.updatePeriod}
-//   submitPeriod={this.submitPeriod}
-//   changeDropDownItem={this.changeDropDownItem}
-//   activityOptions={directoryToOptions(this.state.activities)}
-//   placeOptions={directoryToOptions(this.state.places)}
-//   typeOptions={directoryToOptions(this.state.types)}
-//   uploadPhotos={this.uploadPhotos}
-//   deletePhoto={this.deletePhoto}
-//   submitPrison={this.submitPrison}
-//   updatePrison={this.updatePrison}
-//   deletePrison={this.deletePrison}
-//   onLogin={this.login}
-//   onLogout={this.logout}
-//   isAuthenticated={!!this.state.token}
-// />);
 
 // eslint-disable-next-line
 injectGlobal`
@@ -49,6 +28,8 @@ injectGlobal`
     font-size: 16px;
   }
 `;
+
+const history = createBrowserHistory();
 
 class App extends Component {
   constructor(props) {
@@ -66,52 +47,45 @@ class App extends Component {
     this.login = this.login.bind(this);
   }
 
-  // может стоит данные не только при пустом this.state.prisons, а каждый раз?
   componentWillMount() {
-    const { token, prisons } = this.state;
-    if (token && isEmpty(prisons)) {
-      fetchData({ token })
-        .then(({ activities, places, types, periods, prisons, photos }) => {
-          this.setState({
-            activities,
-            places,
-            types,
-            periods,
-            prisons,
-            photos
-          }, console.log('fetched'));
-        });
-    }
+    const tmpToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHVyYmljYS5jbyIsImlhdCI6MTQ5MTk5NDkxNn0.x4SvDN38Dr-14pgDHJDDhlYP-rnpudBr6PcHr_FNMro';
+    fetchData({ token: tmpToken })
+      .then(({ periods, prisons }) => {
+        this.setState({ periods, prisons });
+      });
   }
 
   login(password) {
-    console.log('login', password);
-    console.log('this', this);
-
-    const credentials = { email: 'hello@urbica.co', password };
-
-    fetch('/login', {
-      body: JSON.stringify(credentials),
+    const options = {
+      body: JSON.stringify({ email: 'hello@urbica.co', password }),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
-    })
+    };
+
+    fetch('/login', options)
       .then(response => response.json())
       .then(({ token }) => {
         localStorage.setItem('token', token);
         return fetchData({ token })
           .then(({ activities, places, types, periods, prisons, photos }) => {
             this.setState({ activities, places, types, periods, prisons, token, photos }, () => {
-              window.history.pushState('/admin');
+              history.push('/admin');
+              window.location.reload(); // TODO: router does not handle URL changes
             });
           });
       })
-      .catch(error => console.error(error));
+      .catch(() => {
+        localStorage.removeItem('token');
+        history.push('/login');
+        window.location.reload();
+      });
   }
 
   logout() {
     localStorage.removeItem('token');
     this.setState(dissoc('token'), () => {
-      window.history.pushState('/login');
+      history.push('/login');
+      window.location.reload();
     });
   }
 
@@ -235,30 +209,33 @@ class App extends Component {
 
   render() {
     const { prisons, periods, places, types, token } = this.state;
-    const renderIndexPage = props => (
-      <IndexPage
-        prisons={prisons}
-        periods={periods}
-        {...props}
-      />
-    );
-    const renderAdminPage = () => (
-      <AdminPage
-        token={token}
-        prisons={prisons}
-        periods={periods}
-        places={places}
-        types={types}
-      />
-    );
+
+    // return (
+    //   <BrowserRouter>
+    //     <Switch>
+    //       <Route exact path='/' render={renderIndexPage} />
+    //       <Route path='/prison:id' render={renderIndexPage} />
+    //       <Route path='/period:id' render={renderIndexPage} />
+    //       <Route exact path='/admin' render={renderAdminPage} />
+    //       <Route component={NoMatch} />
+    //     </Switch>
+    //   </BrowserRouter>
+    // );
 
     return (
-      <BrowserRouter>
+      <BrowserRouter history={history}>
         <Switch>
-          <Route exact path='/' render={renderIndexPage} />
-          <Route path='/prison:id' render={renderIndexPage} />
-          <Route path='/period:id' render={renderIndexPage} />
-          <Route exact path='/admin' render={renderAdminPage} />
+          <PrivateRoute
+            path='/admin'
+            component={AdminPage}
+            isAuthenticated={!!token}
+            prisons={prisons}
+            periods={periods}
+            places={places}
+            types={types}
+          />
+          <PublicRoute path='/login' component={LoginPage} onSubmit={this.login} />
+          <PublicRoute path='/' component={IndexPage} prisons={prisons} periods={periods} />
           <Route component={NoMatch} />
         </Switch>
       </BrowserRouter>

@@ -126,3 +126,23 @@ export const filterBySearch = (searchQuery, prisons) => {
 
   return prisons;
 };
+
+export const prisonsToFeatures = (prisons, currentYear) => {
+  const features = prisons.reduce((acc, prison) => {
+    const newFeatures = prison.features.reduce((acc, feature) => {
+      if (feature.properties[currentYear]) {
+        const newProperties = {
+          id: prison.id,
+          name: prison.name,
+          peoples: feature.properties[currentYear].peoples
+        };
+
+        return acc.concat([{ ...feature, properties: newProperties }]);
+      }
+      return acc;
+    }, []);
+    return acc.concat(newFeatures);
+  }, []);
+
+  return features;
+};
