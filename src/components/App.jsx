@@ -210,18 +210,6 @@ class App extends Component {
   render() {
     const { prisons, periods, places, types, token } = this.state;
 
-    // return (
-    //   <BrowserRouter>
-    //     <Switch>
-    //       <Route exact path='/' render={renderIndexPage} />
-    //       <Route path='/prison:id' render={renderIndexPage} />
-    //       <Route path='/period:id' render={renderIndexPage} />
-    //       <Route exact path='/admin' render={renderAdminPage} />
-    //       <Route component={NoMatch} />
-    //     </Switch>
-    //   </BrowserRouter>
-    // );
-
     return (
       <BrowserRouter history={history}>
         <Switch>
