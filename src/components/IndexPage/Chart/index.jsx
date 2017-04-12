@@ -6,6 +6,7 @@ import PrisonersArea from './PrisonersArea';
 import Axis from './Axis';
 import Slider from './Slider';
 import Periods from './Periods';
+import data from '../../../utils/prisonersAmountByYears';
 
 const margin = {
   top: 5,
@@ -17,7 +18,7 @@ const width = 1000 - margin.left - margin.right;
 const height = 300 - margin.top - margin.bottom;
 
 const Chart = (props) => {
-  const { data, periods, currentYear, setYear, openPeriod } = props;
+  const { periods, currentYear, setYear, openPeriod } = props;
 
   const xScale = scaleTime()
     .domain([new Date(1918, 0, 1), new Date(1960, 11, 31)])
@@ -71,12 +72,6 @@ const Chart = (props) => {
 };
 
 Chart.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      prisoners: PropTypes.number,
-      year: PropTypes.number
-    })
-  ),
   periods: PropTypes.object,
   currentYear: PropTypes.number,
   setYear: PropTypes.func,
