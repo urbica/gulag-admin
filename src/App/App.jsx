@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { injectGlobal } from 'styled-components';
 import {
-  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
-  reject, ifElse, isNil, lensPath
+  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq, reject, ifElse, isNil,
+  lensPath
 } from 'ramda';
 import 'normalize.css/normalize.css';
 
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 
-import IndexPage from '../Map';
-import LoginPage from '../Admin/LoginPage';
-import AdminPage from '../Admin';
-import NoMatch from '../404/NoMatch';
-import { fetchData, concatUrl, getMaxPrisoners } from '../../utils/utils';
+import IndexPage from '../pages/Map';
+import LoginPage from '../pages/Admin/LoginPage';
+import AdminPage from '../pages/Admin';
+import PrisonPage from '../pages/Admin/PrisonPage';
+import NoMatch from '../pages/404/NoMatch';
+import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
 
 // eslint-disable-next-line
 injectGlobal`
@@ -46,6 +47,14 @@ class App extends Component {
     };
 
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.updatePeriod = this.updatePeriod.bind(this);
+    this.submitPeriod = this.submitPeriod.bind(this);
+    this.uploadPhotos = this.uploadPhotos.bind(this);
+    this.createPrison = this.createPrison.bind(this);
+    this.updatePrison = this.updatePrison.bind(this);
+    this.submitPrison = this.submitPrison.bind(this);
+    this.deletePrison = this.deletePrison.bind(this);
   }
 
   componentWillMount() {
@@ -188,7 +197,7 @@ class App extends Component {
         .then(response => response.json())
         .then(([submittedPrison]) => {
           this.setState(assocPath(['prisons', submittedPrison.id], getMaxPrisoners(submittedPrison)), () =>
-            history.push(`/admin/prisons/${submittedPrison.id}`)
+            history.push(`/admin/prisons${submittedPrison.id}`)
           );
           alert(`Лагерь "${prison.name.ru}" обновлён`);
         });
@@ -204,7 +213,7 @@ class App extends Component {
             Authorization: `Bearer ${this.state.token}`
           }
         }).then(() => {
-          history.push('/admin/prisons');
+          history.push('/admin');
           this.setState(dissocPath(['prisons', `${prison.id}`]));
         });
       }
@@ -212,12 +221,28 @@ class App extends Component {
   }
 
   render() {
-    const { prisons, periods, places, types, token } = this.state;
+    const { prisons, periods, places, types, photos, token } = this.state;
+
+    const PrisonEditorPageRoute = withRouter(({ match }) => (
+      <PrisonPage
+        path='/admin/prison:id'
+        isAuthenticated={!!token}
+        component={PrisonPage}
+        prison={prisons[match.params.id]}
+        photos={photos[match.params.id]}
+        uploadHandler={this.uploadPhotos}
+        updateHandler={this.updatePrison}
+        deleteHandler={this.deletePrison}
+        submitHandler={this.submitPrison}
+        deletePhoto={this.deletePhoto}
+      />
+    ));
 
     return (
       <BrowserRouter history={history}>
         <Switch>
           <PrivateRoute
+            exact
             path='/admin'
             component={AdminPage}
             isAuthenticated={!!token}
@@ -225,6 +250,11 @@ class App extends Component {
             periods={periods}
             places={places}
             types={types}
+          />
+          <PrivateRoute
+            path='/admin/prison:id'
+            isAuthenticated={!!token}
+            component={PrisonEditorPageRoute}
           />
           <PublicRoute
             path='/login'

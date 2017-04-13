@@ -41,13 +41,13 @@ const DraftSwitch = (props) => {
   return (
     <Label>
       <input
-        type="checkbox"
-        checked={ published }
-        onChange={ onChange.bind(null, !published) }
+        type='checkbox'
+        checked={published}
+        onChange={onChange.bind(null, !published)}
       />
       <span>ЧЕРНОВИК</span>
       <span>ОПУБЛИКОВАННО</span>
-      <Switcher checked={ published }/>
+      <Switcher checked={published} />
     </Label>
   );
 };

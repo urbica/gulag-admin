@@ -2,17 +2,17 @@ import React from 'react';
 import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 'ramda';
 import styled from 'styled-components';
 import { Container, Six, Four, Three, Two } from '../Layout';
-import PrisonHeader from './PrisonHeader.jsx';
-import LanguageSwitcher from '../LanguageSwitcher.jsx';
-import DraftSwitch from './DraftSwitch.jsx';
+import PrisonHeader from './PrisonHeader';
+import LanguageSwitcher from '../LanguageSwitcher';
+import DraftSwitch from './DraftSwitch';
 import FieldTitle from '../FieldTitle';
 import TextInput from '../TextInput';
-import SelectInput from '../Admin/Inputs/SelectInput';
+import SelectInput from '../Inputs/SelectInput';
 import PrisonLocation from './PrisonLocation';
-import MarkdownEditor from '../Admin/Inputs/MarkdownEditor';
-import NotesInput from './NotesInput'
+import MarkdownEditor from '../Inputs/MarkdownEditor';
+import NotesInput from './NotesInput';
 import PrisonPhotos from './PrisonPhotos';
-import Button from '../Admin/Button';
+import Button from '../Button';
 import './PrisonPage.css';
 
 const Fieldset = styled.div`
@@ -69,7 +69,7 @@ class PrisonCard extends React.Component {
   }
 
   langChange(lang) {
-    this.setState({ activeLang: lang })
+    this.setState({ activeLang: lang });
   }
 
   markdownOnBlur(fieldPath, { selectionEnd }) {
@@ -172,7 +172,7 @@ class PrisonCard extends React.Component {
         </Two>
         <Six>
           <FieldTitle>Заметки</FieldTitle>
-          <NotesInput/>
+          <NotesInput />
         </Six>
         <Six>
           <Separator>

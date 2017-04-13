@@ -140,6 +140,7 @@ class PrisonsTable extends Component {
     const { sortDir } = this.state;
     const prisons = this.getOrderedPrisons();
 
+    // console.log(this.props.history);
     return (
       <table className='prisons'>
         <thead>
@@ -208,6 +209,7 @@ class PrisonsTable extends Component {
                 key={prison.id}
                 places={this.props.places}
                 types={this.props.types}
+                history={this.props.history}
               />
             )
           }

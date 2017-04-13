@@ -59,6 +59,7 @@ class AdminPage extends Component {
         </Six>
         <Six>
           <PrisonsTable
+            history={this.props.history}
             prisons={filteredPrisons}
             places={this.props.places}
             types={this.props.types}

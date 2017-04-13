@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from '../Admin/Button';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPeriods } from '../../utils/utils';
+import Button from '../Button';
+import { getPeriods } from '../../../utils/utils';
 
 const Header = styled.header`
   display: flex;
@@ -64,8 +64,8 @@ const PrisonHeader = (props) => {
       </div>
       <div>
         <Button
-          color={ 'red' }
-          onClick={ deleteHandler }
+          color='red'
+          onClick={deleteHandler}
         >
           удалить
         </Button>

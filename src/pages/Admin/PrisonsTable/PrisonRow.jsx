@@ -18,10 +18,10 @@ const TD = styled.td`
 `;
 
 const PrisonRow = (props) => {
-  const { prison, places, types } = props;
+  const { prison, places, types, history } = props;
 
   return (
-    <tr>
+    <tr onClick={() => history.push(`/admin/prison${prison.id}`)}>
       <td className='prisons__cell' height='56'>{prison.name.ru}</td>
       <td className='prisons__cell prisons__cell_period'>{ getPeriods(prison) }</td>
       <td
