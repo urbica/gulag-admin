@@ -68,11 +68,17 @@ class IndexPage extends Component {
   }
 
   openPrisonCard(prisonId) {
-    this.props.history.push(`/prison${prisonId}`);
+    this.setState(
+      { prisonCardVisibility: true },
+      this.props.history.push(`/prison${prisonId}`)
+    );
   }
 
   closePrisonCard() {
-    this.props.history.push('/');
+    this.setState(
+      { prisonCardVisibility: false },
+      this.props.history.push('/')
+    );
   }
 
   openPeriodCard(periodId) {
@@ -133,6 +139,7 @@ class IndexPage extends Component {
           features={features}
           openCard={this.openPrisonCard}
           currentYear={currentYear}
+          slideUp={this.state.prisonCardVisibility}
         />
         <PublicRoute path='/prison:prisonId' component={PrisonCardWithRouter} />
         <PublicRoute path='/period:periodId' component={PeriodCardWithRouter} />
