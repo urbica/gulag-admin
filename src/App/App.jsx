@@ -4,7 +4,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { injectGlobal } from 'styled-components';
 import {
   always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq, reject, ifElse, isNil,
-  lensPath
+  lensPath, isEmpty
 } from 'ramda';
 import 'normalize.css/normalize.css';
 
@@ -229,13 +229,10 @@ class App extends Component {
   render() {
     const { prisons, periods, places, types, photos, token } = this.state;
 
-    const PrisonEditorPageRoute = withRouter(({ match }) => (
+    const AdminPrisonPageWithRouter = withRouter(({ match }) => (
       <PrisonPage
-        path='/admin/prison:id'
-        isAuthenticated={!!token}
-        component={PrisonPage}
-        prison={prisons[match.params.id]}
-        photos={photos[match.params.id]}
+        prison={!isEmpty(prisons) && prisons[match.params.id]}
+        photos={!isEmpty(photos) && photos[match.params.id]}
         uploadHandler={this.uploadPhotos}
         updateHandler={this.updatePrison}
         deleteHandler={this.deletePrison}
@@ -248,7 +245,11 @@ class App extends Component {
       <BrowserRouter history={history}>
         <Switch>
           <PrivateRoute
-            exact
+            path='/admin/prison:id'
+            isAuthenticated={!!token}
+            component={AdminPrisonPageWithRouter}
+          />
+          <PrivateRoute
             path='/admin'
             component={AdminPage}
             isAuthenticated={!!token}
@@ -256,11 +257,6 @@ class App extends Component {
             periods={periods}
             places={places}
             types={types}
-          />
-          <PrivateRoute
-            path='/admin/prison:id'
-            isAuthenticated={!!token}
-            component={PrisonEditorPageRoute}
           />
           <PublicRoute
             path='/login'
