@@ -67,7 +67,13 @@ class App extends Component {
     } else {
       fetchData({ token })
         .then(({ activities, places, types, periods, prisons, photos }) =>
-          this.setState({ activities, places, types, periods, prisons, photos }));
+          this.setState({ activities, places, types, periods, prisons, photos }))
+        .catch((error) => {
+          if (error === 401) {
+            localStorage.removeItem('token');
+            history.push('/login');
+          }
+        });
     }
   }
 

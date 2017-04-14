@@ -68,13 +68,15 @@ export const fetchData = ({ token }) =>
       groupById
     );
 
+    const handle401 = r => r.status === 401 ? reject(401) : r;
+
     Promise.all([
-      fetch('/api/public/camps.json', options).then(r => r.json()),
-      fetch('/api/public/uploads.json', options).then(r => r.json()),
-      fetch('/api/public/activities.json', options).then(r => r.json()),
-      fetch('/api/public/places.json', options).then(r => r.json()),
-      fetch('/api/public/types.json', options).then(r => r.json()),
-      fetch('/api/public/periods.json', options).then(r => r.json())
+      fetch('/api/public/camps.json', options).then(handle401).then(r => r.json()),
+      fetch('/api/public/uploads.json', options).then(handle401).then(r => r.json()),
+      fetch('/api/public/activities.json', options).then(handle401).then(r => r.json()),
+      fetch('/api/public/places.json', options).then(handle401).then(r => r.json()),
+      fetch('/api/public/types.json', options).then(handle401).then(r => r.json()),
+      fetch('/api/public/periods.json', options).then(handle401).then(r => r.json())
     ]).then(([prisons, photos, activities, places, types, periods]) => {
       resolve({
         activities,
