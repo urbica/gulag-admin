@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { injectGlobal } from 'styled-components';
 import {
@@ -237,6 +237,9 @@ class App extends Component {
             component={PrisonPage}
             prisons={prisons}
             photos={photos}
+            activitiesOptions={this.state.activities}
+            placesOptions={this.state.places}
+            typesOptions={this.state.types}
             uploadHandler={this.uploadPhotos}
             updateHandler={this.updatePrison}
             deleteHandler={this.deletePrison}
