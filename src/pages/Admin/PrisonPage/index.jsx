@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 'ramda';
-import styled from 'styled-components';
 
 import { Container, Six, Four, Three, Two } from '../Layout';
 import PrisonHeader from './PrisonHeader';
@@ -14,39 +15,11 @@ import MarkdownEditor from '../Inputs/MarkdownEditor';
 import NotesInput from './NotesInput';
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
+import Fieldset from './Fieldset';
+import Separator from './Separator';
+import MarkdownHelp from './MarkdownHelp';
 import './PrisonPage.css';
 
-const Fieldset = styled.div`
-  margin-bottom: 30px;
-  & label:first-of-type {
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-  }
-`;
-
-const MarkdownDesc = styled.div`
-  margin-top: 30px;
-  opacity: 0.5;
-  & div {
-    margin-bottom: 10px;
-  }
-`;
-
-const Separator = styled.fieldset`
-  width: 100%;
-  padding: 0;
-  border-color: #000;
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-  opacity: 0.3;
-  & legend {
-    padding: 0 10px;
-    margin: auto;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-  }
-`;
 
 const languages = {
   ru: 'русский',
@@ -105,7 +78,11 @@ class PrisonCard extends React.Component {
     const updateInput = updateFrom(path(['target', 'value']));
     const updateSelect = updateFrom(path(['value']));
 
-    return Boolean(prison) ? (
+    if (!prison) {
+      return <div>Загрузка...</div>;
+    }
+
+    return (
       <Container>
         <Six>
           <PrisonHeader
@@ -161,15 +138,7 @@ class PrisonCard extends React.Component {
           />
         </Four>
         <Two>
-          <MarkdownDesc>
-            <div>## Заголовок</div>
-            <div>#### Заголовок четвёртого уровня</div>
-            <div>*курсив*</div>
-            <div>**полужирное начертание**</div>
-            <div>* элемент маркированного списка</div>
-            <div>[urbica.co](http://urbica.co)</div>
-            <div>![Alt-текст](http://lorempixel.com/100/100)</div>
-          </MarkdownDesc>
+          <MarkdownHelp />
         </Two>
         <Six>
           <FieldTitle>Заметки</FieldTitle>
@@ -234,7 +203,7 @@ class PrisonCard extends React.Component {
           </Button>
         </Six>
       </Container>
-    ) : <div>Загрузка...</div>;
+    );
   }
 }
 
