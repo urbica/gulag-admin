@@ -163,7 +163,7 @@ class Map extends PureComponent {
 
   onMouseMove(e) {
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['prisonsHalo'] });
-    this.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+    this.map.getCanvas().style.cursor = (features && features.length) ? 'pointer' : '';
 
     if (features.length) {
       const feature = features[0].properties;
