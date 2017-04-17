@@ -14,7 +14,6 @@ import IndexPage from '../pages/Map';
 import LoginPage from '../pages/Admin/LoginPage';
 import AdminPage from '../pages/Admin';
 import PrisonPage from '../pages/Admin/PrisonPage';
-import NoMatch from '../pages/404/NoMatch';
 import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
 
 // eslint-disable-next-line
@@ -259,7 +258,6 @@ class App extends Component {
             isAuthenticated={!!token}
             onSubmit={this.login}
           />
-          <Route path='/:notFound' component={NoMatch} />
           <PublicRoute
             path='/'
             component={IndexPage}
