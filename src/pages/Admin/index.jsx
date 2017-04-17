@@ -28,9 +28,11 @@ class AdminPage extends Component {
     const {
       publishedRuCount, publishedEnCount, publishedDeCount
     } = prisons.reduce((acc, prison) => {
+      /* eslint-disable no-param-reassign */
       if (prison.published.ru) acc.publishedRuCount += 1;
       if (prison.published.en) acc.publishedEnCount += 1;
       if (prison.published.de) acc.publishedDeCount += 1;
+      /* eslint-enable no-param-reassign */
       return acc;
     }, { publishedRuCount: 0, publishedEnCount: 0, publishedDeCount: 0 });
 

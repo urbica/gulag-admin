@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { injectGlobal } from 'styled-components';
 import {
-  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq, reject, ifElse, isNil,
-  lensPath, isEmpty
-} from 'ramda';
+  always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
+  reject, ifElse, isNil, lensPath } from 'ramda';
 import 'normalize.css/normalize.css';
 
 import PublicRoute from './PublicRoute';
@@ -230,25 +229,20 @@ class App extends Component {
   render() {
     const { prisons, periods, places, types, photos, token } = this.state;
 
-    const AdminPrisonPageWithRouter = withRouter(({ match }) => (
-      <PrisonPage
-        prison={!isEmpty(prisons) && prisons[match.params.id]}
-        photos={!isEmpty(photos) && photos[match.params.id]}
-        uploadHandler={this.uploadPhotos}
-        updateHandler={this.updatePrison}
-        deleteHandler={this.deletePrison}
-        submitHandler={this.submitPrison}
-        deletePhoto={this.deletePhoto}
-      />
-    ));
-
     return (
       <BrowserRouter history={history}>
         <Switch>
           <PrivateRoute
             path='/admin/prison:id'
             isAuthenticated={!!token}
-            component={AdminPrisonPageWithRouter}
+            component={PrisonPage}
+            prisons={prisons}
+            photos={photos}
+            uploadHandler={this.uploadPhotos}
+            updateHandler={this.updatePrison}
+            deleteHandler={this.deletePrison}
+            submitHandler={this.submitPrison}
+            deletePhoto={this.deletePhoto}
           />
           <PrivateRoute
             path='/admin'

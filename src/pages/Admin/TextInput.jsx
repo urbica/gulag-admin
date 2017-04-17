@@ -26,7 +26,7 @@ const Input = styled.input`
   font-family: 'PT Sans', sans-serif;
   font-size: 16px;
   background-color: #f3f3f3;
-  outline: none; 
+  outline: none;
 `;
 
 const InputLine = styled.div`

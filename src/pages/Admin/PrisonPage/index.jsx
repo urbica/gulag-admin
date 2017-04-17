@@ -62,8 +62,11 @@ class PrisonCard extends React.Component {
 
   render() {
     const {
-      prison, photos, uploadHandler, updateHandler, deleteHandler, submitHandler, deletePhoto
+      match, uploadHandler, updateHandler, deleteHandler, submitHandler, deletePhoto
     } = this.props;
+
+    const prison = this.props.prisons && this.props.prisons[match.params.id];
+    const photos = this.props.photos && this.props.photos[match.params.id];
 
     const updateFrom = curryN(2, (getValue, lens) =>
       pipe(getValue, set(lens, __, prison), updateHandler));
