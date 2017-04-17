@@ -24,4 +24,5 @@ services:
     env_file:
       - .env
     volumes:
+      - ./uploads:/usr/src/app/uploads
       - /var/run/postgresql:/var/run/postgresql
