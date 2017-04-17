@@ -51,6 +51,7 @@ class App extends Component {
     this.updatePeriod = this.updatePeriod.bind(this);
     this.submitPeriod = this.submitPeriod.bind(this);
     this.uploadPhotos = this.uploadPhotos.bind(this);
+    this.deletePhoto = this.deletePhoto.bind(this);
     this.createPrison = this.createPrison.bind(this);
     this.updatePrison = this.updatePrison.bind(this);
     this.submitPrison = this.submitPrison.bind(this);
