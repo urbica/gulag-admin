@@ -1,8 +1,0 @@
-apps:
-  - name: nest
-    script: index.js
-    args: --cache=false
-    node_args: --max_old_space_size=1024
-    exec_mode: cluster
-    instances: max
-    max_memory_restart: 1G

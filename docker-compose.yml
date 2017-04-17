@@ -24,6 +24,4 @@ services:
     env_file:
       - .env
     volumes:
-      - ./config.js:/usr/src/app/db/config.js
-      - ./process.yml:/usr/src/app/process.yml
       - /var/run/postgresql:/var/run/postgresql
