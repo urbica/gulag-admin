@@ -6,6 +6,7 @@ import { Container, Six } from './Layout';
 import Button from './Button';
 import LanguageSwitcher from './LanguageSwitcher';
 import MarkdownEditor from './Inputs/MarkdownEditor';
+import { languages } from '../../config';
 
 const Header = styled.header`
   display: flex;
@@ -37,12 +38,6 @@ const Period = styled.div`
   font-size: 12px;
   text-align: center;
 `;
-
-const languages = {
-  ru: 'русский',
-  en: 'english',
-  de: 'deutsch'
-};
 
 class PeriodPage extends Component {
   constructor(props) {

@@ -18,14 +18,8 @@ import Button from '../Button';
 import Fieldset from './Fieldset';
 import Separator from './Separator';
 import MarkdownHelp from './MarkdownHelp';
+import { languages } from '../../../config';
 import './PrisonPage.css';
-
-
-const languages = {
-  ru: 'русский',
-  en: 'english',
-  de: 'deutsch'
-};
 
 class PrisonCard extends React.Component {
   constructor(props) {
