@@ -264,13 +264,13 @@ class App extends Component {
             isAuthenticated={!!token}
             onSubmit={this.login}
           />
+          <Route path='/:notFound' component={NoMatch} />
           <PublicRoute
             path='/'
             component={IndexPage}
             prisons={prisons}
             periods={periods}
           />
-          <Route component={NoMatch} />
         </Switch>
       </BrowserRouter>
     );
