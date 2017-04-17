@@ -1,6 +1,6 @@
 /* global mapboxgl */
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const MapContainer = styled.div`
   width: 100%;
@@ -13,6 +13,12 @@ const accessToken = 'pk.eyJ1IjoiZ3VsYWdtYXAiLCJhIjoiY2lxa3VtaWtyMDAyZGhzbWI1aDQ3
 /* eslint-enable max-len */
 
 class Map extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.onLoad = this.onLoad.bind(this);
+  }
+
   componentDidMount() {
     mapboxgl.accessToken = accessToken;
     this.map = new mapboxgl.Map({
@@ -27,12 +33,6 @@ class Map extends React.PureComponent {
     this.map.addControl(new mapboxgl.NavigationControl());
 
     this.map.on('load', this.onLoad);
-    this.map.on('mousemove', this.onMousemove);
-    this.map.on('click', this.onClick);
-  }
-
-  shouldComponentUpdate() {
-    return false;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,14 +43,15 @@ class Map extends React.PureComponent {
     }
   }
 
-  onLoad = () => {
+  shouldComponentUpdate() {
+    return false;
+  }
+
+  onLoad() {
     const { features } = this.props;
     const source = {
       type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: features
-      }
+      data: { type: 'FeatureCollection', features }
     };
 
     this.map.addSource('prisons', source);
@@ -70,13 +71,13 @@ class Map extends React.PureComponent {
       const attrEls = document.getElementsByClassName('mapboxgl-ctrl-attrib');
       if (attrEls.length > 0) attrEls[0].insertAdjacentHTML('beforeend', credits);
     }, 500);
-  };
+  }
 
   render() {
     return (
-      <MapContainer id='adminMap'/>
+      <MapContainer id='adminMap' />
     );
   }
 }
 
-export default Map
+export default Map;
