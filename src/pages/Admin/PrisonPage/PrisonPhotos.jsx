@@ -1,6 +1,9 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
-import FieldTitle from '../FieldTitle';
 import styled from 'styled-components';
+
+import FieldTitle from '../FieldTitle';
 
 const Photos = styled.div`
   & figure {
@@ -63,17 +66,23 @@ const PrisonPhoto = (props) => {
 };
 
 class PrisonPhotos extends React.PureComponent {
-  uploadPhotos = () => {
-    const { uploadHandler } = this.props;
-    uploadHandler(this.refs.photos.files);
-  };
+  constructor(props) {
+    super(props);
+    this.uploadPhotos = this.uploadPhotos.bind(this);
+    this.deletePhoto = this.deletePhoto.bind(this);
+  }
 
-  deletePhoto = (photoId) => {
+  uploadPhotos() {
+    const { uploadHandler } = this.props;
+    uploadHandler(this.photos.files);
+  }
+
+  deletePhoto(photoId) {
     const { deletePhoto } = this.props;
     if (confirm('Удалить фото?')) {
       deletePhoto(photoId);
     }
-  };
+  }
 
   render() {
     const { onClick } = this.props;
@@ -85,10 +94,10 @@ class PrisonPhotos extends React.PureComponent {
         {
           photos.map(photo =>
             <PrisonPhoto
-              key={ photo.id }
-              photo={ photo }
-              onClick={ onClick }
-              onDelete={ this.deletePhoto.bind(this, photo.id) }
+              key={photo.id}
+              photo={photo}
+              onClick={onClick}
+              onDelete={this.deletePhoto.bind(this, photo.id)}
             />
           )
         }
@@ -96,8 +105,9 @@ class PrisonPhotos extends React.PureComponent {
           <UploadPhoto>Загрузить</UploadPhoto>
           <input
             type='file'
-            ref='photos'
-            onChange={this.uploadPhotos} />
+            ref={(ref) => { this.photos = ref; }}
+            onChange={this.uploadPhotos}
+          />
         </label>
       </Photos>
     );

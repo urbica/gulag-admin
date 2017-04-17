@@ -40,7 +40,7 @@ const CoordinatesInput = (props) => {
 };
 
 CoordinatesInput.propTypes = {
-  coordinates: PropTypes.arrayOf(PropTypes.object),
+  coordinates: PropTypes.arrayOf(PropTypes.number),
   updateCoordinates: PropTypes.func
 };
 

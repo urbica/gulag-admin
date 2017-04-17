@@ -1,11 +1,14 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
-import { findDOMNode } from 'react-dom'
+import { findDOMNode } from 'react-dom';
+import styled from 'styled-components';
 import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
 import { lensProp, not, over } from 'ramda';
+
 import FieldTitle from '../FieldTitle';
 import Button from '../Button';
-import styled from 'styled-components';
 
 const DescriptionTitle = styled(FieldTitle)`
   position: relative;
@@ -39,19 +42,22 @@ class MarkdownEditor extends React.PureComponent {
     this.state = {
       preview: false
     };
+
+    this.onBlur = this.onBlur.bind(this);
+    this.togglePreview = this.togglePreview.bind(this);
   }
 
-  onBlur = () => {
-    const el = findDOMNode(this.refs.textarea);
+  onBlur() {
+    const el = findDOMNode(this.textarea);
     this.props.onBlur({
       selectionStart: el.selectionStart,
       selectionEnd: el.selectionEnd
     });
-  };
+  }
 
-  togglePreview = () => {
+  togglePreview() {
     this.setState(over(lensProp('preview'), not));
-  };
+  }
 
   render() {
     const { inputClassName, onChange, onFocus, source, title, color } = this.props;
@@ -62,32 +68,32 @@ class MarkdownEditor extends React.PureComponent {
         {
           this.state.preview &&
           <div className='inputWrapper'>
-            <DescriptionTitle color={ color }>
+            <DescriptionTitle color={color}>
               { title }
-              <PreviewButton onClick={ this.togglePreview }>
+              <PreviewButton onClick={this.togglePreview}>
                 Редактировать
               </PreviewButton>
             </DescriptionTitle>
-            <ReactMarkdown source={ source } />
+            <ReactMarkdown source={source} />
           </div>
         }
         {
           !this.state.preview &&
           <div className='inputWrapper'>
-            <DescriptionTitle color={ color }>
+            <DescriptionTitle color={color}>
               { title }
-              <PreviewButton onClick={ this.togglePreview }>
+              <PreviewButton onClick={this.togglePreview}>
                 Просмотр
               </PreviewButton>
             </DescriptionTitle>
             <TextArea
-              ref='textarea'
-              value={ source }
-              onBlur={ this.onBlur }
-              onFocus={ onFocus }
-              color={ color }
-              onChange={ onChange }
-              className={ inputClassNames }
+              ref={(ref) => { this.textarea = ref; }}
+              value={source}
+              onBlur={this.onBlur}
+              onFocus={onFocus}
+              color={color}
+              onChange={onChange}
+              className={inputClassNames}
             />
             <div className='inputLine' />
           </div>
