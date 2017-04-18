@@ -84,7 +84,7 @@ class PrisonCard extends React.Component {
         <Six>
           <PrisonHeader
             prison={prison}
-            deleteHandler={deleteHandler.bind(null, prison)}
+            submitHandler={submitHandler}
           />
         </Six>
         <Six>
@@ -193,10 +193,10 @@ class PrisonCard extends React.Component {
         </Six>
         <Six justify='end'>
           <Button
-            color='orange'
-            onClick={submitHandler.bind(null, prison, { id: 'notes' })}
+            color='red'
+            onClick={deleteHandler.bind(null, prison)}
           >
-            сохранить
+            удалить
           </Button>
         </Six>
       </Container>

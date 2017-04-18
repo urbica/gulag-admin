@@ -51,7 +51,7 @@ const PrisonSaved = styled.div`
 `;
 
 const PrisonHeader = (props) => {
-  const { prison, deleteHandler } = props;
+  const { prison, submitHandler } = props;
 
   return (
     <Header>
@@ -64,10 +64,10 @@ const PrisonHeader = (props) => {
       </div>
       <div>
         <Button
-          color='red'
-          onClick={deleteHandler}
+          color='orange'
+          onClick={submitHandler.bind(null, prison, { id: 'notes' })}
         >
-          удалить
+          сохранить
         </Button>
         <PrisonSaved>
           <div>Сохранено:</div>
