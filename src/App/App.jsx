@@ -14,6 +14,7 @@ import IndexPage from '../pages/Map';
 import LoginPage from '../pages/Admin/LoginPage';
 import AdminPage from '../pages/Admin';
 import PrisonPage from '../pages/Admin/PrisonPage';
+import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
 
 // eslint-disable-next-line
@@ -176,7 +177,7 @@ class App extends Component {
       .then(response => response.json())
       .then(([newPrison]) => {
         this.setState(assocPath(['prisons', newPrison.id], newPrison), () =>
-          history.push(`/admin/prisons/${newPrison.id}`)
+          history.push(`/admin/prisons${newPrison.id}`)
         );
       });
   }
@@ -254,6 +255,7 @@ class App extends Component {
             periods={periods}
             places={places}
             types={types}
+            createPrison={this.createPrison.bind(null, prisonTemplate)}
           />
           <PublicRoute
             path='/login'
