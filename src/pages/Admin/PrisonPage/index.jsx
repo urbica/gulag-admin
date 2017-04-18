@@ -21,6 +21,9 @@ import MarkdownHelp from './MarkdownHelp';
 import { languages } from '../../../config';
 import './PrisonPage.css';
 
+const toOptions = list =>
+  list.map(({ id, name }) => ({ value: id, label: name }));
+
 class PrisonCard extends React.Component {
   constructor(props) {
     super(props);
@@ -160,7 +163,7 @@ class PrisonCard extends React.Component {
             <FieldTitle>Основная деятельность</FieldTitle>
             <SelectInput
               value={prison.activity_id}
-              options={this.props.activityOptions}
+              options={toOptions(this.props.activities)}
               clearable={false}
               onChange={updateSelect(lensProp('activity_id'))}
             />
@@ -169,7 +172,7 @@ class PrisonCard extends React.Component {
             <FieldTitle>Регион</FieldTitle>
             <SelectInput
               value={prison.place_id}
-              options={this.props.placeOptions}
+              options={toOptions(this.props.places)}
               clearable={false}
               onChange={updateSelect(lensProp('place_id'))}
             />
@@ -180,7 +183,7 @@ class PrisonCard extends React.Component {
             <FieldTitle>Тип объекта</FieldTitle>
             <SelectInput
               value={prison.type_id}
-              options={this.props.typeOptions}
+              options={toOptions(this.props.types)}
               clearable={false}
               onChange={updateSelect(lensProp('type_id'))}
             />
