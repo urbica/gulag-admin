@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import { lensProp, set, append, remove, compose, lensPath, lensIndex, over, dissoc } from 'ramda';
 import styled from 'styled-components';
@@ -26,13 +26,21 @@ const LocationTab = styled.span`
   padding: 8px 24px 6px;
 `;
 
-class PrisonLocation extends PureComponent {
+class PrisonLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedFeatureIndex: 0,
       showDeleteMenu: false
     };
+    this.addFeature = this.addFeature.bind(this);
+    this.removeFeature = this.removeFeature.bind(this);
+    this.selectFeature = this.selectFeature.bind(this);
+    this.openDeleteMenu = this.openDeleteMenu.bind(this);
+    this.closeDeleteMenu = this.closeDeleteMenu.bind(this);
+    this.updateCoordinates = this.updateCoordinates.bind(this);
+    this.toggleYear = this.toggleYear.bind(this);
+    this.updatePrisonersAmount = this.updatePrisonersAmount.bind(this);
   }
 
   addFeature(feature, features) {

@@ -177,7 +177,7 @@ class App extends Component {
       .then(response => response.json())
       .then(([newPrison]) => {
         this.setState(assocPath(['prisons', newPrison.id], newPrison), () =>
-          history.push(`/admin/prisons${newPrison.id}`)
+          history.push(`/admin/prison${newPrison.id}`)
         );
       });
   }
