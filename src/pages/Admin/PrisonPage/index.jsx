@@ -45,8 +45,9 @@ class PrisonCard extends React.Component {
   }
 
   photoOnClick(url) {
-    const { prison, updateHandler } = this.props;
+    const { prisons, match, updateHandler } = this.props;
     const { fieldPath, selectionEnd } = this.state.markdownState;
+    const prison = prisons && prisons[match.params.id];
 
     const imageMarkup = `![](${url})`;
 

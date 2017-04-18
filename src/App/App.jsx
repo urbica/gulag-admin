@@ -238,9 +238,9 @@ class App extends Component {
             component={PrisonPage}
             prisons={prisons}
             photos={photos}
-            activitiesOptions={this.state.activities}
-            placesOptions={this.state.places}
-            typesOptions={this.state.types}
+            activityOptions={this.state.activities}
+            placeOptions={this.state.places}
+            typeOptions={this.state.types}
             uploadHandler={this.uploadPhotos}
             updateHandler={this.updatePrison}
             deleteHandler={this.deletePrison}
