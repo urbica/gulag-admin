@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "classnames": "2.2.5",
-    "d3-array": "1.1.1",
+    "d3-array": "1.2.0",
     "d3-axis": "1.0.6",
     "d3-drag": "1.0.4",
     "d3-scale": "1.0.5",
@@ -24,15 +24,15 @@
     "history": "4.6.1",
     "moment": "2.18.1",
     "normalize.css": "6.0.0",
-    "prop-types": "15.5.7",
+    "prop-types": "15.5.8",
     "ramda": "0.23.0",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "react-markdown": "2.5.0",
-    "react-router-dom": "4.1.0",
+    "react-router-dom": "4.1.1",
     "react-select": "1.0.0-rc.3",
     "react-text-mask": "3.0.0",
-    "styled-components": "1.4.4"
+    "styled-components": "1.4.5"
   },
   "devDependencies": {
     "eslint": "3.19.0",
