@@ -195,13 +195,10 @@ class Map extends PureComponent {
         id='map'
         slideUp={this.props.slideUp}
       >
-        {
-          this.map &&
-          <Controls>
-            <button onClick={() => this.map.zoomIn()}>+</button>
-            <button onClick={() => this.map.zoomOut()}>-</button>
-          </Controls>
-        }
+        <Controls>
+          <button onClick={() => this.map.zoomIn()}>+</button>
+          <button onClick={() => this.map.zoomOut()}>-</button>
+        </Controls>
       </Wrap>
     );
   }
