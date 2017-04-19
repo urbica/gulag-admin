@@ -25,6 +25,7 @@ class PrisonersArea extends PureComponent {
   componentDidMount() {
     const { data, xScale, yScale, width, height, onClick } = this.props;
     const prisonersArea = select(this.g);
+    const barWidth = Math.round(width / 42) - 2;
 
     prisonersArea
       .selectAll('rect')
@@ -33,12 +34,11 @@ class PrisonersArea extends PureComponent {
       .append('rect')
       .attr('x', (d) => {
         const date = new Date(d.year, 0, 1);
-        return xScale(date);
+        return xScale(date) + 1;
       })
       .attr('y', d => yScale(d.prisoners))
-      .attr('width', (width / 42) - 1)
+      .attr('width', barWidth)
       .attr('height', d => height - yScale(d.prisoners))
-      .attr('transform', 'translate(1, 0)')
       .on('click', d => onClick(d.year));
 
     prisonersArea
@@ -54,7 +54,7 @@ class PrisonersArea extends PureComponent {
       .attr('y1', d => yScale(d.prisoners))
       .attr('x2', (d) => {
         const date = new Date(d.year, 0, 1);
-        return xScale(date) + (width / 42);
+        return xScale(date) + barWidth + 1;
       })
       .attr('y2', d => yScale(d.prisoners));
   }

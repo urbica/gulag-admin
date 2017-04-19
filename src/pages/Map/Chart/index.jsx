@@ -60,6 +60,7 @@ const Chart = (props) => {
         scale={xScale}
       />
       <Slider
+        width={width}
         height={height}
         margin={margin}
         xScale={xScale}
