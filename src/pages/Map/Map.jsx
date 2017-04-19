@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Controls from './ControlsStyle';
 
 const Wrap = styled.div`
   position: fixed;
@@ -35,10 +36,7 @@ class Map extends PureComponent {
       scrollZoom: false
     });
 
-    // this.map.addControl(new mapboxgl.NavigationControl());
     this.map.on('load', this.onLoad);
-    this.map.on('mousemove', this.onMouseMove);
-    this.map.on('click', this.onClick);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -159,6 +157,9 @@ class Map extends PureComponent {
       const attrEls = document.getElementsByClassName('mapboxgl-ctrl-attrib');
       if (attrEls.length > 0) attrEls[0].insertAdjacentHTML('beforeend', credits);
     }, 1000);
+
+    this.map.on('mousemove', this.onMouseMove);
+    this.map.on('click', this.onClick);
   }
 
   onMouseMove(e) {
@@ -193,7 +194,15 @@ class Map extends PureComponent {
       <Wrap
         id='map'
         slideUp={this.props.slideUp}
-      />
+      >
+        {
+          this.map &&
+          <Controls>
+            <button onClick={() => this.map.zoomIn()}>+</button>
+            <button onClick={() => this.map.zoomOut()}>-</button>
+          </Controls>
+        }
+      </Wrap>
     );
   }
 }
