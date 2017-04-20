@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 
@@ -31,6 +32,15 @@ const PrisonCard = (props) => {
       <ReactMarkdown source={prison.description.ru} />
     </Wrap>
   );
+};
+
+PrisonCard.propTypes = {
+  visible: PropTypes.bool,
+  prison: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.object
+  ]),
+  closeCard: PropTypes.func
 };
 
 export default PrisonCard;
