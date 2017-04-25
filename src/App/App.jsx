@@ -61,7 +61,7 @@ class App extends Component {
     const { token } = this.state;
 
     if (!token) {
-      const publicToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHVyYmljYS5jbyIsImlhdCI6MTQ5MTk5NDkxNn0.x4SvDN38Dr-14pgDHJDDhlYP-rnpudBr6PcHr_FNMro';
+      const publicToken = 'pk.eyJhbGciOiJIUzI1NiJ9.cHVibGlj.RszmUhuG4IDpQcOhw4ICEbXKQQfwlngr-YuoqqwcvkI';
       fetchData({ token: publicToken })
         .then(({ periods, prisons }) => this.setState({ periods, prisons }));
     } else {
