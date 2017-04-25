@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
+import PrisonChart from './PrisonChart';
 
 const Wrap = styled.div`
   position: ${props => props.visible ? 'absolute' : 'fixed'};
   top: ${props => props.visible ? '30%' : '100%'};
+  display: flex;
   width: 100%;
   min-height: 70%;
   padding: 40px 80px 40px 50px;
@@ -18,6 +20,13 @@ const Wrap = styled.div`
   z-index: 1;
 `;
 
+const Left = styled.div`
+  flex: 1 1 auto;
+`;
+const Right = styled.div`
+  flex: 0 0 500px;
+`;
+
 const PrisonCard = (props) => {
   const { visible, prison, closeCard } = props;
 
@@ -27,9 +36,16 @@ const PrisonCard = (props) => {
 
   return (
     <Wrap visible={visible}>
-      <button onClick={closeCard}>закрыть</button>
-      <div>{prison.name.ru}</div>
-      <ReactMarkdown source={prison.description.ru} />
+      <Left>
+        <button onClick={closeCard}>закрыть</button>
+        <div>{prison.name.ru}</div>
+        <ReactMarkdown source={prison.description.ru} />
+      </Left>
+      <Right>
+        <PrisonChart
+          features={prison.features}
+        />
+      </Right>
     </Wrap>
   );
 };
@@ -40,7 +56,8 @@ PrisonCard.propTypes = {
     PropTypes.bool,
     PropTypes.object
   ]),
-  closeCard: PropTypes.func
+  closeCard: PropTypes.func,
+  currentYear: PropTypes.number
 };
 
 export default PrisonCard;
