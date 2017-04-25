@@ -43,6 +43,7 @@ class IndexPage extends Component {
     this.openPrisonCard = this.openPrisonCard.bind(this);
     this.openPeriodCard = this.openPeriodCard.bind(this);
     this.toggleInfoCard = this.toggleInfoCard.bind(this);
+    this.changeLanguage = this.changeLanguage.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -99,6 +100,10 @@ class IndexPage extends Component {
     this.setState({ infoCardVisibility: !this.state.infoCardVisibility });
   }
 
+  changeLanguage({ value }) {
+    this.setState({ currentLanguage: value });
+  }
+
   render() {
     const { periods, prisons } = this.props;
     const {
@@ -130,7 +135,9 @@ class IndexPage extends Component {
         <Header
           currentYear={currentYear}
           currentPrisons={currentPrisons}
+          currentLanguage={currentLanguage}
           openInfoCard={this.toggleInfoCard}
+          changeLanguage={this.changeLanguage}
         />
         <Year>{ currentYear }</Year>
         <InfoCard

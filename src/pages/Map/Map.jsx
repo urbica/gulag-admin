@@ -40,10 +40,15 @@ class Map extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { features } = nextProps;
+    const { features, currentYear } = nextProps;
+
     const source = this.map.getSource('prisons');
+    const cities = this.map.getSource('cities');
     if (source) {
       source.setData({ type: 'FeatureCollection', features });
+    }
+    if (cities) {
+      this.map.setLayoutProperty('cities_labels', 'text-field', `{${currentYear}}`);
     }
   }
 
@@ -76,7 +81,7 @@ class Map extends PureComponent {
     this.map.addSource('prisons', source);
     this.map.addSource('cities', {
       type: 'vector',
-      url: 'mapbox://gulagmap.1hzhi5te'
+      url: 'mapbox://gulagmap.d4le9ujk'
     });
 
     this.map.addLayer({
@@ -142,9 +147,9 @@ class Map extends PureComponent {
       id: 'cities_labels',
       type: 'symbol',
       source: 'cities',
-      'source-layer': 'allCities-difd7x',
+      'source-layer': 'city_gulag2508-c6phlp',
       layout: {
-        'text-field': '{historical_name}',
+        'text-field': '{1918}',
         'text-size': 11
       },
       paint: {
@@ -219,7 +224,8 @@ Map.propTypes = {
     })
   ),
   openCard: PropTypes.func,
-  slideUp: PropTypes.bool
+  slideUp: PropTypes.bool,
+  currentYear: PropTypes.number
 };
 
 export default Map;

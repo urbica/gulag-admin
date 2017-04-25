@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Select from 'react-select';
 
 const Wrap = styled.header`
   position: fixed;
@@ -18,12 +19,21 @@ const Wrap = styled.header`
 `;
 
 const Header = (props) => {
-  const { currentYear, currentPrisons, openInfoCard } = props;
+  const { currentYear, currentPrisons, currentLanguage, openInfoCard, changeLanguage } = props;
 
   return (
     <Wrap>
       <div>{ `${currentYear}\nгод` }</div>
       <div>{ currentPrisons.length }</div>
+      <Select
+        value={currentLanguage}
+        options={[
+          { value: 'ru', label: 'РУС' },
+          { value: 'en', label: 'ENG' },
+          { value: 'de', label: 'DEU' }
+        ]}
+        onChange={changeLanguage}
+      />
       <button onClick={openInfoCard}>info</button>
     </Wrap>
   );
@@ -34,7 +44,9 @@ Header.propTypes = {
   currentPrisons: PropTypes.arrayOf(
     PropTypes.object
   ),
-  openInfoCard: PropTypes.func
+  currentLanguage: PropTypes.string,
+  openInfoCard: PropTypes.func,
+  changeLanguage: PropTypes.func
 };
 
 export default Header;
