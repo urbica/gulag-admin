@@ -7,7 +7,7 @@ import Header from './Header';
 import Year from './Year';
 import ChartButton from './ChartButton';
 import Chart from './Chart';
-import PrisonCard from './PrisonCard';
+import PrisonCard from './PrisonCard/PrisonCard';
 import PeriodCard from './PeriodCard';
 import Map from './Map';
 import PublicRoute from '../../App/PublicRoute';
