@@ -18,14 +18,21 @@ const Wrap = styled.header`
   }
 `;
 
+const SelectStyled = styled(Select)`
+  margin-left: auto;
+`;
+
 const Header = (props) => {
-  const { currentYear, currentPrisons, currentLanguage, openInfoCard, changeLanguage } = props;
+  const {
+    currentYear, currentPrisons, currentLanguage, openInfoCard, openSearchCard, changeLanguage
+  } = props;
 
   return (
     <Wrap>
       <div>{ `${currentYear}\nгод` }</div>
       <div>{ currentPrisons.length }</div>
-      <Select
+      <button onClick={openSearchCard}>search</button>
+      <SelectStyled
         value={currentLanguage}
         options={[
           { value: 'ru', label: 'РУС' },
@@ -46,6 +53,7 @@ Header.propTypes = {
   ),
   currentLanguage: PropTypes.string,
   openInfoCard: PropTypes.func,
+  openSearchCard: PropTypes.func,
   changeLanguage: PropTypes.func
 };
 

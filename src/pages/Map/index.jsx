@@ -5,6 +5,7 @@ import { values, isEmpty } from 'ramda';
 import { withRouter } from 'react-router-dom';
 
 import Header from './Header';
+import SearchCard from './SearchCard';
 import Year from './Year';
 import InfoCard from './InfoCard';
 import ChartButton from './ChartButton';
@@ -36,6 +37,7 @@ class IndexPage extends Component {
       prisonCardVisibility: false,
       periodCardVisibility: false,
       infoCardVisibility: false,
+      searchCardVisibility: false,
       isDemoPlayed: false
     };
     this.demo = this.demo.bind(this);
@@ -43,6 +45,7 @@ class IndexPage extends Component {
     this.openPrisonCard = this.openPrisonCard.bind(this);
     this.openPeriodCard = this.openPeriodCard.bind(this);
     this.toggleInfoCard = this.toggleInfoCard.bind(this);
+    this.toggleSearchCard = this.toggleSearchCard.bind(this);
     this.changeLanguage = this.changeLanguage.bind(this);
   }
 
@@ -100,6 +103,10 @@ class IndexPage extends Component {
     this.setState({ infoCardVisibility: !this.state.infoCardVisibility });
   }
 
+  toggleSearchCard() {
+    this.setState({ searchCardVisibility: !this.state.searchCardVisibility });
+  }
+
   changeLanguage({ value }) {
     this.setState({ currentLanguage: value });
   }
@@ -107,7 +114,8 @@ class IndexPage extends Component {
   render() {
     const { periods, prisons } = this.props;
     const {
-      currentYear, currentPrisons, currentLanguage, isDemoPlayed, infoCardVisibility
+      currentYear, currentPrisons, currentLanguage, isDemoPlayed, infoCardVisibility,
+      searchCardVisibility
     } = this.state;
 
     const features = prisonsToFeatures(currentPrisons, currentYear);
@@ -137,7 +145,12 @@ class IndexPage extends Component {
           currentPrisons={currentPrisons}
           currentLanguage={currentLanguage}
           openInfoCard={this.toggleInfoCard}
+          openSearchCard={this.toggleSearchCard}
           changeLanguage={this.changeLanguage}
+        />
+        <SearchCard
+          visible={searchCardVisibility}
+          closeSearchCard={this.toggleSearchCard}
         />
         <Year>{ currentYear }</Year>
         <InfoCard
