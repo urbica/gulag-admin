@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrap = styled.header`
@@ -17,14 +18,23 @@ const Wrap = styled.header`
 `;
 
 const Header = (props) => {
-  const { currentYear, currentPrisons } = props;
+  const { currentYear, currentPrisons, openInfoCard } = props;
 
   return (
     <Wrap>
       <div>{ `${currentYear}\nгод` }</div>
       <div>{ currentPrisons.length }</div>
+      <button onClick={openInfoCard}>info</button>
     </Wrap>
   );
+};
+
+Header.propTypes = {
+  currentYear: PropTypes.number,
+  currentPrisons: PropTypes.arrayOf(
+    PropTypes.object
+  ),
+  openInfoCard: PropTypes.func
 };
 
 export default Header;

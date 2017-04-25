@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { values, isEmpty } from 'ramda';
 import { withRouter } from 'react-router-dom';
 
 import Header from './Header';
 import Year from './Year';
+import InfoCard from './InfoCard';
 import ChartButton from './ChartButton';
 import Chart from './Chart';
 import PrisonCard from './PrisonCard/PrisonCard';
@@ -33,12 +35,14 @@ class IndexPage extends Component {
       currentPrisons: [],
       prisonCardVisibility: false,
       periodCardVisibility: false,
+      infoCardVisibility: false,
       isDemoPlayed: false
     };
     this.demo = this.demo.bind(this);
     this.setYear = this.setYear.bind(this);
     this.openPrisonCard = this.openPrisonCard.bind(this);
     this.openPeriodCard = this.openPeriodCard.bind(this);
+    this.toggleInfoCard = this.toggleInfoCard.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,9 +95,15 @@ class IndexPage extends Component {
     this.props.history.push('/');
   }
 
+  toggleInfoCard() {
+    this.setState({ infoCardVisibility: !this.state.infoCardVisibility });
+  }
+
   render() {
     const { periods, prisons } = this.props;
-    const { currentYear, currentPrisons, currentLanguage, isDemoPlayed } = this.state;
+    const {
+      currentYear, currentPrisons, currentLanguage, isDemoPlayed, infoCardVisibility
+    } = this.state;
 
     const features = prisonsToFeatures(currentPrisons, currentYear);
 
@@ -120,8 +130,13 @@ class IndexPage extends Component {
         <Header
           currentYear={currentYear}
           currentPrisons={currentPrisons}
+          openInfoCard={this.toggleInfoCard}
         />
         <Year>{ currentYear }</Year>
+        <InfoCard
+          visible={infoCardVisibility}
+          closeCard={this.toggleInfoCard}
+        />
         <ChartWrap>
           <ChartButton
             isDemoPlayed={isDemoPlayed}
@@ -147,5 +162,10 @@ class IndexPage extends Component {
     );
   }
 }
+
+IndexPage.propTypes = {
+  periods: PropTypes.object,
+  prisons: PropTypes.object
+};
 
 export default withRouter(IndexPage);
