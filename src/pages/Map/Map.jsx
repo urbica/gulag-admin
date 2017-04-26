@@ -1,8 +1,10 @@
 /* global mapboxgl */
 import React, { PureComponent } from 'react';
+import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Controls from './ControlsStyle';
+import Popup from './Popup';
 
 const Wrap = styled.div`
   position: fixed;
@@ -184,7 +186,20 @@ class Map extends PureComponent {
   onClick(e) {
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['prisonsHalo'] });
 
-    if (features.length > 0) {
+    if (features.length > 1) {
+      const feature = features[0];
+      this.map.flyTo({
+        center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
+      });
+
+      const div = document.createElement('div');
+      ReactDom.render(<Popup features={features} />, div);
+
+      new mapboxgl.Popup()
+        .setLngLat(features[0].geometry.coordinates)
+        .setDOMContent(div)
+        .addTo(this.map);
+    } else {
       const feature = features[0];
       this.map.flyTo({
         center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]

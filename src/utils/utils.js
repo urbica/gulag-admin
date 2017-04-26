@@ -135,7 +135,9 @@ export const prisonsToFeatures = (prisons, currentYear) => {
       if (feature.properties[currentYear]) {
         const newProperties = {
           id: prison.id,
-          name: prison.name,
+          ruName: prison.name.ru,
+          enName: prison.name.en,
+          deName: prison.name.de,
           peoples: feature.properties[currentYear].peoples
         };
 
