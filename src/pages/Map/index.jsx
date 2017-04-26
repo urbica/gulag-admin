@@ -34,18 +34,15 @@ class IndexPage extends Component {
       currentLanguage: 'ru',
       currentYear: 1918,
       currentPrisons: [],
-      prisonCardVisibility: false,
-      periodCardVisibility: false,
-      infoCardVisibility: false,
-      searchCardVisibility: false,
       isDemoPlayed: false
     };
     this.demo = this.demo.bind(this);
     this.setYear = this.setYear.bind(this);
     this.openPrisonCard = this.openPrisonCard.bind(this);
     this.openPeriodCard = this.openPeriodCard.bind(this);
-    this.toggleInfoCard = this.toggleInfoCard.bind(this);
-    this.toggleSearchCard = this.toggleSearchCard.bind(this);
+    this.openInfoCard = this.openInfoCard.bind(this);
+    this.openSearchCard = this.openSearchCard.bind(this);
+    this.closeCard = this.closeCard.bind(this);
     this.changeLanguage = this.changeLanguage.bind(this);
   }
 
@@ -76,35 +73,23 @@ class IndexPage extends Component {
   }
 
   openPrisonCard(prisonId) {
-    this.setState(
-      { prisonCardVisibility: true },
-      this.props.history.push(`/prison${prisonId}`)
-    );
-  }
-
-  closePrisonCard() {
-    this.setState(
-      { prisonCardVisibility: false },
-      this.props.history.push('/')
-    );
+    this.props.history.push(`/prison${prisonId}`);
   }
 
   openPeriodCard(periodId) {
-    this.setState({ currentPeriod: periodId }, () => {
-      this.props.history.push(`/period${periodId}`);
-    });
+    this.props.history.push(`/period${periodId}`);
   }
 
-  closePeriodCard() {
+  openInfoCard() {
+    this.props.history.push('/info');
+  }
+
+  openSearchCard() {
+    this.props.history.push('/search');
+  }
+
+  closeCard() {
     this.props.history.push('/');
-  }
-
-  toggleInfoCard() {
-    this.setState({ infoCardVisibility: !this.state.infoCardVisibility });
-  }
-
-  toggleSearchCard() {
-    this.setState({ searchCardVisibility: !this.state.searchCardVisibility });
   }
 
   changeLanguage({ value }) {
@@ -113,18 +98,30 @@ class IndexPage extends Component {
 
   render() {
     const { periods, prisons } = this.props;
-    const {
-      currentYear, currentPrisons, currentLanguage, isDemoPlayed, infoCardVisibility,
-      searchCardVisibility
-    } = this.state;
+    const { currentYear, currentPrisons, currentLanguage, isDemoPlayed } = this.state;
 
     const features = prisonsToFeatures(currentPrisons, currentYear);
+
+    const InfoCardWithRouter = withRouter(() => (
+      <InfoCard
+        visible
+        closeCard={this.closeCard}
+      />
+    ));
+
+    const SearchCardWithRouter = withRouter(() => (
+      <SearchCard
+        visible
+        prisons={prisons}
+        closeSearchCard={this.closeCard}
+      />
+    ));
 
     const PrisonCardWithRouter = withRouter(({ match }) => (
       <PrisonCard
         visible
         prison={!isEmpty(prisons) && prisons[match.params.prisonId]}
-        closeCard={this.closePrisonCard.bind(this)}
+        closeCard={this.closeCard}
         currentLanguage={currentLanguage}
       />
     ));
@@ -134,7 +131,7 @@ class IndexPage extends Component {
         visible
         period={!isEmpty(periods) && periods[match.params.periodId]}
         currentLanguage={currentLanguage}
-        closeCard={this.closePeriodCard.bind(this)}
+        closeCard={this.closeCard}
       />
     ));
 
@@ -144,19 +141,11 @@ class IndexPage extends Component {
           currentYear={currentYear}
           currentPrisons={currentPrisons}
           currentLanguage={currentLanguage}
-          openInfoCard={this.toggleInfoCard}
-          openSearchCard={this.toggleSearchCard}
+          openInfoCard={this.openInfoCard}
+          openSearchCard={this.openSearchCard}
           changeLanguage={this.changeLanguage}
         />
-        <SearchCard
-          visible={searchCardVisibility}
-          closeSearchCard={this.toggleSearchCard}
-        />
         <Year>{ currentYear }</Year>
-        <InfoCard
-          visible={infoCardVisibility}
-          closeCard={this.toggleInfoCard}
-        />
         <ChartWrap>
           <ChartButton
             isDemoPlayed={isDemoPlayed}
@@ -176,6 +165,8 @@ class IndexPage extends Component {
           currentYear={currentYear}
           slideUp={this.state.prisonCardVisibility}
         />
+        <PublicRoute path='/search' component={SearchCardWithRouter} />
+        <PublicRoute path='/info' component={InfoCardWithRouter} />
         <PublicRoute path='/prison:prisonId' component={PrisonCardWithRouter} />
         <PublicRoute path='/period:periodId' component={PeriodCardWithRouter} />
       </div>
