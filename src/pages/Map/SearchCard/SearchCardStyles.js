@@ -34,13 +34,14 @@ export const Button = styled(ButtonTemplate)`
 `;
 
 export const Item = styled.div`
-  padding: 15px 30px 20px;
   margin-bottom: 1px;
   background-color: #000;
   &:first-child {
     margin-top: 80px;
   }
   & a {
+    display: block;
+    padding: 15px 30px 20px;
     color: #fff;
     text-decoration: none;
   }

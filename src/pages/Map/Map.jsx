@@ -185,6 +185,7 @@ class Map extends PureComponent {
 
   onClick(e) {
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['prisonsHalo'] });
+    if (this.popup) this.popup.remove();
 
     if (features.length > 1) {
       const feature = features[0];
@@ -195,7 +196,11 @@ class Map extends PureComponent {
       const div = document.createElement('div');
       ReactDom.render(<Popup features={features} onClick={this.props.openCard} />, div);
 
-      new mapboxgl.Popup()
+      this.popup = new mapboxgl.Popup({
+        closeButton: false,
+        anchor: 'left',
+        offset: 40
+      })
         .setLngLat(features[0].geometry.coordinates)
         .setDOMContent(div)
         .addTo(this.map);

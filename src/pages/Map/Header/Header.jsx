@@ -11,7 +11,7 @@ const Header = (props) => {
   return (
     <Wrap>
       <div>{ `${currentYear}\nгод` }</div>
-      <div>{ currentPrisons.length }</div>
+      <div>{ `${currentPrisons.length}\nлагерей` }</div>
       <Button onClick={openSearchCard}>
         <img src={info} alt='loupe-icon' />
       </Button>
