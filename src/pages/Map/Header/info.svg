@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <g fill="none" fill-rule="evenodd" transform="translate(-22 -22)">
+        <path fill="none" d="M0 0h76v76H0z"/>
+        <circle cx="38" cy="38" r="15" stroke="#FFF" stroke-width="2" opacity=".8"/>
+        <text fill="#FFF" font-family="PTSans-Bold, PT Sans" font-size="16" font-weight="bold" opacity=".8">
+            <tspan x="36" y="43">i</tspan>
+        </text>
+    </g>
+</svg>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { values, isEmpty } from 'ramda';
 import { withRouter } from 'react-router-dom';
 
-import Header from './Header';
+import Header from './Header/Header';
 import SearchCard from './SearchCard';
 import Year from './Year';
 import InfoCard from './InfoCard/InfoCard';

@@ -1,26 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Select from 'react-select';
-
-const Wrap = styled.header`
-  position: fixed;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 20px 40px;
-  background-color: rgba(0,0,0,.4);
-  white-space: pre;
-  color: #fff;
-  z-index: 1;
-  & div {
-    margin-right: 5px;
-  }
-`;
-
-const SelectStyled = styled(Select)`
-  margin-left: auto;
-`;
+import { Wrap, SelectStyled, InfoButton } from './HeaderStyles';
+import info from './info.svg';
 
 const Header = (props) => {
   const {
@@ -41,7 +22,9 @@ const Header = (props) => {
         ]}
         onChange={changeLanguage}
       />
-      <button onClick={openInfoCard}>info</button>
+      <InfoButton onClick={openInfoCard}>
+        <img src={info} alt='info-sign' />
+      </InfoButton>
     </Wrap>
   );
 };
