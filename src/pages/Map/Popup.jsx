@@ -1,13 +1,14 @@
 import React from 'react';
 
-const Popup = ({ features }) => (
+const Popup = ({ features, onClick }) => (
   <div>
     {
       features.map(f => (
-        <div key={f.properties.id}>
-          <a href={`/prison${f.properties.id}`}>
-            {f.properties.ruName}
-          </a>
+        <div
+          key={f.properties.id}
+          onClick={() => onClick(f.properties.id)}
+        >
+          {f.properties.ruName}
         </div>
       ))
     }

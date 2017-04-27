@@ -193,7 +193,7 @@ class Map extends PureComponent {
       });
 
       const div = document.createElement('div');
-      ReactDom.render(<Popup features={features} />, div);
+      ReactDom.render(<Popup features={features} onClick={this.props.openCard} />, div);
 
       new mapboxgl.Popup()
         .setLngLat(features[0].geometry.coordinates)
