@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Header from './Header';
 import SearchCard from './SearchCard';
 import Year from './Year';
-import InfoCard from './InfoCard';
+import InfoCard from './InfoCard/InfoCard';
 import ChartButton from './ChartButton';
 import Chart from './Chart';
 import PrisonCard from './PrisonCard/PrisonCard';

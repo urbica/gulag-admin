@@ -1,25 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { Wrap, Header, CloseButton, DescriptionContainer, Footer } from './InfoCardStyles';
+import cross from '../cross.svg';
+import urbica from './urbica.svg';
 
-const Wrap = styled.div`
-  display: ${props => props.visible ? 'block' : 'none'};
-  position: absolute;
-  right: 0;
-  width: 1000px;
-  padding: 16px 50px;
-  color: rgba(225, 225, 225, 0.8);
-  background-color: #000;
-  z-index: 1;
-`;
-
-const InfoCard = (props) => {
-  const { visible, closeCard } = props;
-
-  return (
-    <Wrap visible={visible}>
-      <h2>О проекте</h2>
-      <button onClick={closeCard}>закрыть</button>
+const InfoCard = ({ visible, closeCard }) => (
+  <Wrap visible={visible}>
+    <Header>
+      <h1>О проекте</h1>
+      <CloseButton onClick={closeCard}>
+        <img src={cross} alt='cross' />
+      </CloseButton>
+    </Header>
+    <DescriptionContainer>
       <p>
         «Интерактивная карта ГУЛАГа» — это своего рода попытка наглядно рассказать о политических
         репрессиях в СССР, направленная на развитие у зрителя географического мышления, без которого
@@ -50,9 +43,15 @@ const InfoCard = (props) => {
         разобраться в данной теме, но и принять непосредственное участие в создании данного
         проекта.
       </p>
-    </Wrap>
-  );
-};
+    </DescriptionContainer>
+    <Footer>
+      <div>Дизайн и разработка</div>
+      <a href='http://urbica.co/' target='_blank' rel='noreferrer noopener'>
+        <img src={urbica} alt='URBICA' />
+      </a>
+    </Footer>
+  </Wrap>
+);
 
 InfoCard.propTypes = {
   visible: PropTypes.bool,
