@@ -5,7 +5,7 @@ import { values, isEmpty } from 'ramda';
 import { withRouter } from 'react-router-dom';
 
 import Header from './Header/Header';
-import SearchCard from './SearchCard';
+import SearchCard from './SearchCard/SearchCard';
 import Year from './Year';
 import InfoCard from './InfoCard/InfoCard';
 import ChartButton from './ChartButton';
@@ -111,8 +111,8 @@ class IndexPage extends Component {
 
     const SearchCardWithRouter = withRouter(() => (
       <SearchCard
-        visible
         prisons={prisons}
+        currentLanguage={currentLanguage}
         closeSearchCard={this.closeCard}
       />
     ));

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Wrap, SelectStyled, InfoButton } from './HeaderStyles';
+import { Wrap, SelectStyled, Button } from './HeaderStyles';
 import info from './info.svg';
 
 const Header = (props) => {
@@ -12,7 +12,9 @@ const Header = (props) => {
     <Wrap>
       <div>{ `${currentYear}\nгод` }</div>
       <div>{ currentPrisons.length }</div>
-      <button onClick={openSearchCard}>search</button>
+      <Button onClick={openSearchCard}>
+        <img src={info} alt='loupe-icon' />
+      </Button>
       <SelectStyled
         value={currentLanguage}
         options={[
@@ -21,10 +23,12 @@ const Header = (props) => {
           { value: 'de', label: 'DEU' }
         ]}
         onChange={changeLanguage}
+        searchable={false}
+        clearable={false}
       />
-      <InfoButton onClick={openInfoCard}>
+      <Button onClick={openInfoCard}>
         <img src={info} alt='info-sign' />
-      </InfoButton>
+      </Button>
     </Wrap>
   );
 };

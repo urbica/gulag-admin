@@ -20,7 +20,7 @@ export const SelectStyled = styled(Select)`
   margin-left: auto;
 `;
 
-export const InfoButton = styled.button`
+export const Button = styled.button`
   padding: 23px;
   border: none;
   margin: 0;
