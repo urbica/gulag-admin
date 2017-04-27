@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Wrap, SelectStyled, Button } from './HeaderStyles';
 import info from './info.svg';
+import search from './search.svg';
 
 const Header = (props) => {
   const {
@@ -13,7 +15,7 @@ const Header = (props) => {
       <div>{ `${currentYear}\nгод` }</div>
       <div>{ `${currentPrisons.length}\nлагерей` }</div>
       <Button onClick={openSearchCard}>
-        <img src={info} alt='loupe-icon' />
+        <img src={search} alt='loupe-icon' />
       </Button>
       <SelectStyled
         value={currentLanguage}

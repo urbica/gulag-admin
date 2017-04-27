@@ -203,7 +203,7 @@ class App extends Component {
         .then(response => response.json())
         .then(([submittedPrison]) => {
           this.setState(assocPath(['prisons', submittedPrison.id], getMaxPrisoners(submittedPrison)), () =>
-            history.push(`/admin/prisons${submittedPrison.id}`)
+            history.push(`/admin/prison${submittedPrison.id}`)
           );
           alert(`Лагерь "${prison.name.ru}" обновлён`);
         });
@@ -227,7 +227,7 @@ class App extends Component {
   }
 
   render() {
-    const { prisons, periods, places, types, photos, token } = this.state;
+    const { prisons, periods, activities, places, types, photos, token } = this.state;
 
     return (
       <BrowserRouter history={history}>
@@ -238,9 +238,9 @@ class App extends Component {
             component={PrisonPage}
             prisons={prisons}
             photos={photos}
-            activities={this.state.activities}
-            places={this.state.places}
-            types={this.state.types}
+            activities={activities}
+            places={places}
+            types={types}
             uploadHandler={this.uploadPhotos}
             updateHandler={this.updatePrison}
             deleteHandler={this.deletePrison}
