@@ -129,7 +129,7 @@ class IndexPage extends Component {
   }
 
   render() {
-    const { periods, prisons } = this.props;
+    const { periods, prisons, activities } = this.props;
     const { currentYear, currentPrisons, currentLanguage, isDemoPlayed } = this.state;
 
     const features = (currentYear !== 'all') ? prisonsToFeatures(currentPrisons, currentYear) :
@@ -156,6 +156,7 @@ class IndexPage extends Component {
         prison={!isEmpty(prisons) && prisons[match.params.prisonId]}
         closeCard={this.closeCard}
         currentLanguage={currentLanguage}
+        activities={activities}
       />
     ));
 

@@ -150,3 +150,12 @@ export const prisonsToFeatures = (prisons, currentYear) => {
 
   return features;
 };
+
+export const getRightLang = (obj, lang) => {
+  if (obj[lang]) {
+    return obj[lang];
+  } else if (obj.en) {
+    return obj.en;
+  }
+  return obj.ru;
+};

@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
-import { Wrap, Left, Right } from './PrisonCardStyles';
+
+import { Wrap, Top, Button, Left, Right } from './PrisonCardStyles';
 import PrisonChart from './PrisonChart';
+import cross from '../cross.svg';
+import { getPeriods, getRightLang } from '../../../utils/utils';
 
 const PrisonCard = (props) => {
-  const { visible, prison, closeCard } = props;
+  const { visible, prison, activities, closeCard, currentLanguage } = props;
 
   if (!prison) {
     return <Wrap visible={visible}>Загрузка</Wrap>;
@@ -13,10 +16,21 @@ const PrisonCard = (props) => {
 
   return (
     <Wrap visible={visible}>
+      <Top>
+        <h1>{getRightLang(prison.name, currentLanguage)}</h1>
+        <h2>{getRightLang(prison.additional_names, currentLanguage)}</h2>
+        <Button onClick={closeCard}>
+          <img src={cross} alt='cross' />
+        </Button>
+      </Top>
       <Left>
-        <button onClick={closeCard}>закрыть</button>
-        <div>{prison.name.ru}</div>
-        <ReactMarkdown source={prison.description.ru} />
+        <div>Годы существования</div>
+        <div>{getPeriods(prison)}</div>
+        <div>Тип деятельности</div>
+        <div>{prison.activity_id ? activities[prison.activity_id].name : '–––'}</div>
+        <div>Местоположение</div>
+        <div>{getRightLang(prison.location, currentLanguage)}</div>
+        <ReactMarkdown source={getRightLang(prison.description, currentLanguage)} />
       </Left>
       <Right>
         <PrisonChart
@@ -33,7 +47,11 @@ PrisonCard.propTypes = {
     PropTypes.bool,
     PropTypes.object
   ]),
-  closeCard: PropTypes.func
+  activities: PropTypes.arrayOf(
+    PropTypes.object
+  ),
+  closeCard: PropTypes.func,
+  currentLanguage: PropTypes.string
 };
 
 export default PrisonCard;

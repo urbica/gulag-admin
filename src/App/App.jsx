@@ -268,6 +268,7 @@ class App extends Component {
             component={IndexPage}
             prisons={prisons}
             periods={periods}
+            activities={activities}
           />
         </Switch>
       </BrowserRouter>

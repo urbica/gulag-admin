@@ -72,7 +72,7 @@ const PrisonChart = ({ features }) => {
       prisoners: 123
     },
     {
-      year: 1938,
+      year: 1924,
       prisoners: 456
     }
   ];
