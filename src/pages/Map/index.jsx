@@ -8,8 +8,9 @@ import Header from './Header/Header';
 import SearchCard from './SearchCard/SearchCard';
 import Year from './Year';
 import InfoCard from './InfoCard/InfoCard';
-import ChartButton from './ChartButton';
+import PlayButton from './PlayButton';
 import Chart from './Chart';
+import ShowAllButton from './ShowAllButton';
 import PrisonCard from './PrisonCard/PrisonCard';
 import PeriodCard from './PeriodCard';
 import Map from './Map';
@@ -45,6 +46,7 @@ class IndexPage extends Component {
     this.openSearchCard = this.openSearchCard.bind(this);
     this.closeCard = this.closeCard.bind(this);
     this.changeLanguage = this.changeLanguage.bind(this);
+    this.showAllPrisons = this.showAllPrisons.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -68,7 +70,10 @@ class IndexPage extends Component {
       this.playDemo = setInterval(() => {
         if (this.state.currentYear < 1960) {
           this.setYear(this.state.currentYear + 1);
-        } else clearInterval(this.playDemo);
+        } else {
+          clearInterval(this.playDemo);
+          this.setState({ isDemoPlayed: false, currentYear: 'all' });
+        }
       }, 1000);
     }
   }
@@ -103,11 +108,32 @@ class IndexPage extends Component {
     this.setState({ currentLanguage: value });
   }
 
+  showAllPrisons() {
+    const prisons = values(this.props.prisons);
+
+    const features = prisons.reduce((acc, prison) => {
+      const newFeatures = prison.features.reduce((acc, feature) => {
+        const newProperties = {
+          id: prison.id,
+          ruName: prison.name.ru,
+          enName: prison.name.en,
+          deName: prison.name.de
+        };
+
+        return acc.concat([{ ...feature, properties: newProperties }]);
+      }, []);
+      return acc.concat(newFeatures);
+    }, []);
+
+    return features;
+  }
+
   render() {
     const { periods, prisons } = this.props;
     const { currentYear, currentPrisons, currentLanguage, isDemoPlayed } = this.state;
 
-    const features = prisonsToFeatures(currentPrisons, currentYear);
+    const features = (currentYear !== 'all') ? prisonsToFeatures(currentPrisons, currentYear) :
+      this.showAllPrisons();
 
     const InfoCardWithRouter = withRouter(() => (
       <InfoCard
@@ -146,15 +172,14 @@ class IndexPage extends Component {
       <div>
         <Header
           currentYear={currentYear}
-          currentPrisons={currentPrisons}
           currentLanguage={currentLanguage}
           openInfoCard={this.openInfoCard}
           openSearchCard={this.openSearchCard}
           changeLanguage={this.changeLanguage}
         />
-        <Year>{ currentYear }</Year>
+        <Year year={currentYear} />
         <ChartWrap>
-          <ChartButton
+          <PlayButton
             isDemoPlayed={isDemoPlayed}
             onClick={this.demo}
           />
@@ -164,7 +189,9 @@ class IndexPage extends Component {
             setYear={this.setYear}
             openPeriod={this.openPeriodCard}
           />
-          <ChartButton />
+          <ShowAllButton
+            onClick={this.setYear.bind(null, 'all')}
+          />
         </ChartWrap>
         <Map
           features={features}

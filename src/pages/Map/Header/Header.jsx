@@ -7,13 +7,12 @@ import search from './search.svg';
 
 const Header = (props) => {
   const {
-    currentYear, currentPrisons, currentLanguage, openInfoCard, openSearchCard, changeLanguage
+    currentYear, currentLanguage, openInfoCard, openSearchCard, changeLanguage
   } = props;
 
   return (
     <Wrap>
       <div>{ `${currentYear}\nгод` }</div>
-      <div>{ `${currentPrisons.length}\nлагерей` }</div>
       <Button onClick={openSearchCard}>
         <img src={search} alt='loupe-icon' />
       </Button>
@@ -37,9 +36,6 @@ const Header = (props) => {
 
 Header.propTypes = {
   currentYear: PropTypes.number,
-  currentPrisons: PropTypes.arrayOf(
-    PropTypes.object
-  ),
   currentLanguage: PropTypes.string,
   openInfoCard: PropTypes.func,
   openSearchCard: PropTypes.func,

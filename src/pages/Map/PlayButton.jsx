@@ -7,6 +7,7 @@ const Wrap = styled.button`
   height: 100px;
   padding: 0;
   border: none;
+  margin-top: 140px;
   background-color: ${({ isPlay }) => isPlay ? '#1C2229' : '#27303A'};
   pointer-events: auto;
   overflow: hidden;
@@ -14,7 +15,7 @@ const Wrap = styled.button`
   transition: all 0.25s ease;
 `;
 
-const PlayButton = styled.div`
+const PlayIcon = styled.div`
   height: 50px;
   width: 50px;
   margin: auto;
@@ -71,20 +72,20 @@ const SecondTriangle = styled.div`
 `;
 
 
-const ChartButton = ({ onClick, isDemoPlayed: isPlay }) => (
+const PlayButton = ({ onClick, isDemoPlayed: isPlay }) => (
   <Wrap onClick={onClick} isPlay={isPlay}>
-    <PlayButton isPlay={isPlay}>
+    <PlayIcon isPlay={isPlay}>
       <Left isPlay={isPlay} />
       <Right isPlay={isPlay} />
       <FirstTriangle isPlay={isPlay} />
       <SecondTriangle isPlay={isPlay} />
-    </PlayButton>
+    </PlayIcon>
   </Wrap>
 );
 
-ChartButton.propTypes = {
+PlayButton.propTypes = {
   onClick: PropTypes.func,
   isDemoPlayed: PropTypes.bool
 };
 
-export default ChartButton;
+export default PlayButton;

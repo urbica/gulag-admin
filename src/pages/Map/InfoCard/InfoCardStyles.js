@@ -34,7 +34,8 @@ export const DescriptionContainer = styled.div`
 `;
 
 export const Footer = styled.footer`
-  padding: 30px 100px 70px 50px;
+  padding: 50px;
+  padding-top: 35px;
   background-color: #000;
   & div {
     margin-bottom: 15px;
