@@ -2,7 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 
-import { Wrap, Top, Button, Left, Right } from './PrisonCardStyles';
+import {
+  Wrap,
+  Top,
+  Location,
+  Button,
+  Left,
+  HalfWidth,
+  Subtitle,
+  MarkdownStyled,
+  Right
+} from './PrisonCardStyles';
 import PrisonChart from './PrisonChart';
 import cross from '../cross.svg';
 import { getPeriods, getRightLang } from '../../../utils/utils';
@@ -18,21 +28,28 @@ const PrisonCard = (props) => {
     <Wrap visible={visible}>
       <Top>
         <h1>{getRightLang(prison.name, currentLanguage)}</h1>
-        <h2>{getRightLang(prison.additional_names, currentLanguage)}</h2>
+        <Location>{getRightLang(prison.additional_names, currentLanguage)}</Location>
         <Button onClick={closeCard}>
           <img src={cross} alt='cross' />
         </Button>
       </Top>
       <Left>
-        <div>Годы существования</div>
-        <div>{getPeriods(prison)}</div>
-        <div>Тип деятельности</div>
-        <div>{prison.activity_id ? activities[prison.activity_id].name : '–––'}</div>
-        <div>Местоположение</div>
+        <HalfWidth>
+          <Subtitle>Годы существования</Subtitle>
+          <div>{getPeriods(prison)}</div>
+        </HalfWidth>
+        <HalfWidth>
+          <Subtitle>Тип деятельности</Subtitle>
+          <div>{prison.activity_id ? activities[prison.activity_id].name : '–––'}</div>
+        </HalfWidth>
+        <Subtitle>Местоположение</Subtitle>
         <div>{getRightLang(prison.location, currentLanguage)}</div>
-        <ReactMarkdown source={getRightLang(prison.description, currentLanguage)} />
+        <MarkdownStyled>
+          <ReactMarkdown source={getRightLang(prison.description, currentLanguage)} />
+        </MarkdownStyled>
       </Left>
       <Right>
+        <Subtitle>Количество заключенных по годам</Subtitle>
         <PrisonChart
           features={prison.features}
         />

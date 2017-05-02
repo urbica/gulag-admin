@@ -10,7 +10,7 @@ const axisStyle = {
 };
 const textStyle = {
   fill: '#fff',
-  transform: 'translateY(50%)'
+  transform: 'translateY(50%) translateX(-10px)'
 };
 
 class Axis extends PureComponent {
@@ -18,7 +18,8 @@ class Axis extends PureComponent {
     const { scale, ticks } = this.props;
 
     const axis = axisLeft(scale);
-    axis.ticks(ticks);
+    axis.ticks(ticks)
+      .tickSize(0);
 
     const el = select(this.axis);
     el.call(axis)

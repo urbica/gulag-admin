@@ -29,11 +29,12 @@ export const Top = styled.div`
     font-size: 48px;
     font-weight: bold;
   }
-  & h2 {
-    margin: 0;
-    opacity: 0.5;
-    font-size: 16px;
-  }
+`;
+
+export const Location = styled.div`
+  margin: 0;
+  opacity: 0.5;
+  font-size: 16px;
 `;
 
 export const Button = styled(ButtonTemplate)`
@@ -44,7 +45,52 @@ export const Button = styled(ButtonTemplate)`
 
 export const Left = styled.div`
   flex: 1 1;
+  padding-right: 47px;
 `;
+
+export const HalfWidth = styled.div`
+  display: inline-block;
+  width: 50%;
+  & div {
+    opacity: 0.8;
+    font-size: 16px;
+    color: #fff;
+  }
+`;
+
+export const Subtitle = styled.h2`
+  margin: 0 0 5px 0;
+  opacity: 0.8;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  & + div {
+    margin-bottom: 40px;
+  }
+`;
+
+export const MarkdownStyled = styled.div`
+  h2 {
+    margin-bottom: 10px;
+    opacity: 0.8;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  p {
+    margin-bottom: 40px;
+    opacity: 0.8;
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  a {
+    font-size: 16px;
+    color: #9da9c1;
+  }
+`;
+
 export const Right = styled.div`
   flex-basis: 500px;
 `;
