@@ -14,6 +14,10 @@ class SearchCard extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
   }
 
+  componentDidMount() {
+    this.input.focus();
+  }
+
   onSearchChange(searchQuery) {
     this.setState({ searchQuery });
   }
@@ -39,7 +43,7 @@ class SearchCard extends Component {
     return (
       <Wrap>
         <Header>
-          <Input onChange={handleOnChange} />
+          <Input onChange={handleOnChange} innerRef={ref => (this.input = ref)} />
           <Button onClick={closeSearchCard}>
             <img src={cross} alt='cross' />
           </Button>

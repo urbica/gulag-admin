@@ -35,8 +35,7 @@ class IndexPage extends Component {
       currentLanguage: 'ru',
       currentYear: 1918,
       currentPrisons: [],
-      isDemoPlayed: false,
-      prisonCardVisibility: false
+      isDemoPlayed: false
     };
     this.demo = this.demo.bind(this);
     this.setYear = this.setYear.bind(this);
@@ -79,10 +78,7 @@ class IndexPage extends Component {
   }
 
   openPrisonCard(prisonId) {
-    this.setState(
-      { prisonCardVisibility: true },
-      this.props.history.push.bind(null, `/prison${prisonId}`)
-    );
+    this.props.history.push(`/prison${prisonId}`);
   }
 
   openPeriodCard(periodId) {
@@ -98,10 +94,7 @@ class IndexPage extends Component {
   }
 
   closeCard() {
-    this.setState(
-      { prisonCardVisibility: false },
-      this.props.history.push.bind(null, '/')
-    );
+    this.props.history.push('/');
   }
 
   changeLanguage({ value }) {
@@ -198,7 +191,6 @@ class IndexPage extends Component {
           features={features}
           openCard={this.openPrisonCard}
           currentYear={currentYear}
-          slideUp={this.state.prisonCardVisibility}
         />
         <PublicRoute path='/search' component={SearchCardWithRouter} />
         <PublicRoute path='/info' component={InfoCardWithRouter} />

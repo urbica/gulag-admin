@@ -2,7 +2,9 @@
 import React, { PureComponent } from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+
 import Controls from './ControlsStyle';
 import Popup from './Popup';
 
@@ -55,6 +57,7 @@ class Map extends PureComponent {
   }
 
   onLoad() {
+    // if (this.props.location.pathname.match(/^\/prison(\d+)$/));
     this.map.addSource('chukotka', {
       type: 'vector',
       url: 'mapbox://gulagmap.72d3cpll'
@@ -218,7 +221,7 @@ class Map extends PureComponent {
     return (
       <Wrap
         id='map'
-        slideUp={this.props.slideUp}
+        slideUp={this.props.location.pathname.match('/prison')}
       >
         <Controls>
           <button onClick={() => this.map.zoomIn()}>+</button>
@@ -248,4 +251,4 @@ Map.propTypes = {
   currentYear: PropTypes.number
 };
 
-export default Map;
+export default withRouter(Map);
