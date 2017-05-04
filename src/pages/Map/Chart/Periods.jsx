@@ -6,7 +6,11 @@ import { select } from 'd3-selection';
 const G = styled.g`
   pointer-events: auto;
   font-size: 11px;
+  & rect:hover {
+    opacity: .3 !important;
+  }
   & text {
+    pointer-events: none;
     fill: #fff;
   }
 `;
@@ -50,7 +54,7 @@ class Periods extends PureComponent {
         const date = new Date(d.year_start, 0, 1);
         return xScale(date);
       })
-      .attr('y', '41');
+      .attr('y', 41);
   }
 
   render() {
