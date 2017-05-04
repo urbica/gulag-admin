@@ -14,68 +14,16 @@ const margin = {
 const width = 600 - margin.left - margin.right;
 
 const PrisonChart = ({ features }) => {
-  // const newData = features.reduce();
+  const data = features.reduce((acc, feature) => {
+    Object.keys(feature.properties).forEach((key) => {
+      acc.push({
+        year: +key,
+        prisoners: +feature.properties[key].peoples
+      });
+    });
+    return acc;
+  }, []);
 
-  console.log(features);
-  // [
-  //   {
-  //     type: 'Feature',
-  //     geometry: { type: 'Point', coordinates: ['76.45670', '52.345670'] },
-  //     properties: {
-  //       1918: { peoples: 999999 }
-  //     }
-  //   },
-  //   {
-  //     type: 'Feature',
-  //     geometry: { type: 'Point', coordinates: ['90', '56'] },
-  //     properties: {
-  //       1919: { peoples: 0 },
-  //       1920: { peoples: 0 },
-  //       1921: { peoples: 0 }
-  //     }
-  //   },
-  //   {
-  //     type: 'Feature',
-  //     geometry: { type: 'Point', coordinates: [90, 62] },
-  //     properties: {
-  //       1922: { peoples: 123 },
-  //       1923: { peoples: 456 }
-  //     }
-  //   }
-  // ];
-
-  // features.map(f => console.log(f.properties));
-  // Object.keys(data).map(key => data[key] = data[key].peoples);
-  //
-  // const firstYear = Object.keys(data)[0];
-  // const lastYear = Object.keys(data)[Object.keys(data).length - 1];
-
-  const data = [
-    {
-      year: 1918,
-      prisoners: 99
-    },
-    {
-      year: 1919,
-      prisoners: 457
-    },
-    {
-      year: 1920,
-      prisoners: 790
-    },
-    {
-      year: 1921,
-      prisoners: 293
-    },
-    {
-      year: 1922,
-      prisoners: 123
-    },
-    {
-      year: 1924,
-      prisoners: 456
-    }
-  ];
   const firstYear = data[0].year;
   const lastYear = data[data.length - 1].year;
 
