@@ -159,3 +159,5 @@ export const getRightLang = (obj, lang) => {
   }
   return obj.ru;
 };
+
+export const splitDigits = digit => String(digit).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');

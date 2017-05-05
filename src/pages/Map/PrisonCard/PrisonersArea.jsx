@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
 import styled from 'styled-components';
 
+import { splitDigits } from '../../../utils/utils';
+
 const G = styled.g`
   pointer-events: auto;
   & rect {
@@ -63,8 +65,7 @@ class PrisonersArea extends PureComponent {
       .data(data)
       .enter()
       .append('text')
-      .text(d => d.prisoners !== 0 ? d.prisoners : '')
-      .attr('id', d => d.year)
+      .text(({ prisoners }) => prisoners !== 0 ? splitDigits(prisoners) : '')
       .attr('x', d => xScale(d.prisoners) + 10)
       .attr('y', (d) => {
         const date = new Date(d.year, 0, 1);
