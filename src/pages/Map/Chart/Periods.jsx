@@ -27,11 +27,12 @@ const wrap = (text) => {
     let word = '';
 
     TEXT.text(null);
-
+    // eslint-disable-next-line
     while (word = words.pop()) {
       TEXT
         .append('tspan')
         .attr('x', x)
+        // eslint-disable-next-line
         .attr('y', parseInt(y) + (lineNumber++ * lineHeight))
         .attr('dx', '0.5em')
         .text(word);
