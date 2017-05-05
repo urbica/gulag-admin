@@ -10,7 +10,7 @@ import Popup from './Popup';
 
 const Wrap = styled.div`
   position: fixed;
-  top: ${props => props.slideUp ? '-30%' : '0'};
+  top: ${({ slideUp }) => slideUp ? '-30%' : '0'};
   bottom: 0;
   width: 100%;
   transition: .4s;
@@ -247,7 +247,6 @@ Map.propTypes = {
     })
   ),
   openCard: PropTypes.func,
-  slideUp: PropTypes.bool,
   currentYear: PropTypes.number
 };
 

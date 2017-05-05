@@ -5,7 +5,7 @@ import { select } from 'd3-selection';
 
 const G = styled.g`
   pointer-events: auto;
-  font-size: 12px;
+  font-size: 14px;
   & rect:hover {
     opacity: .3 !important;
   }
@@ -19,7 +19,7 @@ const wrap = (text) => {
   text.each(function () {
     const TEXT = select(this);
     const words = TEXT.text().split(/\s+/).reverse();
-    const lineHeight = 14; // px
+    const lineHeight = 15; // px
     const x = TEXT.attr('x');
     const y = TEXT.attr('y');
 
