@@ -7,7 +7,7 @@ import PrisonersArea from './PrisonersArea';
 
 const margin = {
   top: 5,
-  right: 35,
+  right: 65,
   bottom: 5,
   left: 35
 };
