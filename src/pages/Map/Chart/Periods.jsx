@@ -5,7 +5,7 @@ import { select } from 'd3-selection';
 
 const G = styled.g`
   pointer-events: auto;
-  font-size: 11px;
+  font-size: 12px;
   & rect:hover {
     opacity: .3 !important;
   }
@@ -14,6 +14,30 @@ const G = styled.g`
     fill: #fff;
   }
 `;
+
+const wrap = (text) => {
+  text.each(function () {
+    const TEXT = select(this);
+    const words = TEXT.text().split(/\s+/).reverse();
+    const lineHeight = 14; // px
+    const x = TEXT.attr('x');
+    const y = TEXT.attr('y');
+
+    let lineNumber = 0;
+    let word = '';
+
+    TEXT.text(null);
+
+    while (word = words.pop()) {
+      TEXT
+        .append('tspan')
+        .attr('x', x)
+        .attr('y', parseInt(y) + (lineNumber++ * lineHeight))
+        .attr('dx', '0.5em')
+        .text(word);
+    }
+  });
+};
 
 class Periods extends PureComponent {
   componentDidMount() {
@@ -54,7 +78,8 @@ class Periods extends PureComponent {
         const date = new Date(d.year_start, 0, 1);
         return xScale(date);
       })
-      .attr('y', 41);
+      .attr('y', 30)
+      .call(wrap);
   }
 
   render() {

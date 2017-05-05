@@ -85,7 +85,6 @@ class PrisonersArea extends PureComponent {
 }
 
 PrisonersArea.propTypes = {
-  height: PropTypes.number,
   margin: PropTypes.shape({
     top: PropTypes.number,
     right: PropTypes.number,
@@ -99,8 +98,7 @@ PrisonersArea.propTypes = {
       prisoners: PropTypes.number,
       year: PropTypes.number
     })
-  ),
-  onClick: PropTypes.func
+  )
 };
 
 export default PrisonersArea;
