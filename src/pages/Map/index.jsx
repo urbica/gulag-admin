@@ -105,7 +105,7 @@ class IndexPage extends Component {
     const prisons = values(this.props.prisons);
 
     const features = prisons.reduce((acc, prison) => {
-      const newFeatures = prison.features.reduce((acc, feature) => {
+      const newFeatures = prison.features.reduce((prev, feature) => {
         const newProperties = {
           id: prison.id,
           ruName: prison.name.ru,
@@ -113,7 +113,7 @@ class IndexPage extends Component {
           deName: prison.name.de
         };
 
-        return acc.concat([{ ...feature, properties: newProperties }]);
+        return prev.concat([{ ...feature, properties: newProperties }]);
       }, []);
       return acc.concat(newFeatures);
     }, []);
@@ -130,8 +130,8 @@ class IndexPage extends Component {
 
     const InfoCardWithRouter = withRouter(() => (
       <InfoCard
-        visible
         closeCard={this.closeCard}
+        currentLanguage={currentLanguage}
       />
     ));
 

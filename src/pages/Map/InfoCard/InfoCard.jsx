@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import { Wrap, Header, CloseButton, DescriptionContainer, Footer } from './InfoCardStyles';
 import cross from '../cross.svg';
 import urbica from './urbica.svg';
+import museum from './museum.svg';
+import museumEn from './museum-en.svg';
+import x from './x.svg';
 
-const InfoCard = ({ visible, closeCard }) => (
-  <Wrap visible={visible}>
+const img = {
+  ru: museum,
+  en: museumEn
+};
+
+const InfoCard = ({ closeCard, currentLanguage }) => (
+  <Wrap>
     <Header>
       <h1>О проекте</h1>
       <CloseButton onClick={closeCard}>
@@ -45,7 +53,10 @@ const InfoCard = ({ visible, closeCard }) => (
       </p>
     </DescriptionContainer>
     <Footer>
-      <div>Дизайн и разработка</div>
+      <a href='http://gmig.ru/' target='_blank' rel='noreferrer noopener'>
+        <img src={img[currentLanguage]} alt='' />
+      </a>
+      <img src={x} alt='' />
       <a href='http://urbica.co/' target='_blank' rel='noreferrer noopener'>
         <img src={urbica} alt='URBICA' />
       </a>
@@ -54,8 +65,8 @@ const InfoCard = ({ visible, closeCard }) => (
 );
 
 InfoCard.propTypes = {
-  visible: PropTypes.bool,
-  closeCard: PropTypes.func
+  closeCard: PropTypes.func,
+  currentLanguage: PropTypes.string
 };
 
 export default InfoCard;

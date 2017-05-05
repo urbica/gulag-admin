@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
-  display: ${({ visible }) => visible ? 'block' : 'none'};
   position: absolute;
   right: 0;
   width: 1000px;
@@ -34,11 +33,16 @@ export const DescriptionContainer = styled.div`
 `;
 
 export const Footer = styled.footer`
+  display: flex;
+  align-items: center;
   padding: 50px;
   padding-top: 35px;
+  padding-bottom: 31px;
   background-color: #000;
-  & div {
-    margin-bottom: 15px;
-    opacity: 0.5;
+  & a:first-child {
+    margin-right: 40px;
+  }
+  & > img {
+    margin-right: 40px;
   }
 `;
