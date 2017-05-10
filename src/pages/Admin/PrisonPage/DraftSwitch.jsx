@@ -5,6 +5,7 @@ const Label = styled.label`
   background-color: #f3f3f3;
   position: relative;
   padding: 5px;
+  margin-right: 10px;
   overflow: hidden;
   cursor: pointer;
   & input {

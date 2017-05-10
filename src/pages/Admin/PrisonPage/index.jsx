@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 'ramda';
 
 import { Container, Six, Four, Three, Two } from '../Layout';
@@ -20,6 +22,19 @@ import Separator from './Separator';
 import MarkdownHelp from './MarkdownHelp';
 import { languages } from '../../../config';
 import './PrisonPage.css';
+
+const StyledLink = styled(Link)`
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: .2s;
+  &:hover {
+    opacity: .5;
+    transition: .2s;
+  }
+`;
 
 const toOptions = list =>
   list.map(({ id, name }) => ({ value: id, label: name }));
@@ -106,6 +121,7 @@ class PrisonCard extends React.Component {
             published={prison.published[this.state.activeLang]}
             onChange={updateField(lensPath(['published', this.state.activeLang]))}
           />
+          <StyledLink to={`/prison${prison.id}`}>Посмотреть на карте</StyledLink>
         </Six>
         <Three>
           <Fieldset>
