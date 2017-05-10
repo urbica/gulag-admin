@@ -56,7 +56,9 @@ class IndexPage extends Component {
   }
 
   setYear(year) {
-    this.setState({ currentYear: year });
+    if (this.state.currentYear !== year) {
+      this.setState({ currentYear: year });
+    }
   }
 
   demo() {
@@ -148,6 +150,7 @@ class IndexPage extends Component {
         visible
         prison={!isEmpty(prisons) && prisons[match.params.prisonId]}
         closeCard={this.closeCard}
+        setYear={this.setYear}
         currentLanguage={currentLanguage}
         activities={activities}
       />
