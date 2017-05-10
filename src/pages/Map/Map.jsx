@@ -218,12 +218,14 @@ class Map extends PureComponent {
   }
 
   render() {
+    const slideUp = this.props.location.pathname.match('/prison');
+
     return (
       <Wrap
         id='map'
-        slideUp={this.props.location.pathname.match('/prison')}
+        slideUp={slideUp}
       >
-        <Controls>
+        <Controls slideUp={slideUp}>
           <button onClick={() => this.map.zoomIn()}>+</button>
           <button onClick={() => this.map.zoomOut()}>-</button>
         </Controls>
