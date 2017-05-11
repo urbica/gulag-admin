@@ -166,7 +166,6 @@ class IndexPage extends Component {
 
     const PeriodCardWithRouter = withRouter(({ match }) => (
       <PeriodCard
-        visible
         period={!isEmpty(periods) && periods[match.params.periodId]}
         currentLanguage={currentLanguage}
         closeCard={this.closeCard}
