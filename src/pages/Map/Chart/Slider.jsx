@@ -2,6 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { select, event } from 'd3-selection';
 import { drag } from 'd3-drag';
+import styled from 'styled-components';
+
+const G = styled.g`
+  display: ${({ isVisible }) => isVisible ? 'block' : 'none'};
+`;
 
 class Slider extends PureComponent {
   componentDidMount() {
@@ -57,12 +62,13 @@ class Slider extends PureComponent {
   }
 
   render() {
-    const { height, margin } = this.props;
+    const { height, margin, isVisible } = this.props;
 
     return (
-      <g
-        ref={ref => (this.g = ref)}
+      <G
+        innerRef={ref => (this.g = ref)}
         transform={`translate(${margin.left}, ${height + margin.top})`}
+        isVisible={isVisible}
       />
     );
   }
@@ -86,7 +92,8 @@ Slider.propTypes = {
       year: PropTypes.number
     })
   ),
-  currentYear: PropTypes.number
+  currentYear: PropTypes.number,
+  isVisible: PropTypes.bool
 };
 
 export default Slider;

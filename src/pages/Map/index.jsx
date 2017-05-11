@@ -34,11 +34,13 @@ class IndexPage extends Component {
     this.state = {
       currentLanguage: 'ru',
       currentYear: 1918,
+      lastYear: null,
       currentPrisons: [],
       isDemoPlayed: false
     };
     this.demo = this.demo.bind(this);
     this.setYear = this.setYear.bind(this);
+    this.showAllYears = this.showAllYears.bind(this);
     this.openPrisonCard = this.openPrisonCard.bind(this);
     this.openPeriodCard = this.openPeriodCard.bind(this);
     this.openInfoCard = this.openInfoCard.bind(this);
@@ -59,6 +61,12 @@ class IndexPage extends Component {
     if (this.state.currentYear !== year) {
       this.setState({ currentYear: year });
     }
+  }
+
+  showAllYears() {
+    if (this.state.currentYear !== 'all') {
+      this.setState({ lastYear: this.state.currentYear }, () => this.setYear('all'));
+    } else this.setYear(this.state.lastYear);
   }
 
   demo() {
@@ -187,7 +195,8 @@ class IndexPage extends Component {
             openPeriod={this.openPeriodCard}
           />
           <ShowAllButton
-            onClick={this.setYear.bind(null, 'all')}
+            onClick={this.showAllYears}
+            showAll={currentYear === 'all'}
           />
         </ChartWrap>
         <Map

@@ -8,7 +8,7 @@ const Wrap = styled.button`
   padding: 0;
   border: none;
   margin-top: 140px;
-  background-color: ${({ isPlay }) => isPlay ? '#1C2229' : '#27303A'};
+  background-color: ${({ showAll }) => showAll ? '#1C2229' : '#27303A'};
   text-align: center;
   pointer-events: auto;
   overflow: hidden;
@@ -29,8 +29,11 @@ const Tittle = styled.div`
   opacity: 0.5;
 `;
 
-const PlayButton = ({ onClick }) => (
-  <Wrap onClick={onClick}>
+const PlayButton = ({ onClick, showAll }) => (
+  <Wrap
+    onClick={onClick}
+    showAll={showAll}
+  >
     <Tittle>
       Весь период
     </Tittle>
@@ -38,7 +41,8 @@ const PlayButton = ({ onClick }) => (
 );
 
 PlayButton.propTypes = {
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  showAll: PropTypes.bool
 };
 
 export default PlayButton;

@@ -52,6 +52,7 @@ class Axis extends PureComponent {
 
 Axis.propTypes = {
   scale: PropTypes.func.isRequired,
+  ticks: PropTypes.number,
   margin: PropTypes.shape({
     top: PropTypes.number,
     right: PropTypes.number,

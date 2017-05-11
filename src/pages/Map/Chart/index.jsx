@@ -68,6 +68,7 @@ const Chart = (props) => {
         data={data}
         currentYear={currentYear}
         setYear={setYear}
+        isVisible={currentYear !== 'all'}
       />
     </svg>
   );
