@@ -10,7 +10,7 @@ const axisStyle = {
 };
 const textStyle = {
   fill: '#fff',
-  transform: 'translateY(50%) translateX(-10px)'
+  transform: 'translateX(-10px)'
 };
 
 class Axis extends PureComponent {

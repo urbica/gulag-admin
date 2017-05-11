@@ -43,7 +43,7 @@ const PrisonChart = ({ features }) => {
       height={height + margin.top + margin.bottom}
     >
       <Axis
-        ticks={lastYear - firstYear}
+        ticks={(lastYear - firstYear) + 1}
         scale={yScale}
         height={height}
         margin={margin}
