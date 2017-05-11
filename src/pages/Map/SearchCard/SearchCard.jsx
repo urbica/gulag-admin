@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
 import { Link } from 'react-router-dom';
-import { Wrap, Header, Input, Button, Item } from './SearchCardStyles';
+
+import { Wrap, Header, Input, Button, Item, Name, Periods } from './SearchCardStyles';
+import { getRightLang, getPeriods } from '../../../utils/utils';
 import cross from '../cross.svg';
 
 class SearchCard extends Component {
@@ -53,11 +55,8 @@ class SearchCard extends Component {
             result.map(p => (
               <Item key={p.id}>
                 <Link to={`/prison${p.id}`}>
-                  {
-                    p.name[currentLanguage] ||
-                    p.name.en ||
-                    p.name.ru
-                  }
+                  <Name>{getRightLang(p.name, currentLanguage)}</Name>
+                  <Periods>{getPeriods(p)}</Periods>
                 </Link>
               </Item>
             ))

@@ -15,6 +15,7 @@ export const Header = styled.header`
   display: flex;
   position: fixed;
   width: 430px;
+  z-index: 1;
 `;
 
 export const Input = styled.input`
@@ -48,4 +49,13 @@ export const Item = styled.div`
   &:hover {
     background-color: #1b2128;
   }
+`;
+
+export const Name = styled.div`
+  margin-bottom: 10px;
+`;
+
+export const Periods = styled.div`
+  opacity: 0.5;
+  font-size: 16px;
 `;
