@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import Controls from './ControlsStyle';
 import Popup from './Popup';
+import allCities from '../../utils/allCities.geojson';
 
 const Wrap = styled.div`
   position: fixed;
@@ -47,12 +48,12 @@ class Map extends PureComponent {
     const { features, currentYear } = nextProps;
 
     const source = this.map.getSource('prisons');
-    const cities = this.map.getSource('cities');
+    const cities = this.map.getSource('allCities');
     if (source) {
       source.setData({ type: 'FeatureCollection', features });
     }
     if (cities) {
-      this.map.setLayoutProperty('cities_labels', 'text-field', `{${currentYear}}`);
+      this.map.setFilter('cities_labels', ['==', 'year', currentYear]);
     }
   }
 
@@ -84,9 +85,9 @@ class Map extends PureComponent {
     };
 
     this.map.addSource('prisons', source);
-    this.map.addSource('cities', {
-      type: 'vector',
-      url: 'mapbox://gulagmap.d4le9ujk'
+    this.map.addSource('allCities', {
+      type: 'geojson',
+      data: allCities
     });
 
     this.map.addLayer({
@@ -151,10 +152,9 @@ class Map extends PureComponent {
     this.map.addLayer({
       id: 'cities_labels',
       type: 'symbol',
-      source: 'cities',
-      'source-layer': 'city_gulag2508-c6phlp',
+      source: 'allCities',
       layout: {
-        'text-field': '{1918}',
+        'text-field': '{historical_name}',
         'text-size': 11
       },
       paint: {

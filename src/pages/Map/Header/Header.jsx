@@ -19,7 +19,7 @@ const Header = (props) => {
       <SelectStyled
         value={currentLanguage}
         options={[
-          { value: 'ru', label: 'РУС' },
+          { value: 'ru', label: 'RUS' },
           { value: 'en', label: 'ENG' },
           { value: 'de', label: 'DEU' }
         ]}
