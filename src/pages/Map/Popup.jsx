@@ -18,6 +18,8 @@ injectGlobal`
 
 const Wrap = styled.div`
   width: 300px;
+  max-height: 400px;
+  overflow: scroll;
 `;
 
 const Button = styled.button`
