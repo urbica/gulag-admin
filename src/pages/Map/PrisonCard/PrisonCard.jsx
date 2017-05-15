@@ -21,11 +21,11 @@ import { getFirstYear } from '../../../utils/prison-utils';
 
 class PrisonCard extends Component {
   componentDidMount() {
-    console.log(this.props);
+    const { prison, setYear, history } = this.props;
 
-    const { prison, setYear } = this.props;
-
-    if (prison) {
+    // set currentYear to prison first year
+    // if component is loaded with POP action
+    if (prison && history.action === 'POP') {
       const year = getFirstYear(prison);
       setYear(year);
     }
