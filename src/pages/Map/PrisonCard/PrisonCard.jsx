@@ -35,6 +35,10 @@ class PrisonCard extends Component {
       return <Wrap visible={visible}>Загрузка</Wrap>;
     }
 
+    const activity = prison.activity_id && activities[prison.activity_id]
+      ? activities[prison.activity_id].name
+      : '–––';
+
     return (
       <Wrap visible={visible}>
         <Top>
@@ -51,7 +55,7 @@ class PrisonCard extends Component {
           </HalfWidth>
           <HalfWidth>
             <Subtitle>Тип деятельности</Subtitle>
-            <div>{prison.activity_id ? activities[prison.activity_id].name : '–––'}</div>
+            <div>{ activity }</div>
           </HalfWidth>
           <Subtitle>Местоположение</Subtitle>
           <div>{getRightLang(prison.location, currentLanguage)}</div>
