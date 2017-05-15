@@ -15,7 +15,7 @@ import {
   Right
 } from './PrisonCardStyles';
 import PrisonChart from './PrisonChart';
-import cross from '../cross.svg';
+import close from '../icons/btn-close.svg';
 import { getPeriods, getRightLang } from '../../../utils/utils';
 import { getFirstYear } from '../../../utils/prison-utils';
 
@@ -48,7 +48,7 @@ class PrisonCard extends Component {
           <h1>{getRightLang(prison.name, currentLanguage)}</h1>
           <Location>{getRightLang(prison.additional_names, currentLanguage)}</Location>
           <Button onClick={closeCard}>
-            <img src={cross} alt='cross' />
+            <img src={close} alt='cross' />
           </Button>
         </Top>
         <Left>

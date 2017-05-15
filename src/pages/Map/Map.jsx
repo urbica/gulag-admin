@@ -7,6 +7,9 @@ import styled from 'styled-components';
 
 import Controls from './ControlsStyle';
 import Popup from './Popup';
+import Button from './StyledButton';
+import plus from './icons/btn-plus.svg';
+import minus from './icons/btn-minus.svg';
 import allCities from '../../utils/allCities.geojson';
 
 const Wrap = styled.div`
@@ -63,7 +66,7 @@ class Map extends PureComponent {
       this.setState({ slideUp: true });
     } else this.setState({ slideUp: false });
 
-    if (nextProps.centerCoordinates !== []) {
+    if (nextProps.centerCoordinates !== [] && location.pathname.match('/prison')) {
       this.map.setCenter(nextProps.centerCoordinates);
     }
   }
@@ -236,8 +239,12 @@ class Map extends PureComponent {
         slideUp={slideUp}
       >
         <Controls slideUp={slideUp}>
-          <button onClick={() => this.map.zoomIn()}>+</button>
-          <button onClick={() => this.map.zoomOut()}>-</button>
+          <Button onClick={() => this.map.zoomIn()}>
+            <img src={plus} alt='plus' />
+          </Button>
+          <Button onClick={() => this.map.zoomOut()}>
+            <img src={minus} alt='minus' />
+          </Button>
         </Controls>
       </Wrap>
     );

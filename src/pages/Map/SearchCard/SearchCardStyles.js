@@ -20,25 +20,38 @@ export const Header = styled.header`
 
 export const Input = styled.input`
   width: 100%;
-  padding: 30px;
+  padding: 15px;
   padding-right: 106px;
-  border: 0;
+  border: solid 1px transparent;
   margin: 0;
   font-size: 16px;
   color: rgba(225, 225, 225, 0.5);
   background-color: #000;
+  outline: none;
+  &:focus {
+    border-color: #9CA2A9;
+  }
 `;
 
 export const Button = styled(ButtonTemplate)`
   position: absolute;
   right: 0;
+  &:hover {
+    background-color: rgba(66, 74, 84 ,0.3);
+  }
+  &:active {
+    background-color: rgba(66, 74, 84 ,0.5);  
+  }
+  &:focus {
+    border-color: #9CA2A9;
+  }
 `;
 
 export const Item = styled.div`
   margin-bottom: 1px;
   background-color: #000;
   &:first-child {
-    margin-top: 80px;
+    margin-top: 51px;
   }
   & a {
     display: block;

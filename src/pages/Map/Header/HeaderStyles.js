@@ -6,7 +6,6 @@ export const Wrap = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
-  padding-left: 60px;
   background-color: rgba(0,0,0,.4);
   white-space: pre;
   color: #fff;
@@ -18,14 +17,4 @@ export const Wrap = styled.header`
 
 export const SelectStyled = styled.div`
   margin-left: auto;
-`;
-
-export const Button = styled.button`
-  padding: 23px;
-  border: none;
-  margin: 0;
-  background-color: transparent;
-  &:hover {
-    background-color: #101418;
-  }
 `;

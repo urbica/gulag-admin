@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { Wrap, Header, Input, Button, Item, Name, Periods } from './SearchCardStyles';
 import { getRightLang, getPeriods } from '../../../utils/utils';
-import cross from '../cross.svg';
+import cross from '../icons/btn-close.svg';
 
 class SearchCard extends Component {
   constructor(props) {

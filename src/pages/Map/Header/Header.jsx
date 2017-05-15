@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Wrap, SelectStyled, Button } from './HeaderStyles';
-import info from './info.svg';
-import search from './search.svg';
+import { Wrap, SelectStyled } from './HeaderStyles';
+import StyledButton from '../StyledButton';
+import search from '../icons/btn-search.svg';
+import info from '../icons/btn-info.svg';
 
 const Header = (props) => {
   const {
@@ -12,10 +13,10 @@ const Header = (props) => {
 
   return (
     <Wrap>
-      <div>{ `${currentYear}\nгод` }</div>
-      <Button onClick={openSearchCard}>
+      <StyledButton onClick={openSearchCard}>
         <img src={search} alt='loupe-icon' />
-      </Button>
+      </StyledButton>
+      <div>{ `${currentYear}\nгод` }</div>
       <SelectStyled
         value={currentLanguage}
         options={[
@@ -27,9 +28,9 @@ const Header = (props) => {
         searchable={false}
         clearable={false}
       />
-      <Button onClick={openInfoCard}>
+      <StyledButton onClick={openInfoCard}>
         <img src={info} alt='info-sign' />
-      </Button>
+      </StyledButton>
     </Wrap>
   );
 };

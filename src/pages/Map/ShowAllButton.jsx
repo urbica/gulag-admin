@@ -2,42 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Wrap = styled.button`
-  width: 102px;
-  height: 100px;
-  padding: 0;
-  border: none;
-  margin-top: 140px;
-  background-color: ${({ showAll }) => showAll ? '#1C2229' : '#27303A'};
-  text-align: center;
-  pointer-events: auto;
-  overflow: hidden;
-  outline: none;
-  transition: all 0.25s ease;
-`;
+import ButtonTemplate from './StyledButton';
+import allPeriod from './icons/btn-period.svg';
 
-const Tittle = styled.div`
-  width: 72px;
-  height: 61px;
-  padding: 10px 0;
-  border-left: 2px solid #fff;
-  border-right: 2px solid #fff;
-  margin: auto;
-  color: #fff;
-  font-family: PT Sans;
-  font-size: 16px;
-  opacity: 0.5;
+const Button = styled(ButtonTemplate)`
+  pointer-events: auto;
+  background-color: #28292E;
+  transform: translateY(100%);
 `;
 
 const PlayButton = ({ onClick, showAll }) => (
-  <Wrap
+  <Button
     onClick={onClick}
     showAll={showAll}
   >
-    <Tittle>
-      Весь период
-    </Tittle>
-  </Wrap>
+    <img src={allPeriod} alt='all-period' />
+  </Button>
 );
 
 PlayButton.propTypes = {

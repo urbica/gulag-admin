@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import ButtonTemplate from './StyledButton';
-import cross from './cross.svg';
+import close from './icons/btn-close.svg';
 
 const Wrap = styled.div`
   position: fixed;
@@ -51,7 +51,7 @@ const PeriodCard = ({ period, currentLanguage, closeCard }) => {
   return (
     <Wrap>
       <Button onClick={closeCard}>
-        <img src={cross} alt='cross' />
+        <img src={close} alt='cross' />
       </Button>
       <Title>{period.name[currentLanguage]}</Title>
       <Period>{`${period.year_start} – ${period.year_end}`}</Period>

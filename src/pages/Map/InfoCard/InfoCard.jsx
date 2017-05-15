@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Wrap, Header, CloseButton, DescriptionContainer, Footer } from './InfoCardStyles';
-import cross from '../cross.svg';
+
+import { Wrap, Header, Button, DescriptionContainer, Footer } from './InfoCardStyles';
 import urbica from './urbica.svg';
 import museum from './museum.svg';
 import museumEn from './museum-en.svg';
 import x from './x.svg';
+import cross from '../icons/btn-close.svg';
 
 const img = {
   ru: museum,
@@ -16,9 +17,9 @@ const InfoCard = ({ closeCard, currentLanguage }) => (
   <Wrap>
     <Header>
       <h1>О проекте</h1>
-      <CloseButton onClick={closeCard}>
+      <Button onClick={closeCard}>
         <img src={cross} alt='cross' />
-      </CloseButton>
+      </Button>
     </Header>
     <DescriptionContainer>
       <p>
