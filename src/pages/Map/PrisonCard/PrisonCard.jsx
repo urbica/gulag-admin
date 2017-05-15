@@ -17,13 +17,16 @@ import {
 import PrisonChart from './PrisonChart';
 import cross from '../cross.svg';
 import { getPeriods, getRightLang } from '../../../utils/utils';
+import { getFirstYear } from '../../../utils/prison-utils';
 
 class PrisonCard extends Component {
   componentDidMount() {
+    console.log(this.props);
+
     const { prison, setYear } = this.props;
 
     if (prison) {
-      const year = +Object.keys(prison.features[0].properties)[0];
+      const year = getFirstYear(prison);
       setYear(year);
     }
   }
