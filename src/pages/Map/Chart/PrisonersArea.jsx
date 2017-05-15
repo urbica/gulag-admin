@@ -140,6 +140,7 @@ PrisonersArea.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       prisoners: PropTypes.number,
+      dead: PropTypes.number,
       year: PropTypes.number
     })
   ),

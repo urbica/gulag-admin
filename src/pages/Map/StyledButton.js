@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export default styled.button`
   width: 50px;
+  height: 50px;
   padding: 0;
   border-style: solid;
   border-width: 1px;
