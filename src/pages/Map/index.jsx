@@ -36,6 +36,7 @@ class IndexPage extends Component {
       currentYear: 1918,
       lastYear: null,
       currentPrisons: [],
+      openedPrisonCoordinates: [],
       isDemoPlayed: false
     };
     this.demo = this.demo.bind(this);
@@ -55,6 +56,14 @@ class IndexPage extends Component {
     const filteredPrisons = prisons.filter(prison => prison.published[this.state.currentLanguage]);
 
     this.setState({ currentPrisons: filteredPrisons });
+
+    if (nextProps.location.pathname.match(/^\/prison(\d+)$/)) {
+      const prisonId = nextProps.location.pathname.match(/^\/prison(\d+)$/)[1];
+
+      this.setState({
+        openedPrisonCoordinates: nextProps.prisons[prisonId].features[0].geometry.coordinates
+      });
+    }
   }
 
   setYear(year) {
@@ -133,7 +142,9 @@ class IndexPage extends Component {
 
   render() {
     const { periods, prisons, activities } = this.props;
-    const { currentYear, currentPrisons, currentLanguage, isDemoPlayed } = this.state;
+    const {
+      currentYear, currentPrisons, currentLanguage, isDemoPlayed, openedPrisonCoordinates
+    } = this.state;
 
     const features = (currentYear !== 'all') ? prisonsToFeatures(currentPrisons, currentYear) :
       this.showAllPrisons();
@@ -199,6 +210,7 @@ class IndexPage extends Component {
           />
         </ChartWrap>
         <Map
+          centerCoordinates={openedPrisonCoordinates}
           features={features}
           openCard={this.openPrisonCard}
           currentYear={currentYear}

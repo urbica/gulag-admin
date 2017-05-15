@@ -25,6 +25,9 @@ const accessToken = 'pk.eyJ1IjoiZ3VsYWdtYXAiLCJhIjoiY2lxa3VtaWtyMDAyZGhzbWI1aDQ3
 class Map extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      slideUp: false
+    };
     this.onLoad = this.onLoad.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -45,7 +48,7 @@ class Map extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { features, currentYear } = nextProps;
+    const { features, currentYear, location } = nextProps;
 
     const source = this.map.getSource('prisons');
     const cities = this.map.getSource('allCities');
@@ -55,10 +58,17 @@ class Map extends PureComponent {
     if (cities) {
       this.map.setFilter('cities_labels', ['==', 'year', currentYear]);
     }
+
+    if (location.pathname.match('/prison')) {
+      this.setState({ slideUp: true });
+    } else this.setState({ slideUp: false });
+
+    if (nextProps.centerCoordinates !== []) {
+      this.map.setCenter(nextProps.centerCoordinates);
+    }
   }
 
   onLoad() {
-    // if (this.props.location.pathname.match(/^\/prison(\d+)$/));
     this.map.addSource('chukotka', {
       type: 'vector',
       url: 'mapbox://gulagmap.72d3cpll'
@@ -218,7 +228,7 @@ class Map extends PureComponent {
   }
 
   render() {
-    const slideUp = this.props.location.pathname.match('/prison');
+    const { slideUp } = this.state;
 
     return (
       <Wrap

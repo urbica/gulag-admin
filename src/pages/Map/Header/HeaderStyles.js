@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Select from 'react-select';
+// import Select from 'react-select';
 
 export const Wrap = styled.header`
   position: fixed;
@@ -16,7 +16,7 @@ export const Wrap = styled.header`
   }
 `;
 
-export const SelectStyled = styled(Select)`
+export const SelectStyled = styled.div`
   margin-left: auto;
 `;
 
