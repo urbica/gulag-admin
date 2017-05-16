@@ -40,7 +40,11 @@ class PrisonCard extends Component {
 
     const activity = prison.activity_id && activities[prison.activity_id]
       ? activities[prison.activity_id].name
-      : '–––';
+      : '';
+
+    const activityTitle = prison.activity_id && activities[prison.activity_id]
+      ? 'Тип деятельности'
+      : '';
 
     return (
       <Wrap visible={visible}>
@@ -57,7 +61,7 @@ class PrisonCard extends Component {
             <div>{getPeriods(prison)}</div>
           </HalfWidth>
           <HalfWidth>
-            <Subtitle>Тип деятельности</Subtitle>
+            <Subtitle>{ activityTitle }</Subtitle>
             <div>{ activity }</div>
           </HalfWidth>
           <Subtitle>Местоположение</Subtitle>

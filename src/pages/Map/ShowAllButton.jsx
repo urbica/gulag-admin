@@ -9,6 +9,7 @@ const Button = styled(ButtonTemplate)`
   pointer-events: auto;
   background-color: #28292E;
   transform: translateY(100%);
+  margin-top: 45px;
 `;
 
 const PlayButton = ({ onClick, showAll }) => (

@@ -21,6 +21,7 @@ const Wrap = styled.div`
   z-index: 0;
   & .mapboxgl-ctrl-attrib {
     opacity: 0.3;
+    background-color: inherit;
   }
 `;
 
@@ -47,7 +48,7 @@ class Map extends PureComponent {
       drag: true,
       zoom: 2.5,
       center: [90, 60],
-      scrollZoom: false
+      // scrollZoom: false
     });
 
     this.map.on('load', this.onLoad);
