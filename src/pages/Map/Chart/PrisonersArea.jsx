@@ -4,8 +4,32 @@ import { select } from 'd3-selection';
 import styled from 'styled-components';
 
 const G = styled.g`
-  pointer-events: auto;
+  & g:first-child {
+    pointer-events: auto;
+    & rect {
+      fill: #eb4200;
+      opacity: .1;
+      transition: 2s;
+      &:hover {
+        cursor: pointer;
+        opacity: .2;
+        transition: .2s;
+      }
+    }
+    & line {
+      stroke: #ff2b00;
+      stroke-width: 2px;
+    }
+  }
+
+  & g:nth-child(2) {
+    & rect {
+      fill-opacity: 0.2;
+    }
+  }
+
   & g:last-child {
+    pointer-events: auto;
     & rect {
       fill: #fff;
       opacity: .1;
@@ -21,22 +45,6 @@ const G = styled.g`
       stroke-width: 2px;
     }
   }
-  & g:first-child {
-    & rect {
-      fill: red;
-      opacity: .1;
-      transition: 2s;
-      &:hover {
-        cursor: pointer;
-        opacity: .2;
-        transition: .2s;
-      }
-    }
-    & line {
-      stroke: red;
-      stroke-width: 2px;
-    }
-  }
 `;
 
 class PrisonersArea extends PureComponent {
@@ -48,9 +56,70 @@ class PrisonersArea extends PureComponent {
     const deadG = prisonersArea
       .append('g');
 
+    const noDataG = prisonersArea
+      .append('g');
+
     const prisonersG = prisonersArea
       .append('g');
 
+    // dead group
+    deadG
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', (d) => {
+        const date = new Date(d.year, 0, 1);
+        return xScale(date) + 1;
+      })
+      .attr('y', d => yScale(d.dead))
+      .attr('width', barWidth)
+      .attr('height', d => height - yScale(d.dead));
+
+    deadG
+      .selectAll('line')
+      .data(data)
+      .enter()
+      .append('line')
+      .attr('fill', 'none')
+      .attr('x1', (d) => {
+        const date = new Date(d.year, 0, 1);
+        return xScale(date) + 1;
+      })
+      .attr('y1', d => yScale(d.dead))
+      .attr('x2', (d) => {
+        const date = new Date(d.year, 0, 1);
+
+        if (d.dead === 0) {
+          return xScale(date) + 1;
+        }
+        return xScale(date) + barWidth + 1;
+      })
+      .attr('y2', d => yScale(d.dead));
+
+    // no data group
+    noDataG
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', (d) => {
+        const date = new Date(d.year, 0, 1);
+        return xScale(date) + 1;
+      })
+      // .attr('y', 0)
+      .attr('y', yScale(250000))
+      .attr('width', (d) => {
+        if (d.prisoners === 0) {
+          return barWidth;
+        }
+        return 0;
+      })
+      // .attr('height', height)
+      .attr('height', height - yScale(250000))
+      .attr('fill', 'url(#Gradient)');
+
+    // prisoners group
     prisonersG
       .selectAll('rect')
       .data(data)
@@ -78,40 +147,13 @@ class PrisonersArea extends PureComponent {
       .attr('y1', d => yScale(d.prisoners))
       .attr('x2', (d) => {
         const date = new Date(d.year, 0, 1);
+
+        if (d.prisoners === 0) {
+          return xScale(date) + 1;
+        }
         return xScale(date) + barWidth + 1;
       })
       .attr('y2', d => yScale(d.prisoners));
-
-    deadG
-      .selectAll('rect')
-      .data(data)
-      .enter()
-      .append('rect')
-      .attr('x', (d) => {
-        const date = new Date(d.year, 0, 1);
-        return xScale(date) + 1;
-      })
-      .attr('y', d => yScale(d.dead))
-      .attr('width', barWidth)
-      .attr('height', d => height - yScale(d.dead))
-      .on('click', d => onClick(d.year));
-
-    deadG
-      .selectAll('line')
-      .data(data)
-      .enter()
-      .append('line')
-      .attr('fill', 'none')
-      .attr('x1', (d) => {
-        const date = new Date(d.year, 0, 1);
-        return xScale(date) + 1;
-      })
-      .attr('y1', d => yScale(d.dead))
-      .attr('x2', (d) => {
-        const date = new Date(d.year, 0, 1);
-        return xScale(date) + barWidth + 1;
-      })
-      .attr('y2', d => yScale(d.dead));
   }
 
   render() {

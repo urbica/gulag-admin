@@ -19,6 +19,9 @@ const Wrap = styled.div`
   width: 100%;
   transition: .4s;
   z-index: 0;
+  & .mapboxgl-ctrl-attrib {
+    opacity: 0.3;
+  }
 `;
 
 /* eslint-disable max-len */

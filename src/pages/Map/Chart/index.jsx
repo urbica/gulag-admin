@@ -35,6 +35,33 @@ const Chart = (props) => {
       width={width + margin.left + margin.right}
       height={height + margin.top + margin.bottom}
     >
+      <defs>
+        <linearGradient
+          id='Gradient'
+          x1='0%'
+          y1='31%'
+          x2='10%'
+          y2='0%'
+          spreadMethod='repeat'
+        >
+          <stop offset='0%' stopColor='rgb(225,225,225)' />
+          <stop offset='12%' stopColor='rgb(225,225,225)' />
+          <stop offset='13%' stopColor='rgb(0,0,0)' />
+          <stop offset='25%' stopColor='rgb(0,0,0)' />
+          <stop offset='26%' stopColor='rgb(225,225,225)' />
+          <stop offset='38%' stopColor='rgb(225,225,225)' />
+          <stop offset='39%' stopColor='rgb(0,0,0)' />
+          <stop offset='51%' stopColor='rgb(0,0,0)' />
+          <stop offset='52%' stopColor='rgb(225,225,225)' />
+          <stop offset='64%' stopColor='rgb(225,225,225)' />
+          <stop offset='65%' stopColor='rgb(0,0,0)' />
+          <stop offset='77%' stopColor='rgb(0,0,0)' />
+          <stop offset='78%' stopColor='rgb(225,225,225)' />
+          <stop offset='90%' stopColor='rgb(225,225,225)' />
+          <stop offset='91%' stopColor='rgb(0,0,0)' />
+          <stop offset='100%' stopColor='rgb(0,0,0)' />
+        </linearGradient>
+      </defs>
       <PrisonersArea
         width={width}
         height={height}
