@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { MapButton } from './StyledButtons';
+import { ChartButton } from './StyledButtons';
 import allPeriod from './icons/btn-period.svg';
 
 const PlayButton = ({ onClick, showAll }) => (
-  <MapButton
+  <ChartButton
     onClick={onClick}
     showAll={showAll}
   >
     <img src={allPeriod} alt='all-period' />
-  </MapButton>
+  </ChartButton>
 );
 
 PlayButton.propTypes = {

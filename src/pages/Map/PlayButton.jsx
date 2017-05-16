@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { MapButton } from './StyledButtons';
+import { ChartButton } from './StyledButtons';
 import play from './icons/btn-play.svg';
 import pause from './icons/btn-pause.svg';
 
 const PlayButton = ({ onClick, isDemoPlayed: isPlay }) => (
-  <MapButton onClick={onClick}>
+  <ChartButton onClick={onClick}>
     <img src={!isPlay ? play : pause} alt='play-icon' />
-  </MapButton>
+  </ChartButton>
 );
 
 PlayButton.propTypes = {

@@ -47,7 +47,7 @@ class Map extends PureComponent {
       style: 'mapbox://styles/gulagmap/ciqkwvqfs001ngdnl7tyvutwl',
       drag: true,
       zoom: 2.5,
-      center: [90, 60],
+      center: [90, 60]
       // scrollZoom: false
     });
 

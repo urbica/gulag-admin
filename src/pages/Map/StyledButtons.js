@@ -12,7 +12,10 @@ const AbstractButton = styled.button`
   outline: none;
   & img {
     width: 100%;
-    opacity: 0.8;
+    opacity: .6;
+  }
+  &:hover img {
+    opacity: .8;
   }
 `;
 
@@ -25,6 +28,10 @@ export const MapButton = styled(AbstractButton)`
   &:active {
     background-color: rgb(0,0,0);
   }
+`;
+
+export const ChartButton = styled(MapButton)`
+  margin-top: 141px;
 `;
 
 export const HeaderButton = styled(AbstractButton)`

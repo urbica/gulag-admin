@@ -10,7 +10,9 @@ const axisStyle = {
   opacity: 0.25
 };
 const textStyle = {
-  fill: '#fff'
+  fill: '#fff',
+  'font-family': 'PT Sans',
+  'font-size': '12px'
 };
 
 class Axis extends PureComponent {

@@ -5,7 +5,7 @@ import { select } from 'd3-selection';
 
 const G = styled.g`
   pointer-events: auto;
-  font-size: 14px;
+  font-size: 12px;
   & rect:hover {
     opacity: .3 !important;
   }
@@ -74,12 +74,11 @@ class Periods extends PureComponent {
       .enter()
       .append('text')
       .text(d => d.name.ru)
-      .attr('dx', '.5em')
       .attr('x', (d) => {
         const date = new Date(d.year_start, 0, 1);
         return xScale(date);
       })
-      .attr('y', 30)
+      .attr('y', 35)
       .call(wrap);
   }
 
