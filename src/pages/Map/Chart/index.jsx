@@ -3,11 +3,21 @@ import PropTypes from 'prop-types';
 import { scaleTime, scaleLinear } from 'd3-scale';
 import { max } from 'd3-array';
 import { isEmpty } from 'ramda';
+import styled from 'styled-components';
+
 import PrisonersArea from './PrisonersArea';
 import Axis from './Axis';
 import Slider from './Slider';
 import Periods from './Periods';
 import data from '../../../utils/prisonersAmountByYears';
+
+const Wrap = styled.div`
+  position: relative;
+  & svg {
+    position: relative;
+    z-index: 2;
+  }
+`;
 
 const margin = {
   top: 5,
@@ -31,59 +41,78 @@ const Chart = (props) => {
     .range([height, 0]);
 
   return (
-    <svg
-      width={width + margin.left + margin.right}
-      height={height + margin.top + margin.bottom}
-    >
-      <defs>
-        <linearGradient
-          id='Gradient'
-          x1='0%'
-          y1='31%'
-          x2='10%'
-          y2='0%'
-          spreadMethod='repeat'
-        >
-          <stop offset='0%' stopColor='rgb(225,225,225)' />
-          <stop offset='12%' stopColor='rgb(225,225,225)' />
-          <stop offset='13%' stopColor='rgb(0,0,0)' />
-          <stop offset='25%' stopColor='rgb(0,0,0)' />
-          <stop offset='26%' stopColor='rgb(225,225,225)' />
-          <stop offset='38%' stopColor='rgb(225,225,225)' />
-          <stop offset='39%' stopColor='rgb(0,0,0)' />
-          <stop offset='51%' stopColor='rgb(0,0,0)' />
-          <stop offset='52%' stopColor='rgb(225,225,225)' />
-          <stop offset='64%' stopColor='rgb(225,225,225)' />
-          <stop offset='65%' stopColor='rgb(0,0,0)' />
-          <stop offset='77%' stopColor='rgb(0,0,0)' />
-          <stop offset='78%' stopColor='rgb(225,225,225)' />
-          <stop offset='90%' stopColor='rgb(225,225,225)' />
-          <stop offset='91%' stopColor='rgb(0,0,0)' />
-          <stop offset='100%' stopColor='rgb(0,0,0)' />
-        </linearGradient>
-        <filter
-          id='gaussianBlur'
-          width='185.7%'
-          height='400%'
-          x='-42.9%'
-          y='-150%'
-          filterUnits='objectBoundingBox'
-        >
-          <feGaussianBlur stdDeviation='5' in='SourceGraphic' />
-        </filter>
-      </defs>
-      <PrisonersArea
-        width={width}
-        height={height}
-        margin={margin}
-        xScale={xScale}
-        yScale={yScale}
-        data={data}
-        onClick={setYear}
-      />
+    <Wrap>
+      <svg
+        width={width + margin.left + margin.right}
+        height={height + margin.top + margin.bottom}
+      >
+        <defs>
+          <linearGradient
+            id='Gradient'
+            x1='0%'
+            y1='31%'
+            x2='10%'
+            y2='0%'
+            spreadMethod='repeat'
+          >
+            <stop offset='0%' stopColor='rgb(225,225,225)' />
+            <stop offset='12%' stopColor='rgb(225,225,225)' />
+            <stop offset='13%' stopColor='rgb(0,0,0)' />
+            <stop offset='25%' stopColor='rgb(0,0,0)' />
+            <stop offset='26%' stopColor='rgb(225,225,225)' />
+            <stop offset='38%' stopColor='rgb(225,225,225)' />
+            <stop offset='39%' stopColor='rgb(0,0,0)' />
+            <stop offset='51%' stopColor='rgb(0,0,0)' />
+            <stop offset='52%' stopColor='rgb(225,225,225)' />
+            <stop offset='64%' stopColor='rgb(225,225,225)' />
+            <stop offset='65%' stopColor='rgb(0,0,0)' />
+            <stop offset='77%' stopColor='rgb(0,0,0)' />
+            <stop offset='78%' stopColor='rgb(225,225,225)' />
+            <stop offset='90%' stopColor='rgb(225,225,225)' />
+            <stop offset='91%' stopColor='rgb(0,0,0)' />
+            <stop offset='100%' stopColor='rgb(0,0,0)' />
+          </linearGradient>
+          <filter
+            id='gaussianBlur'
+            width='185.7%'
+            height='400%'
+            x='-42.9%'
+            y='-150%'
+            filterUnits='objectBoundingBox'
+          >
+            <feGaussianBlur stdDeviation='5' in='SourceGraphic' />
+          </filter>
+        </defs>
+        <PrisonersArea
+          width={width}
+          height={height}
+          margin={margin}
+          xScale={xScale}
+          yScale={yScale}
+          data={data}
+          onClick={setYear}
+        />
+        <Axis
+          height={height}
+          margin={margin}
+          scale={xScale}
+        />
+        <Slider
+          width={width}
+          height={height}
+          margin={margin}
+          xScale={xScale}
+          yScale={yScale}
+          data={data}
+          currentYear={currentYear}
+          setYear={setYear}
+          isVisible={currentYear !== 'all'}
+        />
+      </svg>
       {
         !isEmpty(periods) &&
         <Periods
+          width={width}
           height={height}
           margin={margin}
           xScale={xScale}
@@ -91,23 +120,7 @@ const Chart = (props) => {
           onClick={openPeriod}
         />
       }
-      <Axis
-        height={height}
-        margin={margin}
-        scale={xScale}
-      />
-      <Slider
-        width={width}
-        height={height}
-        margin={margin}
-        xScale={xScale}
-        yScale={yScale}
-        data={data}
-        currentYear={currentYear}
-        setYear={setYear}
-        isVisible={currentYear !== 'all'}
-      />
-    </svg>
+    </Wrap>
   );
 };
 

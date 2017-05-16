@@ -1,100 +1,67 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { select } from 'd3-selection';
 
-const G = styled.g`
+const Wrap = styled.div`
   pointer-events: auto;
+  position: absolute;
+  display: flex;
+  top: ${({ top }) => top}px;
+  bottom: 0;
+  left: ${({ left }) => left}px;
+  width: ${({ width }) => width}px;
+  color: #fff;
+  z-index: 1;
+`;
+
+const Period = styled.div`
+  display: inline-block;
+  width: ${({ width }) => width}px;
+  padding-top: 15px;
+  padding-left: 3px;
   font-size: 12px;
-  & rect:hover {
-    opacity: .3 !important;
-  }
-  & text {
-    pointer-events: none;
-    fill: #fff;
+  background-color: rgba(${({ id }) => id % 2 ? '255,255,255' : '0,0,0'},.1);
+  &:hover {
+    background-color: rgba(${({ id }) => id % 2 ? '255,255,255' : '0,0,0'},.3);
   }
 `;
 
-const wrap = (text) => {
-  text.each(function () {
-    const TEXT = select(this);
-    const words = TEXT.text().split(/\s+/).reverse();
-    const lineHeight = 15; // px
-    const x = TEXT.attr('x');
-    const y = TEXT.attr('y');
+const getWidth = (scale, endYear, startYear) => {
+  const dateEnd = new Date(endYear, 0, 1);
+  const dateStart = new Date(startYear, 0, 1);
 
-    let lineNumber = 0;
-    let word = '';
-
-    TEXT.text(null);
-    // eslint-disable-next-line
-    while (word = words.pop()) {
-      TEXT
-        .append('tspan')
-        .attr('x', x)
-        // eslint-disable-next-line
-        .attr('y', parseInt(y) + (lineNumber++ * lineHeight))
-        .attr('dx', '0.5em')
-        .text(word);
-    }
-  });
+  return Math.round(scale(dateEnd) - scale(dateStart));
 };
 
-class Periods extends PureComponent {
-  componentDidMount() {
-    const { xScale, margin, onClick } = this.props;
-    const periods = Object.values(this.props.periods);
-    const periodsArea = select(this.periodsArea);
+const Periods = (props) => {
+  const { width, height, margin, xScale, onClick } = props;
+  const periods = Object.values(props.periods);
 
-    periodsArea
-      .selectAll('rect')
-      .data(periods)
-      .enter()
-      .append('rect')
-      .attr('y', 0)
-      .attr('x', (d) => {
-        const date = new Date(d.year_start, 0, 1);
-        return xScale(date);
-      })
-      .attr('width', (d) => {
-        const dateStart = new Date(d.year_start, 0, 1);
-        const dateEnd = new Date(d.year_end, 0, 1);
-        return xScale(dateEnd) - xScale(dateStart);
-      })
-      .attr('height', margin.bottom)
-      .attr('style', (d, i) => `
-          fill: ${(i % 2) ? '#fff' : '#000'};
-          opacity: .1;
-        `)
-      .on('click', d => onClick(d.id));
-
-    periodsArea
-      .selectAll('text')
-      .data(periods)
-      .enter()
-      .append('text')
-      .text(d => d.name.ru)
-      .attr('x', (d) => {
-        const date = new Date(d.year_start, 0, 1);
-        return xScale(date);
-      })
-      .attr('y', 35)
-      .call(wrap);
-  }
-
-  render() {
-    const { height, margin } = this.props;
-
-    return (
-      <G
-        innerRef={ref => (this.periodsArea = ref)}
-        transform={`translate(${margin.left}, ${margin.top + height})`}
-      />
-    );
-  }
-}
+  return (
+    <Wrap
+      top={height + margin.top}
+      width={width}
+      left={margin.left}
+    >
+      {
+        periods.map(period => (
+          <Period
+            key={period.id}
+            id={period.id}
+            width={getWidth(xScale, period.year_end, period.year_start)}
+            onClick={onClick.bind(null, period.id)}
+          >
+            <div>{period.year_start}</div>
+            <div>{period.name.ru}</div>
+          </Period>
+        ))
+      }
+    </Wrap>
+  );
+};
 
 Periods.propTypes = {
+  width: PropTypes.number,
   height: PropTypes.number,
   margin: PropTypes.shape({
     top: PropTypes.number,

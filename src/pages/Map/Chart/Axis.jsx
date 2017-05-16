@@ -3,16 +3,10 @@ import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
 import { axisBottom } from 'd3-axis';
 
-const tickValues = [1918, 1923, 1930, 1937, 1941, 1945, 1953, 1960];
 const axisStyle = {
   stroke: '#fff',
   strokeWidth: 1,
   opacity: 0.25
-};
-const textStyle = {
-  fill: '#fff',
-  'font-family': 'PT Sans',
-  'font-size': '12px'
 };
 
 class Axis extends PureComponent {
@@ -22,10 +16,7 @@ class Axis extends PureComponent {
     const axis = axisBottom(scale);
     axis
       .ticks(42)
-      .tickFormat((d) => {
-        const year = d.getFullYear();
-        return (tickValues.indexOf(year) !== -1) ? year : '';
-      });
+      .tickFormat('');
 
     const el = select(this.axis);
     el.call(axis);
@@ -37,9 +28,6 @@ class Axis extends PureComponent {
       elPath.style(key, value);
       elLine.style(key, value);
     });
-
-    const elText = el.selectAll('text');
-    Object.entries(textStyle).forEach(([key, value]) => elText.style(key, value));
   }
 
   render() {
