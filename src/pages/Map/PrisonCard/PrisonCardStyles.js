@@ -11,6 +11,7 @@ export const Wrap = styled.div`
   min-height: 70%;
   padding-top: 78px;
   padding-left: 60px;
+  padding-right: 100px;
   background-color: #0c0e12;
   color: #fff;
   font-size: 14px;
@@ -44,8 +45,11 @@ export const Button = styled(ButtonTemplate)`
 `;
 
 export const Left = styled.div`
-  flex: 1 1;
-  padding-right: 47px;
+  flex: 1 1 450px;
+  padding-right: 60px;
+  padding-bottom: 40px;
+  column-gap: 60px;
+  columns: 450px;
 `;
 
 export const HalfWidth = styled.div`
@@ -92,5 +96,5 @@ export const MarkdownStyled = styled.div`
 `;
 
 export const Right = styled.div`
-  flex-basis: 500px;
+  flex-basis: 450px;
 `;

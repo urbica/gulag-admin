@@ -11,7 +11,7 @@ const margin = {
   bottom: 5,
   left: 35
 };
-const width = 600 - margin.left - margin.right;
+const width = 450 - margin.left - margin.right;
 
 const PrisonChart = ({ features }) => {
   const data = features.reduce((acc, feature) => {
