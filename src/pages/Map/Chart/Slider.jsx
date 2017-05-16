@@ -14,8 +14,7 @@ class Slider extends PureComponent {
     const slider = select(this.g);
     const barWidth = Math.round(width / 42) - 2;
     this.handle = slider
-      .append('g')
-      .attr('class', 'handle');
+      .append('g');
 
     this.currentYearRect = this.handle
       .append('rect')
@@ -31,8 +30,23 @@ class Slider extends PureComponent {
       .append('rect')
       .attr('width', barWidth)
       .attr('height', 11)
+      .attr('fill', '#1E2734')
+      .attr('filter', 'url(#gaussianBlur)')
+      .attr('transform', 'translate(1, -5)');
+
+    this.handle
+      .append('rect')
+      .attr('width', barWidth)
+      .attr('height', 11)
       .attr('fill', '#fff')
       .attr('transform', 'translate(1, -5)');
+
+    this.handle
+      .append('path')
+      .attr('d', 'M15,3 L16,3 L16,9 L15,9 L15,3 Z M19,3 L20,3 L20,9 L19,9 L19,3 Z M23,3 L24,3 L24,9 L23,9 L23,3 Z')
+      .attr('fill', '#22252F')
+      .attr('opacity', '0.3')
+      .attr('transform', 'translate(-8, -5.5)');
 
     slider
       .append('line')

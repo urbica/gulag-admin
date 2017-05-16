@@ -61,6 +61,16 @@ const Chart = (props) => {
           <stop offset='91%' stopColor='rgb(0,0,0)' />
           <stop offset='100%' stopColor='rgb(0,0,0)' />
         </linearGradient>
+        <filter
+          id='gaussianBlur'
+          width='185.7%'
+          height='400%'
+          x='-42.9%'
+          y='-150%'
+          filterUnits='objectBoundingBox'
+        >
+          <feGaussianBlur stdDeviation='5' in='SourceGraphic' />
+        </filter>
       </defs>
       <PrisonersArea
         width={width}
