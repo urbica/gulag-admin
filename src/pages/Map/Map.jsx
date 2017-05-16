@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import Controls from './ControlsStyle';
 import Popup from './Popup';
-import Button from './StyledButton';
+import { MapButton } from './StyledButtons';
 import plus from './icons/btn-plus.svg';
 import minus from './icons/btn-minus.svg';
 import allCities from '../../utils/allCities.geojson';
@@ -243,12 +243,12 @@ class Map extends PureComponent {
         slideUp={slideUp}
       >
         <Controls slideUp={slideUp}>
-          <Button onClick={() => this.map.zoomIn()}>
+          <MapButton onClick={() => this.map.zoomIn()}>
             <img src={plus} alt='plus' />
-          </Button>
-          <Button onClick={() => this.map.zoomOut()}>
+          </MapButton>
+          <MapButton onClick={() => this.map.zoomOut()}>
             <img src={minus} alt='minus' />
-          </Button>
+          </MapButton>
         </Controls>
       </Wrap>
     );

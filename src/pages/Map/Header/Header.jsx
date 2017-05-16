@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Wrap, SelectStyled } from './HeaderStyles';
-import StyledButton from '../StyledButton';
+import { HeaderButton } from '../StyledButtons';
 import search from '../icons/btn-search.svg';
 import info from '../icons/btn-info.svg';
 
@@ -13,9 +13,9 @@ const Header = (props) => {
 
   return (
     <Wrap>
-      <StyledButton onClick={openSearchCard}>
+      <HeaderButton onClick={openSearchCard}>
         <img src={search} alt='loupe-icon' />
-      </StyledButton>
+      </HeaderButton>
       <div>{ `${currentYear}\nгод` }</div>
       <SelectStyled
         value={currentLanguage}
@@ -28,9 +28,9 @@ const Header = (props) => {
         searchable={false}
         clearable={false}
       />
-      <StyledButton onClick={openInfoCard}>
+      <HeaderButton onClick={openInfoCard}>
         <img src={info} alt='info-sign' />
-      </StyledButton>
+      </HeaderButton>
     </Wrap>
   );
 };

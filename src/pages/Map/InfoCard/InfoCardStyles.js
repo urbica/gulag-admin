@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import ButtonTemplate from '../StyledButton';
 
 export const Wrap = styled.div`
   position: absolute;
@@ -15,20 +14,6 @@ export const Header = styled.header`
   padding-left: 50px;
   margin-bottom: 1px;
   background-color: #000;
-`;
-
-export const Button = styled(ButtonTemplate)`
-  position: absolute;
-  right: 0;
-  &:hover {
-    background-color: rgba(66, 74, 84 ,0.3);
-  }
-  &:active {
-    background-color: rgba(66, 74, 84 ,0.5);  
-  }
-  &:focus {
-    border-color: #9CA2A9;
-  }
 `;
 
 export const DescriptionContainer = styled.div`

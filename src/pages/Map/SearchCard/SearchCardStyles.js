@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import ButtonTemplate from '../StyledButton';
 
 export const Wrap = styled.div`
   position: fixed;
@@ -28,20 +27,6 @@ export const Input = styled.input`
   color: rgba(225, 225, 225, 0.5);
   background-color: #000;
   outline: none;
-  &:focus {
-    border-color: #9CA2A9;
-  }
-`;
-
-export const Button = styled(ButtonTemplate)`
-  position: absolute;
-  right: 0;
-  &:hover {
-    background-color: rgba(66, 74, 84 ,0.3);
-  }
-  &:active {
-    background-color: rgba(66, 74, 84 ,0.5);  
-  }
   &:focus {
     border-color: #9CA2A9;
   }

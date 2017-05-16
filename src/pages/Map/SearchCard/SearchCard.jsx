@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import debounce from 'debounce';
 import { Link } from 'react-router-dom';
 
-import { Wrap, Header, Input, Button, Item, Name, Periods } from './SearchCardStyles';
+import { Wrap, Header, Input, Item, Name, Periods } from './SearchCardStyles';
+import { CardButton } from '../StyledButtons';
 import { getRightLang, getPeriods } from '../../../utils/utils';
 import cross from '../icons/btn-close.svg';
 
@@ -46,9 +47,9 @@ class SearchCard extends Component {
       <Wrap>
         <Header>
           <Input onChange={handleOnChange} innerRef={ref => (this.input = ref)} />
-          <Button onClick={closeSearchCard}>
+          <CardButton onClick={closeSearchCard}>
             <img src={cross} alt='cross' />
-          </Button>
+          </CardButton>
         </Header>
         <div>
           {

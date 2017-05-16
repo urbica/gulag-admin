@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ButtonTemplate from '../StyledButton';
+import { CardButton } from '../StyledButtons';
 
 export const Wrap = styled.div`
   position: absolute;
@@ -38,7 +38,7 @@ export const Location = styled.div`
   font-size: 16px;
 `;
 
-export const Button = styled(ButtonTemplate)`
+export const Button = styled(CardButton)`
   position: absolute;
   top: 0;
   right: 0;

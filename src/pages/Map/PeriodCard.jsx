@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import ButtonTemplate from './StyledButton';
+import { CardButton } from './StyledButtons';
 import close from './icons/btn-close.svg';
 
 const Wrap = styled.div`
@@ -18,12 +18,6 @@ const Wrap = styled.div`
   font-family: 'PT Sans', sans-serif;
   overflow: scroll;
   z-index: 1;
-`;
-
-const Button = styled(ButtonTemplate)`
-  position: absolute;
-  top: 0;
-  right: 0;
 `;
 
 const Period = styled.div`
@@ -50,9 +44,9 @@ const PeriodCard = ({ period, currentLanguage, closeCard }) => {
 
   return (
     <Wrap>
-      <Button onClick={closeCard}>
+      <CardButton onClick={closeCard}>
         <img src={close} alt='cross' />
-      </Button>
+      </CardButton>
       <Title>{period.name[currentLanguage]}</Title>
       <Period>{`${period.year_start} – ${period.year_end}`}</Period>
       <Description>{period.description[currentLanguage]}</Description>

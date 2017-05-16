@@ -7,13 +7,13 @@ import {
   Wrap,
   Top,
   Location,
-  Button,
   Left,
   HalfWidth,
   Subtitle,
   MarkdownStyled,
   Right
 } from './PrisonCardStyles';
+import { CardButton } from '../StyledButtons';
 import PrisonChart from './PrisonChart';
 import close from '../icons/btn-close.svg';
 import { getPeriods, getRightLang } from '../../../utils/utils';
@@ -51,9 +51,9 @@ class PrisonCard extends Component {
         <Top>
           <h1>{getRightLang(prison.name, currentLanguage)}</h1>
           <Location>{getRightLang(prison.additional_names, currentLanguage)}</Location>
-          <Button onClick={closeCard}>
+          <CardButton onClick={closeCard}>
             <img src={close} alt='cross' />
-          </Button>
+          </CardButton>
         </Top>
         <Left>
           <HalfWidth>

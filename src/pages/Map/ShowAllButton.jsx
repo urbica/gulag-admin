@@ -1,24 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-import ButtonTemplate from './StyledButton';
+import { MapButton } from './StyledButtons';
 import allPeriod from './icons/btn-period.svg';
 
-const Button = styled(ButtonTemplate)`
-  pointer-events: auto;
-  background-color: #28292E;
-  transform: translateY(100%);
-  margin-top: 45px;
-`;
-
 const PlayButton = ({ onClick, showAll }) => (
-  <Button
+  <MapButton
     onClick={onClick}
     showAll={showAll}
   >
     <img src={allPeriod} alt='all-period' />
-  </Button>
+  </MapButton>
 );
 
 PlayButton.propTypes = {

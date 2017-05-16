@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Wrap, Header, Button, DescriptionContainer, Footer } from './InfoCardStyles';
+import { Wrap, Header, DescriptionContainer, Footer } from './InfoCardStyles';
+import { CardButton } from '../StyledButtons';
 import urbica from './urbica.svg';
 import museum from './museum.svg';
 import museumEn from './museum-en.svg';
@@ -17,9 +18,9 @@ const InfoCard = ({ closeCard, currentLanguage }) => (
   <Wrap>
     <Header>
       <h1>О проекте</h1>
-      <Button onClick={closeCard}>
+      <CardButton onClick={closeCard}>
         <img src={cross} alt='cross' />
-      </Button>
+      </CardButton>
     </Header>
     <DescriptionContainer>
       <p>

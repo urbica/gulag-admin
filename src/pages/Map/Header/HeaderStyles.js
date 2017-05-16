@@ -6,7 +6,7 @@ export const Wrap = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: rgba(0,0,0,.4);
+  background-color: rgba(0,0,0,.5);
   white-space: pre;
   color: #fff;
   z-index: 1;
