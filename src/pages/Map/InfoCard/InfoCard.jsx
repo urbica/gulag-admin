@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { Wrap, Header, DescriptionContainer, Footer } from './InfoCardStyles';
 import { CardButton } from '../StyledButtons';
@@ -14,13 +15,17 @@ const img = {
   de: museumEn
 };
 
+const Button = styled(CardButton)`
+  position: fixed;
+`;
+
 const InfoCard = ({ closeCard, currentLanguage }) => (
   <Wrap>
     <Header>
       <h1>О проекте</h1>
-      <CardButton onClick={closeCard}>
+      <Button onClick={closeCard}>
         <img src={cross} alt='cross' />
-      </CardButton>
+      </Button>
     </Header>
     <DescriptionContainer>
       <p>

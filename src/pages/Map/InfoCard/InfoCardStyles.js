@@ -25,16 +25,19 @@ export const Header = styled.header`
 `;
 
 export const DescriptionContainer = styled.div`
-  padding: 0 60px 70px 40px;
+  padding: 0 60px 0 40px;
   border-bottom: 1px solid #424a54;
   background-color: #000;
   flex-grow: 1;
 `;
 
 export const Footer = styled.footer`
-  display: flex;
   padding: 20px 40px;
   background-color: #000;
+  & a {
+    display: inline-block;
+    height: 40px;
+  }
   & a:first-child {
     margin-right: 40px;
   }
