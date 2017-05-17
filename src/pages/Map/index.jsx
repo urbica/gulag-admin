@@ -80,13 +80,16 @@ class IndexPage extends Component {
 
   demo() {
     const { isDemoPlayed } = this.state;
-    this.setState({ isDemoPlayed: !isDemoPlayed });
+    this.setState({
+      currentYear: 1930,
+      isDemoPlayed: !isDemoPlayed
+    });
 
     if (isDemoPlayed) {
       clearInterval(this.playDemo);
     } else {
       this.playDemo = setInterval(() => {
-        if (this.state.currentYear < 1960) {
+        if (this.state.currentYear < 1956) {
           this.setYear(this.state.currentYear + 1);
         } else {
           clearInterval(this.playDemo);

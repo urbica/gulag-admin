@@ -17,13 +17,23 @@ const Wrap = styled.div`
 const Period = styled.div`
   display: inline-block;
   width: ${({ width }) => width}px;
-  padding-top: 15px;
-  padding-left: 3px;
+  padding-top: 12px;
+  padding-left: 7px;
   font-size: 12px;
-  background-color: rgba(${({ id }) => id % 2 ? '255,255,255' : '0,0,0'},.1);
-  &:hover {
-    background-color: rgba(${({ id }) => id % 2 ? '255,255,255' : '0,0,0'},.3);
+  background-color: rgba(${({ id }) => id % 2 ? '0,0,0,.2)' : '0,0,0,.1)'};
+  & div:last-child {
+    opacity: .8;
   }
+  &:hover {
+    background-color: rgba(0,0,0,.3);
+    & div:last-child {
+      opacity: 1;
+    }
+  }
+`;
+
+const Year = styled.div`
+  margin-bottom: 5px;
 `;
 
 const getWidth = (scale, endYear, startYear) => {
@@ -51,7 +61,7 @@ const Periods = (props) => {
             width={getWidth(xScale, period.year_end, period.year_start)}
             onClick={onClick.bind(null, period.id)}
           >
-            <div>{period.year_start}</div>
+            <Year>{period.year_start}</Year>
             <div>{period.name.ru}</div>
           </Period>
         ))

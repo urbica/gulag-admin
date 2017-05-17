@@ -24,7 +24,7 @@ const G = styled.g`
 
   & g:nth-child(2) {
     & rect {
-      fill-opacity: 0.2;
+      fill-opacity: 0.1;
     }
   }
 

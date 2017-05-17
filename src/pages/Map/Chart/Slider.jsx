@@ -6,6 +6,9 @@ import styled from 'styled-components';
 
 const G = styled.g`
   display: ${({ isVisible }) => isVisible ? 'block' : 'none'};
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 class Slider extends PureComponent {
@@ -14,7 +17,8 @@ class Slider extends PureComponent {
     const slider = select(this.g);
     const barWidth = Math.round(width / 42) - 2;
     this.handle = slider
-      .append('g');
+      .append('g')
+      .attr('class', 'handle');
 
     this.currentYearRect = this.handle
       .append('rect')
@@ -52,7 +56,8 @@ class Slider extends PureComponent {
       .append('line')
       .attr('x1', xScale.range()[0])
       .attr('x2', xScale.range()[1])
-      .attr('stroke-width', 50)
+      .attr('stroke-width', 30)
+      // .attr('stroke', '#ffF')
       .attr('pointer-events', 'stroke')
       .call(
         drag()

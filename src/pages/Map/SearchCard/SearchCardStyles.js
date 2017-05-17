@@ -21,6 +21,7 @@ export const Input = styled.input`
   width: 100%;
   padding: 15px;
   padding-right: 106px;
+  padding-left: 30px;
   border: solid 1px transparent;
   margin: 0;
   font-size: 16px;
@@ -30,19 +31,20 @@ export const Input = styled.input`
 `;
 
 export const Item = styled.div`
-  margin-bottom: 1px;
+  border-bottom: 1px solid rgba(46,55,67,.3);
   background-color: #000;
   &:first-child {
-    margin-top: 51px;
+    border-top: 1px solid rgba(46,55,67,.3)
+    margin-top: 50px;
   }
   & a {
     display: block;
     padding: 15px 30px 20px;
-    color: #fff;
+    color: rgba(255,255,255,.8);
     text-decoration: none;
   }
   &:hover {
-    background-color: #1b2128;
+    background-color: #090b0c;
   }
 `;
 

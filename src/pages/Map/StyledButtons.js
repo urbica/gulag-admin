@@ -31,7 +31,7 @@ export const MapButton = styled(AbstractButton)`
 `;
 
 export const ChartButton = styled(MapButton)`
-  margin-top: 141px;
+  margin-top: 157px;
 `;
 
 export const HeaderButton = styled(AbstractButton)`

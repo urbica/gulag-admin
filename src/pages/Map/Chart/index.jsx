@@ -22,7 +22,7 @@ const Wrap = styled.div`
 const margin = {
   top: 5,
   right: 20,
-  bottom: 80,
+  bottom: 70,
   left: 20
 };
 const width = 1000 - margin.left - margin.right;
