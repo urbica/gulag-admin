@@ -2,32 +2,38 @@ import styled from 'styled-components';
 
 export const Wrap = styled.div`
   position: absolute;
+  top: 0;
+  bottom: 0;
   right: 0;
-  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
   color: rgba(225, 225, 225, 0.8);
   z-index: 1;
 `;
 
 export const Header = styled.header`
   display: flex;
-  justify-content: space-between;
-  padding-left: 50px;
-  margin-bottom: 1px;
+  flex-shrink: 0;
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-bottom: 14px;
   background-color: #000;
+  & h1 {
+    margin: 0;
+  }
 `;
 
 export const DescriptionContainer = styled.div`
-  padding: 30px 100px 70px 50px;
-  margin-bottom: 1px;
+  padding: 0 60px 70px 40px;
+  border-bottom: 1px solid #424a54;
   background-color: #000;
+  flex-grow: 1;
 `;
 
 export const Footer = styled.footer`
   display: flex;
-  align-items: center;
-  padding: 50px;
-  padding-top: 35px;
-  padding-bottom: 31px;
+  padding: 20px 40px;
   background-color: #000;
   & a:first-child {
     margin-right: 40px;

@@ -6,12 +6,12 @@ import { CardButton } from '../StyledButtons';
 import urbica from './urbica.svg';
 import museum from './museum.svg';
 import museumEn from './museum-en.svg';
-import x from './x.svg';
 import cross from '../icons/btn-close.svg';
 
 const img = {
   ru: museum,
-  en: museumEn
+  en: museumEn,
+  de: museumEn
 };
 
 const InfoCard = ({ closeCard, currentLanguage }) => (
@@ -58,7 +58,6 @@ const InfoCard = ({ closeCard, currentLanguage }) => (
       <a href='http://gmig.ru/' target='_blank' rel='noreferrer noopener'>
         <img src={img[currentLanguage]} alt='' />
       </a>
-      <img src={x} alt='' />
       <a href='http://urbica.co/' target='_blank' rel='noreferrer noopener'>
         <img src={urbica} alt='URBICA' />
       </a>

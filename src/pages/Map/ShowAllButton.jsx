@@ -8,6 +8,7 @@ const Button = styled(ChartButton)`
   font-size: 12px;
   background-color: ${({ showAll }) => showAll ? '#000' : 'rgba(0,0,0,.5)'} 
   color: ${({ showAll }) => showAll ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,.6)'};
+  ${({ showAll }) => showAll ? 'box-shadow: 0px 15px 17px -3px rgba(0,0,0,0.75);' : ''}
 `;
 
 const Text = styled.div`

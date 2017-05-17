@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 
 import Header from './Header/Header';
 import SearchCard from './SearchCard/SearchCard';
-import Year from './Year';
 import InfoCard from './InfoCard/InfoCard';
 import PlayButton from './PlayButton';
 import Chart from './Chart';
@@ -195,7 +194,6 @@ class IndexPage extends Component {
           openSearchCard={this.openSearchCard}
           changeLanguage={this.changeLanguage}
         />
-        <Year year={currentYear} />
         <ChartWrap>
           <PlayButton
             isDemoPlayed={isDemoPlayed}
