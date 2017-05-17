@@ -6,6 +6,7 @@ import { Wrap, SelectStyled } from './HeaderStyles';
 import { HeaderButton } from '../StyledButtons';
 import search from '../icons/btn-search.svg';
 import info from '../icons/btn-info.svg';
+import data from '../../../utils/prisonersAmountByYears';
 import { splitDigits } from '../../../utils/utils';
 
 const Group = styled.div`
@@ -15,6 +16,9 @@ const Group = styled.div`
     opacity: .5;
   }
 `;
+
+const formatedData = {};
+data.map(d => formatedData[d.year] = d);
 
 const Header = (props) => {
   const {
@@ -30,14 +34,20 @@ const Header = (props) => {
         <div>{ `${(currentYear === 'all') ? '1936 – 1956' : currentYear}` }</div>
         <div>{ `${(currentYear === 'all') ? 'годы' : 'год'}` }</div>
       </Group>
-      <Group>
-        <div>{splitDigits(34567)}</div>
-        <div>умерших</div>
-      </Group>
-      <Group>
-        <div>{splitDigits(34567)}</div>
-        <div>умерших</div>
-      </Group>
+      {
+        formatedData[currentYear].prisoners !== 0 &&
+        <Group>
+          <div>{splitDigits(formatedData[currentYear].prisoners)}</div>
+          <div>заключенных</div>
+        </Group>
+      }
+      {
+        formatedData[currentYear].dead !== 0 &&
+        <Group>
+          <div>{splitDigits(formatedData[currentYear].dead)}</div>
+          <div>умерших</div>
+        </Group>
+      }
       <SelectStyled
         value={currentLanguage}
         options={[
