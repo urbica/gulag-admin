@@ -25,6 +25,9 @@ const Header = (props) => {
     currentYear, currentLanguage, openInfoCard, openSearchCard, changeLanguage
   } = props;
 
+  const showPrisoners = currentYear !== 'all' && formatedData[currentYear].prisoners !== 0;
+  const showDead = currentYear !== 'all' && formatedData[currentYear].dead !== 0;
+
   return (
     <Wrap>
       <HeaderButton onClick={openSearchCard}>
@@ -35,14 +38,14 @@ const Header = (props) => {
         <div>{ `${(currentYear === 'all') ? 'годы' : 'год'}` }</div>
       </Group>
       {
-        formatedData[currentYear].prisoners !== 0 &&
+        showPrisoners &&
         <Group>
           <div>{splitDigits(formatedData[currentYear].prisoners)}</div>
           <div>заключенных</div>
         </Group>
       }
       {
-        formatedData[currentYear].dead !== 0 &&
+        showDead &&
         <Group>
           <div>{splitDigits(formatedData[currentYear].dead)}</div>
           <div>умерших</div>
