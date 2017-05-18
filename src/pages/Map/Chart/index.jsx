@@ -25,7 +25,8 @@ const margin = {
   bottom: 70,
   left: 20
 };
-const width = 1000 - margin.left - margin.right;
+// const screenWidth = (window.innerWidth < 1500) ? window.innerWidth : 1500;
+const width = window.innerWidth - 120 - margin.left - margin.right;
 const height = 300 - margin.top - margin.bottom;
 
 const Chart = (props) => {

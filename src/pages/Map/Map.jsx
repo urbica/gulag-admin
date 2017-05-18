@@ -127,16 +127,10 @@ class Map extends PureComponent {
         'circle-radius': {
           property: 'peoples',
           stops: [
-            [{ zoom: 2, value: 0 }, 4],
-            [{ zoom: 2, value: 200000 }, 20],
-            [{ zoom: 4, value: 0 }, 5],
-            [{ zoom: 4, value: 200000 }, 40],
-            [{ zoom: 6, value: 0 }, 6],
-            [{ zoom: 6, value: 200000 }, 80],
-            [{ zoom: 10, value: 0 }, 8],
-            [{ zoom: 10, value: 200000 }, 100],
-            [{ zoom: 18, value: 0 }, 60],
-            [{ zoom: 18, value: 200000 }, 460]
+            [{ zoom: 1, value: 0 }, 4],
+            [{ zoom: 1, value: 200000 }, 20],
+            [{ zoom: 18, value: 0 }, 32],
+            [{ zoom: 18, value: 200000 }, 400]
           ]
         }
       }
@@ -151,16 +145,10 @@ class Map extends PureComponent {
         'circle-radius': {
           property: 'peoples',
           stops: [
-            [{ zoom: 2, value: 0 }, 4],
-            [{ zoom: 2, value: 200000 }, 20],
-            [{ zoom: 4, value: 0 }, 5],
-            [{ zoom: 4, value: 200000 }, 40],
-            [{ zoom: 6, value: 0 }, 6],
-            [{ zoom: 6, value: 200000 }, 80],
-            [{ zoom: 10, value: 0 }, 8],
-            [{ zoom: 10, value: 200000 }, 100],
-            [{ zoom: 18, value: 0 }, 60],
-            [{ zoom: 18, value: 200000 }, 460]
+            [{ zoom: 1, value: 0 }, 4],
+            [{ zoom: 1, value: 200000 }, 20],
+            [{ zoom: 18, value: 0 }, 32],
+            [{ zoom: 18, value: 200000 }, 400]
           ]
         }
       },
@@ -172,10 +160,13 @@ class Map extends PureComponent {
       source: 'allCities',
       layout: {
         'text-field': '{historical_name}',
-        'text-size': 11
+        'text-size': 12
       },
       paint: {
-        'text-color': '#555'
+        'text-color': '#535b6e'
+        // 'text-halo-width': 0.75,
+        // 'text-halo-color': 'rgba(27,33,40,0.6)',
+        // 'text-halo-blur': 1
       }
     });
 

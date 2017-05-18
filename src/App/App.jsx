@@ -27,6 +27,7 @@ injectGlobal`
     margin: 0;
     font-family: 'PT Sans', sans-serif;
     font-size: 16px;
+    background-color: #394554;
     -webkit-font-smoothing: antialiased;
   }
 `;

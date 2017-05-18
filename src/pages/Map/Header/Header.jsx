@@ -34,7 +34,7 @@ const Header = (props) => {
         <img src={search} alt='loupe-icon' />
       </HeaderButton>
       <Group>
-        <div>{ `${(currentYear === 'all') ? '1936 – 1956' : currentYear}` }</div>
+        <div>{ `${(currentYear === 'all') ? '1918 – 1960' : currentYear}` }</div>
         <div>{ `${(currentYear === 'all') ? 'годы' : 'год'}` }</div>
       </Group>
       {

@@ -25,6 +25,9 @@ const ChartWrap = styled.div`
   width: 100%;
   pointer-events: none;
   z-index: 1;
+  @media (max-width: 925px) {
+    display: none;
+  }
 `;
 
 class IndexPage extends Component {
