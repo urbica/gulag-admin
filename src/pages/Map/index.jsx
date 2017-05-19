@@ -146,7 +146,7 @@ class IndexPage extends Component {
   }
 
   render() {
-    const { periods, prisons, activities } = this.props;
+    const { periods, prisons, activities, places } = this.props;
     const {
       currentYear, currentPrisons, currentLanguage, isDemoPlayed, openedPrisonCoordinates
     } = this.state;
@@ -167,6 +167,7 @@ class IndexPage extends Component {
         currentLanguage={currentLanguage}
         closeSearchCard={this.closeCard}
         setYear={this.setYear}
+        places={places}
       />
     ));
 

@@ -27,7 +27,7 @@ class SearchCard extends Component {
   }
 
   render() {
-    const { closeSearchCard, prisons, currentLanguage, setYear } = this.props;
+    const { closeSearchCard, prisons, currentLanguage, setYear, places } = this.props;
 
     const onChange = event => this.onSearchChange(event.target.value);
     const delayedOnChange = debounce(onChange, 300);
@@ -64,6 +64,7 @@ class SearchCard extends Component {
               >
                 <Name>{getRightLang(p.name, currentLanguage)}</Name>
                 <Periods>{getPeriods(p)}</Periods>
+                <Periods>{places[p.place_id] ? places[p.place_id].name : ''}</Periods>
               </Item>
             ))
           }

@@ -271,6 +271,7 @@ class App extends Component {
             prisons={prisons}
             periods={periods}
             activities={activities}
+            places={places}
           />
         </Switch>
       </BrowserRouter>
