@@ -14,6 +14,7 @@ import IndexPage from '../pages/Map';
 import LoginPage from '../pages/Admin/LoginPage';
 import AdminPage from '../pages/Admin';
 import PrisonPage from '../pages/Admin/PrisonPage';
+import PeriodPage from '../pages/Admin/PeriodPage';
 import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
 
@@ -125,7 +126,7 @@ class App extends Component {
       .then(response => response.json())
       .then(([submittedPeriod]) => {
         this.setState(assocPath(['periods', submittedPeriod.id], submittedPeriod), () =>
-          history.push(`/admin/period/${submittedPeriod.id}`)
+          history.push(`/admin/period${submittedPeriod.id}`)
         );
         alert(`Период "${period.name.ru}" обновлён`);
       });
@@ -234,6 +235,14 @@ class App extends Component {
     return (
       <BrowserRouter history={history}>
         <Switch>
+          <PrivateRoute
+            path='/admin/period:id'
+            isAuthenticated={!!token}
+            component={PeriodPage}
+            updateHandler={this.updatePeriod}
+            submitHandler={this.submitPeriod}
+            periods={periods}
+          />
           <PrivateRoute
             path='/admin/prison:id'
             isAuthenticated={!!token}

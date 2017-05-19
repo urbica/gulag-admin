@@ -198,6 +198,7 @@ class Map extends PureComponent {
       layout: {
         'text-field': '{historical_name}',
         'text-size': 12
+        // 'text-font': ['PT Sans']
       },
       paint: {
         'text-color': '#535b6e'

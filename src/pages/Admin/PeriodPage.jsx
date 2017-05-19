@@ -58,7 +58,9 @@ class PeriodPage extends Component {
   }
 
   render() {
-    const { period, updateHandler, submitHandler } = this.props;
+    const { periods, updateHandler, submitHandler, match } = this.props;
+    const period = periods[match.params.id];
+
     const updateFrom = curryN(2, (getValue, lens) =>
       pipe(getValue, set(lens, __, period), updateHandler));
 
