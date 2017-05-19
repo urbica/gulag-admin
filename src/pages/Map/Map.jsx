@@ -47,7 +47,11 @@ class Map extends PureComponent {
       style: 'mapbox://styles/gulagmap/ciqkwvqfs001ngdnl7tyvutwl',
       drag: true,
       zoom: 2.5,
-      center: [90, 60]
+      center: [90, 60],
+      maxBounds: [
+        [3.240227240273953, 1.468392535003744],
+        [195.26793554662487, 82.79012500420922]
+      ]
       // scrollZoom: false
     });
 
@@ -209,6 +213,7 @@ class Map extends PureComponent {
   }
 
   onClick(e) {
+    console.log(e);
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['prisonsHalo'] });
     if (this.popup) this.popup.remove();
 
