@@ -24,7 +24,6 @@ injectGlobal`
   }
 
   body {
-    margin: 0;
     font-family: 'PT Sans', sans-serif;
     font-size: 16px;
     background-color: #394554;
@@ -214,6 +213,7 @@ class App extends Component {
 
   deletePrison(prison) {
     if (prison.id) {
+      // eslint-disable-next-line
       if (confirm(`Удалить лагерь "${prison.name.ru}"?`)) {
         fetch(`/api/public/camps/id/${prison.id}`, {
           method: 'DELETE',

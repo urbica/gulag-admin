@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -58,6 +58,6 @@ export const One = styled(Block)`
 `;
 
 Block.propTypes = {
-  justify: React.PropTypes.oneOf(['center', 'end']),
-  align: React.PropTypes.oneOf(['center', 'end'])
+  justify: PropTypes.oneOf(['center', 'end']),
+  align: PropTypes.oneOf(['center', 'end'])
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const border = {
@@ -44,7 +44,7 @@ const Button = styled.button`
 `;
 
 Button.propTypes = {
-  color: React.PropTypes.oneOf(['orange', 'red'])
+  color: PropTypes.oneOf(['orange', 'red'])
 };
 
 export default Button;

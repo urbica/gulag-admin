@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Label = styled.label`
@@ -54,8 +55,8 @@ const DraftSwitch = (props) => {
 };
 
 DraftSwitch.propTypes = {
-  published: React.PropTypes.bool.isRequired,
-  onChange: React.PropTypes.func.isRequired
+  published: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default DraftSwitch;

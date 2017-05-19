@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const color = {
@@ -17,7 +17,7 @@ const FieldTitle = styled.div`
 `;
 
 FieldTitle.propTypes = {
-  color: React.PropTypes.oneOf(['blue'])
+  color: PropTypes.oneOf(['blue'])
 };
 
 export default FieldTitle;

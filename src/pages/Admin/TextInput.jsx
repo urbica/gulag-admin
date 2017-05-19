@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const InputWrap = styled.label`
@@ -63,13 +64,13 @@ const TextInput = (props) => {
 };
 
 TextInput.propTypes = {
-  desc: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
+  desc: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
   ]),
-  onChange: React.PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired
 };
 
 export default TextInput;

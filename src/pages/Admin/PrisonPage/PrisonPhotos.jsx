@@ -79,6 +79,7 @@ class PrisonPhotos extends React.PureComponent {
 
   deletePhoto(photoId) {
     const { deletePhoto } = this.props;
+    // eslint-disable-next-line
     if (confirm('Удалить фото?')) {
       deletePhoto(photoId);
     }

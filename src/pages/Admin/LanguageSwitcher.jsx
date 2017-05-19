@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const LangChangerWrap = styled.div`
@@ -28,9 +29,9 @@ const LanguageChanger = (props) => {
   return (
     <LangChangerWrap>
       {
-        Object.keys(languages).map((language, index) =>
+        Object.keys(languages).map(language =>
           <Button
-            key={index}
+            key={language}
             active={language === activeLang}
             width={buttonWidth}
             onClick={onChange.bind(null, language)}
@@ -44,9 +45,9 @@ const LanguageChanger = (props) => {
 };
 
 LanguageChanger.propTypes = {
-  languages: React.PropTypes.object.isRequired,
-  activeLang: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired
+  languages: PropTypes.object.isRequired,
+  activeLang: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default LanguageChanger;
