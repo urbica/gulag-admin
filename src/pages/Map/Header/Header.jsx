@@ -25,8 +25,8 @@ const Header = (props) => {
     currentYear, currentLanguage, openInfoCard, openSearchCard, changeLanguage
   } = props;
 
-  const showPrisoners = currentYear !== 'all' && formatedData[currentYear].prisoners !== 0;
-  const showDead = currentYear !== 'all' && formatedData[currentYear].dead !== 0;
+  const showPrisoners = currentYear !== 'all';
+  const showDead = currentYear !== 'all';
 
   return (
     <Wrap>
@@ -39,6 +39,7 @@ const Header = (props) => {
       </Group>
       {
         showPrisoners &&
+        formatedData[currentYear].prisoners !== 0 &&
         <Group>
           <div>{splitDigits(formatedData[currentYear].prisoners)}</div>
           <div>заключенных</div>
@@ -46,9 +47,17 @@ const Header = (props) => {
       }
       {
         showDead &&
+        formatedData[currentYear].dead !== 0 &&
         <Group>
           <div>{splitDigits(formatedData[currentYear].dead)}</div>
           <div>умерших</div>
+        </Group>
+      }
+      {
+        formatedData[currentYear].prisoners === 0 &&
+        formatedData[currentYear].dead === 0 &&
+        <Group>
+          <div>данные уточняются</div>
         </Group>
       }
       <SelectStyled

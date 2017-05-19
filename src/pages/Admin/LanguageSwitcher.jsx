@@ -29,7 +29,7 @@ const LanguageChanger = (props) => {
   return (
     <LangChangerWrap>
       {
-        Object.keys(languages).map(language =>
+        Object.keys(languages).map(language => (
           <Button
             key={language}
             active={language === activeLang}
@@ -38,7 +38,7 @@ const LanguageChanger = (props) => {
           >
             { languages[language] }
           </Button>
-        )
+        ))
       }
     </LangChangerWrap>
   );
