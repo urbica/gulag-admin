@@ -18,7 +18,7 @@ const Group = styled.div`
 `;
 
 const formatedData = {};
-data.map(d => formatedData[d.year] = d);
+data.map(d => (formatedData[d.year] = d));
 
 const Header = (props) => {
   const {
