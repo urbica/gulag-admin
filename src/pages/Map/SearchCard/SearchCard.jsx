@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
-import { Link } from 'react-router-dom';
 
 import { Wrap, Header, Input, Item, Name, Periods } from './SearchCardStyles';
 import { CardButton } from '../StyledButtons';
 import { getRightLang, getPeriods } from '../../../utils/utils';
+import { getFirstYear } from '../../../utils/prison-utils';
 import cross from '../icons/btn-close.svg';
 
 class SearchCard extends Component {
@@ -26,7 +27,7 @@ class SearchCard extends Component {
   }
 
   render() {
-    const { closeSearchCard, prisons, currentLanguage } = this.props;
+    const { closeSearchCard, prisons, currentLanguage, setYear } = this.props;
 
     const onChange = event => this.onSearchChange(event.target.value);
     const delayedOnChange = debounce(onChange, 300);
@@ -54,11 +55,15 @@ class SearchCard extends Component {
         <div>
           {
             result.map(p => (
-              <Item key={p.id}>
-                <Link to={`/prison${p.id}`}>
-                  <Name>{getRightLang(p.name, currentLanguage)}</Name>
-                  <Periods>{getPeriods(p)}</Periods>
-                </Link>
+              <Item
+                key={p.id}
+                onClick={() => {
+                  setYear(getFirstYear(p));
+                  this.props.history.push(`/prison${p.id}`);
+                }}
+              >
+                <Name>{getRightLang(p.name, currentLanguage)}</Name>
+                <Periods>{getPeriods(p)}</Periods>
               </Item>
             ))
           }
@@ -73,4 +78,4 @@ SearchCard.propTypes = {
   currentLanguage: PropTypes.string
 };
 
-export default SearchCard;
+export default withRouter(SearchCard);

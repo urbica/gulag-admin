@@ -158,25 +158,25 @@ class Map extends PureComponent {
       },
       filter: ['==', 'id', '']
     });
-    this.map.addLayer({
-      id: 'prisonsHalo_active',
-      type: 'circle',
-      source: 'prisons',
-      paint: {
-        'circle-color': '#eb4200',
-        'circle-opacity': 0.7,
-        'circle-radius': {
-          property: 'peoples',
-          stops: [
-            [{ zoom: 1, value: 0 }, 4],
-            [{ zoom: 1, value: 200000 }, 20],
-            [{ zoom: 18, value: 0 }, 32],
-            [{ zoom: 18, value: 200000 }, 400]
-          ]
-        }
-      },
-      filter: ['==', 'id', '']
-    });
+    // this.map.addLayer({
+    //   id: 'prisonsHalo_active',
+    //   type: 'circle',
+    //   source: 'prisons',
+    //   paint: {
+    //     'circle-color': '#eb4200',
+    //     'circle-opacity': 0.7,
+    //     'circle-radius': {
+    //       property: 'peoples',
+    //       stops: [
+    //         [{ zoom: 1, value: 0 }, 4],
+    //         [{ zoom: 1, value: 200000 }, 20],
+    //         [{ zoom: 18, value: 0 }, 32],
+    //         [{ zoom: 18, value: 200000 }, 400]
+    //       ]
+    //     }
+    //   },
+    //   filter: ['==', 'id', '']
+    // });
     this.map.addLayer({
       id: 'prisonsNames',
       type: 'symbol',
@@ -257,7 +257,7 @@ class Map extends PureComponent {
       this.map.flyTo({
         center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
       });
-
+      // this.map.setFilter('prisonsHalo_active', ['==', 'id', feature.properties.id]);
       this.props.openCard(feature.properties.id);
     }
   }

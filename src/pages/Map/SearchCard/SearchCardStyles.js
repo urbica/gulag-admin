@@ -33,15 +33,11 @@ export const Input = styled.input`
 export const Item = styled.div`
   border-bottom: 1px solid rgba(46,55,67,.3);
   background-color: #000;
+  padding: 15px 30px 20px;
+  color: rgba(255,255,255,.8);
   &:first-child {
     border-top: 1px solid rgba(46,55,67,.3)
     margin-top: 50px;
-  }
-  & a {
-    display: block;
-    padding: 15px 30px 20px;
-    color: rgba(255,255,255,.8);
-    text-decoration: none;
   }
   &:hover {
     background-color: #090b0c;

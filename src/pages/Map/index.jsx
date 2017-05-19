@@ -166,6 +166,7 @@ class IndexPage extends Component {
         prisons={prisons}
         currentLanguage={currentLanguage}
         closeSearchCard={this.closeCard}
+        setYear={this.setYear}
       />
     ));
 
