@@ -4,8 +4,8 @@ import { select } from 'd3-selection';
 import styled from 'styled-components';
 
 const G = styled.g`
+  pointer-events: auto;
   & g:first-child {
-    pointer-events: auto;
     & rect {
       fill: #eb4200;
       opacity: .1;
@@ -24,12 +24,12 @@ const G = styled.g`
 
   & g:nth-child(2) {
     & rect {
+      cursor: pointer;
       fill-opacity: 0.1;
     }
   }
 
   & g:last-child {
-    pointer-events: auto;
     & rect {
       fill: #fff;
       opacity: .1;
@@ -117,7 +117,8 @@ class PrisonersArea extends PureComponent {
       })
       // .attr('height', height)
       .attr('height', height - yScale(250000))
-      .attr('fill', 'url(#Gradient)');
+      .attr('fill', 'url(#Gradient)')
+      .on('click', d => onClick(d.year));
 
     // prisoners group
     prisonersG

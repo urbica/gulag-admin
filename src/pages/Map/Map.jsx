@@ -213,7 +213,6 @@ class Map extends PureComponent {
   }
 
   onClick(e) {
-    console.log(e);
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['prisonsHalo'] });
     if (this.popup) this.popup.remove();
 
@@ -234,7 +233,7 @@ class Map extends PureComponent {
         .setLngLat(features[0].geometry.coordinates)
         .setDOMContent(div)
         .addTo(this.map);
-    } else {
+    } else if (features.length > 0) {
       const feature = features[0];
       this.map.flyTo({
         center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
