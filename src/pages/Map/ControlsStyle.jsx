@@ -11,6 +11,9 @@ const Controls = styled.div`
     display: block;
     margin-bottom: 1px;
   }
+  @media (max-width: 925px) {
+    display: none;
+  }
 `;
 
 export default Controls;

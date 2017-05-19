@@ -49,8 +49,8 @@ class Map extends PureComponent {
       zoom: 2.5,
       center: [90, 60],
       maxBounds: [
-        [3.240227240273953, 1.468392535003744],
-        [195.26793554662487, 82.79012500420922]
+        [-94, -14],
+        [238, 85]
       ]
       // scrollZoom: false
     });
@@ -141,6 +141,25 @@ class Map extends PureComponent {
     });
     this.map.addLayer({
       id: 'prisonsHalo_hover',
+      type: 'circle',
+      source: 'prisons',
+      paint: {
+        'circle-color': '#eb4200',
+        'circle-opacity': 0.7,
+        'circle-radius': {
+          property: 'peoples',
+          stops: [
+            [{ zoom: 1, value: 0 }, 4],
+            [{ zoom: 1, value: 200000 }, 20],
+            [{ zoom: 18, value: 0 }, 32],
+            [{ zoom: 18, value: 200000 }, 400]
+          ]
+        }
+      },
+      filter: ['==', 'id', '']
+    });
+    this.map.addLayer({
+      id: 'prisonsHalo_active',
       type: 'circle',
       source: 'prisons',
       paint: {
