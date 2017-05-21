@@ -54,8 +54,7 @@ const Header = (props) => {
         </Group>
       }
       {
-        formatedData[currentYear].prisoners === 0 &&
-        formatedData[currentYear].dead === 0 &&
+        (currentYear < 1930 || currentYear > 1956) &&
         <Group>
           <div>данные уточняются</div>
         </Group>
