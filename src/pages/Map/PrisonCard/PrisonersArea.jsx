@@ -9,19 +9,16 @@ const G = styled.g`
   pointer-events: auto;
   & rect {
     fill: #fff;
-    opacity: .1;
-    transition: 2s;
-    &:hover {
-      cursor: pointer;
-      opacity: .2;
-      transition: .2s;
-    }
+    opacity: .2;
   }
   & line {
     stroke-width: 2px;
   }
   & text {
     fill: #fff;
+  }
+  & g rect {
+    fill: #5d4747;
   }
 `;
 
@@ -71,6 +68,24 @@ class PrisonersArea extends PureComponent {
         const date = new Date(d.year, 0, 1);
         return yScale(date) + 19;
       });
+
+    prisonersArea
+      .append('g')
+      .selectAll('g')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('y', (d) => {
+        const date = new Date(d.year, 0, 1);
+        return yScale(date) + 1;
+      })
+      .attr('width', (d) => {
+        if (d.prisoners === 0) {
+          return 150;
+        }
+        return 0;
+      })
+      .attr('height', 25);
   }
 
   render() {
