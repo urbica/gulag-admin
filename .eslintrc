@@ -1,6 +1,7 @@
 {
   "extends": "airbnb",
   "plugins": [
+    "compat",
     "import",
     "react"
   ],
@@ -12,11 +13,15 @@
   "rules": {
     "jsx-quotes": ["error", "prefer-single"],
     "comma-dangle": ["error", "never"],
+    "compat/compat": 2,
     "react/prop-types": [1],
     "no-confusing-arrow": [0],
     "react/jsx-no-bind": [0],
     "react/require-default-props": [0],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/forbid-prop-types": [1, { "forbid": ["any", "array"] }]
+  },
+  "settings": {
+    "polyfills": ["fetch"]
   }
 }

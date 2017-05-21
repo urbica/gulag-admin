@@ -83,7 +83,6 @@ class PrisonCard extends Component {
 
 PrisonCard.propTypes = {
   setYear: PropTypes.func,
-  visible: PropTypes.bool,
   prison: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.object

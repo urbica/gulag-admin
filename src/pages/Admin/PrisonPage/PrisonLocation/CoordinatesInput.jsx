@@ -21,9 +21,8 @@ const CoordinatesInput = (props) => {
   const value = `${coordinates[1]}, ${coordinates[0]}`;
 
   const changeHandler = (event) => {
-    const { value } = event.target;
     const regexp = /^(\d{1,3}(\.\d+)?),\s*(\d{1,3}(\.\d+)?)$/;
-    const match = regexp.exec(value);
+    const match = regexp.exec(event.target.value);
     const newCoordinates = match ? [match[3], match[1]] : [0, 0];
     updateCoordinates(newCoordinates);
   };

@@ -34,12 +34,12 @@ const Periods = (props) => {
       <Title>Периоды</Title>
       {
         periods &&
-        Object.keys(periods).map(index =>
+        Object.keys(periods).map(index => (
           <Button
             key={index}
             to={`/admin/period${index}`}
           >{ periods[index].name.ru }</Button>
-        )
+        ))
       }
     </Wrap>
   );
