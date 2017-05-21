@@ -32,10 +32,10 @@ class PrisonCard extends Component {
   }
 
   render() {
-    const { visible, prison, activities, closeCard, currentLanguage } = this.props;
+    const { prison, activities, closeCard, currentLanguage } = this.props;
 
     if (!prison) {
-      return <Wrap visible={visible}>Загрузка</Wrap>;
+      return <Wrap>Загрузка</Wrap>;
     }
 
     const activity = prison.activity_id && activities[prison.activity_id]
@@ -47,7 +47,7 @@ class PrisonCard extends Component {
       : '';
 
     return (
-      <Wrap visible={visible}>
+      <Wrap>
         <Top>
           <h1>{getRightLang(prison.name, currentLanguage)}</h1>
           <Location>{getRightLang(prison.additional_names, currentLanguage)}</Location>

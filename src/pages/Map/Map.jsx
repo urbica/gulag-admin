@@ -38,6 +38,8 @@ class Map extends PureComponent {
     this.onLoad = this.onLoad.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.highlightFeature = this.highlightFeature.bind(this);
+    this.onSourcedata = this.onSourcedata.bind(this);
   }
 
   componentDidMount() {
@@ -158,25 +160,25 @@ class Map extends PureComponent {
       },
       filter: ['==', 'id', '']
     });
-    // this.map.addLayer({
-    //   id: 'prisonsHalo_active',
-    //   type: 'circle',
-    //   source: 'prisons',
-    //   paint: {
-    //     'circle-color': '#eb4200',
-    //     'circle-opacity': 0.7,
-    //     'circle-radius': {
-    //       property: 'peoples',
-    //       stops: [
-    //         [{ zoom: 1, value: 0 }, 4],
-    //         [{ zoom: 1, value: 200000 }, 20],
-    //         [{ zoom: 18, value: 0 }, 32],
-    //         [{ zoom: 18, value: 200000 }, 400]
-    //       ]
-    //     }
-    //   },
-    //   filter: ['==', 'id', '']
-    // });
+    this.map.addLayer({
+      id: 'prisonsHalo_active',
+      type: 'circle',
+      source: 'prisons',
+      paint: {
+        'circle-color': '#eb4200',
+        'circle-opacity': 0.7,
+        'circle-radius': {
+          property: 'peoples',
+          stops: [
+            [{ zoom: 1, value: 0 }, 4],
+            [{ zoom: 1, value: 200000 }, 20],
+            [{ zoom: 18, value: 0 }, 32],
+            [{ zoom: 18, value: 200000 }, 400]
+          ]
+        }
+      },
+      filter: ['==', 'id', '']
+    });
     this.map.addLayer({
       id: 'prisonsNames',
       type: 'symbol',
@@ -214,6 +216,7 @@ class Map extends PureComponent {
       if (attrEls.length > 0) attrEls[0].insertAdjacentHTML('beforeend', credits);
     }, 1000);
 
+    this.map.on('sourcedata', this.onSourcedata);
     this.map.on('mousemove', this.onMouseMove);
     this.map.on('click', this.onClick);
   }
@@ -258,8 +261,21 @@ class Map extends PureComponent {
       this.map.flyTo({
         center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
       });
-      // this.map.setFilter('prisonsHalo_active', ['==', 'id', feature.properties.id]);
       this.props.openCard(feature.properties.id);
+    }
+  }
+
+  onSourcedata() {
+    if (this.map.getLayer('prisonsHalo_active')) {
+      this.highlightFeature();
+    }
+  }
+
+  highlightFeature() {
+    if (this.state.slideUp) {
+      this.map.setFilter('prisonsHalo_active', ['==', 'id', this.props.openedPrisonId]);
+    } else {
+      this.map.setFilter('prisonsHalo_active', ['==', 'id', '']);
     }
   }
 

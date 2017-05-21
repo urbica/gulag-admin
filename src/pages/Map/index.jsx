@@ -63,6 +63,7 @@ class IndexPage extends Component {
       const prisonId = nextProps.location.pathname.match(/^\/prison(\d+)$/)[1];
 
       this.setState({
+        openedPrisonId: +prisonId,
         openedPrisonCoordinates: nextProps.prisons[prisonId].features[0].geometry.coordinates
       });
     }
@@ -148,7 +149,8 @@ class IndexPage extends Component {
   render() {
     const { periods, prisons, activities, places } = this.props;
     const {
-      currentYear, currentPrisons, currentLanguage, isDemoPlayed, openedPrisonCoordinates
+      currentYear, currentPrisons, currentLanguage, isDemoPlayed, openedPrisonCoordinates,
+      openedPrisonId
     } = this.state;
 
     const features = (currentYear !== 'all') ? prisonsToFeatures(currentPrisons, currentYear) :
@@ -173,7 +175,6 @@ class IndexPage extends Component {
 
     const PrisonCardWithRouter = withRouter(({ match }) => (
       <PrisonCard
-        visible
         prison={!isEmpty(prisons) && prisons[match.params.prisonId]}
         closeCard={this.closeCard}
         setYear={this.setYear}
@@ -217,6 +218,7 @@ class IndexPage extends Component {
         </ChartWrap>
         <Map
           centerCoordinates={openedPrisonCoordinates}
+          openedPrisonId={openedPrisonId}
           features={features}
           openCard={this.openPrisonCard}
           currentYear={currentYear}

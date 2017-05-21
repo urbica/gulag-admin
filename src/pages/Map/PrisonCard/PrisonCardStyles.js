@@ -3,7 +3,7 @@ import { CardButton } from '../StyledButtons';
 
 export const Wrap = styled.div`
   position: absolute;
-  top: ${({ visible }) => visible ? '30%' : '100%'};
+  top: 30%;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
