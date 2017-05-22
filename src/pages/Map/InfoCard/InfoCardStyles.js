@@ -26,7 +26,7 @@ export const Header = styled.header`
 
 export const DescriptionContainer = styled.div`
   padding: 0 60px 0 40px;
-  border-bottom: 1px solid #424a54;
+  border-bottom: 1px solid rgba(46,55,67,.3);
   background-color: #000;
   flex-grow: 1;
 `;

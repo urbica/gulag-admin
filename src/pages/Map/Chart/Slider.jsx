@@ -50,18 +50,18 @@ class Slider extends PureComponent {
       .attr('d', 'M15,3 L16,3 L16,9 L15,9 L15,3 Z M19,3 L20,3 L20,9 L19,9 L19,3 Z M23,3 L24,3 L24,9 L23,9 L23,3 Z')
       .attr('fill', '#22252F')
       .attr('opacity', '0.3')
-      .attr('transform', 'translate(-8, -5.5)');
+      .attr('transform', `translate(${-18.3 + (barWidth / 2)}, -5.5)`);
 
     slider
       .append('line')
       .attr('x1', xScale.range()[0])
       .attr('x2', xScale.range()[1])
       .attr('stroke-width', 30)
-      // .attr('stroke', '#ffF')
-      .attr('pointer-events', 'stroke')
+      .attr('stroke', 'transparent')
+      .attr('pointer-events', 'auto')
       .call(
         drag()
-          .on('start drag', () => setYear(xScale.invert(event.x).getFullYear()))
+          .on('drag', () => setYear(xScale.invert(event.x).getFullYear()))
       );
   }
 

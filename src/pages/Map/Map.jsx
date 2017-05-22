@@ -69,7 +69,11 @@ class Map extends PureComponent {
       source.setData({ type: 'FeatureCollection', features });
     }
     if (cities) {
-      this.map.setFilter('cities_labels', ['==', 'year', currentYear]);
+      if (currentYear !== 'all') {
+        this.map.setFilter('cities_labels', ['==', 'year', currentYear]);
+      } else {
+        this.map.setFilter('cities_labels', ['==', 'year', 1960]);
+      }
     }
 
     if (location.pathname.match('/prison')) {
@@ -186,7 +190,8 @@ class Map extends PureComponent {
       layout: {
         'text-field': '{ruName}',
         'text-size': 12,
-        'text-anchor': 'left'
+        'text-anchor': 'left',
+        'text-justify': 'left'
       },
       paint: {
         'text-color': '#fff'

@@ -25,9 +25,6 @@ const ChartWrap = styled.div`
   width: 100%;
   pointer-events: none;
   z-index: 1;
-  @media (max-width: 925px) {
-    display: none;
-  }
 `;
 
 class IndexPage extends Component {
@@ -39,7 +36,8 @@ class IndexPage extends Component {
       lastYear: null,
       currentPrisons: [],
       openedPrisonCoordinates: [],
-      isDemoPlayed: false
+      isDemoPlayed: false,
+      width: window.innerWidth
     };
     this.demo = this.demo.bind(this);
     this.setYear = this.setYear.bind(this);
@@ -51,6 +49,12 @@ class IndexPage extends Component {
     this.closeCard = this.closeCard.bind(this);
     this.changeLanguage = this.changeLanguage.bind(this);
     this.showAllPrisons = this.showAllPrisons.bind(this);
+  }
+
+  componentDidMount() {
+    window.onresize = () => {
+      this.setState({ width: window.innerWidth });
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -135,7 +139,8 @@ class IndexPage extends Component {
           id: prison.id,
           ruName: prison.name.ru,
           enName: prison.name.en,
-          deName: prison.name.de
+          deName: prison.name.de,
+          peoples: 10000
         };
 
         return prev.concat([{ ...feature, properties: newProperties }]);
@@ -150,7 +155,7 @@ class IndexPage extends Component {
     const { periods, prisons, activities, places } = this.props;
     const {
       currentYear, currentPrisons, currentLanguage, isDemoPlayed, openedPrisonCoordinates,
-      openedPrisonId
+      openedPrisonId, width
     } = this.state;
 
     const features = (currentYear !== 'all') ? prisonsToFeatures(currentPrisons, currentYear) :
@@ -210,6 +215,7 @@ class IndexPage extends Component {
             currentYear={currentYear}
             setYear={this.setYear}
             openPeriod={this.openPeriodCard}
+            width={width}
           />
           <ShowAllButton
             onClick={this.showAllYears}

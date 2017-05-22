@@ -11,7 +11,7 @@ const Wrap = styled.div`
   right: 10px;
   width: 400px;
   max-height: 590px;
-  padding: 40px 60px 40px 60px;
+  padding: 40px 60px 60px 40px;
   background-color: #000;
   color: #fff;
   font-size: 14px;

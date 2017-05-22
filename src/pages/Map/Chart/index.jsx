@@ -26,11 +26,11 @@ const margin = {
   left: 20
 };
 // const screenWidth = (window.innerWidth < 1500) ? window.innerWidth : 1500;
-const width = window.innerWidth - 120 - margin.left - margin.right;
 const height = 300 - margin.top - margin.bottom;
 
 const Chart = (props) => {
-  const { periods, currentYear, setYear, openPeriod } = props;
+  const { periods, currentYear, setYear, openPeriod, width: innerWidth } = props;
+  const width = innerWidth - 120 - margin.left - margin.right;
 
   const xScale = scaleTime()
     .domain([new Date(1918, 0, 1), new Date(1960, 11, 31)])
@@ -129,7 +129,8 @@ Chart.propTypes = {
   periods: PropTypes.object,
   currentYear: PropTypes.number,
   setYear: PropTypes.func,
-  openPeriod: PropTypes.func
+  openPeriod: PropTypes.func,
+  width: PropTypes.number
 };
 
 export default Chart;

@@ -27,8 +27,7 @@ export const Top = styled.div`
   font-family: PT Sans;
   & h1 {
     margin: 0 0 5px 0;
-    font-size: 48px;
-    font-weight: bold;
+    color: rgba(225, 225, 225, 0.8);
   }
 `;
 

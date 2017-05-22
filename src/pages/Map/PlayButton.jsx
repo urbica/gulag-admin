@@ -8,9 +8,11 @@ import pause from './icons/btn-pause.svg';
 
 const Button = styled(ChartButton)`
   background-color: ${({ isPlay }) => isPlay ? '#000' : 'rgba(0,0,0,.5)'};
-  ${({ isPlay }) => isPlay ? 'box-shadow: 0px 15px 17px -3px rgba(0,0,0,0.75);' : ''}
   & img {
     opacity: 1;
+  }
+  @media (max-width: 925px) {
+    display: none;
   }
 `;
 

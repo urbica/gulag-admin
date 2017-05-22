@@ -45,6 +45,9 @@ const G = styled.g`
       stroke-width: 2px;
     }
   }
+  @media (max-width: 925px) {
+    display: none;
+  }
 `;
 
 class PrisonersArea extends PureComponent {

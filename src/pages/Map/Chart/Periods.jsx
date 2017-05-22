@@ -13,6 +13,9 @@ const Wrap = styled.div`
   width: ${({ width }) => width}px;
   color: #fff;
   z-index: 1;
+  @media (max-width: 925px) {
+    display: none;
+  }
 `;
 
 const Period = styled.div`
