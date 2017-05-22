@@ -1,4 +1,5 @@
 import React from 'react';
+import { values } from 'ramda';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -45,7 +46,7 @@ const getWidth = (scale, endYear, startYear) => {
 
 const Periods = (props) => {
   const { width, height, margin, xScale, onClick } = props;
-  const periods = Object.values(props.periods);
+  const periods = values(props.periods);
 
   return (
     <Wrap

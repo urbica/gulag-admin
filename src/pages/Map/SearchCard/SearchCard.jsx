@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { values } from 'ramda';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
 
@@ -38,7 +39,7 @@ class SearchCard extends Component {
     };
 
     const search = this.state.searchQuery.trim().toLowerCase();
-    const result = Object.values(prisons).filter(prison =>
+    const result = values(prisons).filter(prison =>
       prison.name.ru.toLowerCase().match(search) ||
       prison.name.en.toLowerCase().match(search) ||
       prison.name.de.toLowerCase().match(search)
