@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { toPairs } from 'ramda';
 import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
 import { axisLeft } from 'd3-axis';
@@ -29,13 +30,13 @@ class Axis extends PureComponent {
     const elPath = el.selectAll('path');
     const elLine = el.selectAll('line');
 
-    Object.entries(axisStyle).forEach(([key, value]) => {
+    toPairs(axisStyle).forEach(([key, value]) => {
       elPath.style(key, value);
       elLine.style(key, value);
     });
 
     const elText = el.selectAll('text');
-    Object.entries(textStyle).forEach(([key, value]) => elText.style(key, value));
+    toPairs(textStyle).forEach(([key, value]) => elText.style(key, value));
   }
 
   render() {
