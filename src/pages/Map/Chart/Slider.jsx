@@ -61,7 +61,7 @@ class Slider extends PureComponent {
       .attr('pointer-events', 'auto')
       .call(
         drag()
-          .on('drag', () => setYear(xScale.invert(event.x).getFullYear()))
+          .on('start drag', () => setYear(xScale.invert(event.x).getFullYear()))
       );
   }
 

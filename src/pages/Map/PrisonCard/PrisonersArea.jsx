@@ -17,8 +17,9 @@ const G = styled.g`
   & text {
     fill: #fff;
   }
-  & g rect {
-    fill: #5d4747;
+  & g text {
+    opacity: .2;
+    transform: translate(10px, 18px);
   }
 `;
 
@@ -74,18 +75,17 @@ class PrisonersArea extends PureComponent {
       .selectAll('g')
       .data(data)
       .enter()
-      .append('rect')
+      .append('text')
+      .text((d) => {
+        if (d.prisoners === 0) {
+          return 'нет данных';
+        }
+        return '';
+      })
       .attr('y', (d) => {
         const date = new Date(d.year, 0, 1);
         return yScale(date) + 1;
-      })
-      .attr('width', (d) => {
-        if (d.prisoners === 0) {
-          return 150;
-        }
-        return 0;
-      })
-      .attr('height', 25);
+      });
   }
 
   render() {

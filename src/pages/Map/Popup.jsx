@@ -31,6 +31,7 @@ const Button = styled.button`
   color: #fff;
   background-color: rgba(0, 0, 0, 0.5);
   margin-bottom: 1px;
+  outline: none;
   &:hover {
     background-color: #000;
   }

@@ -106,9 +106,9 @@ export const getPeriods = prison =>
     .filter(years => years.length > 0)
     .map((years) => {
       if (years.length === 1) {
-        return `${years[0]}\n`;
+        return `${years[0]};\n`;
       }
-      return `${Math.min(...years)} — ${Math.max(...years)}\n`;
+      return `${Math.min(...years)} — ${Math.max(...years)};\n`;
     });
 
 export const filterBySearch = (searchQuery, prisons) => {

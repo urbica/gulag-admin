@@ -30,7 +30,7 @@ const height = 300 - margin.top - margin.bottom;
 
 const Chart = (props) => {
   const { periods, currentYear, setYear, openPeriod, width: innerWidth } = props;
-  const width = innerWidth - 120 - margin.left - margin.right;
+  const width = innerWidth - 250 - margin.left - margin.right;
 
   const xScale = scaleTime()
     .domain([new Date(1918, 0, 1), new Date(1960, 11, 31)])

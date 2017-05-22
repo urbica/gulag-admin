@@ -9,7 +9,7 @@ const margin = {
   top: 5,
   right: 65,
   bottom: 5,
-  left: 35
+  left: 40
 };
 const width = 450 - margin.left - margin.right;
 

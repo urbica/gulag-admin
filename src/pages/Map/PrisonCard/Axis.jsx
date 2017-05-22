@@ -10,7 +10,8 @@ const axisStyle = {
   opacity: 0.25
 };
 const textStyle = {
-  fill: '#fff',
+  'font-size': 12,
+  fill: 'rgba(255,255,255,.5)',
   transform: 'translateX(-10px)'
 };
 
