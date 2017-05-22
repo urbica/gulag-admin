@@ -45,5 +45,7 @@
     "react-scripts": "1.0.0"
   },
   "proxy": "http://gulag.urbica.co",
-  "browserslist": ["> 1%"]
+  "browserslist": [
+    "> 1%"
+  ]
 }
