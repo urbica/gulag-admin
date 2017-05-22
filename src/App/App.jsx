@@ -22,13 +22,14 @@ import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
 injectGlobal`
   * {
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     font-family: 'PT Sans', sans-serif;
     font-size: 16px;
     background-color: #394554;
-    -webkit-font-smoothing: antialiased;
   }
 `;
 
