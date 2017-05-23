@@ -9,17 +9,31 @@ const G = styled.g`
   &:hover {
     cursor: pointer;
   }
+
+  .currentYearRect {
+    @media (max-width: 925px) {
+      display: none;
+    }
+  }
+
+  .currentYear {
+    fill: #fff;
+    @media (min-width: 926px) {
+      display: none;
+    }
+  }
 `;
 
 class Slider extends PureComponent {
   componentDidMount() {
-    const { xScale, setYear, width } = this.props;
+    const { xScale, setYear, width, currentYear } = this.props;
     const slider = select(this.g);
     const barWidth = Math.round(width / 42) - 2;
     this.handle = slider
       .append('g')
       .attr('class', 'handle');
 
+    // current year rect
     this.currentYearRect = this.handle
       .append('rect')
       .attr('x', 0)
@@ -30,27 +44,47 @@ class Slider extends PureComponent {
       .attr('opacity', 0.5)
       .attr('class', 'currentYearRect');
 
-    this.handle
-      .append('rect')
-      .attr('width', barWidth)
-      .attr('height', 11)
-      .attr('fill', '#1E2734')
-      .attr('filter', 'url(#gaussianBlur)')
-      .attr('transform', 'translate(1, -5)');
+    if (width < 636) {
+      // handle circle
+      this.handle
+        .append('circle')
+        .attr('r', 10)
+        .attr('cx', 5)
+        .attr('fill', '#333')
+        .attr('stroke', '#979797');
+    } else {
+      // handle shadow
+      this.handle
+        .append('rect')
+        .attr('width', barWidth)
+        .attr('height', 11)
+        .attr('fill', '#1E2734')
+        .attr('filter', 'url(#gaussianBlur)')
+        .attr('transform', 'translate(1, -5)');
 
-    this.handle
-      .append('rect')
-      .attr('width', barWidth)
-      .attr('height', 11)
-      .attr('fill', '#fff')
-      .attr('transform', 'translate(1, -5)');
+      // handle rect
+      this.handle
+        .append('rect')
+        .attr('width', barWidth)
+        .attr('height', 11)
+        .attr('fill', '#fff')
+        .attr('transform', 'translate(1, -5)');
 
-    this.handle
-      .append('path')
-      .attr('d', 'M15,3 L16,3 L16,9 L15,9 L15,3 Z M19,3 L20,3 L20,9 L19,9 L19,3 Z M23,3 L24,3 L24,9 L23,9 L23,3 Z')
-      .attr('fill', '#22252F')
-      .attr('opacity', '0.3')
-      .attr('transform', `translate(${-18.3 + (barWidth / 2)}, -5.5)`);
+      // handle lines
+      this.handle
+        .append('path')
+        .attr('d', 'M15,3 L16,3 L16,9 L15,9 L15,3 Z M19,3 L20,3 L20,9 L19,9 L19,3 Z M23,3 L24,3 L24,9 L23,9 L23,3 Z')
+        .attr('fill', '#22252F')
+        .attr('opacity', '0.3')
+        .attr('transform', `translate(${-18.3 + (barWidth / 2)}, -5.5)`);
+    }
+
+    // handle year
+    this.year = this.handle
+      .append('text')
+      .text(currentYear)
+      .attr('transform', 'translate(-11, -17)')
+      .attr('class', 'currentYear');
 
     slider
       .append('line')
@@ -78,6 +112,9 @@ class Slider extends PureComponent {
     this.currentYearRect
       .attr('height', height - yScale(prisoners))
       .attr('transform', `translate(1, -${height - yScale(prisoners)})`);
+
+    this.year
+      .text(currentYear);
   }
 
   render() {

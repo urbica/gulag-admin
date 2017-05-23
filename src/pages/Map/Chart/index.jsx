@@ -30,7 +30,12 @@ const height = 300 - margin.top - margin.bottom;
 
 const Chart = (props) => {
   const { periods, currentYear, setYear, openPeriod, width: innerWidth } = props;
-  const width = innerWidth - 250 - margin.left - margin.right;
+  let width;
+  if (innerWidth > 425) {
+    width = innerWidth - 250 - margin.left - margin.right;
+  } else {
+    width = innerWidth - margin.left - margin.right;
+  }
 
   const xScale = scaleTime()
     .domain([new Date(1918, 0, 1), new Date(1960, 11, 31)])
@@ -94,6 +99,7 @@ const Chart = (props) => {
           onClick={setYear}
         />
         <Axis
+          width={width}
           height={height}
           margin={margin}
           scale={xScale}

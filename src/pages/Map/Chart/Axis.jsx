@@ -12,12 +12,18 @@ const axisStyle = {
 
 class Axis extends PureComponent {
   componentDidMount() {
-    const { scale } = this.props;
+    const { scale, width } = this.props;
 
     const axis = axisBottom(scale);
-    axis
-      .ticks(42)
-      .tickFormat('');
+    if (width > 636) {
+      axis
+        .ticks(42)
+        .tickFormat('');
+    } else {
+      axis
+        .tickSize(0)
+        .tickFormat('');
+    }
 
     const el = select(this.axis);
     el.call(axis);
@@ -51,7 +57,8 @@ Axis.propTypes = {
     right: PropTypes.number,
     bottom: PropTypes.number,
     left: PropTypes.number
-  })
+  }),
+  width: PropTypes.number
 };
 
 export default Axis;
