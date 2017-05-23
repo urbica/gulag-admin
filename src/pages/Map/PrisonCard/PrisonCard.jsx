@@ -64,8 +64,10 @@ class PrisonCard extends Component {
             <Subtitle>{ activityTitle }</Subtitle>
             <div>{ activity }</div>
           </HalfWidth>
-          <Subtitle>Местоположение</Subtitle>
-          <div>{getRightLang(prison.location, currentLanguage)}</div>
+          <div>
+            <Subtitle>Местоположение</Subtitle>
+            <div>{getRightLang(prison.location, currentLanguage)}</div>
+          </div>
           <MarkdownStyled>
             <ReactMarkdown source={getRightLang(prison.description, currentLanguage)} />
           </MarkdownStyled>

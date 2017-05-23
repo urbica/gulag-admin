@@ -10,6 +10,9 @@ export const Wrap = styled.div`
   width: 600px;
   color: rgba(225, 225, 225, 0.8);
   z-index: 1;
+  @media (max-width: 599px) {
+    width: 100%;
+  }
 `;
 
 export const Header = styled.header`

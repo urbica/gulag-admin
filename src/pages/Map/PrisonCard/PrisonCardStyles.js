@@ -19,6 +19,9 @@ export const Wrap = styled.div`
   overflow: scroll;
   transition: .4s;
   z-index: 1;
+  @media (max-width: 425px) {
+    padding: 15px;
+  }
 `;
 
 export const Top = styled.div`
@@ -28,6 +31,9 @@ export const Top = styled.div`
   & h1 {
     margin: 0 0 5px 0;
     color: rgba(225, 225, 225, 0.8);
+    @media (max-width: 425px) {
+      padding-right: 40px;
+    }
   }
 `;
 
@@ -49,6 +55,12 @@ export const Left = styled.div`
   padding-bottom: 40px;
   column-gap: 60px;
   columns: 450px;
+  @media (max-width: 425px) {
+    padding-right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+  }
 `;
 
 export const HalfWidth = styled.div`
@@ -96,4 +108,7 @@ export const MarkdownStyled = styled.div`
 
 export const Right = styled.div`
   flex-basis: 450px;
+  @media (max-width: 449px) {
+    flex-basis: 320px;
+  }
 `;

@@ -8,6 +8,9 @@ export const Wrap = styled.div`
   overflow: scroll;
   color: #fff;
   z-index: 2;
+  @media (max-width: 429px) {
+    width: 100%;
+  }
 `;
 
 export const Header = styled.header`
@@ -15,6 +18,9 @@ export const Header = styled.header`
   position: fixed;
   width: 430px;
   z-index: 1;
+  @media (max-width: 429px) {
+    width: 100%;
+  }
 `;
 
 export const Input = styled.input`
