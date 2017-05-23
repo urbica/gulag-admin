@@ -11,7 +11,7 @@ const Button = styled(ChartButton)`
   & img {
     opacity: 1;
   }
-  @media (max-width: 925px) {
+  @media (max-width: 1023px) {
     display: none;
   }
 `;

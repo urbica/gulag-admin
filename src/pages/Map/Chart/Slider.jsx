@@ -11,14 +11,14 @@ const G = styled.g`
   }
 
   .currentYearRect {
-    @media (max-width: 925px) {
+    @media (max-width: 1023px) {
       display: none;
     }
   }
 
   .currentYear {
     fill: #fff;
-    @media (min-width: 926px) {
+    @media (min-width: 1024px) {
       display: none;
     }
   }
@@ -44,7 +44,7 @@ class Slider extends PureComponent {
       .attr('opacity', 0.5)
       .attr('class', 'currentYearRect');
 
-    if (width < 636) {
+    if (width < 833) {
       // handle circle
       this.handle
         .append('circle')

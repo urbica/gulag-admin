@@ -13,7 +13,7 @@ const Wrap = styled.div`
   width: ${({ width }) => width}px;
   color: #fff;
   z-index: 1;
-  @media (max-width: 925px) {
+  @media (max-width: 1023px) {
     display: none;
   }
 `;

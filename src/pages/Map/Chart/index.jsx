@@ -31,10 +31,12 @@ const height = 300 - margin.top - margin.bottom;
 const Chart = (props) => {
   const { periods, currentYear, setYear, openPeriod, width: innerWidth } = props;
   let width;
-  if (innerWidth > 925) {
-    width = innerWidth - 250 - margin.left - margin.right;
+  if (innerWidth < 1024) {
+    width = innerWidth - 40 - margin.left - margin.right;
+  } else if (innerWidth < 1280) {
+    width = innerWidth - 150 - margin.left - margin.right;
   } else {
-    width = innerWidth - margin.left - margin.right;
+    width = innerWidth - 200 - margin.left - margin.right;
   }
 
   const xScale = scaleTime()

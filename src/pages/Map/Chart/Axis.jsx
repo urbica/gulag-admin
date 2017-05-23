@@ -15,13 +15,13 @@ class Axis extends PureComponent {
     const { scale, width } = this.props;
 
     const axis = axisBottom(scale);
-    if (width > 636) {
+    if (width < 833) {
       axis
-        .ticks(42)
+        .tickSize(0)
         .tickFormat('');
     } else {
       axis
-        .tickSize(0)
+        .ticks(42)
         .tickFormat('');
     }
 

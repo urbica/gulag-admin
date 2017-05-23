@@ -45,7 +45,7 @@ const G = styled.g`
       stroke-width: 2px;
     }
   }
-  @media (max-width: 925px) {
+  @media (max-width: 1023px) {
     display: none;
   }
 `;
