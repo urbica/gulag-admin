@@ -206,8 +206,8 @@ class Map extends PureComponent {
         'text-field': '{historical_name}',
         'text-size': {
           stops: [
-            [0, 10],
-            [4, 12],
+            [0, 8],
+            [4, 10],
             [6, 14],
             [12, 22],
             [22, 28]
