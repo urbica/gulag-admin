@@ -213,7 +213,12 @@ class Map extends PureComponent {
             [22, 28]
           ]
         },
-        'text-font': ['PT Sans Regular']
+        'text-font': ['PT Sans Regular'],
+        'text-padding': {
+          stops: [
+            [2, 4]
+          ]
+        }
       },
       paint: {
         'text-color': '#6A748C'
