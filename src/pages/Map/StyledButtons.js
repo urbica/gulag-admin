@@ -35,6 +35,7 @@ export const ChartButton = styled(MapButton)`
 `;
 
 export const HeaderButton = styled(AbstractButton)`
+  flex-shrink: 0;
   &:hover {
     background-color: rgba(0,0,0,.2);
   }

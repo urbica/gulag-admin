@@ -204,14 +204,19 @@ class Map extends PureComponent {
       source: 'allCities',
       layout: {
         'text-field': '{historical_name}',
-        'text-size': 12
-        // 'text-font': ['PT Sans']
+        'text-size': {
+          stops: [
+            [0, 10],
+            [4, 12],
+            [6, 14],
+            [12, 22],
+            [22, 28]
+          ]
+        },
+        'text-font': ['PT Sans Regular']
       },
       paint: {
-        'text-color': '#535b6e'
-        // 'text-halo-width': 0.75,
-        // 'text-halo-color': 'rgba(27,33,40,0.6)',
-        // 'text-halo-blur': 1
+        'text-color': '#6A748C'
       }
     });
 

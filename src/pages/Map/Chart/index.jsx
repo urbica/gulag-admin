@@ -31,7 +31,7 @@ const height = 300 - margin.top - margin.bottom;
 const Chart = (props) => {
   const { periods, currentYear, setYear, openPeriod, width: innerWidth } = props;
   let width;
-  if (innerWidth > 425) {
+  if (innerWidth > 925) {
     width = innerWidth - 250 - margin.left - margin.right;
   } else {
     width = innerWidth - margin.left - margin.right;
