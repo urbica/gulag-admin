@@ -13,8 +13,14 @@ export const Wrap = styled.header`
   & div {
     margin-right: 5px;
   }
+  @media (max-width: 375px) {
+    justify-content: space-between;
+  }
 `;
 
 export const SelectStyled = styled.div`
   margin-left: auto;
+  @media (max-width: 375px) {
+    display: none;
+  }
 `;

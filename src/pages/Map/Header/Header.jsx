@@ -11,10 +11,15 @@ import { splitDigits } from '../../../utils/utils';
 
 const Group = styled.div`
   margin-left: 30px;
-  & div:last-child {
-    font-size: 12px;
-    opacity: .5;
+  @media (max-width: 375px) {
+    margin-left: 5px;
+    text-align: center;
   }
+`;
+
+const Desc = styled.span`
+  font-size: 12px;
+  opacity: .5;
 `;
 
 const formatedData = {};
@@ -22,15 +27,22 @@ data.map(d => (formatedData[d.year] = d));
 
 const Header = (props) => {
   const {
-    currentYear, currentLanguage, openInfoCard, openSearchCard, changeLanguage
+    currentYear, currentLanguage, openInfoCard, openSearchCard, changeLanguage, width
   } = props;
 
   const showAmountsGroup = currentYear !== 'all';
+  let dataSearchingStr;
+
+  if (width < 530) {
+    dataSearchingStr = '–––';
+  } else {
+    dataSearchingStr = 'данные уточняются';
+  }
 
   const prisonersAmount = showAmountsGroup && formatedData[currentYear].prisoners !== 0 ?
-    splitDigits(formatedData[currentYear].prisoners) : 'данные уточняются';
+    splitDigits(formatedData[currentYear].prisoners) : dataSearchingStr;
   const deadAmount = showAmountsGroup && formatedData[currentYear].dead !== 0 ?
-    splitDigits(formatedData[currentYear].dead) : 'данные уточняются';
+    splitDigits(formatedData[currentYear].dead) : dataSearchingStr;
 
   return (
     <Wrap>
@@ -38,21 +50,21 @@ const Header = (props) => {
         <img src={search} alt='loupe-icon' />
       </HeaderButton>
       <Group>
-        <div>{ `${(currentYear === 'all') ? '1918 – 1960' : currentYear}` }</div>
-        <div>{ `${(currentYear === 'all') ? 'годы' : 'год'}` }</div>
+        { `${(currentYear === 'all') ? '1918 – 1960' : currentYear}\n` }
+        <Desc>{ `${(currentYear === 'all') ? 'годы' : 'год'}` }</Desc>
       </Group>
       {
         showAmountsGroup &&
         <Group>
-          <div>{prisonersAmount}</div>
-          <div>заключенных</div>
+          {`${prisonersAmount}\n`}
+          <Desc>заключенных</Desc>
         </Group>
       }
       {
         showAmountsGroup &&
         <Group>
-          <div>{deadAmount}</div>
-          <div>умерших</div>
+          {`${deadAmount}\n`}
+          <Desc>умерших</Desc>
         </Group>
       }
       <SelectStyled
@@ -78,7 +90,8 @@ Header.propTypes = {
   currentLanguage: PropTypes.string,
   openInfoCard: PropTypes.func,
   openSearchCard: PropTypes.func,
-  changeLanguage: PropTypes.func
+  changeLanguage: PropTypes.func,
+  width: PropTypes.number
 };
 
 export default Header;

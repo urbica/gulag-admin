@@ -204,6 +204,7 @@ class IndexPage extends Component {
           openInfoCard={this.openInfoCard}
           openSearchCard={this.openSearchCard}
           changeLanguage={this.changeLanguage}
+          width={width}
         />
         <ChartWrap>
           <PlayButton
