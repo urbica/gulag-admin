@@ -18,7 +18,7 @@ services:
       - ./build:/usr/share/nginx/html:ro
 
   gulag-backend:
-    image: gitlab.urbica.co:5001/platform/nest:latest
+    image: gitlab.urbica.co:5001/platform/nest:v1.0.1
     container_name: gulag-backend
     restart: always
     env_file:
