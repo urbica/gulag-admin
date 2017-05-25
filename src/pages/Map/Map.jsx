@@ -234,6 +234,21 @@ class Map extends PureComponent {
       filter: ['==', 'id', '']
     });
     this.map.addLayer({
+      id: 'prisonsNames_active',
+      type: 'symbol',
+      source: 'prisons',
+      layout: {
+        'text-field': '{ruName}',
+        'text-size': 12,
+        'text-anchor': 'left',
+        'text-justify': 'left'
+      },
+      paint: {
+        'text-color': '#fff'
+      },
+      filter: ['==', 'id', '']
+    });
+    this.map.addLayer({
       id: 'cities_labels',
       type: 'symbol',
       source: 'allCities',
@@ -324,8 +339,10 @@ class Map extends PureComponent {
   highlightFeature() {
     if (this.state.slideUp) {
       this.map.setFilter('prisonsHalo_active', ['==', 'id', this.props.openedPrisonId]);
+      this.map.setFilter('prisonsNames_active', ['==', 'id', this.props.openedPrisonId]);
     } else {
       this.map.setFilter('prisonsHalo_active', ['==', 'id', '']);
+      this.map.setFilter('prisonsNames_active', ['==', 'id', '']);
     }
   }
 
