@@ -40,9 +40,9 @@ class SearchCard extends Component {
 
     const search = this.state.searchQuery.trim().toLowerCase();
     const result = values(prisons).filter(prison =>
-      prison.name.ru.toLowerCase().match(search) ||
-      prison.name.en.toLowerCase().match(search) ||
-      prison.name.de.toLowerCase().match(search)
+      prison.name[currentLanguage].toLowerCase().match(search) ||
+      prison.additional_names[currentLanguage].toLowerCase().match(search) ||
+      prison.description[currentLanguage].toLowerCase().match(search)
     );
 
     return (
