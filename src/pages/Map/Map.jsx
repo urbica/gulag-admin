@@ -83,13 +83,48 @@ class Map extends PureComponent {
     if (nextProps.centerCoordinates !== [] && location.pathname.match('/prison')) {
       this.map.setCenter(nextProps.centerCoordinates);
     }
+
+    if (currentYear !== 'all') {
+      this.map.setFilter('ussr',
+        ['all',
+          ['<=', 'year_start', currentYear],
+          ['>=', 'year_end', currentYear]
+        ]
+      );
+    } else {
+      this.map.setFilter('ussr',
+        ['all',
+          ['<=', 'year_start', 1960],
+          ['>=', 'year_end', 1960]
+        ]
+      );
+    }
   }
 
   onLoad() {
+    this.map.addSource('ussr', {
+      type: 'vector',
+      url: 'mapbox://gulagmap.83eae073'
+    });
     this.map.addSource('chukotka', {
       type: 'vector',
       url: 'mapbox://gulagmap.72d3cpll'
     });
+    this.map.addLayer({
+      id: 'ussr',
+      type: 'fill',
+      source: 'ussr',
+      'source-layer': 'NEWUSSR_BOUND',
+      layout: {},
+      paint: {
+        'fill-color': '#1b2128', // 222933 #1b2128
+        'fill-opacity': 1
+      },
+      filter: ['all',
+        ['<=', 'year_start', this.props.currentYear],
+        ['>=', 'year_end', this.props.currentYear]
+      ]
+    }, 'waterway');
     this.map.addLayer({
       id: 'chukotka',
       type: 'fill',
@@ -199,6 +234,21 @@ class Map extends PureComponent {
       filter: ['==', 'id', '']
     });
     this.map.addLayer({
+      id: 'prisonsNames_active',
+      type: 'symbol',
+      source: 'prisons',
+      layout: {
+        'text-field': '{ruName}',
+        'text-size': 12,
+        'text-anchor': 'left',
+        'text-justify': 'left'
+      },
+      paint: {
+        'text-color': '#fff'
+      },
+      filter: ['==', 'id', '']
+    });
+    this.map.addLayer({
       id: 'cities_labels',
       type: 'symbol',
       source: 'allCities',
@@ -289,8 +339,10 @@ class Map extends PureComponent {
   highlightFeature() {
     if (this.state.slideUp) {
       this.map.setFilter('prisonsHalo_active', ['==', 'id', this.props.openedPrisonId]);
+      this.map.setFilter('prisonsNames_active', ['==', 'id', this.props.openedPrisonId]);
     } else {
       this.map.setFilter('prisonsHalo_active', ['==', 'id', '']);
+      this.map.setFilter('prisonsNames_active', ['==', 'id', '']);
     }
   }
 
