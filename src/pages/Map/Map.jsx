@@ -83,13 +83,48 @@ class Map extends PureComponent {
     if (nextProps.centerCoordinates !== [] && location.pathname.match('/prison')) {
       this.map.setCenter(nextProps.centerCoordinates);
     }
+
+    if (currentYear !== 'all') {
+      this.map.setFilter('ussr',
+        ['all',
+          ['<=', 'year_start', currentYear],
+          ['>=', 'year_end', currentYear]
+        ]
+      );
+    } else {
+      this.map.setFilter('ussr',
+        ['all',
+          ['<=', 'year_start', 1960],
+          ['>=', 'year_end', 1960]
+        ]
+      );
+    }
   }
 
   onLoad() {
+    this.map.addSource('ussr', {
+      type: 'vector',
+      url: 'mapbox://gulagmap.83eae073'
+    });
     this.map.addSource('chukotka', {
       type: 'vector',
       url: 'mapbox://gulagmap.72d3cpll'
     });
+    this.map.addLayer({
+      id: 'ussr',
+      type: 'fill',
+      source: 'ussr',
+      'source-layer': 'NEWUSSR_BOUND',
+      layout: {},
+      paint: {
+        'fill-color': '#1b2128', // 222933 #1b2128
+        'fill-opacity': 1
+      },
+      filter: ['all',
+        ['<=', 'year_start', this.props.currentYear],
+        ['>=', 'year_end', this.props.currentYear]
+      ]
+    }, 'waterway');
     this.map.addLayer({
       id: 'chukotka',
       type: 'fill',
