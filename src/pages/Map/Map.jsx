@@ -61,7 +61,7 @@ class Map extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { features, currentYear, location } = nextProps;
+    const { features, currentYear, location, centerCoordinates } = nextProps;
 
     const source = this.map.getSource('prisons');
     const cities = this.map.getSource('allCities');
@@ -80,8 +80,8 @@ class Map extends PureComponent {
       this.setState({ slideUp: true });
     } else this.setState({ slideUp: false });
 
-    if (nextProps.centerCoordinates !== [] && location.pathname.match('/prison')) {
-      this.map.setCenter(nextProps.centerCoordinates);
+    if (centerCoordinates !== [] && location.pathname.match('/prison')) {
+      this.map.setCenter(centerCoordinates);
     }
 
     if (currentYear !== 'all') {
@@ -152,6 +152,32 @@ class Map extends PureComponent {
       data: allCities
     });
 
+    this.map.addLayer({
+      id: 'cities_labels',
+      type: 'symbol',
+      source: 'allCities',
+      layout: {
+        'text-field': '{historical_name}',
+        'text-size': {
+          stops: [
+            [0, 8],
+            [4, 10],
+            [6, 14],
+            [12, 22],
+            [22, 28]
+          ]
+        },
+        'text-font': ['PT Sans Regular'],
+        'text-padding': {
+          stops: [
+            [2, 4]
+          ]
+        }
+      },
+      paint: {
+        'text-color': '#6A748C'
+      }
+    });
     this.map.addLayer({
       id: 'prisons',
       type: 'circle',
@@ -224,9 +250,18 @@ class Map extends PureComponent {
       source: 'prisons',
       layout: {
         'text-field': '{ruName}',
-        'text-size': 12,
+        'text-size': {
+          stops: [
+            [0, 8],
+            [4, 10],
+            [6, 14],
+            [12, 22],
+            [22, 28]
+          ]
+        },
         'text-anchor': 'left',
-        'text-justify': 'left'
+        'text-justify': 'left',
+        'text-offset': [1.5, 0]
       },
       paint: {
         'text-color': '#fff'
@@ -241,38 +276,13 @@ class Map extends PureComponent {
         'text-field': '{ruName}',
         'text-size': 12,
         'text-anchor': 'left',
-        'text-justify': 'left'
+        'text-justify': 'left',
+        'text-offset': [1.5, 0]
       },
       paint: {
         'text-color': '#fff'
       },
       filter: ['==', 'id', '']
-    });
-    this.map.addLayer({
-      id: 'cities_labels',
-      type: 'symbol',
-      source: 'allCities',
-      layout: {
-        'text-field': '{historical_name}',
-        'text-size': {
-          stops: [
-            [0, 8],
-            [4, 10],
-            [6, 14],
-            [12, 22],
-            [22, 28]
-          ]
-        },
-        'text-font': ['PT Sans Regular'],
-        'text-padding': {
-          stops: [
-            [2, 4]
-          ]
-        }
-      },
-      paint: {
-        'text-color': '#6A748C'
-      }
     });
 
     setTimeout(() => {
@@ -382,7 +392,12 @@ Map.propTypes = {
     })
   ),
   openCard: PropTypes.func,
-  currentYear: PropTypes.number
+  currentYear: PropTypes.number,
+  location: PropTypes.object,
+  centerCoordinates: PropTypes.arrayOf(
+    PropTypes.string
+  ),
+  openedPrisonId: PropTypes.number
 };
 
 export default withRouter(Map);

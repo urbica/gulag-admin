@@ -35,6 +35,9 @@ export const Top = styled.div`
       padding-right: 40px;
     }
   }
+  @media (max-width: 425px) {
+    padding-bottom: 30px;
+  }
 `;
 
 export const Location = styled.div`
@@ -66,6 +69,7 @@ export const Left = styled.div`
 export const HalfWidth = styled.div`
   display: inline-block;
   width: 50%;
+  padding-right: 20px;
   & div {
     opacity: 0.8;
     font-size: 16px;
@@ -81,11 +85,15 @@ export const Subtitle = styled.h2`
   color: #fff;
   & + div {
     margin-bottom: 40px;
+    @media (max-width: 425px) {
+       margin-bottom: 30px;
+    }
   }
 `;
 
 export const MarkdownStyled = styled.div`
   h2 {
+    margin-top: 0;
     margin-bottom: 10px;
     opacity: 0.8;
     font-size: 20px;
@@ -103,6 +111,10 @@ export const MarkdownStyled = styled.div`
   a {
     font-size: 16px;
     color: #9da9c1;
+  }
+  
+  img {
+    max-width: 100%;
   }
 `;
 

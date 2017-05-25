@@ -34,6 +34,9 @@ export const Input = styled.input`
   color: rgba(225, 225, 225, 0.5);
   background-color: #000;
   outline: none;
+  @media (max-width: 425px) {
+    padding-left: 20px;
+  }
 `;
 
 export const Item = styled.div`
@@ -47,6 +50,9 @@ export const Item = styled.div`
   }
   &:hover {
     background-color: #090b0c;
+  }
+  @media (max-width: 425px) {
+    padding: 20px;
   }
 `;
 

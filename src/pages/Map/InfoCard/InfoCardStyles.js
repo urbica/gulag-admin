@@ -18,12 +18,13 @@ export const Wrap = styled.div`
 export const Header = styled.header`
   display: flex;
   flex-shrink: 0;
-  padding-top: 40px;
-  padding-left: 40px;
-  padding-bottom: 14px;
+  padding: 40px 0 14px 40px;
   background-color: #000;
   & h1 {
     margin: 0;
+  }
+  @media (max-width: 425px) {
+    padding: 20px 0 0 20px;
   }
 `;
 
@@ -32,6 +33,10 @@ export const DescriptionContainer = styled.div`
   border-bottom: 1px solid rgba(46,55,67,.3);
   background-color: #000;
   flex-grow: 1;
+  @media (max-width: 425px) {
+    padding: 0 20px;
+    line-height: 1.5;
+  }
 `;
 
 export const Footer = styled.footer`
