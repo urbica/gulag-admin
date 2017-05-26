@@ -12,6 +12,7 @@ import { splitDigits } from '../../../utils/utils';
 const Group = styled.div`
   margin-left: 30px;
   @media (max-width: 375px) {
+    width: 100%;
     margin-left: 5px;
     text-align: center;
   }

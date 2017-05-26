@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Wrap = styled.div`
   position: absolute;
   top: 0;
-  bottom: 0;
   right: 0;
   display: flex;
   flex-direction: column;
@@ -40,6 +39,8 @@ export const DescriptionContainer = styled.div`
 `;
 
 export const Footer = styled.footer`
+  display: flex;
+  align-items: flex-start;
   padding: 20px 40px;
   background-color: #000;
   & a {
