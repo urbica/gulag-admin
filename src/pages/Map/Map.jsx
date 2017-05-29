@@ -337,6 +337,8 @@ class Map extends PureComponent {
         center: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
       });
       this.props.openCard(feature.properties.id);
+    } else {
+      this.props.closeCard();
     }
   }
 
@@ -397,7 +399,8 @@ Map.propTypes = {
   centerCoordinates: PropTypes.arrayOf(
     PropTypes.string
   ),
-  openedPrisonId: PropTypes.number
+  openedPrisonId: PropTypes.number,
+  closeCard: PropTypes.func
 };
 
 export default withRouter(Map);

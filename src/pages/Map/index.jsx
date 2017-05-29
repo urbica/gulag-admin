@@ -229,6 +229,7 @@ class IndexPage extends Component {
           features={features}
           openCard={this.openPrisonCard}
           currentYear={currentYear}
+          closeCard={this.closeCard}
         />
         <PublicRoute path='/search' component={SearchCardWithRouter} />
         <PublicRoute path='/info' component={InfoCardWithRouter} />
