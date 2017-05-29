@@ -11,7 +11,7 @@ const axisStyle = {
 };
 
 class Axis extends PureComponent {
-  componentDidMount() {
+  componentWillReceiveProps() {
     const { scale, width } = this.props;
 
     const axis = axisBottom(scale);

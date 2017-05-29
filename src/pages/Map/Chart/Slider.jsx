@@ -26,23 +26,23 @@ const G = styled.g`
 
 class Slider extends PureComponent {
   componentDidMount() {
-    const { xScale, setYear, width, currentYear } = this.props;
+    const { width } = this.props;
     const slider = select(this.g);
-    const barWidth = Math.round(width / 42) - 2;
     this.handle = slider
       .append('g')
       .attr('class', 'handle');
 
     // current year rect
     this.currentYearRect = this.handle
-      .append('rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', barWidth)
-      .attr('height', 0)
-      .attr('fill', '#fff')
-      .attr('opacity', 0.5)
-      .attr('class', 'currentYearRect');
+      .append('rect');
+
+    // handle year
+    this.year = this.handle
+      .append('text')
+      .attr('class', 'currentYear');
+
+    this.sliderLine = slider
+      .append('line');
 
     if (width < 833) {
       // handle circle
@@ -54,40 +54,50 @@ class Slider extends PureComponent {
         .attr('stroke', '#979797');
     } else {
       // handle shadow
-      this.handle
+      this.handleShadow = this.handle
         .append('rect')
-        .attr('width', barWidth)
         .attr('height', 11)
         .attr('fill', '#1E2734')
         .attr('filter', 'url(#gaussianBlur)')
         .attr('transform', 'translate(1, -5)');
 
       // handle rect
-      this.handle
+      this.handleRect = this.handle
         .append('rect')
-        .attr('width', barWidth)
         .attr('height', 11)
         .attr('fill', '#fff')
         .attr('transform', 'translate(1, -5)');
 
       // handle lines
-      this.handle
+      this.handleLines = this.handle
         .append('path')
         .attr('d', 'M15,3 L16,3 L16,9 L15,9 L15,3 Z M19,3 L20,3 L20,9 L19,9 L19,3 Z M23,3 L24,3 L24,9 L23,9 L23,3 Z')
         .attr('fill', '#22252F')
-        .attr('opacity', '0.3')
-        .attr('transform', `translate(${-18.3 + (barWidth / 2)}, -5.5)`);
+        .attr('opacity', '0.3');
     }
+  }
 
-    // handle year
-    this.year = this.handle
-      .append('text')
-      .text(currentYear)
-      .attr('transform', 'translate(-11, -17)')
-      .attr('class', 'currentYear');
+  componentWillReceiveProps(nextProps) {
+    const { width, height, xScale, yScale, data, currentYear, setYear } = nextProps;
+    const barWidth = Math.round(width / 42) - 2;
+    let prisoners = 0;
 
-    slider
-      .append('line')
+    data.map(d => d.year === currentYear ? prisoners = d.prisoners : 0);
+
+    this.handle
+      .attr('transform', `translate(${xScale(new Date(currentYear, 0, 1))}, 0)`);
+
+    this.currentYearRect
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', barWidth)
+      .attr('height', height - yScale(prisoners))
+      .attr('fill', '#fff')
+      .attr('opacity', 0.5)
+      .attr('class', 'currentYearRect')
+      .attr('transform', `translate(1, -${height - yScale(prisoners)})`);
+
+    this.sliderLine
       .attr('x1', xScale.range()[0])
       .attr('x2', xScale.range()[1])
       .attr('stroke-width', 30)
@@ -97,24 +107,24 @@ class Slider extends PureComponent {
         drag()
           .on('start drag', () => setYear(xScale.invert(event.x).getFullYear()))
       );
-  }
 
-  componentWillReceiveProps(nextProps) {
-    const { height, xScale, yScale, data } = this.props;
-    const { currentYear } = nextProps;
-    let prisoners = 0;
+    if (width >= 833) {
+      // handle shadow
+      this.handleShadow
+        .attr('width', barWidth);
 
-    data.map(d => d.year === currentYear ? prisoners = d.prisoners : 0);
+      // handle rect
+      this.handleRect
+        .attr('width', barWidth);
 
-    this.handle
-      .attr('transform', `translate(${xScale(new Date(currentYear, 0, 1))}, 0)`);
-
-    this.currentYearRect
-      .attr('height', height - yScale(prisoners))
-      .attr('transform', `translate(1, -${height - yScale(prisoners)})`);
+      // handle lines
+      this.handleLines
+        .attr('transform', `translate(${-18.3 + (barWidth / 2)}, -5.5)`);
+    }
 
     this.year
-      .text(currentYear);
+      .text(currentYear)
+      .attr('transform', 'translate(-11, -17)');
   }
 
   render() {

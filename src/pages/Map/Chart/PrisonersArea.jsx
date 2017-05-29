@@ -9,11 +9,11 @@ const G = styled.g`
     & rect {
       fill: #eb4200;
       opacity: .1;
-      transition: 2s;
+      transition: opacity 2s;
       &:hover {
         cursor: pointer;
         opacity: .2;
-        transition: .2s;
+        transition: opacity .2s;
       }
     }
     & line {
@@ -33,11 +33,11 @@ const G = styled.g`
     & rect {
       fill: #fff;
       opacity: .1;
-      transition: 2s;
+      transition: opacity 2s;
       &:hover {
         cursor: pointer;
         opacity: .2;
-        transition: .2s;
+        transition: opacity .2s;
       }
     }
     & line {
@@ -52,10 +52,9 @@ const G = styled.g`
 
 class PrisonersArea extends PureComponent {
   componentDidMount() {
-    const { data, xScale, yScale, width, height, onClick } = this.props;
-    const prisonersArea = select(this.g);
-    const barWidth = Math.round(width / 42) - 2;
+    const { data } = this.props;
 
+    const prisonersArea = select(this.g);
     const deadG = prisonersArea
       .append('g');
 
@@ -66,11 +65,44 @@ class PrisonersArea extends PureComponent {
       .append('g');
 
     // dead group
-    deadG
+    this.deadRect = deadG
       .selectAll('rect')
       .data(data)
       .enter()
-      .append('rect')
+      .append('rect');
+
+    this.deadLine = deadG
+      .selectAll('line')
+      .data(data)
+      .enter()
+      .append('line');
+
+    // no data group
+    this.noDataRect = noDataG
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect');
+
+    // prisoners group
+    this.prisonersRect = prisonersG
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect');
+
+    this.prisonersLine = prisonersG
+      .selectAll('line')
+      .data(data)
+      .enter()
+      .append('line');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { xScale, yScale, width, height, onClick } = nextProps;
+    const barWidth = Math.round(width / 42) - 2;
+
+    this.deadRect
       .attr('x', (d) => {
         const date = new Date(d.year, 0, 1);
         return xScale(date) + 1;
@@ -79,11 +111,7 @@ class PrisonersArea extends PureComponent {
       .attr('width', barWidth)
       .attr('height', d => height - yScale(d.dead));
 
-    deadG
-      .selectAll('line')
-      .data(data)
-      .enter()
-      .append('line')
+    this.deadLine
       .attr('fill', 'none')
       .attr('x1', (d) => {
         const date = new Date(d.year, 0, 1);
@@ -100,12 +128,7 @@ class PrisonersArea extends PureComponent {
       })
       .attr('y2', d => yScale(d.dead));
 
-    // no data group
-    noDataG
-      .selectAll('rect')
-      .data(data)
-      .enter()
-      .append('rect')
+    this.noDataRect
       .attr('x', (d) => {
         const date = new Date(d.year, 0, 1);
         return xScale(date) + 1;
@@ -123,12 +146,7 @@ class PrisonersArea extends PureComponent {
       .attr('fill', 'url(#Gradient)')
       .on('click', d => onClick(d.year));
 
-    // prisoners group
-    prisonersG
-      .selectAll('rect')
-      .data(data)
-      .enter()
-      .append('rect')
+    this.prisonersRect
       .attr('x', (d) => {
         const date = new Date(d.year, 0, 1);
         return xScale(date) + 1;
@@ -138,11 +156,7 @@ class PrisonersArea extends PureComponent {
       .attr('height', d => height - yScale(d.prisoners))
       .on('click', d => onClick(d.year));
 
-    prisonersG
-      .selectAll('line')
-      .data(data)
-      .enter()
-      .append('line')
+    this.prisonersLine
       .attr('fill', 'none')
       .attr('x1', (d) => {
         const date = new Date(d.year, 0, 1);

@@ -15,17 +15,13 @@ const img = {
   de: museumEn
 };
 
-const Button = styled(CardButton)`
-  position: fixed;
-`;
-
 const InfoCard = ({ closeCard, currentLanguage }) => (
   <Wrap>
     <Header>
       <h1>О проекте</h1>
-      <Button onClick={closeCard}>
+      <CardButton onClick={closeCard}>
         <img src={cross} alt='cross' />
-      </Button>
+      </CardButton>
     </Header>
     <DescriptionContainer>
       <p>
