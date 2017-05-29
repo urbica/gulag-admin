@@ -30,7 +30,7 @@ export const Top = styled.div`
   font-family: PT Sans;
   & h1 {
     margin: 0 0 5px 0;
-    color: rgba(225, 225, 225, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     @media (max-width: 425px) {
       padding-right: 40px;
     }

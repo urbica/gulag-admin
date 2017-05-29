@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import { Wrap, SelectStyled } from './HeaderStyles';
 import { HeaderButton } from '../StyledButtons';
@@ -8,6 +9,20 @@ import search from '../icons/btn-search.svg';
 import info from '../icons/btn-info.svg';
 import data from '../../../utils/prisonersAmountByYears';
 import { splitDigits } from '../../../utils/utils';
+
+// eslint-disable-next-line
+injectGlobal`
+  .example-appear,
+  .example-enter {
+    color: #eb4200;
+  }
+  
+  .example-appear.example-appear-active,
+  .example-enter.example-enter-active {
+    color: #fff;
+    transition: color .5s ease-in;
+  }
+`;
 
 const Group = styled.div`
   margin-left: 30px;
@@ -64,7 +79,12 @@ const Header = (props) => {
       {
         showAmountsGroup &&
         <Group>
-          {`${deadAmount}\n`}
+          <CSSTransitionGroup
+            transitionName='example'
+            transitionLeave={false}
+          >
+            <div key={deadAmount}>{deadAmount}</div>
+          </CSSTransitionGroup>
           <Desc>умерших</Desc>
         </Group>
       }
