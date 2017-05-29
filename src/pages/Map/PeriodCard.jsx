@@ -8,8 +8,8 @@ import preloader from './icons/preloader.svg';
 
 const Wrap = styled.div`
   position: fixed;
-  top: 90px;
-  right: 10px;
+  top: 60px;
+  right: 0;
   width: 400px;
   max-height: 590px;
   padding: 40px 60px 60px 40px;
