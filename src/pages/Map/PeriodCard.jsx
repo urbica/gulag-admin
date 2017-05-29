@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { CardButton } from './StyledButtons';
 import close from './icons/btn-close.svg';
+import preloader from './icons/preloader.svg';
 
 const Wrap = styled.div`
   position: fixed;
@@ -39,7 +40,7 @@ const Description = styled.div`
 
 const PeriodCard = ({ period, currentLanguage, closeCard }) => {
   if (!period) {
-    return <Wrap>Загрузка</Wrap>;
+    return <Wrap><img src={preloader} alt='preloader' /></Wrap>;
   }
 
   return (

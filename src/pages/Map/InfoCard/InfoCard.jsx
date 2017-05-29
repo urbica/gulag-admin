@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import { Wrap, Header, DescriptionContainer, Footer } from './InfoCardStyles';
 import { CardButton } from '../StyledButtons';

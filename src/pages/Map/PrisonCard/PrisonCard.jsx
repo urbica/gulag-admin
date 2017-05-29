@@ -16,6 +16,7 @@ import {
 import { CardButton } from '../StyledButtons';
 import PrisonChart from './PrisonChart';
 import close from '../icons/btn-close.svg';
+import preloader from '../icons/preloader.svg';
 import { getPeriods, getRightLang } from '../../../utils/utils';
 import { getFirstYear } from '../../../utils/prison-utils';
 
@@ -35,7 +36,7 @@ class PrisonCard extends Component {
     const { prison, activities, closeCard, currentLanguage } = this.props;
 
     if (!prison) {
-      return <Wrap>Загрузка</Wrap>;
+      return <Wrap><img src={preloader} alt='preloader' /></Wrap>;
     }
 
     const activity = prison.activity_id && activities[prison.activity_id]
