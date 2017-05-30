@@ -81,7 +81,8 @@ class PrisonCard extends React.Component {
 
   render() {
     const {
-      match, uploadHandler, updateHandler, deleteHandler, submitHandler, deletePhoto
+      match, uploadHandler, updateHandler, deleteHandler, submitHandler, deletePhoto, notes,
+      updateNoteHandler
     } = this.props;
 
     const prison = this.props.prisons && this.props.prisons[match.params.id];
@@ -159,7 +160,10 @@ class PrisonCard extends React.Component {
         </Two>
         <Six>
           <FieldTitle>Заметки</FieldTitle>
-          <NotesInput />
+          <NotesInput
+            source={notes[prison.id] || ''}
+            onChange={updateNoteHandler.bind(null, prison.id)}
+          />
         </Six>
         <Six>
           <Separator>

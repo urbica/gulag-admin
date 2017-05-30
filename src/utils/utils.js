@@ -52,6 +52,7 @@ export const directoryToOptions = map(renameKeys({ id: 'value', name: 'label' })
 export const fetchData = ({ token }) =>
   new Promise((resolve, reject) => {
     const groupById = compose(map(head), groupBy(prop('id')));
+    const groupByPrisonId = compose(map(head), groupBy(prop('prison_id')));
     const options = { headers: { Authorization: `Bearer ${token}` } };
 
     const preprocessPhotos = compose(
@@ -68,6 +69,10 @@ export const fetchData = ({ token }) =>
       groupById
     );
 
+    const preprocessNotes = compose(
+      groupByPrisonId
+    );
+
     const handle401 = r => r.status === 401 ? reject(401) : r;
 
     Promise.all([
@@ -76,15 +81,17 @@ export const fetchData = ({ token }) =>
       fetch('/api/public/activities.json', options).then(handle401).then(r => r.json()),
       fetch('/api/public/places.json', options).then(handle401).then(r => r.json()),
       fetch('/api/public/types.json', options).then(handle401).then(r => r.json()),
-      fetch('/api/public/periods.json', options).then(handle401).then(r => r.json())
-    ]).then(([prisons, photos, activities, places, types, periods]) => {
+      fetch('/api/public/periods.json', options).then(handle401).then(r => r.json()),
+      fetch('/api/public/notes.json', options).then(handle401).then(r => r.json())
+    ]).then(([prisons, photos, activities, places, types, periods, notes]) => {
       resolve({
+        prisons: preprocessPrisons(prisons),
+        photos: preprocessPhotos(photos),
         activities,
         places,
         types,
         periods: preprocessPeriods(periods),
-        photos: preprocessPhotos(photos),
-        prisons: preprocessPrisons(prisons)
+        notes: preprocessNotes(notes)
       });
     }).catch(error => reject(error));
   });

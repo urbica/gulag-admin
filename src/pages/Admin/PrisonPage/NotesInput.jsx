@@ -1,5 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const Wrap = styled.div`
   position: relative;
@@ -32,14 +33,25 @@ const Underline = styled.div`
   transition: width .3s;
 `;
 
-const NotesInput = () => {
+const NotesInput = ({ source, onChange }) => (
+  <Wrap>
+    <TextArea
+      value={source.note}
+      onChange={onChange}
+    />
+    <Underline />
+  </Wrap>
+);
 
-  return (
-    <Wrap>
-      <TextArea disabled/>
-      <Underline/>
-    </Wrap>
-  )
+NotesInput.propTypes = {
+  source: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      prison_id: PropTypes.number,
+      note: PropTypes.string
+    })
+  ]),
+  onChange: PropTypes.func
 };
 
-export default NotesInput
+export default NotesInput;

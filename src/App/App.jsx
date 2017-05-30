@@ -4,7 +4,8 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { injectGlobal } from 'styled-components';
 import {
   always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
-  reject, ifElse, isNil, lensPath } from 'ramda';
+  reject, ifElse, isNil, lensPath
+} from 'ramda';
 import 'normalize.css/normalize.css';
 
 import PublicRoute from './PublicRoute';
@@ -29,7 +30,7 @@ injectGlobal`
   body {
     font-family: 'PT Sans', sans-serif;
     font-size: 16px;
-    background-color: #394554;
+    // background-color: #394554;
   }
 `;
 
@@ -39,13 +40,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      token: localStorage.getItem('token'),
+      prisons: {},
+      photos: {},
       activities: [],
       places: [],
       types: [],
       periods: {},
-      photos: {},
-      prisons: {},
-      token: localStorage.getItem('token')
+      notes: {}
     };
 
     this.login = this.login.bind(this);
@@ -58,6 +60,7 @@ class App extends Component {
     this.updatePrison = this.updatePrison.bind(this);
     this.submitPrison = this.submitPrison.bind(this);
     this.deletePrison = this.deletePrison.bind(this);
+    this.updateNotes = this.updateNotes.bind(this);
   }
 
   componentWillMount() {
@@ -70,8 +73,8 @@ class App extends Component {
           this.setState({ activities, places, types, periods, prisons, photos }));
     } else {
       fetchData({ token })
-        .then(({ activities, places, types, periods, prisons, photos }) =>
-          this.setState({ activities, places, types, periods, prisons, photos }))
+        .then(({ activities, places, types, periods, prisons, photos, notes }) =>
+          this.setState({ activities, places, types, periods, prisons, photos, notes }))
         .catch((error) => {
           if (error === 401) {
             localStorage.removeItem('token');
@@ -93,10 +96,11 @@ class App extends Component {
       .then(({ token }) => {
         localStorage.setItem('token', token);
         return fetchData({ token })
-          .then(({ activities, places, types, periods, prisons, photos }) => {
-            this.setState({ activities, places, types, periods, prisons, token, photos }, () => {
-              history.push('/admin');
-            });
+          .then(({ activities, places, types, periods, prisons, photos, notes }) => {
+            this.setState({ activities, places, types, periods, prisons, token, photos, notes },
+              () => {
+                history.push('/admin');
+              });
           });
       })
       .catch(() => {
@@ -196,6 +200,32 @@ class App extends Component {
   submitPrison(prison) {
     if (prison.id) {
       const newPrison = assoc('updated_at', (new Date()).toISOString(), prison);
+      if (this.state.notes[prison.id] && this.state.notes[prison.id].prison_id) {
+        fetch(`/api/public/notes/prison_id/${prison.id}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${this.state.token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ note: this.state.notes[prison.id].note })
+        });
+          // TODO
+          // .then(response => response.json())
+          // .then(([PromiseValue]) => {
+          //   // console.log(path(['notes', prison.id], this.state));
+          //   this.setState(assocPath(['notes', prison.id], PromiseValue));
+          // });
+      } else if (this.state.notes[prison.id]) {
+        fetch('/api/public/notes/id/', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${this.state.token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ note: this.state.notes[prison.id].note, prison_id: prison.id })
+        });
+      }
+
       fetch(`/api/public/camps/id/${newPrison.id}`, {
         body: JSON.stringify(newPrison),
         method: 'PUT',
@@ -218,6 +248,12 @@ class App extends Component {
     if (prison.id) {
       // eslint-disable-next-line
       if (confirm(`Удалить лагерь "${prison.name.ru}"?`)) {
+        fetch(`/api/public/notes/prison_id/${prison.id}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${this.state.token}`
+          }
+        });
         fetch(`/api/public/camps/id/${prison.id}`, {
           method: 'DELETE',
           headers: {
@@ -231,8 +267,12 @@ class App extends Component {
     }
   }
 
+  updateNotes(id, event) {
+    this.setState(assocPath(['notes', id, 'note'], event.target.value));
+  }
+
   render() {
-    const { prisons, periods, activities, places, types, photos, token } = this.state;
+    const { prisons, periods, activities, places, types, photos, notes, token } = this.state;
 
     return (
       <BrowserRouter history={history}>
@@ -254,11 +294,13 @@ class App extends Component {
             activities={activities}
             places={places}
             types={types}
+            notes={notes}
             uploadHandler={this.uploadPhotos}
             updateHandler={this.updatePrison}
             deleteHandler={this.deletePrison}
             submitHandler={this.submitPrison}
             deletePhoto={this.deletePhoto}
+            updateNoteHandler={this.updateNotes}
           />
           <PrivateRoute
             path='/admin'
