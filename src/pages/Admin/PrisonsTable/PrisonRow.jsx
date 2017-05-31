@@ -26,7 +26,7 @@ const PrisonRow = (props) => {
       <td className='prisons__cell prisons__cell_period'>{ getPeriods(prison) }</td>
       <td
         className='prisons__cell'
-      >{ moment(prison.updated_at).locale('ru').format('DD MMM YYYY, HH:mm:ss') }</td>
+      >{ moment(prison.updated_at).locale('ru').format('DD MMM YYYY, HH:mm') }</td>
       <td
         className='prisons__cell'
       >{ prison.place_id !== null ? places[prison.place_id].name : ''}</td>

@@ -71,7 +71,7 @@ const PrisonHeader = (props) => {
         </Button>
         <PrisonSaved>
           <div>Сохранено:</div>
-          <span>{ moment(prison.updated_at).locale('ru').format('DD MMM YYYY, HH:mm:ss') }</span>
+          <span>{ moment(prison.updated_at).locale('ru').format('DD MMM YYYY, HH:mm') }</span>
         </PrisonSaved>
       </div>
     </Header>
