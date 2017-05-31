@@ -24,6 +24,8 @@ import { languages } from '../../../config';
 import './PrisonPage.css';
 
 const StyledLink = styled(Link)`
+  margin-left: auto;
+  margin-right: 20px;
   font-size: 12px;
   font-weight: bold;
   color: #000;
@@ -113,6 +115,7 @@ class PrisonCard extends React.Component {
             submitHandler={submitHandler}
           />
         </Six>
+        <StyledLink to={`/prison${prison.id}`}>Посмотреть на карте</StyledLink>
         <Six>
           <LanguageSwitcher
             languages={languages}
@@ -128,7 +131,6 @@ class PrisonCard extends React.Component {
             published={prison.published[this.state.activeLang]}
             onChange={updateField(lensPath(['published', this.state.activeLang]))}
           />
-          <StyledLink to={`/prison${prison.id}`}>Посмотреть на карте</StyledLink>
         </Six>
         <Three>
           <Fieldset>
