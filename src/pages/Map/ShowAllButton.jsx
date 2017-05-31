@@ -6,7 +6,7 @@ import { ChartButton } from './StyledButtons';
 
 const Button = styled(ChartButton)`
   font-size: 12px;
-  background-color: ${({ showAll }) => showAll ? '#000' : 'rgba(0,0,0,.5)'} 
+  background-color: ${({ showAll }) => showAll ? '#000' : 'rgba(0,0,0,.5)'};
   color: ${({ showAll }) => showAll ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,.6)'};
   @media (max-width: 1023px) {
     display: none;

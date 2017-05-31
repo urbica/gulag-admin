@@ -45,7 +45,7 @@ export const Item = styled.div`
   padding: 15px 30px 20px;
   color: rgba(255,255,255,.8);
   &:first-child {
-    border-top: 1px solid rgba(46,55,67,.3)
+    border-top: 1px solid rgba(46,55,67,.3);
     margin-top: 50px;
   }
   &:hover {
