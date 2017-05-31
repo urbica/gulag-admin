@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { select, event } from 'd3-selection';
 import { drag } from 'd3-drag';
@@ -24,14 +24,7 @@ const G = styled.g`
   }
 `;
 
-class Slider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sliderPositionYear: 1918
-    };
-  }
-
+class Slider extends PureComponent {
   componentDidMount() {
     const { width } = this.props;
     const slider = select(this.g);
@@ -89,9 +82,10 @@ class Slider extends Component {
     const barWidth = Math.round(width / 42) - 2;
     let prisoners = 0;
 
-    this.setState({ sliderPositionYear: currentYear });
-
     data.map(d => d.year === currentYear ? prisoners = d.prisoners : 0);
+
+    this.handle
+      .attr('transform', `translate(${xScale(new Date(currentYear, 0, 1))}, 0)`);
 
     this.currentYearRect
       .attr('x', 0)
@@ -111,12 +105,7 @@ class Slider extends Component {
       .attr('pointer-events', 'auto')
       .call(
         drag()
-          .on('start drag', () => {
-            this.currentYearRect
-              .attr('opacity', 0);
-            this.setState({ sliderPositionYear: xScale.invert(event.x).getFullYear() });
-          })
-          .on('end', () => setYear(this.state.sliderPositionYear))
+          .on('start drag', () => setYear(xScale.invert(event.x).getFullYear()))
       );
 
     if (width >= 833) {
@@ -136,13 +125,6 @@ class Slider extends Component {
     this.year
       .text(currentYear)
       .attr('transform', 'translate(-11, -17)');
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    const translateX = nextProps.xScale(new Date(nextState.sliderPositionYear, 0, 1));
-
-    this.handle
-      .attr('transform', `translate(${translateX}, 0)`);
   }
 
   render() {
