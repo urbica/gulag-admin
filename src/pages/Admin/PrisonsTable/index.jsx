@@ -236,10 +236,7 @@ PrisonsTable.propTypes = {
       de: PropTypes.bool
     })
   })),
-  places: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string
-  })),
+  places: PropTypes.object,
   types: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string

@@ -44,7 +44,7 @@ class App extends Component {
       prisons: {},
       photos: {},
       activities: [],
-      places: [],
+      places: {},
       types: [],
       periods: {},
       notes: {}

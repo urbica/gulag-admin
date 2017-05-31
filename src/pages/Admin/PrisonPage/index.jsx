@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view } from 'ramda';
+import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view, values } from 'ramda';
 
 import { Container, Six, Four, Three, Two } from '../Layout';
 import PrisonHeader from './PrisonHeader';
@@ -38,6 +38,12 @@ const StyledLink = styled(Link)`
 
 const toOptions = list =>
   list.map(({ id, name }) => ({ value: id, label: name }));
+
+const placesToOptions = (places) => {
+  const arr = [];
+  values(places).map(place => arr.push({ value: place.id, label: place.name }));
+  return arr;
+};
 
 class PrisonCard extends React.Component {
   constructor(props) {
@@ -192,7 +198,7 @@ class PrisonCard extends React.Component {
             <FieldTitle>Регион</FieldTitle>
             <SelectInput
               value={prison.place_id}
-              options={toOptions(this.props.places)}
+              options={placesToOptions(this.props.places)}
               clearable={false}
               onChange={updateSelect(lensProp('place_id'))}
             />

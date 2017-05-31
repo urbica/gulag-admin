@@ -65,14 +65,6 @@ export const fetchData = ({ token }) =>
       groupById
     );
 
-    const preprocessPeriods = compose(
-      groupById
-    );
-
-    const preprocessNotes = compose(
-      groupByPrisonId
-    );
-
     const handle401 = r => r.status === 401 ? reject(401) : r;
 
     Promise.all([
@@ -88,11 +80,10 @@ export const fetchData = ({ token }) =>
         prisons: preprocessPrisons(prisons),
         photos: preprocessPhotos(photos),
         activities,
-        // TODO
-        places,
+        places: groupById(places),
         types,
-        periods: preprocessPeriods(periods),
-        notes: preprocessNotes(notes)
+        periods: groupById(periods),
+        notes: groupByPrisonId(notes)
       });
     }).catch(error => reject(error));
   });

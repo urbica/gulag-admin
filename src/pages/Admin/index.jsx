@@ -77,12 +77,7 @@ AdminPage.propTypes = {
   onLogout: PropTypes.func,
   createPrison: PropTypes.func,
   periods: PropTypes.object,
-  places: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string
-    })
-  ),
+  places: PropTypes.object,
   types: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
