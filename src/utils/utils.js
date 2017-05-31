@@ -88,6 +88,7 @@ export const fetchData = ({ token }) =>
         prisons: preprocessPrisons(prisons),
         photos: preprocessPhotos(photos),
         activities,
+        // TODO
         places,
         types,
         periods: preprocessPeriods(periods),

@@ -185,6 +185,7 @@ class App extends Component {
       .then(response => response.json())
       .then(([newPrison]) => {
         this.setState(assocPath(['prisons', newPrison.id], newPrison), () =>
+          // TODO
           history.push(`/admin/prison${newPrison.id}`)
         );
       });
@@ -209,12 +210,6 @@ class App extends Component {
           },
           body: JSON.stringify({ note: this.state.notes[prison.id].note })
         });
-          // TODO
-          // .then(response => response.json())
-          // .then(([PromiseValue]) => {
-          //   // console.log(path(['notes', prison.id], this.state));
-          //   this.setState(assocPath(['notes', prison.id], PromiseValue));
-          // });
       } else if (this.state.notes[prison.id]) {
         fetch('/api/public/notes/id/', {
           method: 'POST',
@@ -223,7 +218,11 @@ class App extends Component {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ note: this.state.notes[prison.id].note, prison_id: prison.id })
-        });
+        })
+          .then(response => response.json())
+          .then(([PromiseValue]) => {
+            this.setState(assocPath(['notes', prison.id], PromiseValue));
+          });
       }
 
       fetch(`/api/public/camps/id/${newPrison.id}`, {
