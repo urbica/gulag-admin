@@ -57,6 +57,8 @@ class Map extends PureComponent {
       // scrollZoom: false
     });
 
+    this.map.dragRotate.disable();
+    this.map.touchZoomRotate.disableRotation();
     this.map.on('load', this.onLoad);
   }
 
