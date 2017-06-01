@@ -10,7 +10,17 @@ import data from '../../../utils/prisonersAmountByYears';
 import { splitDigits } from '../../../utils/utils';
 
 const Group = styled.div`
+  display: flex;
+  align-items: center;
   margin-left: 30px;
+  & svg {
+    margin-right: 5px;
+  }
+  @media (max-width: 1023px) {
+    & svg {
+      display: none;
+    }
+  }
   @media (max-width: 375px) {
     width: 100%;
     margin-left: 5px;
@@ -51,21 +61,39 @@ const Header = (props) => {
         <img src={search} alt='loupe-icon' />
       </HeaderButton>
       <Group>
-        { `${(currentYear === 'all') ? '1918 – 1960' : currentYear}\n` }
-        <Desc>{ `${(currentYear === 'all') ? 'годы' : 'год'}` }</Desc>
+        <div>
+          {`${(currentYear === 'all') ? '1918 – 1960' : currentYear}\n`}
+          <Desc>{ `${(currentYear === 'all') ? 'годы' : 'год'}` }</Desc>
+        </div>
       </Group>
       {
         showAmountsGroup &&
         <Group>
-          {`${prisonersAmount}\n`}
-          <Desc>заключенных</Desc>
+          <svg xmlns='http://www.w3.org/2000/svg' width='22' height='28' viewBox='0 0 22 28'>
+            <g fill='#FFF' fillRule='evenodd'>
+              <path d='M0 0h22v28H0z' opacity='.1' />
+              <path d='M0 0h22v2H0z' />
+            </g>
+          </svg>
+          <div>
+            {`${prisonersAmount}\n`}
+            <Desc>заключенных</Desc>
+          </div>
         </Group>
       }
       {
         showAmountsGroup &&
         <Group>
-          {`${deadAmount}\n`}
-          <Desc>умерших</Desc>
+          <svg xmlns='http://www.w3.org/2000/svg' width='22' height='28' viewBox='0 0 22 28'>
+            <g fill='none' fillRule='evenodd'>
+              <path fill='#544B52' d='M0 0h22v28H0z' opacity='.5' />
+              <path fill='#FF4127' d='M0 0h22v2H0z' />
+            </g>
+          </svg>
+          <div>
+            {`${deadAmount}\n`}
+            <Desc>умерших</Desc>
+          </div>
         </Group>
       }
       <SelectStyled
