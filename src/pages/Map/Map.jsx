@@ -352,6 +352,7 @@ class Map extends PureComponent {
 
   highlightFeature() {
     if (this.state.slideUp) {
+      if (this.popup) this.popup.remove();
       this.map.setFilter('prisonsHalo_active', ['==', 'id', this.props.openedPrisonId]);
       this.map.setFilter('prisonsNames_active', ['==', 'id', this.props.openedPrisonId]);
     } else {
