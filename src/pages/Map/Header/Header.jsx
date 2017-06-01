@@ -96,6 +96,21 @@ const Header = (props) => {
           </div>
         </Group>
       }
+      {
+        !showAmountsGroup &&
+        <Group>
+          <svg xmlns='http://www.w3.org/2000/svg' width='35' height='35' viewBox='0 0 35 35'>
+            <g fill='#E53F02' fillRule='evenodd'>
+              <circle cx='17.5' cy='17.5' r='17.5' opacity='.3' />
+              <circle cx='18' cy='18' r='1' />
+            </g>
+          </svg>
+          <div>
+            {`${props.prisonsAmount}\n`}
+            <Desc>лагеря</Desc>
+          </div>
+        </Group>
+      }
       <SelectStyled
         value={currentLanguage}
         options={[

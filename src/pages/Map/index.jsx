@@ -202,6 +202,7 @@ class IndexPage extends Component {
         <Header
           currentYear={currentYear}
           currentLanguage={currentLanguage}
+          prisonsAmount={values(prisons).length}
           openInfoCard={this.openInfoCard}
           openSearchCard={this.openSearchCard}
           changeLanguage={this.changeLanguage}
