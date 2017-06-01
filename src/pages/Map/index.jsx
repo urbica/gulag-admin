@@ -132,15 +132,16 @@ class IndexPage extends Component {
 
   showAllPrisons() {
     const prisons = values(this.props.prisons);
+    const filteredPrisons = prisons.filter(prison => prison.published[this.state.currentLanguage]);
 
-    const features = prisons.reduce((acc, prison) => {
+    const features = filteredPrisons.reduce((acc, prison) => {
       const newFeatures = prison.features.reduce((prev, feature) => {
         const newProperties = {
           id: prison.id,
           ruName: prison.name.ru,
           enName: prison.name.en,
           deName: prison.name.de,
-          peoples: 10000
+          peoples: this.props.prisons[prison.id].max_prisoners
         };
 
         return prev.concat([{ ...feature, properties: newProperties }]);
