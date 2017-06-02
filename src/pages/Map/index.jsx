@@ -134,7 +134,7 @@ class IndexPage extends Component {
     const prisons = values(this.props.prisons);
     const filteredPrisons = prisons.filter(prison => prison.published[this.state.currentLanguage]);
 
-    const features = filteredPrisons.reduce((acc, prison) => {
+    return filteredPrisons.reduce((acc, prison) => {
       const newFeatures = prison.features.reduce((prev, feature) => {
         const newProperties = {
           id: prison.id,
@@ -148,8 +148,6 @@ class IndexPage extends Component {
       }, []);
       return acc.concat(newFeatures);
     }, []);
-
-    return features;
   }
 
   render() {
