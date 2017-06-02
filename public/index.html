@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic"
+          rel="stylesheet">
     <link href="%PUBLIC_URL%/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
     <link href="%PUBLIC_URL%/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
     <link href="%PUBLIC_URL%/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
     <link href="%PUBLIC_URL%/favicons/manifest.json" rel="manifest">
     <link href="%PUBLIC_URL%/favicons/safari-pinned-tab.svg" rel="mask-icon" color="#000000">
+    <link href='%PUBLIC_URL%/outdatedbrowser/outdatedbrowser.min.css' rel='stylesheet'>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet'>
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
     <!--
@@ -25,6 +27,7 @@
     <title>GULAG</title>
   </head>
   <body>
+    <div id="outdated"></div>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -36,5 +39,31 @@
       To begin the development, run `npm start`.
       To create a production bundle, use `npm run build`.
     -->
+    <script src='%PUBLIC_URL%/outdatedbrowser/outdatedbrowser.min.js'></script>
+    <script>
+      //event listener: DOM ready
+      function addLoadEvent(func) {
+        var oldonload = window.onload;
+        if (typeof window.onload != 'function') {
+          window.onload = func;
+        } else {
+          window.onload = function () {
+            if (oldonload) {
+              oldonload();
+            }
+            func();
+          }
+        }
+      }
+      //call plugin function after DOM ready
+      addLoadEvent(function () {
+        outdatedBrowser({
+          bgColor: '#f25648',
+          color: '#ffffff',
+          lowerThan: 'transform',
+          languagePath: '%PUBLIC_URL%/outdatedbrowser/lang/ru.html'
+        })
+      });
+    </script>
   </body>
 </html>
