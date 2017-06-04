@@ -32,6 +32,10 @@ const YearGroup = styled(Group)`
   max-width: 65px;
 `;
 
+const Amount = styled.div`
+  padding-top: 2px;
+`;
+
 const Desc = styled.span`
   font-size: 12px;
   opacity: .5;
@@ -80,7 +84,7 @@ const Header = (props) => {
             </g>
           </svg>
           <div>
-            {`${prisonersAmount}\n`}
+            <Amount>{`${prisonersAmount}\n`}</Amount>
             <Desc>заключенных</Desc>
           </div>
         </Group>
@@ -95,7 +99,7 @@ const Header = (props) => {
             </g>
           </svg>
           <div>
-            {`${deadAmount}\n`}
+            <Amount>{`${deadAmount}\n`}</Amount>
             <Desc>умерших</Desc>
           </div>
         </Group>
