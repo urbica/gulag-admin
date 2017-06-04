@@ -1,7 +1,5 @@
 {
 "type": "FeatureCollection",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-                                                                                
 "features": [
 { "type": "Feature", "properties": { "city": "Москва", "rank": 1, "lat": 55.755826, "lon": 37.617300, "year": 1918, "historical_name": "Москва" }, "geometry": { "type": "Point", "coordinates": [ 37.6173, 55.755826 ] } },
 { "type": "Feature", "properties": { "city": "Москва", "rank": 1, "lat": 55.755826, "lon": 37.617300, "year": 1919, "historical_name": "Москва" }, "geometry": { "type": "Point", "coordinates": [ 37.6173, 55.755826 ] } },

@@ -10,7 +10,7 @@ import Popup from './Popup';
 import { MapButton } from './StyledButtons';
 import plus from './icons/btn-plus.svg';
 import minus from './icons/btn-minus.svg';
-import allCities from '../../utils/allCities.geojson';
+import allCities from '../../utils/newCities.geojson';
 
 const Wrap = styled.div`
   position: fixed;
@@ -73,8 +73,10 @@ class Map extends PureComponent {
     if (cities) {
       if (currentYear !== 'all') {
         this.map.setFilter('cities_labels', ['==', 'year', currentYear]);
+        this.map.setFilter('cities_dots', ['==', 'year', currentYear]);
       } else {
         this.map.setFilter('cities_labels', ['==', 'year', 1960]);
+        this.map.setFilter('cities_dots', ['==', 'year', 1960]);
       }
     }
 
@@ -159,6 +161,7 @@ class Map extends PureComponent {
       type: 'symbol',
       source: 'allCities',
       layout: {
+        'text-anchor': 'top',
         'text-field': '{historical_name}',
         'text-size': {
           stops: [
@@ -178,6 +181,21 @@ class Map extends PureComponent {
       },
       paint: {
         'text-color': '#6A748C'
+      }
+    });
+    this.map.addLayer({
+      id: 'cities_dots',
+      type: 'circle',
+      source: 'allCities',
+      paint: {
+        'circle-color': '#6A748C',
+        'circle-radius': {
+          stops: [
+            [7, 0],
+            [8, 1.6],
+            [22, 2]
+          ]
+        }
       }
     });
     this.map.addLayer({
