@@ -30,6 +30,7 @@ class Slider extends Component {
     this.state = {
       sliderPositionYear: 1918
     };
+    this.setYear = this.setYear.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +50,9 @@ class Slider extends Component {
       .attr('class', 'currentYear');
 
     this.sliderLine = slider
-      .append('line');
+      .append('line').call(
+        drag().on('start drag', this.setYear)
+      );
 
     if (width < 833) {
       // handle circle
@@ -122,20 +125,6 @@ class Slider extends Component {
       // handle lines
       this.handleLines
         .attr('transform', `translate(${-18.3 + (barWidth / 2)}, -5.5)`);
-
-      this.sliderLine.call(
-        drag().on('start drag', () => setYear(xScale.invert(event.x).getFullYear()))
-      );
-    } else {
-      this.sliderLine.call(
-        drag()
-          .on('start drag', () => {
-            this.currentYearRect
-              .attr('opacity', 0);
-            this.setState({ sliderPositionYear: xScale.invert(event.x).getFullYear() });
-          })
-          .on('end', () => setYear(this.state.sliderPositionYear))
-      );
     }
 
     this.year
@@ -148,6 +137,10 @@ class Slider extends Component {
 
     this.handle
       .attr('transform', `translate(${translateX}, 0)`);
+  }
+
+  setYear() {
+    this.props.setYear(this.props.xScale.invert(event.x).getFullYear());
   }
 
   render() {
