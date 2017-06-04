@@ -21,6 +21,15 @@ export const Wrap = styled.div`
   z-index: 1;
   @media (max-width: 425px) {
     padding: 15px;
+    &:before {
+      content: '';
+      width: 40px;
+      height: 5px;
+      margin: 0 auto 10px;
+      opacity: 0.2;
+      border-radius: 5px;
+      background-color: #cfd0d0;
+    }
   }
 `;
 
