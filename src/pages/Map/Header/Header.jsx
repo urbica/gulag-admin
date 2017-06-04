@@ -28,6 +28,10 @@ const Group = styled.div`
   }
 `;
 
+const YearGroup = styled(Group)`
+  max-width: 65px;
+`;
+
 const Desc = styled.span`
   font-size: 12px;
   opacity: .5;
@@ -60,12 +64,12 @@ const Header = (props) => {
       <HeaderButton onClick={openSearchCard}>
         <img src={search} alt='loupe-icon' />
       </HeaderButton>
-      <Group>
+      <YearGroup>
         <div>
           {`${(currentYear === 'all') ? '1918 – 1960' : currentYear}\n`}
           <Desc>{ `${(currentYear === 'all') ? 'годы' : 'год'}` }</Desc>
         </div>
-      </Group>
+      </YearGroup>
       {
         showAmountsGroup &&
         <Group>
