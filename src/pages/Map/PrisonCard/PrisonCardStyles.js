@@ -23,9 +23,9 @@ export const Wrap = styled.div`
     padding: 15px;
     &:before {
       content: '';
-      width: 40px;
+      width: 36px;
       height: 5px;
-      margin: 0 auto 10px;
+      margin: -9px auto 10px;
       opacity: 0.2;
       border-radius: 5px;
       background-color: #cfd0d0;
