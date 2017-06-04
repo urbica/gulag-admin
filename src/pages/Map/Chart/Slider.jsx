@@ -88,7 +88,7 @@ class Slider extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { width, height, xScale, yScale, data, currentYear, setYear } = nextProps;
+    const { width, height, xScale, yScale, data, currentYear } = nextProps;
     const barWidth = Math.round(width / 42) - 2;
     let prisoners = 0;
 
