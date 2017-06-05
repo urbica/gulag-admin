@@ -60,8 +60,7 @@ const InfoCard = ({ closeCard, currentLanguage }) => (
       </a>
       <a href='http://urbica.co/' target='_blank' rel='noreferrer noopener'>
         <img src={urbica} alt='URBICA' />
-        <br />
-        Дизайн и разработка
+        <div style={{ marginTop: '9px' }}>Дизайн и разработка</div>
       </a>
     </Footer>
   </Wrap>
