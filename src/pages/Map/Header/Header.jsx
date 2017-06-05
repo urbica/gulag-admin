@@ -54,7 +54,7 @@ const Header = (props) => {
   let notMobile = true;
 
   if (width < 530) {
-    notMobile = false;
+    notMobile = formatedData[currentYear].dead !== 0;
   }
 
   const prisonersAmount = showAmountsGroup && formatedData[currentYear].prisoners !== 0 ?

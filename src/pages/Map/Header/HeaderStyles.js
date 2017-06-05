@@ -13,6 +13,9 @@ export const Wrap = styled.header`
   & div {
     margin-right: 5px;
   }
+  & div:first-child {
+    margin-right: auto;
+  }
   @media (max-width: 375px) {
     justify-content: space-between;
   }
