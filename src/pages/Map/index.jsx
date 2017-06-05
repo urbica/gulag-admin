@@ -32,8 +32,8 @@ class IndexPage extends Component {
     super(props);
     this.state = {
       currentLanguage: 'ru',
-      currentYear: 1918,
-      lastYear: null,
+      currentYear: 1937,
+      lastYear: 1937,
       currentPrisons: [],
       openedPrisonCoordinates: [],
       isDemoPlayed: false,

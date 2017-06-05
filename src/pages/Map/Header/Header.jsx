@@ -50,12 +50,11 @@ const Header = (props) => {
   } = props;
 
   const showAmountsGroup = currentYear !== 'all';
-  let dataSearchingStr;
+  const dataSearchingStr = 'данные уточняются';
+  let notMobile = true;
 
   if (width < 530) {
-    dataSearchingStr = '–––';
-  } else {
-    dataSearchingStr = 'данные уточняются';
+    notMobile = false;
   }
 
   const prisonersAmount = showAmountsGroup && formatedData[currentYear].prisoners !== 0 ?
@@ -76,6 +75,7 @@ const Header = (props) => {
       </YearGroup>
       {
         showAmountsGroup &&
+        notMobile &&
         <Group>
           <svg xmlns='http://www.w3.org/2000/svg' width='22' height='28' viewBox='0 0 22 28'>
             <g fill='#FFF' fillRule='evenodd'>
@@ -91,6 +91,7 @@ const Header = (props) => {
       }
       {
         showAmountsGroup &&
+        notMobile &&
         <Group>
           <svg xmlns='http://www.w3.org/2000/svg' width='22' height='28' viewBox='0 0 22 28'>
             <g fill='none' fillRule='evenodd'>
