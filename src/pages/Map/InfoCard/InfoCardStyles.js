@@ -46,6 +46,9 @@ export const Footer = styled.footer`
   & a {
     display: inline-block;
     height: 40px;
+    color: rgba(255, 255, 255, .5);
+    text-decoration: none;
+    font-size: 12px;
   }
   & a:first-child {
     margin-right: 40px;
