@@ -9,6 +9,30 @@ const G = styled.g`
   &:hover {
     cursor: pointer;
   }
+  
+  .circle {
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+  
+  .rect {
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  }
+  
+  .handleLines {
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  }
+  
+  .handleShadow {
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  }
 
   .currentYearRect {
     @media (max-width: 1023px) {
@@ -54,37 +78,39 @@ class Slider extends Component {
         drag().on('start drag', this.setYear)
       );
 
-    if (width < 833) {
-      // handle circle
-      this.handle
-        .append('circle')
-        .attr('r', 10)
-        .attr('cx', 5)
-        .attr('fill', '#333')
-        .attr('stroke', '#979797');
-    } else {
-      // handle shadow
-      this.handleShadow = this.handle
-        .append('rect')
-        .attr('height', 11)
-        .attr('fill', '#1E2734')
-        .attr('filter', 'url(#gaussianBlur)')
-        .attr('transform', 'translate(1, -5)');
+    // handle circle
+    this.handle
+      .append('circle')
+      .attr('r', 10)
+      .attr('cx', 5)
+      .attr('fill', '#333')
+      .attr('stroke', '#979797')
+      .attr('class', 'circle');
 
-      // handle rect
-      this.handleRect = this.handle
-        .append('rect')
-        .attr('height', 11)
-        .attr('fill', '#fff')
-        .attr('transform', 'translate(1, -5)');
+    // handle shadow
+    this.handleShadow = this.handle
+      .append('rect')
+      .attr('height', 11)
+      .attr('fill', '#1E2734')
+      .attr('filter', 'url(#gaussianBlur)')
+      .attr('transform', 'translate(1, -5)')
+      .attr('class', 'handleShadow');
 
-      // handle lines
-      this.handleLines = this.handle
-        .append('path')
-        .attr('d', 'M15,3 L16,3 L16,9 L15,9 L15,3 Z M19,3 L20,3 L20,9 L19,9 L19,3 Z M23,3 L24,3 L24,9 L23,9 L23,3 Z')
-        .attr('fill', '#22252F')
-        .attr('opacity', '0.3');
-    }
+    // handle rect
+    this.handleRect = this.handle
+      .append('rect')
+      .attr('height', 11)
+      .attr('fill', '#fff')
+      .attr('transform', 'translate(1, -5)')
+      .attr('class', 'rect');
+
+    // handle lines
+    this.handleLines = this.handle
+      .append('path')
+      .attr('d', 'M15,3 L16,3 L16,9 L15,9 L15,3 Z M19,3 L20,3 L20,9 L19,9 L19,3 Z M23,3 L24,3 L24,9 L23,9 L23,3 Z')
+      .attr('fill', '#22252F')
+      .attr('opacity', '0.3')
+      .attr('class', 'handleLines');
   }
 
   componentWillReceiveProps(nextProps) {

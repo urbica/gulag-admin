@@ -3,12 +3,21 @@ import { toPairs } from 'ramda';
 import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
 import { axisBottom } from 'd3-axis';
+import styled from 'styled-components';
 
 const axisStyle = {
   stroke: '#fff',
   strokeWidth: 1,
   opacity: 0.25
 };
+
+const G = styled.g`
+  .ticks {
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  }
+`;
 
 class Axis extends PureComponent {
   componentWillReceiveProps() {
@@ -33,7 +42,9 @@ class Axis extends PureComponent {
 
     toPairs(axisStyle).forEach(([key, value]) => {
       elPath.style(key, value);
-      elLine.style(key, value);
+      elLine
+        .style(key, value)
+        .attr('class', 'ticks');
     });
   }
 
@@ -41,8 +52,8 @@ class Axis extends PureComponent {
     const { height, margin } = this.props;
 
     return (
-      <g
-        ref={ref => (this.axis = ref)}
+      <G
+        innerRef={ref => (this.axis = ref)}
         transform={`translate(${margin.left}, ${height + margin.top})`}
       />
     );
