@@ -33,6 +33,13 @@ export const Wrap = styled.div`
   }
 `;
 
+export const Preloader = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
 export const Top = styled.div`
   flex-basis: 100%;
   padding-bottom: 60px;

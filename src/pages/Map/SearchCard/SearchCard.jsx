@@ -48,7 +48,11 @@ class SearchCard extends Component {
     return (
       <Wrap>
         <Header>
-          <Input onChange={handleOnChange} innerRef={ref => (this.input = ref)} />
+          <Input
+            placeholder='Поиск'
+            onChange={handleOnChange}
+            innerRef={ref => (this.input = ref)}
+          />
           <CardButton onClick={closeSearchCard}>
             <img src={cross} alt='cross' />
           </CardButton>

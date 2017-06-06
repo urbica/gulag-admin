@@ -4,14 +4,7 @@ import { withRouter } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 import {
-  Wrap,
-  Top,
-  Location,
-  Left,
-  HalfWidth,
-  Subtitle,
-  MarkdownStyled,
-  Right
+  Wrap, Preloader, Top, Location, Left, HalfWidth, Subtitle, MarkdownStyled, Right
 } from './PrisonCardStyles';
 import { CardButton } from '../StyledButtons';
 import PrisonChart from './PrisonChart';
@@ -36,7 +29,7 @@ class PrisonCard extends Component {
     const { prison, activities, closeCard, currentLanguage } = this.props;
 
     if (!prison) {
-      return <Wrap><img src={preloader} alt='preloader' /></Wrap>;
+      return <Wrap><Preloader src={preloader} alt='preloader' /></Wrap>;
     }
 
     const activity = prison.activity_id && activities[prison.activity_id]
