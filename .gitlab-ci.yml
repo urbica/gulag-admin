@@ -1,15 +1,48 @@
 stages:
   - test
+  - build
   - deploy
 
 test:
   stage: test
-  image: node:7-alpine
+  image: node:8-alpine
   script:
     - NODE_ENV=development yarn
-    # - NODE_ENV=development yarn run lint
-    # - NODE_ENV=development yarn test
-    - NODE_ENV=production yarn run build
+    - NODE_ENV=production yarn build
+  artifacts:
+    paths:
+      - build
+
+build:latest:
+  stage: build
+  image: docker:git
+  services:
+    - docker:dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - master
+    - dev
+
+build:release:
+  stage: build
+  image: docker:git
+  services:
+    - docker:dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - tags
 
 deploy:
   image: alpine
@@ -21,7 +54,7 @@ deploy:
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
   script:
-    - ssh gulag@gulag.urbica.co 'bash -s' < deploy.sh
+    - ssh urbica@95.213.149.220 'bash -s' < deploy.sh
   environment:
     name: production
     url: http://gulag.urbica.co

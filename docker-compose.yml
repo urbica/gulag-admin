@@ -1,21 +1,14 @@
 version: '2'
-services:
-  gulag-dnsmasq:
-    image: andyshinn/dnsmasq
-    container_name: gulag-dnsmasq
-    restart: always
-    cap_add:
-      - NET_ADMIN
 
+services:
   gulag-frontend:
-    image: nginx:alpine
+    image: gitlab.urbica.co:5001/gulag/gulag:master
     container_name: gulag-frontend
     restart: always
-    ports:
-      - 8092:80
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./build:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=gulag.urbica.co,gulagmap.ru
+    depends_on:
+      - gulag-backend
 
   gulag-backend:
     image: gitlab.urbica.co:5001/platform/nest:v1.0.1
@@ -26,3 +19,8 @@ services:
     volumes:
       - ./uploads:/usr/src/app/uploads
       - /var/run/postgresql:/var/run/postgresql
+
+networks:
+  default:
+    external:
+      name: production-network
