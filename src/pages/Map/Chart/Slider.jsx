@@ -58,7 +58,6 @@ class Slider extends Component {
   }
 
   componentDidMount() {
-    const { width } = this.props;
     const slider = select(this.g);
     this.handle = slider
       .append('g')
