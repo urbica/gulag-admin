@@ -67,7 +67,7 @@ class App extends Component {
     const { token } = this.state;
 
     if (!token) {
-      const publicToken = 'pk.eyJhbGciOiJIUzI1NiJ9.cHVibGlj.RszmUhuG4IDpQcOhw4ICEbXKQQfwlngr-YuoqqwcvkI';
+      const publicToken = 'pk.eyJhbGciOiJIUzI1NiJ9.cHVibGlj.KFtMch9eeBMfLUVHAvDFlyPwfSI4V8EYu5yW5qIa9Sg';
       fetchData({ token: publicToken })
         .then(({ activities, places, types, periods, prisons, photos }) =>
           this.setState({ activities, places, types, periods, prisons, photos }));
