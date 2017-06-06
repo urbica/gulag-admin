@@ -18,6 +18,14 @@ services:
       - .env
     volumes:
       - ./uploads:/usr/src/app/uploads
+
+  gulag-db:
+    image: mdillon/postgis:9.6-alpine
+    container_name: gulag-db
+    restart: always
+    env_file:
+      - .env
+    volumes:
       - ./db:/var/lib/postgresql/data
 
 networks:
