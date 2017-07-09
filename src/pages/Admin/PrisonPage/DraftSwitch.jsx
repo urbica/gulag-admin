@@ -18,7 +18,7 @@ const Label = styled.label`
     width: 125px;
     text-align: center;
     line-height: 40px;
-    font-family: 'PT Sans';
+    font-family: 'Formular';
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;

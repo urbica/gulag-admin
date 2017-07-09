@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
-import { injectGlobal } from 'styled-components';
 import {
   always, concat, assoc, assocPath, dissoc, dissocPath, map, over, propEq,
   reject, ifElse, isNil, lensPath
 } from 'ramda';
-import 'normalize.css/normalize.css';
+import './globalStyles';
 
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
@@ -18,21 +17,6 @@ import PrisonPage from '../pages/Admin/PrisonPage';
 import PeriodPage from '../pages/Admin/PeriodPage';
 import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
-
-// eslint-disable-next-line
-injectGlobal`
-  * {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    font-family: 'PT Sans', sans-serif;
-    font-size: 16px;
-    // background-color: #394554;
-  }
-`;
 
 const history = createBrowserHistory();
 

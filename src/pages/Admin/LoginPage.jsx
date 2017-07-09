@@ -26,7 +26,7 @@ const InputWrap = styled.label`
     padding-right: 100px;
     border: none;
     border-bottom: 1px solid rgba(0,0,0,.2);
-    font-family: 'PT Sans';
+    font-family: 'Formular';
     font-size: 48px;
     font-weight: bold;
     outline: none;
@@ -43,7 +43,7 @@ const Enter = styled.button`
   border-radius: 4px;
   background-color: #fff;
   border: solid 1px rgba(0, 0, 0, 0.5);
-  font-family: 'PT Sans';
+  font-family: 'Formular';
   font-size: 15px;
   outline: none;
   opacity: 0;

@@ -15,7 +15,7 @@ export const Wrap = styled.div`
   background-color: #0c0e12;
   color: #fff;
   font-size: 14px;
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Formular', sans-serif;
   overflow: scroll;
   transition: .4s;
   z-index: 1;
@@ -43,7 +43,7 @@ export const Preloader = styled.img`
 export const Top = styled.div`
   flex-basis: 100%;
   padding-bottom: 60px;
-  font-family: PT Sans;
+  font-family: Formular;
   & h1 {
     margin: 0 0 5px 0;
     color: rgba(255, 255, 255, 0.8);

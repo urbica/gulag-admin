@@ -16,7 +16,7 @@ const Button = styled.button`
   height: 40px;
   border: none;
   background-color: ${props => props.active ? '#fff' : 'transparent'};
-  font-family: 'PT Sans';
+  font-family: 'Formular';
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;

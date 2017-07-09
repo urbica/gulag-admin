@@ -16,7 +16,7 @@ const Wrap = styled.div`
   background-color: #000;
   color: #fff;
   font-size: 14px;
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Formular', sans-serif;
   overflow: scroll;
   z-index: 1;
 `;

@@ -7,7 +7,7 @@ import debounce from 'debounce';
 import { Wrap, Header, Input, Item, Name, Periods } from './SearchCardStyles';
 import { CardButton } from '../StyledButtons';
 import { getRightLang, getPeriods } from '../../../utils/utils';
-import { getFirstYear } from '../../../utils/prison-utils';
+import getFirstYear from '../../../utils/prison-utils';
 import cross from '../icons/btn-close.svg';
 
 class SearchCard extends Component {

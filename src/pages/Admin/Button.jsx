@@ -29,7 +29,7 @@ const Button = styled.button`
   border: 1px solid ${props => border[props.color] || '#b2b2b2'};
   background-color: transparent;
   color: ${props => color[props.color] || '#000'};
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Formular', sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   outline: none;

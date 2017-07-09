@@ -24,7 +24,7 @@ const Input = styled.input`
   padding: 0;
   border: none;
   border-radius: 0;
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Formular', sans-serif;
   font-size: 16px;
   background-color: #f3f3f3;
   outline: none;

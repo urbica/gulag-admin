@@ -6,7 +6,7 @@ import { pipe, path, head, keys } from 'ramda';
  * @param {Object} prison Prison object
  * @returns {number} first year if present
  */
-export const getFirstYear = pipe(
+export default pipe(
   path(['features', 0, 'properties']),
   keys,
   head,

@@ -25,7 +25,7 @@ const Photos = styled.div`
       border: none;
       background-color: #000;
       color: #fff;
-      font-family: 'PT Sans';
+      font-family: 'Formular';
       font-size: 14px;
       opacity: .7;
       cursor: pointer;

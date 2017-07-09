@@ -11,7 +11,7 @@ import PrisonChart from './PrisonChart';
 import close from '../icons/btn-close.svg';
 import preloader from '../icons/preloader.svg';
 import { getPeriods, getRightLang } from '../../../utils/utils';
-import { getFirstYear } from '../../../utils/prison-utils';
+import getFirstYear from '../../../utils/prison-utils';
 
 class PrisonCard extends Component {
   componentDidMount() {
