@@ -55,7 +55,7 @@ const Header = (props) => {
             </svg>
             <div>
               <Amount>{`${prisonersAmount}\n`}</Amount>
-              <Desc>заключенных</Desc>
+              <Desc>заключённых</Desc>
             </div>
           </Group>
         }
@@ -86,7 +86,7 @@ const Header = (props) => {
             </svg>
             <div>
               {`${props.prisonsAmount}\n`}
-              <Desc>лагеря</Desc>
+              <Desc>лагерь</Desc>
             </div>
           </Group>
         }

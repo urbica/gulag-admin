@@ -59,8 +59,3 @@ export const Item = styled.div`
 export const Name = styled.div`
   margin-bottom: 10px;
 `;
-
-export const Periods = styled.div`
-  opacity: 0.5;
-  font-size: 16px;
-`;

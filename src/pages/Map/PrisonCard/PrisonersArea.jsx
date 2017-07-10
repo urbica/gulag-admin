@@ -8,8 +8,7 @@ import { splitDigits } from '../../../utils/utils';
 const G = styled.g`
   pointer-events: auto;
   & rect {
-    fill: #fff;
-    opacity: .2;
+    fill: #504f4f;
   }
   & line {
     stroke-width: 2px;
@@ -84,7 +83,7 @@ class PrisonersArea extends PureComponent {
       })
       .attr('y', (d) => {
         const date = new Date(d.year, 0, 1);
-        return yScale(date) + 1;
+        return yScale(date);
       });
   }
 

@@ -7,7 +7,7 @@ export const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 600px;
-  color: rgba(225, 225, 225, 0.8);
+  color: #fff;
   z-index: 1;
   @media (max-width: 599px) {
     width: 100%;

@@ -23,7 +23,7 @@ const Wrap = styled.div`
 
 const Period = styled.div`
   margin-bottom: 30px;
-  font-size: 16px;
+  font-size: 14px;
   opacity: 0.8;
 `;
 
@@ -35,7 +35,6 @@ const Title = styled.div`
 
 const Description = styled.div`
   font-size: 16px;
-  opacity: 0.8;
 `;
 
 const PeriodCard = ({ period, currentLanguage, closeCard }) => {

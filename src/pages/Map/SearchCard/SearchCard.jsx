@@ -4,11 +4,15 @@ import { values } from 'ramda';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
 
-import { Wrap, Header, Input, Item, Name, Periods } from './SearchCardStyles';
+import { Wrap, Header, Input, Item, Name } from './SearchCardStyles';
 import { CardButton } from '../StyledButtons';
 import { getRightLang, getPeriods } from '../../../utils/utils';
 import getFirstYear from '../../../utils/prison-utils';
 import cross from '../icons/btn-close.svg';
+
+// styled
+import Periods from './Periods';
+import Location from './Location';
 
 class SearchCard extends Component {
   constructor(props) {
@@ -69,7 +73,7 @@ class SearchCard extends Component {
               >
                 <Name>{getRightLang(p.name, currentLanguage)}</Name>
                 <Periods>{getPeriods(p)}</Periods>
-                <Periods>{places[p.place_id] ? places[p.place_id].name : ''}</Periods>
+                <Location>{places[p.place_id] ? places[p.place_id].name : ''}</Location>
               </Item>
             ))
           }
