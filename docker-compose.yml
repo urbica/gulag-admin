@@ -6,6 +6,7 @@ services:
     container_name: gulag-frontend
     restart: always
     environment:
+      - CERT_NAME="" # skip https
       - VIRTUAL_HOST=gulag.urbica.co,gulagmap.ru
     depends_on:
       - gulag-backend
