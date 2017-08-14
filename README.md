@@ -1,7 +1,25 @@
-Моего английского пока не достаточно для написания документации, посему по русски.
+# Gulag
 
-В ветке мастер сейчас недособранная версия на прод, там не работает админка и немного кривое отображение информации о лагере.
+[![build status](https://gitlab.urbica.co/muf/tool/badges/master/build.svg)](https://gitlab.urbica.co/gulag/gulag/commits/master)
 
-В дев ветке хаос в связи с настройкой роутера, по мере возможности подчищаю структуру, удаляю не нужные методы и консоль логи.
+We are using:
 
-Пожалуйста не меняйте ничего кардинально иначе я не закончу этот ад никогда. Peace! 
+* [Standard Version](https://github.com/conventional-changelog/standard-version/)
+* [Conventional Commits](https://conventionalcommits.org/)
+* [Git Flow Methodology](http://nvie.com/posts/a-successful-git-branching-model/)
+
+## Usage
+
+```shell
+git clone ssh://git@gitlab.urbica.co:2222/gulag/gulag.git
+cd gulag
+yarn
+yarn start
+```
+
+## Commit
+
+```shell
+git add .
+yarn commit
+```
