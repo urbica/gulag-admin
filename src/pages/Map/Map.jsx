@@ -14,7 +14,7 @@ import allCities from '../../utils/newCities.geojson';
 
 const Wrap = styled.div`
   position: fixed;
-  top: ${({ slideUp }) => slideUp ? '-30%' : '0'};
+  top: ${({ slideUp }) => (slideUp ? '-30%' : '0')};
   bottom: 0;
   width: 100%;
   transition: .4s;
@@ -27,6 +27,7 @@ const Wrap = styled.div`
 
 /* eslint-disable max-len */
 const accessToken = 'pk.eyJ1IjoiZ3VsYWdtYXAiLCJhIjoiY2lxa3VtaWtyMDAyZGhzbWI1aDQ3NGhtayJ9.D2IEMpF7p8yNtpY_2HUQlw';
+
 /* eslint-enable max-len */
 
 class Map extends PureComponent {
