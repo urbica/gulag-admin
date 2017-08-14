@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import {
   __, apply, compose, curry, flatten, groupBy, gt, head, ifElse, keys, length, map,
   min, nthArg, pickBy, pipe, prop, test, uncurryN, or, reduce, values, assoc, evolve,

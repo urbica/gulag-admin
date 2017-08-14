@@ -11,7 +11,7 @@ import PlayButton from './PlayButton';
 import Chart from './Chart';
 import ShowAllButton from './ShowAllButton';
 import PrisonCard from './PrisonCard/PrisonCard';
-import PeriodCard from './PeriodCard';
+import PeriodCard from './PeriodCard/PeriodCard';
 import Map from './Map';
 import PublicRoute from '../../App/PublicRoute';
 import { prisonsToFeatures } from '../../utils/utils';
