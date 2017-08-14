@@ -1,19 +1,30 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-
-import {
-  Wrap, Preloader, Top, Location, Left, HalfWidth, Subtitle, MarkdownStyled, Right
-} from './PrisonCardStyles';
-import { CardButton } from '../StyledButtons';
 import PrisonChart from './PrisonChart';
+
+// images
 import close from '../icons/btn-close.svg';
 import preloader from '../icons/preloader.svg';
+
+// utils
 import { getPeriods, getRightLang } from '../../../utils/utils';
 import getFirstYear from '../../../utils/prison-utils';
 
-class PrisonCard extends Component {
+// styled
+import Container from './Container';
+import Preloader from './Preloader';
+import Top from './Top';
+import Location from './Location';
+import Left from './Left';
+import HalfWidth from './HalfWidth';
+import Subtitle from './Subtitle';
+import MarkdownStyled from './MarkdownStyled';
+import Right from './Right';
+import { CardButton } from '../StyledButtons';
+
+class PrisonCard extends PureComponent {
   componentDidMount() {
     const { prison, setYear, history } = this.props;
 
@@ -28,10 +39,6 @@ class PrisonCard extends Component {
   render() {
     const { prison, activities, closeCard, currentLanguage } = this.props;
 
-    if (!prison) {
-      return <Wrap><Preloader src={preloader} alt='preloader' /></Wrap>;
-    }
-
     const activity = prison.activity_id && activities[prison.activity_id]
       ? activities[prison.activity_id].name
       : '';
@@ -40,8 +47,16 @@ class PrisonCard extends Component {
       ? 'Тип деятельности'
       : '';
 
+    if (!prison) {
+      return (
+        <Container>
+          <Preloader src={preloader} alt='preloader' />
+        </Container>
+      );
+    }
+
     return (
-      <Wrap>
+      <Container>
         <Top>
           <h1>{getRightLang(prison.name, currentLanguage)}</h1>
           <Location>{getRightLang(prison.additional_names, currentLanguage)}</Location>
@@ -55,8 +70,8 @@ class PrisonCard extends Component {
             <div>{getPeriods(prison)}</div>
           </HalfWidth>
           <HalfWidth>
-            <Subtitle>{ activityTitle }</Subtitle>
-            <div>{ activity }</div>
+            <Subtitle>{activityTitle}</Subtitle>
+            <div>{activity}</div>
           </HalfWidth>
           <div>
             <Subtitle>Местоположение</Subtitle>
@@ -68,26 +83,25 @@ class PrisonCard extends Component {
         </Left>
         <Right>
           <Subtitle>Количество заключенных по годам</Subtitle>
-          <PrisonChart
-            features={prison.features}
-          />
+          <PrisonChart features={prison.features} />
         </Right>
-      </Wrap>
+      </Container>
     );
   }
 }
 
 PrisonCard.propTypes = {
-  setYear: PropTypes.func,
+  setYear: PropTypes.func.isRequired,
   prison: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.object
-  ]),
+  ]).isRequired,
+  history: PropTypes.object.isRequired,
   activities: PropTypes.arrayOf(
     PropTypes.object
-  ),
-  closeCard: PropTypes.func,
-  currentLanguage: PropTypes.string
+  ).isRequired,
+  closeCard: PropTypes.func.isRequired,
+  currentLanguage: PropTypes.string.isRequired
 };
 
 export default withRouter(PrisonCard);

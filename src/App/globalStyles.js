@@ -65,6 +65,5 @@ injectGlobal`
   body {
     font-family: 'Formular', sans-serif;
     font-size: 16px;
-    // background-color: #394554;
   }
 `;

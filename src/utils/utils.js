@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import {
   __, apply, compose, curry, flatten, groupBy, gt, head, ifElse, keys, length, map,
   min, nthArg, pickBy, pipe, prop, test, uncurryN, or, reduce, values, assoc, evolve,
@@ -65,7 +66,7 @@ export const fetchData = ({ token }) =>
       groupById
     );
 
-    const handle401 = r => r.status === 401 ? reject(401) : r;
+    const handle401 = r => (r.status === 401 ? reject(401) : r);
 
     Promise.all([
       fetch('/api/public/camps.json', options).then(handle401).then(r => r.json()),
