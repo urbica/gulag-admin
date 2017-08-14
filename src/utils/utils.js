@@ -65,7 +65,7 @@ export const fetchData = ({ token }) =>
       groupById
     );
 
-    const handle401 = r => r.status === 401 ? reject(401) : r;
+    const handle401 = r => (r.status === 401 ? reject(401) : r);
 
     Promise.all([
       fetch('/api/public/camps.json', options).then(handle401).then(r => r.json()),
