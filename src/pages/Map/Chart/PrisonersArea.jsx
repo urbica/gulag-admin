@@ -34,7 +34,7 @@ const G = styled.g`
   & g:last-child {
     & rect {
       fill: #fff;
-      opacity: .1;
+      opacity: ${({ showAllYears }) => (showAllYears ? 0.6 : 0.1)};
       transition: opacity 2s;
       &:hover {
         cursor: pointer;
@@ -185,6 +185,7 @@ class PrisonersArea extends PureComponent {
           this.g = ref;
         }}
         transform={`translate(${margin.left}, ${margin.top})`}
+        showAllYears={this.props.showAllYears}
       />
     );
   }

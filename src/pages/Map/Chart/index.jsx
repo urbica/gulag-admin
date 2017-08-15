@@ -31,7 +31,7 @@ const margin = {
 const height = 300 - margin.top - margin.bottom;
 
 const Chart = (props) => {
-  const { periods, currentYear, setYear, openPeriod, width: innerWidth } = props;
+  const { periods, currentYear, setYear, openPeriod, width: innerWidth, showAllYears } = props;
   let width;
   if (innerWidth < 1024) {
     width = innerWidth - 40 - margin.left - margin.right;
@@ -101,6 +101,7 @@ const Chart = (props) => {
           yScale={yScale}
           data={data}
           onClick={setYear}
+          showAllYears={showAllYears}
         />
         <Axis
           width={width}

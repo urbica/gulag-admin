@@ -219,6 +219,7 @@ class IndexPage extends Component {
             setYear={this.setYear}
             openPeriod={this.openPeriodCard}
             width={width}
+            showAllYears={currentYear === 'all'}
           />
           <ShowAllButton
             onClick={this.showAllYears}
