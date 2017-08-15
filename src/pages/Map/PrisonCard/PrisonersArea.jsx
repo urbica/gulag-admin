@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
@@ -45,7 +47,7 @@ class PrisonersArea extends PureComponent {
       .enter()
       .append('line')
       .attr('fill', 'none')
-      .attr('stroke', d => d.prisoners !== 0 ? '#fff' : 'transparent')
+      .attr('stroke', d => (d.prisoners !== 0 ? '#fff' : 'transparent'))
       .attr('x1', d => xScale(d.prisoners))
       .attr('y1', (d) => {
         const date = new Date(d.year, 0, 1);
@@ -62,7 +64,7 @@ class PrisonersArea extends PureComponent {
       .data(data)
       .enter()
       .append('text')
-      .text(({ prisoners }) => prisoners !== 0 ? splitDigits(prisoners) : '')
+      .text(({ prisoners }) => (prisoners !== 0 ? splitDigits(prisoners) : ''))
       .attr('x', d => xScale(d.prisoners) + 10)
       .attr('y', (d) => {
         const date = new Date(d.year, 0, 1);
@@ -92,7 +94,9 @@ class PrisonersArea extends PureComponent {
 
     return (
       <G
-        innerRef={ref => (this.g = ref)}
+        innerRef={(ref) => {
+          this.g = ref;
+        }}
         transform={`translate(${margin.left}, ${margin.top})`}
       />
     );

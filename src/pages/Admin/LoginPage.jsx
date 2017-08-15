@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
@@ -115,7 +117,9 @@ class LoginPage extends PureComponent {
           <InputWrap>
             <input
               required
-              ref={ref => (this.input = ref)}
+              ref={(ref) => {
+                this.input = ref;
+              }}
               type='password'
               placeholder='Введите пароль'
               onKeyPress={this.handleKeyPress}

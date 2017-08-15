@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -11,6 +13,7 @@ import data from '../../../utils/prisonersAmountByYears';
 import { splitDigits } from '../../../utils/utils';
 
 const formatedData = {};
+// eslint-disable-next-line
 data.map(d => (formatedData[d.year] = d));
 
 const Header = (props) => {

@@ -1,6 +1,8 @@
-import React from 'react';
-import FieldTitle from '../../FieldTitle';
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import FieldTitle from '../../FieldTitle';
 
 const PrisonYearsWrap = styled.div`
   margin-bottom: 33px;
@@ -46,18 +48,20 @@ const YearSpan = styled.span`
 `;
 
 const years = [];
+// eslint-disable-next-line
 for (let i = 1918; i <= 1960; i++) {
   years.push(i);
 }
 
-class PrisonYears extends React.Component {
+class PrisonYears extends PureComponent {
   render() {
-    const {selectedFeatureIndex, toggleYear} = this.props;
+    const { selectedFeatureIndex, toggleYear } = this.props;
     const features = this.props.features || [];
     let yearsDisabled = [];
 
     features.map((feature, index) => {
       if (index !== selectedFeatureIndex) {
+        // eslint-disable-next-line
         const years = Object.keys(feature.properties);
         yearsDisabled = yearsDisabled.concat(years);
       }
@@ -69,22 +73,22 @@ class PrisonYears extends React.Component {
         <FieldTitle>Годы существования лагеря</FieldTitle>
         <YearsList>
           {
-            years.map((year, key) => {
+            years.map((year) => {
               const checked = features[selectedFeatureIndex] ?
                 features[selectedFeatureIndex].properties[year] : false;
               const disabled = yearsDisabled.includes(String(year));
 
               return (
-                <YearLabel key={ key }>
+                <YearLabel key={year}>
                   <input
                     type='checkbox'
-                    checked={ checked }
-                    disabled={ disabled }
-                    onChange={ toggleYear.bind(null, year, features) }
+                    checked={checked}
+                    disabled={disabled}
+                    onChange={toggleYear.bind(null, year, features)}
                   />
-                  <YearSpan>{ year }</YearSpan>
+                  <YearSpan>{year}</YearSpan>
                 </YearLabel>
-              )
+              );
             })
           }
         </YearsList>

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
@@ -32,7 +34,7 @@ const G = styled.g`
   & g:last-child {
     & rect {
       fill: #fff;
-      opacity: .1;
+      opacity: ${({ showAllYears }) => (showAllYears ? 0.6 : 0.1)};
       transition: opacity 2s;
       &:hover {
         cursor: pointer;
@@ -179,8 +181,11 @@ class PrisonersArea extends PureComponent {
 
     return (
       <G
-        innerRef={ref => (this.g = ref)}
+        innerRef={(ref) => {
+          this.g = ref;
+        }}
         transform={`translate(${margin.left}, ${margin.top})`}
+        showAllYears={this.props.showAllYears}
       />
     );
   }

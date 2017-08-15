@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';

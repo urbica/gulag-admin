@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { Component } from 'react';
 import { __, curryN, lensPath, lensProp, path, pipe, set } from 'ramda';
 import { Link } from 'react-router-dom';
