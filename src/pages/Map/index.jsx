@@ -90,7 +90,6 @@ class IndexPage extends Component {
   demo() {
     const { isDemoPlayed } = this.state;
     this.setState({
-      currentYear: 1930,
       isDemoPlayed: !isDemoPlayed
     });
 
