@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { values } from 'ramda';
@@ -55,7 +57,9 @@ class SearchCard extends Component {
           <Input
             placeholder='Поиск'
             onChange={handleOnChange}
-            innerRef={ref => (this.input = ref)}
+            innerRef={(ref) => {
+              this.input = ref;
+            }}
           />
           <CardButton onClick={closeSearchCard}>
             <img src={cross} alt='cross' />

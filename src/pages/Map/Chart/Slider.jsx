@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { select, event } from 'd3-selection';
@@ -5,7 +7,7 @@ import { drag } from 'd3-drag';
 import styled from 'styled-components';
 
 const G = styled.g`
-  display: ${({ isVisible }) => isVisible ? 'block' : 'none'};
+  display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
   &:hover {
     cursor: pointer;
   }
@@ -119,7 +121,8 @@ class Slider extends Component {
 
     this.setState({ sliderPositionYear: currentYear });
 
-    data.map(d => d.year === currentYear ? prisoners = d.prisoners : 0);
+    // eslint-disable-next-line
+    data.map(d => (d.year === currentYear ? prisoners = d.prisoners : 0));
 
     this.currentYearRect
       .attr('x', 0)
@@ -173,7 +176,9 @@ class Slider extends Component {
 
     return (
       <G
-        innerRef={ref => (this.g = ref)}
+        innerRef={(ref) => {
+          this.g = ref;
+        }}
         transform={`translate(${margin.left}, ${height + margin.top})`}
         isVisible={isVisible}
       />

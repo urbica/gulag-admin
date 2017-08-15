@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint no-param-reassign: ["error", { "props": false }]*/
+/* eslint no-param-reassign: ["error", { "props": false }] */
 
 const fs = require('fs');
 const path = require('path');

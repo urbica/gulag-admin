@@ -1,4 +1,6 @@
 /* global mapboxgl */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { PureComponent } from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';

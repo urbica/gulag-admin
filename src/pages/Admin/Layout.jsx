@@ -22,9 +22,9 @@ const align = {
 
 const Block = styled.div`
   padding: 20px;
-  ${props => props.align || props.justify ? 'display: flex;' : null}
-  ${props => props.justify ? `justify-content: ${justify[props.justify]};` : null}
-  ${props => props.align ? `align-items: ${align[props.align]};` : null}
+  ${props => (props.align || props.justify ? 'display: flex;' : null)}
+  ${props => (props.justify ? `justify-content: ${justify[props.justify]};` : null)}
+  ${props => (props.align ? `align-items: ${align[props.align]};` : null)}
 `;
 
 export const Six = styled(Block)`

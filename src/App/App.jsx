@@ -118,6 +118,7 @@ class App extends Component {
         this.setState(assocPath(['periods', submittedPeriod.id], submittedPeriod), () =>
           history.push(`/admin/period${submittedPeriod.id}`)
         );
+        // eslint-disable-next-line
         alert(`Период "${period.name.ru}" обновлён`);
       });
   }
@@ -141,6 +142,7 @@ class App extends Component {
         const setPhotos = ifElse(isNil, always(newPhotos), concat(newPhotos));
         this.setState(over(photosLens, setPhotos));
       })
+      // eslint-disable-next-line
       .catch(error => console.error(error));
   }
 
@@ -153,6 +155,7 @@ class App extends Component {
         .then(() => {
           this.setState(over(lensPath(['photos', prisonId]), reject(propEq('id', photoId))));
         })
+        // eslint-disable-next-line
         .catch(error => console.error(error));
     }
   }
@@ -222,6 +225,7 @@ class App extends Component {
           this.setState(assocPath(['prisons', submittedPrison.id], getMaxPrisoners(submittedPrison)), () =>
             history.push(`/admin/prison${submittedPrison.id}`)
           );
+          // eslint-disable-next-line
           alert(`Лагерь "${prison.name.ru}" обновлён`);
         });
     }

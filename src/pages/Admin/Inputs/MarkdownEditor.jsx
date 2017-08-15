@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import styled from 'styled-components';
 import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
@@ -48,7 +46,7 @@ class MarkdownEditor extends React.PureComponent {
   }
 
   onBlur() {
-    const el = findDOMNode(this.textarea);
+    const el = this.textarea;
     this.props.onBlur({
       selectionStart: el.selectionStart,
       selectionEnd: el.selectionEnd
@@ -69,7 +67,7 @@ class MarkdownEditor extends React.PureComponent {
           this.state.preview &&
           <div className='inputWrapper'>
             <DescriptionTitle color={color}>
-              { title }
+              {title}
               <PreviewButton onClick={this.togglePreview}>
                 Редактировать
               </PreviewButton>
@@ -81,13 +79,13 @@ class MarkdownEditor extends React.PureComponent {
           !this.state.preview &&
           <div className='inputWrapper'>
             <DescriptionTitle color={color}>
-              { title }
+              {title}
               <PreviewButton onClick={this.togglePreview}>
                 Просмотр
               </PreviewButton>
             </DescriptionTitle>
             <TextArea
-              ref={(ref) => { this.textarea = ref; }}
+              innerRef={(ref) => { this.textarea = ref; }}
               value={source}
               onBlur={this.onBlur}
               onFocus={onFocus}

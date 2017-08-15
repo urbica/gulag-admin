@@ -15,7 +15,7 @@ const Button = styled.button`
   width: ${props => props.width};
   height: 40px;
   border: none;
-  background-color: ${props => props.active ? '#fff' : 'transparent'};
+  background-color: ${props => (props.active ? '#fff' : 'transparent')};
   font-family: 'Formular';
   font-size: 12px;
   font-weight: bold;
@@ -36,7 +36,7 @@ const LanguageChanger = (props) => {
             width={buttonWidth}
             onClick={onChange.bind(null, language)}
           >
-            { languages[language] }
+            {languages[language]}
           </Button>
         ))
       }

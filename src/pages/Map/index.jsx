@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -217,6 +219,7 @@ class IndexPage extends Component {
             setYear={this.setYear}
             openPeriod={this.openPeriodCard}
             width={width}
+            showAllYears={currentYear === 'all'}
           />
           <ShowAllButton
             onClick={this.showAllYears}
