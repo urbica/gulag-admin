@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { PureComponent } from 'react';
 import { toPairs } from 'ramda';
 import PropTypes from 'prop-types';
@@ -53,7 +55,9 @@ class Axis extends PureComponent {
 
     return (
       <G
-        innerRef={ref => (this.axis = ref)}
+        innerRef={(ref) => {
+          this.axis = ref;
+        }}
         transform={`translate(${margin.left}, ${height + margin.top})`}
       />
     );

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -13,7 +15,7 @@ const TD = styled.td`
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: ${props => props.published ? '#000' : 'rgba(0,0,0,.1)'};
+    background-color: ${props => (props.published ? '#000' : 'rgba(0,0,0,.1)')};
   }
 `;
 

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import { values } from 'ramda';
 import PropTypes from 'prop-types';
@@ -24,7 +26,7 @@ const Period = styled.div`
   padding-top: 12px;
   padding-left: 7px;
   font-size: 12px;
-  background-color: rgba(${({ id }) => id % 2 ? '0,0,0,.2)' : '0,0,0,.1)'};
+  background-color: rgba(${({ id }) => (id % 2 ? '0,0,0,.2)' : '0,0,0,.1)')};
   & div:last-child {
     opacity: .8;
   }

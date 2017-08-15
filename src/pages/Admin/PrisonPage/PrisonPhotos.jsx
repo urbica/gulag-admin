@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -59,7 +60,7 @@ const PrisonPhoto = (props) => {
         alt={id}
         onClick={props.onClick.bind(null, path)}
       />
-      <figcaption>{ id }</figcaption>
+      <figcaption>{id}</figcaption>
       <button onClick={props.onDelete}>Удалить</button>
     </figure>
   );
@@ -93,20 +94,22 @@ class PrisonPhotos extends React.PureComponent {
       <Photos>
         <FieldTitle>фотографии</FieldTitle>
         {
-          photos.map(photo =>
+          photos.map(photo => (
             <PrisonPhoto
               key={photo.id}
               photo={photo}
               onClick={onClick}
               onDelete={this.deletePhoto.bind(this, photo.id)}
             />
-          )
+          ))
         }
         <label>
           <UploadPhoto>Загрузить</UploadPhoto>
           <input
             type='file'
-            ref={(ref) => { this.photos = ref; }}
+            ref={(ref) => {
+              this.photos = ref;
+            }}
             onChange={this.uploadPhotos}
           />
         </label>

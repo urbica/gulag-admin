@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import MaskedInput from 'react-text-mask';
 import styled from 'styled-components';

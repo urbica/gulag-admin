@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -78,6 +80,7 @@ class PrisonsTable extends Component {
     const { prisons, places, types } = this.props;
     const { sortBy, sortDir } = this.state;
 
+    // eslint-disable-next-line
     const getComparator = (sortBy) => {
       if (sortBy[0] === 'name') {
         return (a, b) => {
@@ -203,7 +206,7 @@ class PrisonsTable extends Component {
         </thead>
         <tbody>
           {
-            prisons.map(prison =>
+            prisons.map(prison => (
               <PrisonRow
                 prison={prison}
                 key={prison.id}
@@ -211,7 +214,7 @@ class PrisonsTable extends Component {
                 types={this.props.types}
                 history={this.props.history}
               />
-            )
+            ))
           }
         </tbody>
       </table>

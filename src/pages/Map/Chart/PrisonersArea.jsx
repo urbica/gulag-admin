@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
@@ -179,7 +181,9 @@ class PrisonersArea extends PureComponent {
 
     return (
       <G
-        innerRef={ref => (this.g = ref)}
+        innerRef={(ref) => {
+          this.g = ref;
+        }}
         transform={`translate(${margin.left}, ${margin.top})`}
       />
     );

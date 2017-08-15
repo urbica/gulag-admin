@@ -29,7 +29,7 @@ const Label = styled.label`
 const Switcher = styled.div`
   position: absolute;
   width: calc(50% - 5px);
-  left: ${props => !props.checked ? '5px' : '50%'};
+  left: ${props => (!props.checked ? '5px' : '50%')};
   top: 5px;
   bottom: 5px;
   background-color: #fff;

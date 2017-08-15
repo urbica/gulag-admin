@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "lint": "eslint src",
+    "lint": "eslint src --ext .js,.jsx",
     "commit": "git-cz",
     "release": "standard-version",
     "start": "react-scripts start",
