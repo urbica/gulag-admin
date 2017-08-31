@@ -18,8 +18,6 @@ import blackTtf from '../assets/formular-black/formular-black.ttf';
 injectGlobal`
   * {
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   @font-face {
@@ -65,5 +63,36 @@ injectGlobal`
   body {
     font-family: 'Formular', sans-serif;
     font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .incut {
+    padding: 20px 30px 30px 20px;
+    margin: 0 -30px 0 -20px;
+    background-color: #fff9d5;
+    
+    h2 {
+      opacity: 0.8;
+      font-size: 20px;
+      font-weight: 900;
+      color: #000 !important;
+    }
+
+    p {
+      opacity: 0.8;
+      font-family: Formular;
+      font-size: 16px;
+      color: #000 !important;
+    }
+    
+    a {
+      color: #000 !important;
+      border-bottom-color: #000 !important;
+      &:hover {
+        border-bottom-color: transparent !important;
+        transition: 0.4s;
+      }
+    }
   }
 `;

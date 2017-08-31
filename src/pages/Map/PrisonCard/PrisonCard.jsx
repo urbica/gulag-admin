@@ -1,7 +1,7 @@
+/* eslint-disable react/no-danger */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
 import PrisonChart from './PrisonChart';
 
 // images
@@ -10,6 +10,7 @@ import preloader from '../icons/preloader.svg';
 
 // utils
 import { getPeriods, getRightLang } from '../../../utils/utils';
+import parseMd from '../../../utils/parseMD';
 import getFirstYear from '../../../utils/prison-utils';
 
 // styled
@@ -78,7 +79,11 @@ class PrisonCard extends PureComponent {
             <div>{getRightLang(prison.location, currentLanguage)}</div>
           </div>
           <MarkdownStyled>
-            <ReactMarkdown source={getRightLang(prison.description, currentLanguage)} />
+            <div
+              dangerouslySetInnerHTML={
+                { __html: parseMd(getRightLang(prison.description, currentLanguage)) }
+              }
+            />
           </MarkdownStyled>
         </Left>
         <Right>
