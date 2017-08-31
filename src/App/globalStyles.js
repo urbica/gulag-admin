@@ -76,12 +76,23 @@ injectGlobal`
       opacity: 0.8;
       font-size: 20px;
       font-weight: 900;
+      color: #000 !important;
     }
 
     p {
       opacity: 0.8;
       font-family: Formular;
       font-size: 16px;
+      color: #000 !important;
+    }
+    
+    a {
+      color: #000 !important;
+      border-bottom-color: #000 !important;
+      &:hover {
+        border-bottom-color: transparent !important;
+        transition: 0.4s;
+      }
     }
   }
 `;

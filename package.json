@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "classnames": "2.2.5",
+    "commonmark": "0.28.1",
     "d3-array": "1.2.0",
     "d3-axis": "1.0.7",
     "d3-drag": "1.1.0",
@@ -36,7 +37,6 @@
     "ramda": "0.24.1",
     "react": "15.6.1",
     "react-dom": "15.6.1",
-    "react-markdown": "2.5.0",
     "react-router-dom": "4.1.1",
     "react-select": "1.0.0-rc.4",
     "react-text-mask": "5.0.2",

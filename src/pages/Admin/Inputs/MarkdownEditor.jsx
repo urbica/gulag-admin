@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types, react/no-danger */
 import React from 'react';
 import styled from 'styled-components';
 import classnames from 'classnames';
-import ReactMarkdown from 'react-markdown';
 import { lensProp, not, over } from 'ramda';
 
 import parseMd from '../../../utils/parseMD';
@@ -74,7 +73,7 @@ class MarkdownEditor extends React.PureComponent {
                 Редактировать
               </PreviewButton>
             </DescriptionTitle>
-            <ReactMarkdown source={parseMd(source)} />
+            <div dangerouslySetInnerHTML={{ __html: parseMd(source) }} />
           </div>
         }
         {
@@ -87,7 +86,9 @@ class MarkdownEditor extends React.PureComponent {
               </PreviewButton>
             </DescriptionTitle>
             <TextArea
-              innerRef={(ref) => { this.textarea = ref; }}
+              innerRef={(ref) => {
+                this.textarea = ref;
+              }}
               value={source}
               onBlur={this.onBlur}
               onFocus={onFocus}
