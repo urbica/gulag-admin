@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
 import { lensProp, not, over } from 'ramda';
 
+import parseMd from '../../../utils/parseMD';
+
 import FieldTitle from '../FieldTitle';
 import Button from '../Button';
 
@@ -72,7 +74,7 @@ class MarkdownEditor extends React.PureComponent {
                 Редактировать
               </PreviewButton>
             </DescriptionTitle>
-            <ReactMarkdown source={source} />
+            <ReactMarkdown source={parseMd(source)} />
           </div>
         }
         {

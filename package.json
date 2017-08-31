@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "react-scripts start",
     "lint": "eslint src --ext .js,.jsx",
     "commit": "git-cz",
     "release": "standard-version",
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
