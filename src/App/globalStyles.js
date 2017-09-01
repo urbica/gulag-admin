@@ -71,6 +71,7 @@ injectGlobal`
     padding: 20px 30px 30px 20px;
     margin: 0 -30px 0 -20px;
     background-color: #fff9d5;
+    break-inside: avoid;
     
     h2 {
       opacity: 0.8;
