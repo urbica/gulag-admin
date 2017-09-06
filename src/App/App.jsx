@@ -309,6 +309,7 @@ class App extends Component {
             path='/'
             component={IndexPage}
             prisons={prisons}
+            photos={photos}
             periods={periods}
             activities={activities}
             places={places}
