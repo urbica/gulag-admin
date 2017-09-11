@@ -82,7 +82,7 @@ class PrisonCard extends PureComponent {
           <MarkdownStyled>
             <div
               dangerouslySetInnerHTML={
-                { __html: parseMd(getRightLang(prison.description, currentLanguage)) }
+                { __html: parseMd(getRightLang(prison.description, currentLanguage)).description }
               }
             />
           </MarkdownStyled>

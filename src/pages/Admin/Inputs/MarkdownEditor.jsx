@@ -61,6 +61,7 @@ class MarkdownEditor extends React.PureComponent {
   render() {
     const { inputClassName, onChange, onFocus, source, title, color } = this.props;
     const inputClassNames = classnames('input', inputClassName);
+    const { description } = parseMd(source);
 
     return (
       <MarkdownWrap>
@@ -73,7 +74,7 @@ class MarkdownEditor extends React.PureComponent {
                 Редактировать
               </PreviewButton>
             </DescriptionTitle>
-            <div dangerouslySetInnerHTML={{ __html: parseMd(source) }} />
+            <div dangerouslySetInnerHTML={{ __html: description }} />
           </div>
         }
         {
