@@ -93,7 +93,13 @@ class PrisonCard extends PureComponent {
         </Right>
         {
           this.props.photos.length > 0 &&
-          <Gallery photos={this.props.photos} />
+          parseMd(getRightLang(prison.description, currentLanguage)).galleries.map((gallery, i) => (
+            <Gallery
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              photos={gallery}
+            />
+          ))
         }
       </Container>
     );

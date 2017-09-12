@@ -8,6 +8,7 @@ import parseMd from '../../../utils/parseMD';
 
 import FieldTitle from '../FieldTitle';
 import Button from '../Button';
+import Gallery from '../../Map/Gallery/Gallery';
 
 const DescriptionTitle = styled(FieldTitle)`
   position: relative;
@@ -61,7 +62,7 @@ class MarkdownEditor extends React.PureComponent {
   render() {
     const { inputClassName, onChange, onFocus, source, title, color } = this.props;
     const inputClassNames = classnames('input', inputClassName);
-    const { description } = parseMd(source);
+    const { description, galleries } = parseMd(source);
 
     return (
       <MarkdownWrap>
@@ -75,6 +76,15 @@ class MarkdownEditor extends React.PureComponent {
               </PreviewButton>
             </DescriptionTitle>
             <div dangerouslySetInnerHTML={{ __html: description }} />
+            {
+              galleries.map((gallery, i) => (
+                <Gallery
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={i}
+                  photos={gallery}
+                />
+              ))
+            }
           </div>
         }
         {

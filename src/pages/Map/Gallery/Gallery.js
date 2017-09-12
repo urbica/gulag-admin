@@ -19,15 +19,18 @@ class Gallery extends PureComponent {
     return (
       <Container>
         <Top>
-          <img src={this.props.photos[this.state.activePhotoId].path} alt='' />
+          <img src={this.props.photos[this.state.activePhotoId]} alt='' />
         </Top>
         <Bottom>
           {
             this.props.photos.map((img, i) => (
-              <div onClick={() => this.setState({ activePhotoId: i })}>
+              <div
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
+                onClick={() => this.setState({ activePhotoId: i })}
+              >
                 <img
-                  key={img.id}
-                  src={img.path}
+                  src={img}
                   alt=''
                 />
               </div>
@@ -41,7 +44,7 @@ class Gallery extends PureComponent {
 
 Gallery.propTypes = {
   photos: PropTypes.arrayOf(
-    PropTypes.object
+    PropTypes.string
   ).isRequired
 };
 
