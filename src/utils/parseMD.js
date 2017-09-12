@@ -14,10 +14,13 @@ export default (md) => {
           case 'НАЧАЛО_ВРЕЗКИ':
             acc.push({ type: 'incut', payload: '', isClosed: false });
             return acc;
+          case 'КОНЕЦ_ВРЕЗКИ':
+            lastElem.isClosed = true;
+            return acc;
           case 'НАЧАЛО_ГАЛЕРЕИ':
             acc.push({ type: 'gallery', payload: '', isClosed: false });
             return acc;
-          case 'КОНЕЦ_ВРЕЗКИ' || 'КОНЕЦ_ГАЛЕРЕИ':
+          case 'КОНЕЦ_ГАЛЕРЕИ':
             lastElem.isClosed = true;
             return acc;
           default:
@@ -29,7 +32,6 @@ export default (md) => {
             return acc;
         }
       }, [{ type: 'description', payload: '', isClosed: false }]);
-
 
   const description = parsedMd.reduce((acc, elem) => {
     switch (elem.type) {
@@ -49,6 +51,25 @@ export default (md) => {
         return acc;
     }
   }, '');
+  const galleries = parsedMd.reduce((acc, elem) => {
+    switch (elem.type) {
+      case 'gallery': {
+        const re = /(?:!\[.*?]\()+(.+?)(?:\))+/g;
+        let arr;
 
-  return { description };
+        // eslint-disable-next-line no-cond-assign
+        while ((arr = re.exec(elem.payload)) !== null) {
+          // adding current match to last arr in acc
+          acc[acc.length - 1].push(arr[1]);
+        }
+        acc.push([]);
+
+        return acc;
+      }
+      default:
+        return acc;
+    }
+  }, [[]]);
+
+  return { description, galleries };
 };
