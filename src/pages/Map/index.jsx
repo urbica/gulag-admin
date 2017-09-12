@@ -152,7 +152,7 @@ class IndexPage extends Component {
   }
 
   render() {
-    const { periods, prisons, activities, places } = this.props;
+    const { periods, prisons, activities, places, photos } = this.props;
     const {
       currentYear, currentPrisons, currentLanguage, isDemoPlayed, openedPrisonCoordinates,
       openedPrisonId, width
@@ -181,6 +181,7 @@ class IndexPage extends Component {
     const PrisonCardWithRouter = withRouter(({ match }) => (
       <PrisonCard
         prison={!isEmpty(prisons) && prisons[match.params.prisonId]}
+        photos={photos[match.params.prisonId]}
         closeCard={this.closeCard}
         setYear={this.setYear}
         currentLanguage={currentLanguage}

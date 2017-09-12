@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import PrisonChart from './PrisonChart';
+import Gallery from '../Gallery/Gallery';
 
 // images
 import close from '../icons/btn-close.svg';
@@ -81,7 +82,7 @@ class PrisonCard extends PureComponent {
           <MarkdownStyled>
             <div
               dangerouslySetInnerHTML={
-                { __html: parseMd(getRightLang(prison.description, currentLanguage)) }
+                { __html: parseMd(getRightLang(prison.description, currentLanguage)).description }
               }
             />
           </MarkdownStyled>
@@ -90,6 +91,16 @@ class PrisonCard extends PureComponent {
           <Subtitle>Количество заключенных по годам</Subtitle>
           <PrisonChart features={prison.features} />
         </Right>
+        {
+          this.props.photos.length > 0 &&
+          parseMd(getRightLang(prison.description, currentLanguage)).galleries.map((gallery, i) => (
+            <Gallery
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              photos={gallery}
+            />
+          ))
+        }
       </Container>
     );
   }
@@ -106,7 +117,14 @@ PrisonCard.propTypes = {
     PropTypes.object
   ).isRequired,
   closeCard: PropTypes.func.isRequired,
-  currentLanguage: PropTypes.string.isRequired
+  currentLanguage: PropTypes.string.isRequired,
+  photos: PropTypes.arrayOf(
+    PropTypes.object
+  )
+};
+
+PrisonCard.defaultProps = {
+  photos: []
 };
 
 export default withRouter(PrisonCard);
