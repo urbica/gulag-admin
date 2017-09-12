@@ -157,7 +157,6 @@ class PrisonCard extends React.Component {
         </Three>
         <Four>
           <MarkdownEditor
-            title='Описание лагеря'
             source={prison.description[this.state.activeLang] || ''}
             onBlur={this.markdownOnBlur.bind(this, ['description', this.state.activeLang])}
             onChange={updateInput(lensPath(['description', this.state.activeLang]))}

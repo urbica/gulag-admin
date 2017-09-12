@@ -1,42 +1,20 @@
-/* eslint-disable react/prop-types, react/no-danger */
-import React from 'react';
-import styled from 'styled-components';
-import classnames from 'classnames';
-import { lensProp, not, over } from 'ramda';
+/* eslint-disable react/no-danger */
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
+// utils
 import parseMd from '../../../utils/parseMD';
 
-import FieldTitle from '../FieldTitle';
-import Button from '../Button';
+// components
 import Gallery from '../../Map/Gallery/Gallery';
 
-const DescriptionTitle = styled(FieldTitle)`
-  position: relative;
-`;
+// styled
+import Container from './Container';
+import DescriptionTitle from './DescriptionTitle';
+import PreviewButton from './PreviewButton';
+import TextArea from './TextArea';
 
-const PreviewButton = styled(Button)`
-  position: absolute;
-  right: 0;
-  bottom: -1px;
-`;
-
-const MarkdownWrap = styled.div`
-  & img {
-    max-width: 100%;
-  }
-`;
-
-const TextArea = styled.textarea`
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 400px;
-  padding: 12px;
-  border: none;
-  background-color: '#f3f3f3';
-  outline: none;
-`;
-
-class MarkdownEditor extends React.PureComponent {
+class MarkdownEditor extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,28 +34,26 @@ class MarkdownEditor extends React.PureComponent {
   }
 
   togglePreview() {
-    this.setState(over(lensProp('preview'), not));
+    this.setState(({ preview }) => ({ preview: !preview }));
   }
 
   render() {
-    const { inputClassName, onChange, onFocus, source, title, color } = this.props;
-    const inputClassNames = classnames('input', inputClassName);
-    const { description, galleries } = parseMd(source);
+    const { source, onChange } = this.props;
 
     return (
-      <MarkdownWrap>
+      <Container>
         {
           this.state.preview &&
           <div className='inputWrapper'>
-            <DescriptionTitle color={color}>
-              {title}
+            <DescriptionTitle>
+              Описание лагеря
               <PreviewButton onClick={this.togglePreview}>
                 Редактировать
               </PreviewButton>
             </DescriptionTitle>
-            <div dangerouslySetInnerHTML={{ __html: description }} />
+            <div dangerouslySetInnerHTML={{ __html: parseMd(source).description }} />
             {
-              galleries.map((gallery, i) => (
+              parseMd(source).galleries.map((gallery, i) => (
                 <Gallery
                   // eslint-disable-next-line react/no-array-index-key
                   key={i}
@@ -90,8 +66,8 @@ class MarkdownEditor extends React.PureComponent {
         {
           !this.state.preview &&
           <div className='inputWrapper'>
-            <DescriptionTitle color={color}>
-              {title}
+            <DescriptionTitle>
+              Описание лагеря
               <PreviewButton onClick={this.togglePreview}>
                 Просмотр
               </PreviewButton>
@@ -102,17 +78,21 @@ class MarkdownEditor extends React.PureComponent {
               }}
               value={source}
               onBlur={this.onBlur}
-              onFocus={onFocus}
-              color={color}
               onChange={onChange}
-              className={inputClassNames}
+              className='input'
             />
             <div className='inputLine' />
           </div>
         }
-      </MarkdownWrap>
+      </Container>
     );
   }
 }
+
+MarkdownEditor.propTypes = {
+  source: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired
+};
 
 export default MarkdownEditor;

@@ -3,6 +3,7 @@ import { Parser, HtmlRenderer } from 'commonmark';
 export default (md) => {
   const reader = new Parser();
   const writer = new HtmlRenderer();
+  const imgURLRegEx = /(?:!\[.*?]\()+(.+?)(?:\))+/g;
 
   const parsedMd =
     md
@@ -54,22 +55,22 @@ export default (md) => {
   const galleries = parsedMd.reduce((acc, elem) => {
     switch (elem.type) {
       case 'gallery': {
-        const re = /(?:!\[.*?]\()+(.+?)(?:\))+/g;
+        const gallery = [];
         let arr;
 
         // eslint-disable-next-line no-cond-assign
-        while ((arr = re.exec(elem.payload)) !== null) {
+        while ((arr = imgURLRegEx.exec(elem.payload)) !== null) {
           // adding current match to last arr in acc
-          acc[acc.length - 1].push(arr[1]);
+          gallery.push(arr[1]);
         }
-        acc.push([]);
+        acc.push(gallery);
 
         return acc;
       }
       default:
         return acc;
     }
-  }, [[]]);
+  }, []);
 
   return { description, galleries };
 };
