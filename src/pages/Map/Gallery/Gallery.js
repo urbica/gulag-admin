@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // styled
 import Container from './Container';
 import Top from './Top';
-import Bottom from './Bottom';
+import PreviewsContainer from './PreviewsContainer';
 
 class Gallery extends PureComponent {
   constructor(props) {
@@ -21,22 +21,21 @@ class Gallery extends PureComponent {
         <Top>
           <img src={this.props.photos[this.state.activePhotoId]} alt='' />
         </Top>
-        <Bottom>
-          {
-            this.props.photos.map((img, i) => (
-              <div
-                // eslint-disable-next-line react/no-array-index-key
-                key={i}
-                onClick={() => this.setState({ activePhotoId: i })}
-              >
-                <img
-                  src={img}
-                  alt=''
-                />
-              </div>
-            ))
-          }
-        </Bottom>
+        {
+          this.props.photos.map((img, i) => (
+            <PreviewsContainer
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              isActive={this.state.activePhotoId === i}
+              onClick={() => this.setState({ activePhotoId: i })}
+            >
+              <img
+                src={img}
+                alt=''
+              />
+            </PreviewsContainer>
+          ))
+        }
       </Container>
     );
   }
