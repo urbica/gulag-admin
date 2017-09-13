@@ -1,7 +1,9 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable react/no-danger, react/no-array-index-key */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { Parser, HtmlRenderer } from 'commonmark';
+
 import PrisonChart from './PrisonChart';
 import Gallery from '../Gallery/Gallery';
 
@@ -25,6 +27,10 @@ import Subtitle from './Subtitle';
 import MarkdownStyled from './MarkdownStyled';
 import Right from './Right';
 import { CardButton } from '../StyledButtons';
+
+const reader = new Parser();
+const writer = new HtmlRenderer();
+const imgURLRegEx = /(?:!\[.*?]\()+(.+?)(?:\))+/g;
 
 class PrisonCard extends PureComponent {
   componentDidMount() {
@@ -80,27 +86,58 @@ class PrisonCard extends PureComponent {
             <div>{getRightLang(prison.location, currentLanguage)}</div>
           </div>
           <MarkdownStyled>
-            <div
-              dangerouslySetInnerHTML={
-                { __html: parseMd(getRightLang(prison.description, currentLanguage)).description }
-              }
-            />
+            {
+              parseMd(getRightLang(prison.description, currentLanguage)).map((elem, i) => {
+                switch (elem.type) {
+                  case 'description': {
+                    const parsed = reader.parse(elem.payload);
+                    const result = writer.render(parsed);
+                    return (
+                      <div
+                        key={i}
+                        dangerouslySetInnerHTML={{ __html: result }}
+                      />
+                    );
+                  }
+                  case 'incut': {
+                    const parsed = reader.parse(elem.payload);
+                    const result = writer.render(parsed);
+                    return (
+                      <div
+                        key={i}
+                        className='incut'
+                      >
+                        <div dangerouslySetInnerHTML={{ __html: result }} />
+                      </div>
+                    );
+                  }
+                  case 'gallery': {
+                    const photos = [];
+                    let arr;
+
+                    // eslint-disable-next-line no-cond-assign
+                    while ((arr = imgURLRegEx.exec(elem.payload)) !== null) {
+                      // adding current match to last arr in acc
+                      photos.push(arr[1]);
+                    }
+                    return (
+                      <Gallery
+                        key={i}
+                        photos={photos}
+                      />
+                    );
+                  }
+                  default:
+                    return null;
+                }
+              })
+            }
           </MarkdownStyled>
         </Left>
         <Right>
           <Subtitle>Количество заключенных по годам</Subtitle>
           <PrisonChart features={prison.features} />
         </Right>
-        {
-          this.props.photos.length > 0 &&
-          parseMd(getRightLang(prison.description, currentLanguage)).galleries.map((gallery, i) => (
-            <Gallery
-              // eslint-disable-next-line react/no-array-index-key
-              key={i}
-              photos={gallery}
-            />
-          ))
-        }
       </Container>
     );
   }
@@ -117,10 +154,7 @@ PrisonCard.propTypes = {
     PropTypes.object
   ).isRequired,
   closeCard: PropTypes.func.isRequired,
-  currentLanguage: PropTypes.string.isRequired,
-  photos: PropTypes.arrayOf(
-    PropTypes.object
-  )
+  currentLanguage: PropTypes.string.isRequired
 };
 
 PrisonCard.defaultProps = {

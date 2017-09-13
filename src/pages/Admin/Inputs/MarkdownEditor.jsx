@@ -1,6 +1,7 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable react/no-danger, react/no-array-index-key */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { Parser, HtmlRenderer } from 'commonmark';
 
 // utils
 import parseMd from '../../../utils/parseMD';
@@ -13,6 +14,10 @@ import Container from './Container';
 import DescriptionTitle from './DescriptionTitle';
 import PreviewButton from './PreviewButton';
 import TextArea from './TextArea';
+
+const reader = new Parser();
+const writer = new HtmlRenderer();
+const imgURLRegEx = /(?:!\[.*?]\()+(.+?)(?:\))+/g;
 
 class MarkdownEditor extends PureComponent {
   constructor(props) {
@@ -51,15 +56,51 @@ class MarkdownEditor extends PureComponent {
                 Редактировать
               </PreviewButton>
             </DescriptionTitle>
-            <div dangerouslySetInnerHTML={{ __html: parseMd(source).description }} />
             {
-              parseMd(source).galleries.map((gallery, i) => (
-                <Gallery
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={i}
-                  photos={gallery}
-                />
-              ))
+              parseMd(source).map((elem, i) => {
+                switch (elem.type) {
+                  case 'description': {
+                    const parsed = reader.parse(elem.payload);
+                    const result = writer.render(parsed);
+                    return (
+                      <div
+                        key={i}
+                        dangerouslySetInnerHTML={{ __html: result }}
+                      />
+                    );
+                  }
+                  case 'incut': {
+                    const parsed = reader.parse(elem.payload);
+                    const result = writer.render(parsed);
+                    return (
+                      <div
+                        key={i}
+                        className='incut'
+                      >
+                        <div dangerouslySetInnerHTML={{ __html: result }} />
+                      </div>
+                    );
+                  }
+                  case 'gallery': {
+                    const photos = [];
+                    let arr;
+
+                    // eslint-disable-next-line no-cond-assign
+                    while ((arr = imgURLRegEx.exec(elem.payload)) !== null) {
+                      // adding current match to last arr in acc
+                      photos.push(arr[1]);
+                    }
+                    return (
+                      <Gallery
+                        key={i}
+                        photos={photos}
+                      />
+                    );
+                  }
+                  default:
+                    return null;
+                }
+              })
             }
           </div>
         }

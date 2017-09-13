@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export default styled.div`
+  position: relative;
   width: 100%;
   max-height: 225px;
   margin-bottom: 5px;
@@ -10,5 +11,9 @@ export default styled.div`
   img {
     max-width: 100%;
     max-height: 225px;
+
+    &:hover + button {
+      display: inline-block;
+    }
   }
 `;
