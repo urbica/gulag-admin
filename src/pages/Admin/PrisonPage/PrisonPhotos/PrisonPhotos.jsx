@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
+import ImageCompressor from 'image-compressor';
 
 // styled
 import Container from './Container';
@@ -48,7 +49,16 @@ class PrisonPhotos extends PureComponent {
 
   uploadPhotos(photo) {
     const { uploadHandler } = this.props;
-    uploadHandler(photo);
+    const compressorSettings = {
+      maxWidth: 1400,
+      success(result) {
+        const file = new File([result], result.name);
+        uploadHandler([file]);
+      }
+    };
+
+    // eslint-disable-next-line no-new
+    new ImageCompressor(photo[0], compressorSettings);
   }
 
   deletePhoto(photoId) {
@@ -77,6 +87,7 @@ class PrisonPhotos extends PureComponent {
           ))
         }
         <Dropzone
+          accept='image/*'
           onDrop={this.uploadPhotos}
           style={style}
         >
@@ -93,7 +104,11 @@ PrisonPhotos.propTypes = {
   onClick: PropTypes.func.isRequired,
   photos: PropTypes.arrayOf(
     PropTypes.object
-  ).isRequired
+  )
+};
+
+PrisonPhotos.defaultProps = {
+  photos: []
 };
 
 export default PrisonPhotos;
