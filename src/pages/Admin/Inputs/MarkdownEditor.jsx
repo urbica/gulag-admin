@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Parser, HtmlRenderer } from 'commonmark';
+import './inputs.css';
 
 // utils
 import parseMd from '../../../utils/parseMD';

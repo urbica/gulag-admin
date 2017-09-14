@@ -32,11 +32,6 @@ export const Six = styled(Block)`
   max-width: 100%;
 `;
 
-export const Five = styled(Block)`
-  flex: 0 0 calc(500% / 6);
-  max-width: calc(500% / 6);
-`;
-
 export const Four = styled(Block)`
   flex: 0 0 calc(400% / 6);
   max-width: calc(400% / 6);
@@ -50,11 +45,6 @@ export const Three = styled(Block)`
 export const Two = styled(Block)`
   flex: 0 0 calc(200% / 6);
   max-width: calc(200% / 6);
-`;
-
-export const One = styled(Block)`
-  flex: 0 0 calc(100% / 6);
-  max-width: calc(100% / 6);
 `;
 
 Block.propTypes = {

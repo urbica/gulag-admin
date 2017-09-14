@@ -1,42 +1,26 @@
-/* eslint-disable react/prop-types */
-
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { __, curryN, identity, lensPath, lensProp, path, pipe, set, view, values } from 'ramda';
 
-import { Container, Six, Four, Three, Two } from '../Layout';
 import PrisonHeader from './PrisonHeader';
 import LanguageSwitcher from '../LanguageSwitcher';
 import DraftSwitch from './DraftSwitch';
 import FieldTitle from '../FieldTitle';
 import TextInput from '../TextInput';
-import SelectInput from '../Inputs/SelectInput';
-import PrisonLocation from './PrisonLocation';
 import MarkdownEditor from '../Inputs/MarkdownEditor';
 import NotesInput from './NotesInput';
+import SelectInput from '../Inputs/SelectInput';
+import PrisonLocation from './PrisonLocation';
 import PrisonPhotos from './PrisonPhotos';
 import Button from '../Button';
 import Fieldset from './Fieldset';
 import Separator from './Separator';
 import MarkdownHelp from './MarkdownHelp';
 import { languages } from '../../../config';
-import './PrisonPage.css';
 
-const StyledLink = styled(Link)`
-  margin-left: auto;
-  margin-right: 20px;
-  font-size: 12px;
-  font-weight: bold;
-  color: #000;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: .2s;
-  &:hover {
-    opacity: .5;
-    transition: .2s;
-  }
-`;
+// styled
+import { Container, Six, Four, Three, Two } from '../Layout';
+import Link from './Link';
 
 const toOptions = list =>
   list.map(({ id, name }) => ({ value: id, label: name }));
@@ -47,7 +31,7 @@ const placesToOptions = (places) => {
   return arr;
 };
 
-class PrisonCard extends React.Component {
+class PrisonCard extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -115,7 +99,7 @@ class PrisonCard extends React.Component {
             submitHandler={submitHandler}
           />
         </Six>
-        <StyledLink to={`/prison${prison.id}`}>Посмотреть на карте</StyledLink>
+        <Link to={`/prison${prison.id}`}>Посмотреть на карте</Link>
         <Six>
           <LanguageSwitcher
             languages={languages}
@@ -234,5 +218,25 @@ class PrisonCard extends React.Component {
     );
   }
 }
+
+PrisonCard.propTypes = {
+  prisons: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  updateHandler: PropTypes.func.isRequired,
+  uploadHandler: PropTypes.func.isRequired,
+  deleteHandler: PropTypes.func.isRequired,
+  submitHandler: PropTypes.func.isRequired,
+  deletePhoto: PropTypes.func.isRequired,
+  notes: PropTypes.object.isRequired,
+  updateNoteHandler: PropTypes.func.isRequired,
+  photos: PropTypes.object.isRequired,
+  activities: PropTypes.arrayOf(
+    PropTypes.object
+  ).isRequired,
+  places: PropTypes.object.isRequired,
+  types: PropTypes.arrayOf(
+    PropTypes.object
+  ).isRequired
+};
 
 export default PrisonCard;
