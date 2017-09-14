@@ -13,7 +13,7 @@ import PrivateRoute from './PrivateRoute';
 import IndexPage from '../pages/Map';
 import LoginPage from '../pages/Admin/LoginPage';
 import AdminPage from '../pages/Admin';
-import PrisonPage from '../pages/Admin/PrisonPage';
+import PrisonPage from '../pages/Admin/PrisonPage/PrisonPage';
 import PeriodPage from '../pages/Admin/PeriodPage';
 import prisonTemplate from '../utils/prisonTemplate';
 import { fetchData, concatUrl, getMaxPrisoners } from '../utils/utils';
