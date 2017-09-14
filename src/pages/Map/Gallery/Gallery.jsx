@@ -1,4 +1,5 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions,
+jsx-a11y/no-noninteractive-element-interactions */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,13 +7,13 @@ import PropTypes from 'prop-types';
 import closeIcon from '../icons/btn-close.svg';
 
 // styled
-import Container from './Container';
 import Top from './Top';
 import FullScreenButton from './FullScreenButton';
 import PreviewsContainer from './PreviewsContainer';
+import ImgPreviewContainer from './ImgPreviewContainer';
 import FullScreenContainer from './FullScreenContainer';
 import FullScreenTop from './FullScreenTop';
-import CloseButton from './CloseButton';
+import { CloseGalleryButton } from '../StyledButtons';
 
 class Gallery extends PureComponent {
   constructor(props) {
@@ -30,55 +31,63 @@ class Gallery extends PureComponent {
 
   render() {
     return (
-      <Container>
+      <div>
         <Top>
           <div style={{ display: 'inline-block', position: 'relative' }}>
-            <img src={this.props.photos[this.state.activePhotoId]} alt='' />
+            <img
+              src={this.props.photos[this.state.activePhotoId]}
+              alt=''
+              onClick={this.toggleFullScreen}
+            />
             <FullScreenButton onClick={this.toggleFullScreen} />
           </div>
         </Top>
-        {
-          this.props.photos.map((img, i) => (
-            <PreviewsContainer
-              // eslint-disable-next-line react/no-array-index-key
-              key={i}
-              isActive={this.state.activePhotoId === i}
-              onClick={() => this.setState({ activePhotoId: i })}
-            >
-              <img
-                src={img}
-                alt=''
-              />
-            </PreviewsContainer>
-          ))
-        }
+        <PreviewsContainer>
+          {
+            this.props.photos.map((img, i) => (
+              <ImgPreviewContainer
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
+                isActive={this.state.activePhotoId === i}
+                onClick={() => this.setState({ activePhotoId: i })}
+              >
+                <img
+                  src={img}
+                  alt=''
+                />
+              </ImgPreviewContainer>
+            ))
+          }
+        </PreviewsContainer>
         {
           this.state.isFullScreen &&
           <FullScreenContainer>
             <FullScreenTop>
               <img src={this.props.photos[this.state.activePhotoId]} alt='' />
-              <CloseButton onClick={this.toggleFullScreen}>
+              <CloseGalleryButton onClick={this.toggleFullScreen}>
                 <img src={closeIcon} alt='' />
-              </CloseButton>
+              </CloseGalleryButton>
             </FullScreenTop>
-            {
-              this.props.photos.map((img, i) => (
-                <PreviewsContainer
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={i}
-                  isActive={this.state.activePhotoId === i}
-                  onClick={() => this.setState({ activePhotoId: i })}
-                >
-                  <img
-                    src={img}
-                    alt=''
-                  />
-                </PreviewsContainer>
-              ))
-            }
+            <PreviewsContainer>
+              {
+                this.props.photos.map((img, i) => (
+                  <ImgPreviewContainer
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={i}
+                    isActive={this.state.activePhotoId === i}
+                    onClick={() => this.setState({ activePhotoId: i })}
+                  >
+                    <img
+                      src={img}
+                      alt=''
+                    />
+                  </ImgPreviewContainer>
+                ))
+              }
+            </PreviewsContainer>
           </FullScreenContainer>
         }
-      </Container>
+      </div>
     );
   }
 }
