@@ -6,11 +6,12 @@ export default styled.button`
   right: 0;
 
   display: none;
-  width: 78px;
-  height: 78px;
+  width: 50px;
+  height: 50px;
   padding: 0;
   border: none;
   margin: 0;
+  outline: none;
 
   background-color: rgba(16, 20, 24, 0.5);
   
@@ -24,20 +25,20 @@ export default styled.button`
     content: '';
     position: absolute;
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 10px;
+    height: 10px;
   }
   
   &:before {
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     border-top: 1px solid #fff;
     border-right: 1px solid #fff;
   }
 
   &:after {
-    bottom: 20px;
-    left: 20px;
+    bottom: 10px;
+    left: 10px;
     border-bottom: 1px solid #fff;
     border-left: 1px solid #fff;
   }

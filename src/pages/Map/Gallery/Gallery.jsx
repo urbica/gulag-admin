@@ -12,7 +12,7 @@ import PreviewsContainer from './PreviewsContainer';
 import ImgPreviewContainer from './ImgPreviewContainer';
 import FullScreenContainer from './FullScreenContainer';
 import FullScreenTop from './FullScreenTop';
-import CloseButton from './CloseButton';
+import { CloseGalleryButton } from '../StyledButtons';
 
 class Gallery extends PureComponent {
   constructor(props) {
@@ -59,9 +59,9 @@ class Gallery extends PureComponent {
           <FullScreenContainer>
             <FullScreenTop>
               <img src={this.props.photos[this.state.activePhotoId]} alt='' />
-              <CloseButton onClick={this.toggleFullScreen}>
+              <CloseGalleryButton onClick={this.toggleFullScreen}>
                 <img src={closeIcon} alt='' />
-              </CloseButton>
+              </CloseGalleryButton>
             </FullScreenTop>
             <PreviewsContainer>
               {

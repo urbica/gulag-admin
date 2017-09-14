@@ -55,3 +55,14 @@ export const CardButton = styled(AbstractButton)`
     background-color: rgba(93,106,119,.2);
   }
 `;
+
+export const CloseGalleryButton = styled(AbstractButton)`
+  position: absolute;
+
+  &:hover {
+    background-color: rgba(93,106,119,.1);
+  }
+  &:active {
+    background-color: rgba(93,106,119,.2);
+  }
+`;
