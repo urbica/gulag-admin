@@ -11,7 +11,7 @@ import MarkdownEditor from '../Inputs/MarkdownEditor';
 import NotesInput from './NotesInput';
 import SelectInput from '../Inputs/SelectInput';
 import PrisonLocation from './PrisonLocation';
-import PrisonPhotos from './PrisonPhotos';
+import PrisonPhotos from './PrisonPhotos/PrisonPhotos';
 import Button from '../Button';
 import Fieldset from './Fieldset';
 import Separator from './Separator';
