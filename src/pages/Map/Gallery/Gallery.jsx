@@ -1,4 +1,5 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions,
+jsx-a11y/no-noninteractive-element-interactions */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
@@ -33,7 +34,11 @@ class Gallery extends PureComponent {
       <div>
         <Top>
           <div style={{ display: 'inline-block', position: 'relative' }}>
-            <img src={this.props.photos[this.state.activePhotoId]} alt='' />
+            <img
+              src={this.props.photos[this.state.activePhotoId]}
+              alt=''
+              onClick={this.toggleFullScreen}
+            />
             <FullScreenButton onClick={this.toggleFullScreen} />
           </div>
         </Top>
