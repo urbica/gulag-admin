@@ -9,6 +9,7 @@ import closeIcon from '../icons/btn-close.svg';
 import Top from './Top';
 import FullScreenButton from './FullScreenButton';
 import PreviewsContainer from './PreviewsContainer';
+import ImgPreviewContainer from './ImgPreviewContainer';
 import FullScreenContainer from './FullScreenContainer';
 import FullScreenTop from './FullScreenTop';
 import CloseButton from './CloseButton';
@@ -36,21 +37,23 @@ class Gallery extends PureComponent {
             <FullScreenButton onClick={this.toggleFullScreen} />
           </div>
         </Top>
-        {
-          this.props.photos.map((img, i) => (
-            <PreviewsContainer
-              // eslint-disable-next-line react/no-array-index-key
-              key={i}
-              isActive={this.state.activePhotoId === i}
-              onClick={() => this.setState({ activePhotoId: i })}
-            >
-              <img
-                src={img}
-                alt=''
-              />
-            </PreviewsContainer>
-          ))
-        }
+        <PreviewsContainer>
+          {
+            this.props.photos.map((img, i) => (
+              <ImgPreviewContainer
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
+                isActive={this.state.activePhotoId === i}
+                onClick={() => this.setState({ activePhotoId: i })}
+              >
+                <img
+                  src={img}
+                  alt=''
+                />
+              </ImgPreviewContainer>
+            ))
+          }
+        </PreviewsContainer>
         {
           this.state.isFullScreen &&
           <FullScreenContainer>
@@ -60,21 +63,23 @@ class Gallery extends PureComponent {
                 <img src={closeIcon} alt='' />
               </CloseButton>
             </FullScreenTop>
-            {
-              this.props.photos.map((img, i) => (
-                <PreviewsContainer
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={i}
-                  isActive={this.state.activePhotoId === i}
-                  onClick={() => this.setState({ activePhotoId: i })}
-                >
-                  <img
-                    src={img}
-                    alt=''
-                  />
-                </PreviewsContainer>
-              ))
-            }
+            <PreviewsContainer>
+              {
+                this.props.photos.map((img, i) => (
+                  <ImgPreviewContainer
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={i}
+                    isActive={this.state.activePhotoId === i}
+                    onClick={() => this.setState({ activePhotoId: i })}
+                  >
+                    <img
+                      src={img}
+                      alt=''
+                    />
+                  </ImgPreviewContainer>
+                ))
+              }
+            </PreviewsContainer>
           </FullScreenContainer>
         }
       </div>
