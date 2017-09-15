@@ -23,10 +23,43 @@ class Gallery extends PureComponent {
       isFullScreen: false
     };
     this.toggleFullScreen = this.toggleFullScreen.bind(this);
+    this.keydown = this.keydown.bind(this);
+    this.changeActivePhoto = this.changeActivePhoto.bind(this);
   }
 
   toggleFullScreen() {
     this.setState(({ isFullScreen }) => ({ isFullScreen: !isFullScreen }));
+
+    // eslint-disable-next-line no-unused-expressions
+    (!this.state.isFullScreen)
+      ? document.addEventListener('keydown', this.keydown)
+      : document.removeEventListener('keydown', this.keydown);
+  }
+
+  keydown(e) {
+    if (e.keyCode === 39) {
+      this.changeActivePhoto(1);
+    }
+    if (e.keyCode === 37) {
+      this.changeActivePhoto(-1);
+    }
+    if (e.keyCode === 27) {
+      this.setState({ isFullScreen: false });
+      document.removeEventListener('keydown', this.keydown);
+    }
+  }
+
+  changeActivePhoto(val) {
+    const length = this.props.photos.length;
+    const newActivePhotoId = this.state.activePhotoId + val;
+
+    if (length > newActivePhotoId && newActivePhotoId > -1) {
+      this.setState({ activePhotoId: newActivePhotoId });
+    } else if (newActivePhotoId > length - 1) {
+      this.setState({ activePhotoId: 0 });
+    } else {
+      this.setState({ activePhotoId: length - 1 });
+    }
   }
 
   render() {
