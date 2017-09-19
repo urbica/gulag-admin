@@ -68,11 +68,11 @@ injectGlobal`
   }
 
   .incut {
-    outline: 20px solid rgba(255,255,255,0.1);
+    outline: 20px solid #1A1A1A;
 
     color: rgba(225,225,225,0.5);
 
-    background-color: rgba(255,255,255,0.1);
+    background-color: #1A1A1A;
     break-inside: avoid;
     
     h2 {
