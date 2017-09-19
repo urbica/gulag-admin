@@ -68,38 +68,25 @@ injectGlobal`
   }
 
   .incut {
-    height: 60px;
-    padding: 20px 30px 30px 20px;
-    margin: 0 -30px 0 -20px;
-    background-color: #fff9d5;
+    outline: 20px solid rgba(255,255,255,0.1);
+
+    color: rgba(225,225,225,0.5);
+
+    background-color: rgba(255,255,255,0.1);
     break-inside: avoid;
-    overflow: hidden;
-    
-    &:hover {
-      height: auto;
-    }
     
     h2 {
-      opacity: 0.8;
       font-size: 20px;
-      font-weight: 900;
-      color: #000 !important;
+      font-weight: 500;
+
+      opacity: 0.5;
     }
 
     p {
-      opacity: 0.8;
-      font-family: Formular;
       font-size: 16px;
-      color: #000 !important;
-    }
-    
-    a {
-      color: #000 !important;
-      border-bottom-color: #000 !important;
-      &:hover {
-        border-bottom-color: transparent !important;
-        transition: 0.4s;
-      }
+      font-style: italic;
+
+      opacity: 0.5;
     }
   }
 `;
