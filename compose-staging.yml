@@ -2,7 +2,7 @@ version: '2'
 
 services:
   gulag-frontend:
-    image: gitlab.urbica.co:5001/gulag/gulag:master
+    image: gitlab.urbica.co:5001/gulag/gulag:dev
     container_name: gulag-frontend
     restart: always
     environment:
@@ -12,7 +12,7 @@ services:
       - gulag-backend
 
   gulag-backend:
-    image: gitlab.urbica.co:5001/platform/nest:v1.0.1
+    image: gitlab.urbica.co:5001/platform/nest:v1.1.0
     container_name: gulag-backend
     restart: always
     env_file:

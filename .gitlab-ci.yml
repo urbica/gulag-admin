@@ -29,22 +29,7 @@ build:latest:
     - master
     - dev
 
-build:release:
-  stage: build
-  image: docker:git
-  services:
-    - docker:dind
-  variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-  script:
-    - docker build -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
-  only:
-    - tags
-
-deploy:
+deploy:staging:
   image: alpine
   stage: deploy
   before_script:
@@ -54,10 +39,26 @@ deploy:
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
   script:
-    - ssh urbica@95.213.149.220 'bash -s' < deploy.sh
+    - ssh urbica@gulag.urbica.co 'bash -s' < deploy-staging.sh
   environment:
-    name: production
+    name: staging
     url: http://gulag.urbica.co
   only:
-    - master
     - dev
+
+deploy:production:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  script:
+    - ssh urbica@gulagmap.ru 'bash -s' < deploy-production.sh
+  environment:
+    name: production
+    url: http://gulagmap.ru
+  only:
+    - master

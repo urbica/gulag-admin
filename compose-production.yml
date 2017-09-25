@@ -11,7 +11,7 @@ services:
       - gulag-backend
 
   gulag-backend:
-    image: gitlab.urbica.co:5001/platform/nest:v1.0.1
+    image: gitlab.urbica.co:5001/platform/nest:v1.1.0
     container_name: gulag-backend
     restart: always
     env_file:
