@@ -1,6 +1,6 @@
 # Gulag
 
-[![build status](https://gitlab.urbica.co/muf/tool/badges/master/build.svg)](https://gitlab.urbica.co/gulag/gulag/commits/master)
+[![build status](https://gitlab.urbica.co/gulag/gulag/badges/master/build.svg)](https://gitlab.urbica.co/gulag/gulag/commits/master)
 
 We are using:
 
