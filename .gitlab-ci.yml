@@ -60,3 +60,4 @@ deploy:
     url: http://gulag.urbica.co
   only:
     - master
+    - dev
