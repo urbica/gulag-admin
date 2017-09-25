@@ -38,6 +38,7 @@ class Map extends PureComponent {
     this.state = {
       slideUp: false
     };
+    this.loaded = false;
     this.onLoad = this.onLoad.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -66,6 +67,10 @@ class Map extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (!this.loaded) {
+      return;
+    }
+
     const { features, currentYear, location, centerCoordinates } = nextProps;
 
     const source = this.map.getSource('prisons');
@@ -317,6 +322,8 @@ class Map extends PureComponent {
     this.map.on('sourcedata', this.onSourcedata);
     this.map.on('mousemove', this.onMouseMove);
     this.map.on('click', this.onClick);
+
+    this.loaded = true;
   }
 
   onMouseMove(e) {
