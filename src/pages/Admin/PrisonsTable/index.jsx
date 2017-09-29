@@ -82,7 +82,13 @@ class PrisonsTable extends Component {
 
     // eslint-disable-next-line
     const getComparator = (sortBy) => {
-      if (sortBy[0] === 'name') {
+      if (sortBy[0] === 'id') {
+        return (a, b) => {
+          const aId = view(lensPath(sortBy), a);
+          const bId = view(lensPath(sortBy), b);
+          return collator.compare(aId, bId);
+        };
+      } else if (sortBy[0] === 'name') {
         return (a, b) => {
           const aName = view(lensPath(sortBy), a);
           const bName = view(lensPath(sortBy), b);
@@ -143,11 +149,16 @@ class PrisonsTable extends Component {
     const { sortDir } = this.state;
     const prisons = this.getOrderedPrisons();
 
-    // console.log(this.props.history);
     return (
       <table className='prisons'>
         <thead>
           <tr>
+            <ColumnHeader
+              onClick={this.sort.bind(this, ['id'])}
+              sortDir={equals(this.state.sortBy, ['id']) ? sortDir : ''}
+            >
+              Id
+            </ColumnHeader>
             <ColumnHeader
               onClick={this.sort.bind(this, ['name', 'ru'])}
               sortDir={equals(this.state.sortBy, ['name', 'ru']) ? sortDir : ''}
@@ -164,7 +175,7 @@ class PrisonsTable extends Component {
               onClick={this.sort.bind(this, ['updated_at'])}
               sortDir={equals(this.state.sortBy, ['updated_at']) ? sortDir : ''}
             >
-              Отредактировано
+              Ред.
             </ColumnHeader>
             <ColumnHeader
               onClick={this.sort.bind(this, ['place_id'])}

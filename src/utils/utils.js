@@ -115,12 +115,15 @@ export const filterBySearch = (searchQuery, prisons) => {
   if (searchQuery.length > 0) {
     return prisons.filter((prison) => {
       const searchString = [
+        prison.id,
         prison.name.ru,
         prison.name.en,
         prison.additional_names.ru,
         prison.additional_names.en,
         prison.max_prisoners
-      ].join(' ').toLowerCase();
+      ]
+        .join(' ')
+        .toLowerCase();
 
       return searchString.match(searchQuery.trim().toLowerCase());
     });

@@ -24,11 +24,12 @@ const PrisonRow = (props) => {
 
   return (
     <tr onClick={() => history.push(`/admin/prison${prison.id}`)}>
-      <td className='prisons__cell' height='56'>{prison.name.ru}</td>
+      <td className='prisons__cell' height='56'>{prison.id}</td>
+      <td className='prisons__cell'>{prison.name.ru}</td>
       <td className='prisons__cell prisons__cell_period'>{ getPeriods(prison) }</td>
       <td
         className='prisons__cell'
-      >{ moment(prison.updated_at).locale('ru').format('DD MMM YYYY, HH:mm') }</td>
+      >{ moment(prison.updated_at).locale('ru').format('DD.MM.YY, HH:mm') }</td>
       <td
         className='prisons__cell'
       >{ prison.place_id !== null ? places[prison.place_id].name : ''}</td>
