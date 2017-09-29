@@ -49,10 +49,10 @@ export const CardButton = styled(AbstractButton)`
   top: 0;
   right: 0;
   &:hover {
-    background-color: rgba(93,106,119,.1);
+    background-color: rgba(255,255,255,.2);
   }
   &:active {
-    background-color: rgba(93,106,119,.2);
+    background-color: rgba(255,255,255,.1);
   }
 `;
 

@@ -109,14 +109,14 @@ injectGlobal`
       font-size: 20px;
       font-weight: 500 !important;
 
-      opacity: 0.5;
+      opacity: 0.7;
     }
 
     p {
       font-size: 16px;
       font-style: italic;
 
-      opacity: 0.5;
+      opacity: 0.7;
     }
   }
 `;
