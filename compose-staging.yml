@@ -5,6 +5,8 @@ services:
     image: gitlab.urbica.co:5001/gulag/gulag:dev
     container_name: gulag-frontend
     restart: always
+    # ports:
+    #   - 4000:80
     environment:
       - CERT_NAME="" # skip https
       - VIRTUAL_HOST=gulag.urbica.co,gulagmap.ru
@@ -19,6 +21,8 @@ services:
       - .env
     volumes:
       - ./uploads:/usr/src/app/uploads
+    depends_on:
+      - gulag-db
 
   gulag-db:
     image: mdillon/postgis:9.6-alpine
