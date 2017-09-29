@@ -104,11 +104,12 @@ export const getPeriods = prison =>
   (prison.features || [])
     .map(feature => Object.keys(feature.properties).map(year => parseInt(year, 10)))
     .filter(years => years.length > 0)
-    .map((years) => {
+    .map((years, i) => {
+      const coma = prison.features.length - 1 === i ? '' : ';';
       if (years.length === 1) {
-        return `${years[0]};\n`;
+        return `${years[0]}${coma}\n`;
       }
-      return `${Math.min(...years)} — ${Math.max(...years)};\n`;
+      return `${Math.min(...years)} — ${Math.max(...years)}${coma}\n`;
     });
 
 export const filterBySearch = (searchQuery, prisons) => {

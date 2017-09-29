@@ -64,7 +64,7 @@ class Gallery extends PureComponent {
 
   render() {
     return (
-      <div>
+      <div style={{ breakInside: 'avoid' }}>
         <Top>
           <div style={{ display: 'inline-block', position: 'relative' }}>
             <img
