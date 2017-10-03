@@ -13,7 +13,8 @@ import PreviewsContainer from './PreviewsContainer';
 import ImgPreviewContainer from './ImgPreviewContainer';
 import FullScreenContainer from './FullScreenContainer';
 import FullScreenTop from './FullScreenTop';
-import { CloseGalleryButton } from '../StyledButtons';
+import NavButton from './NavButton';
+import { GalleryButton } from '../StyledButtons';
 
 class Gallery extends PureComponent {
   constructor(props) {
@@ -31,9 +32,13 @@ class Gallery extends PureComponent {
     this.setState(({ isFullScreen }) => ({ isFullScreen: !isFullScreen }));
 
     // eslint-disable-next-line no-unused-expressions
-    (!this.state.isFullScreen)
-      ? document.addEventListener('keydown', this.keydown)
-      : document.removeEventListener('keydown', this.keydown);
+    if (!this.state.isFullScreen) {
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', this.keydown);
+    } else {
+      document.body.style.overflow = 'initial';
+      document.removeEventListener('keydown', this.keydown);
+    }
   }
 
   keydown(e) {
@@ -44,7 +49,9 @@ class Gallery extends PureComponent {
       this.changeActivePhoto(-1);
     }
     if (e.keyCode === 27) {
+      e.preventDefault();
       this.setState({ isFullScreen: false });
+      document.body.style.overflow = 'initial';
       document.removeEventListener('keydown', this.keydown);
     }
   }
@@ -95,11 +102,19 @@ class Gallery extends PureComponent {
         {
           this.state.isFullScreen &&
           <FullScreenContainer>
+            <GalleryButton onClick={this.toggleFullScreen}>
+              <img src={closeIcon} alt='' />
+            </GalleryButton>
+            <NavButton
+              position='left'
+              onClick={this.changeActivePhoto.bind(null, -1)}
+            />
             <FullScreenTop>
-              <img src={this.props.photos[this.state.activePhotoId]} alt='' />
-              <CloseGalleryButton onClick={this.toggleFullScreen}>
-                <img src={closeIcon} alt='' />
-              </CloseGalleryButton>
+              <img
+                src={this.props.photos[this.state.activePhotoId]}
+                onClick={e => e.stopPropagation()}
+                alt=''
+              />
             </FullScreenTop>
             <PreviewsContainer>
               {
@@ -108,7 +123,10 @@ class Gallery extends PureComponent {
                     // eslint-disable-next-line react/no-array-index-key
                     key={i}
                     isActive={this.state.activePhotoId === i}
-                    onClick={() => this.setState({ activePhotoId: i })}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      this.setState({ activePhotoId: i });
+                    }}
                   >
                     <img
                       src={img}
@@ -118,6 +136,10 @@ class Gallery extends PureComponent {
                 ))
               }
             </PreviewsContainer>
+            <NavButton
+              position='right'
+              onClick={this.changeActivePhoto.bind(null, 1)}
+            />
           </FullScreenContainer>
         }
       </div>

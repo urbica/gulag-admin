@@ -7,9 +7,12 @@ export default styled.div`
   bottom: 0;
   left: 0;
 
-  padding: 10%;
+  display: flex;
+  flex-direction: column;
 
-  background-color: rgba(0, 0, 0, 0.8);
+  padding: 3vh;
+
+  background-color: rgba(0, 0, 0, 0.9);
 
   z-index: 3;
 `;

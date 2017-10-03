@@ -32,7 +32,8 @@ export default styled.div`
     }
   }
   
-  img {
+  & p > img {
     max-width: 100%;
+    max-height: 500px;
   }
 `;
