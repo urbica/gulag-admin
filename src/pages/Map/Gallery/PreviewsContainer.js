@@ -2,6 +2,6 @@ import styled from 'styled-components';
 
 export default styled.div`
   text-align: center;
-  overflow-y: scroll;
+  overflow: hidden;
   white-space: nowrap;
 `;

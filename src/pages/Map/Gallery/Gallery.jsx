@@ -23,9 +23,26 @@ class Gallery extends PureComponent {
       activePhotoId: 0,
       isFullScreen: false
     };
+    this.onPreviewClick = this.onPreviewClick.bind(this);
     this.toggleFullScreen = this.toggleFullScreen.bind(this);
     this.keydown = this.keydown.bind(this);
     this.changeActivePhoto = this.changeActivePhoto.bind(this);
+  }
+
+  onPreviewClick(i) {
+    const left = this[`preview${i}`].getBoundingClientRect().left;
+    const containerWidth = this.previewContainer.getBoundingClientRect().width;
+    const scrollBy = left - (containerWidth / 2);
+
+    if (!this.state.isFullScreen) {
+      this.previewContainer.scrollTo(scrollBy, 0);
+      // this.previewContainer.scrollLeft = this.previewContainer.scrollLeft + scrollBy;
+    } else {
+      this.previewFullScreenContainer.scrollTo(scrollBy, 0);
+      // this.previewFullScreenContainer.scrollLeft =
+      //   this.previewFullScreenContainer.scrollLeft + scrollBy;
+    }
+    this.setState({ activePhotoId: i });
   }
 
   toggleFullScreen() {
@@ -82,14 +99,21 @@ class Gallery extends PureComponent {
             <FullScreenButton onClick={this.toggleFullScreen} />
           </div>
         </Top>
-        <PreviewsContainer>
+        <PreviewsContainer
+          innerRef={(ref) => {
+            this.previewContainer = ref;
+          }}
+        >
           {
             this.props.photos.map((img, i) => (
               <ImgPreviewContainer
                 // eslint-disable-next-line react/no-array-index-key
                 key={i}
+                innerRef={(ref) => {
+                  this[`preview${i}`] = ref;
+                }}
                 isActive={this.state.activePhotoId === i}
-                onClick={() => this.setState({ activePhotoId: i })}
+                onClick={this.onPreviewClick.bind(null, i)}
               >
                 <img
                   src={img}
@@ -120,7 +144,11 @@ class Gallery extends PureComponent {
                 alt=''
               />
             </FullScreenTop>
-            <PreviewsContainer>
+            <PreviewsContainer
+              innerRef={(ref) => {
+                this.previewFullScreenContainer = ref;
+              }}
+            >
               {
                 this.props.photos.map((img, i) => (
                   <ImgPreviewContainer
@@ -129,7 +157,7 @@ class Gallery extends PureComponent {
                     isActive={this.state.activePhotoId === i}
                     onClick={(e) => {
                       e.stopPropagation();
-                      this.setState({ activePhotoId: i });
+                      this.onPreviewClick(i);
                     }}
                   >
                     <img
