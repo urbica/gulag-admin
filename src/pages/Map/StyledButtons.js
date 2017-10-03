@@ -55,8 +55,3 @@ export const CardButton = styled(AbstractButton)`
     background-color: rgba(255,255,255,.1);
   }
 `;
-
-export const GalleryButton = styled(CardButton)`
-  width: 3vh;
-  height: 3vh;
-`;

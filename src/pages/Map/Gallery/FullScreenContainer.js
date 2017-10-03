@@ -10,7 +10,7 @@ export default styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 3vh;
+  padding: 3vh 50px;
 
   background-color: rgba(0, 0, 0, 0.9);
 

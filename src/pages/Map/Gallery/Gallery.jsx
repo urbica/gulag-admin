@@ -14,7 +14,7 @@ import ImgPreviewContainer from './ImgPreviewContainer';
 import FullScreenContainer from './FullScreenContainer';
 import FullScreenTop from './FullScreenTop';
 import NavButton from './NavButton';
-import { GalleryButton } from '../StyledButtons';
+import { CardButton } from '../StyledButtons';
 
 class Gallery extends PureComponent {
   constructor(props) {
@@ -102,9 +102,13 @@ class Gallery extends PureComponent {
         {
           this.state.isFullScreen &&
           <FullScreenContainer>
-            <GalleryButton onClick={this.toggleFullScreen}>
+            <div
+              style={{ position: 'absolute', width: '100%', height: '100%' }}
+              onClick={this.toggleFullScreen}
+            />
+            <CardButton onClick={this.toggleFullScreen}>
               <img src={closeIcon} alt='' />
-            </GalleryButton>
+            </CardButton>
             <NavButton
               position='left'
               onClick={this.changeActivePhoto.bind(null, -1)}

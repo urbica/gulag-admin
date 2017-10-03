@@ -5,6 +5,8 @@ export default styled(Top)`
   max-height: initial;
   margin: auto;
 
+  pointer-events: none;
+
   img {
     max-height: 77vh;
   }
