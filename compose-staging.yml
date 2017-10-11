@@ -5,9 +5,9 @@ services:
     image: gitlab.urbica.co:5001/gulag/gulag:dev
     container_name: gulag-frontend
     restart: always
-    environment:
-      - CERT_NAME="" # skip https
-      - VIRTUAL_HOST=gulag.urbica.co,gulagmap.ru
+    # environment:
+    #   - CERT_NAME="" # skip https
+    #   - VIRTUAL_HOST=gulag.urbica.co,gulagmap.ru
     depends_on:
       - gulag-backend
 
