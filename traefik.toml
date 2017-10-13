@@ -1,0 +1,28 @@
+debug = false
+checkNewVersion = true
+logLevel = "ERROR"
+defaultEntryPoints = ["https", "http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "gulagmap.ru"
+watch = true
+exposedbydefault = false
+
+[acme]
+email = "hello@urbica.co"
+storage = "/etc/traefik/certbot-acme.json"
+entryPoint = "https"
+OnHostRule = true
+acmelogging = true
