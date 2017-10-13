@@ -36,8 +36,8 @@ services:
       - .env
     volumes:
       - ./uploads:/usr/src/app/uploads
-    labels:
-      - "traefik.enable=false"
+    # labels:
+    #   - "traefik.enable=false"
     depends_on:
       gulag-db:
         condition: service_healthy
@@ -50,8 +50,8 @@ services:
       - .env
     volumes:
       - ./db:/var/lib/postgresql/data
-    labels:
-      - "traefik.enable=false"
+    # labels:
+    #   - "traefik.enable=false"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 30s
