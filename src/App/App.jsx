@@ -11,7 +11,7 @@ import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 
 import IndexPage from '../pages/Map';
-import LoginPage from '../pages/Admin/LoginPage';
+import LoginPage from '../pages/Admin/LoginPage/LoginPage';
 import AdminPage from '../pages/Admin';
 import PrisonPage from '../pages/Admin/PrisonPage/PrisonPage';
 import PeriodPage from '../pages/Admin/PeriodPage';
