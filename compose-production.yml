@@ -29,7 +29,7 @@ services:
         condition: service_started
 
   gulag-backend:
-    image: gitlab.urbica.co:5001/platform/nest:v1.1.0
+    image: gitlab.urbica.co:5001/platform/nest:v1.1.1
     container_name: gulag-backend
     restart: always
     env_file:
