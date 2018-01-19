@@ -1,30 +1,30 @@
 version: '2.1'
 
 services:
-  proxy:
-    image: traefik:alpine
-    command: --docker --web
-    ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
-    volumes:
-      - ./traefik:/etc/traefik:Z
-      - ./traefik.toml:/traefik.toml
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: always
+  # proxy:
+  #   image: traefik:alpine
+  #   command: --docker --web
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #     - 8080:8080
+  #   volumes:
+  #     - ./traefik:/etc/traefik:Z
+  #     - ./traefik.toml:/traefik.toml
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   restart: always
 
   gulag-frontend:
     image: gitlab.urbica.co:5001/gulag/gulag:master
     container_name: gulag-frontend
     restart: always
-    # ports:
-    #   - 80:80
-    labels:
-      - "traefik.enable=true"
-      - "traefik.port=80"
-      - "traefik.backend=gulag-frontend"
-      - "traefik.frontend.rule=Host:gulagmap.ru"
+    ports:
+      - 8080:80
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.port=80"
+    #   - "traefik.backend=gulag-frontend"
+    #   - "traefik.frontend.rule=Host:gulagmap.ru"
     depends_on:
       gulag-backend:
         condition: service_started
