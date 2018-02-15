@@ -6,7 +6,6 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="description" content="Пополняющаяся база данных по истории и географии исправительно-трудовых лагерей, действовавших в СССР с 1918 по 1960 год.">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic"
           rel="stylesheet">
     <link href="%PUBLIC_URL%/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
@@ -14,9 +13,6 @@
     <link href="%PUBLIC_URL%/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
     <link href="%PUBLIC_URL%/favicons/manifest.json" rel="manifest">
     <link href="%PUBLIC_URL%/favicons/safari-pinned-tab.svg" rel="mask-icon" color="#000000">
-    <link href='%PUBLIC_URL%/outdatedbrowser/outdatedbrowser.min.css' rel='stylesheet'>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet'>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tag above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -26,10 +22,8 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Интерактивная карта ГУЛАГа</title>
   </head>
   <body>
-    <div id="outdated"></div>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -41,33 +35,5 @@
       To begin the development, run `npm start`.
       To create a production bundle, use `npm run build`.
     -->
-    <script src='%PUBLIC_URL%/outdatedbrowser/outdatedbrowser.min.js'></script>
-    <script>
-      //event listener: DOM ready
-      function addLoadEvent(func) {
-        var oldonload = window.onload;
-        if (typeof window.onload != 'function') {
-          window.onload = func;
-        } else {
-          window.onload = function () {
-            if (oldonload) {
-              oldonload();
-            }
-            func();
-          }
-        }
-      }
-
-      //call plugin function after DOM ready
-      addLoadEvent(function () {
-        outdatedBrowser({
-          bgColor: '#f25648',
-          color: '#ffffff',
-          lowerThan: 'transform',
-          languagePath: '%PUBLIC_URL%/outdatedbrowser/lang/ru.html'
-        })
-      });
-    </script>
-    <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter46326063 = new Ya.Metrika({ id:46326063, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/46326063" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
   </body>
 </html>

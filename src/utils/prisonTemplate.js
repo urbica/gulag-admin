@@ -1,4 +1,4 @@
-const prisonTemplate = {
+export default {
   id: undefined,
   name: {
     ru: 'Новый лагерь',
@@ -35,5 +35,3 @@ const prisonTemplate = {
     }
   ]
 };
-
-export default prisonTemplate;

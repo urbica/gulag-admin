@@ -1,20 +1,17 @@
 /* eslint-disable no-shadow */
 import {
-  __, apply, compose, curry, flatten, groupBy, gt, head, ifElse, keys, length, map,
-  min, nthArg, pickBy, pipe, prop, test, uncurryN, or, reduce, values, assoc, evolve,
-  concat, curryN, toPairs
+  __, apply, compose, curry, flatten, gt, head, ifElse, keys, length, map, min, nthArg, pickBy,
+  pipe, prop, test, uncurryN, or, reduce, values, assoc, evolve, concat, curryN, toPairs
 } from 'ramda';
 
 export const renameKeys = curry((keysMap, obj) =>
   reduce((acc, key) => {
     acc[keysMap[key] || key] = obj[key];
     return acc;
-  }, {}, keys(obj))
-);
+  }, {}, keys(obj)));
 
 export const pickByRegExp = uncurryN(2, RegExp =>
-  pickBy(compose(test(RegExp), nthArg(1)))
-);
+  pickBy(compose(test(RegExp), nthArg(1))));
 
 export const getMaxPrisoners = (prison) => {
   const features = prison.features || [];
@@ -50,45 +47,6 @@ export const fillPhotos = curryN(2, (photosById, prisons) => (
 
 export const directoryToOptions = map(renameKeys({ id: 'value', name: 'label' }));
 
-export const fetchData = ({ token }) =>
-  new Promise((resolve, reject) => {
-    const groupById = compose(map(head), groupBy(prop('id')));
-    const groupByPrisonId = compose(map(head), groupBy(prop('prison_id')));
-    const options = { headers: { Authorization: `Bearer ${token}` } };
-
-    const preprocessPhotos = compose(
-      groupBy(prop('camp_id')),
-      map(concatUrl(window.location.origin, 'path'))
-    );
-
-    const preprocessPrisons = compose(
-      fillMaxPrisoners,
-      groupById
-    );
-
-    const handle401 = r => (r.status === 401 ? reject(401) : r);
-
-    Promise.all([
-      fetch('/api/public/camps.json', options).then(handle401).then(r => r.json()),
-      fetch('/api/public/uploads.json', options).then(handle401).then(r => r.json()),
-      fetch('/api/public/activities.json', options).then(handle401).then(r => r.json()),
-      fetch('/api/public/places.json', options).then(handle401).then(r => r.json()),
-      fetch('/api/public/types.json', options).then(handle401).then(r => r.json()),
-      fetch('/api/public/periods.json', options).then(handle401).then(r => r.json()),
-      fetch('/api/public/notes.json', options).then(handle401).then(r => r.json())
-    ]).then(([prisons, photos, activities, places, types, periods, notes]) => {
-      resolve({
-        prisons: preprocessPrisons(prisons),
-        photos: preprocessPhotos(photos),
-        activities,
-        places: groupById(places),
-        types,
-        periods: groupById(periods),
-        notes: groupByPrisonId(notes)
-      });
-    }).catch(error => reject(error));
-  });
-
 export const getFirstYearInFeatures = pipe(
   map(pipe(prop('properties'), keys)),
   flatten,
@@ -102,7 +60,8 @@ export const getFirstYearInFeatures = pipe(
 
 export const getPeriods = prison =>
   (prison.features || [])
-    .map(feature => Object.keys(feature.properties).map(year => parseInt(year, 10)))
+    .map(feature => Object.keys(feature.properties)
+      .map(year => parseInt(year, 10)))
     .filter(years => years.length > 0)
     .map((years, i) => {
       const coma = prison.features.length - 1 === i ? '' : ';';
@@ -116,25 +75,29 @@ export const filterBySearch = (searchQuery, prisons) => {
   if (searchQuery.length > 0) {
     return prisons.filter((prison) => {
       const searchString = [
-        prison.id,
-        prison.name.ru,
-        prison.name.en,
-        prison.additional_names.ru,
-        prison.additional_names.en,
-        prison.max_prisoners
+        prison.get('id'),
+        prison.getIn(['name', 'ru']),
+        prison.getIn(['name', 'en']),
+        prison.getIn(['additional_names', 'ru']),
+        prison.getIn(['additional_names', 'en']),
+        prison.get('max_prisoners')
       ]
         .join(' ')
         .toLowerCase();
 
-      return searchString.match(searchQuery.trim().toLowerCase());
+      return searchString.match(
+        searchQuery
+          .trim()
+          .toLowerCase()
+      );
     });
   }
 
   return prisons;
 };
 
-export const prisonsToFeatures = (prisons, currentYear) => {
-  const features = prisons.reduce((acc, prison) => {
+export const prisonsToFeatures = (prisons, currentYear) => (
+  prisons.reduce((acc, prison) => {
     const newFeatures = prison.features.reduce((acc, feature) => {
       if (feature.properties[currentYear]) {
         const newProperties = {
@@ -150,10 +113,8 @@ export const prisonsToFeatures = (prisons, currentYear) => {
       return acc;
     }, []);
     return acc.concat(newFeatures);
-  }, []);
-
-  return features;
-};
+  }, [])
+);
 
 export const getRightLang = (obj, lang) => {
   if (obj[lang]) {
@@ -164,4 +125,5 @@ export const getRightLang = (obj, lang) => {
   return obj.ru;
 };
 
-export const splitDigits = digit => String(digit).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+export const splitDigits = digit => String(digit)
+  .replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
