@@ -108,8 +108,8 @@ const CampsTable = (props) => {
             <PrisonRow
               key={camp.get('id')}
               prison={camp}
-              // places={this.props.places}
-              // types={this.props.types}
+              places={props.places}
+              types={props.types}
               openCamp={openCamp}
             />
           ))}
@@ -123,14 +123,9 @@ CampsTable.propTypes = {
   campsSortASC: PropTypes.bool.isRequired,
   campsSortBy: PropTypes.object.isRequired,
   openCamp: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired
-  // places: PropTypes.object,
-  // types: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     id: PropTypes.number,
-  //     name: PropTypes.string
-  //   })
-  // )
+  dispatch: PropTypes.func.isRequired,
+  places: PropTypes.object.isRequired,
+  types: PropTypes.object.isRequired
 };
 
 export default connect(

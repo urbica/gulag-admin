@@ -69,7 +69,11 @@ class Login extends PureComponent {
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loginLoading: PropTypes.bool.isRequired,
-  loginError: PropTypes.bool.isRequired
+  loginError: PropTypes.bool
+};
+
+Login.defaultProps = {
+  loginError: null
 };
 
 export default connect(

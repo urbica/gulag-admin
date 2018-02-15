@@ -9,7 +9,9 @@ import { logout } from '../../App/authReducer';
 import { createCamp } from '../../App/dataReducer';
 
 // selectors
-import { campsSelector, periodsSelector } from '../../App/dataSelectors';
+import {
+  campsSelector, placesSelector, typesSelector, periodsSelector
+} from '../../App/dataSelectors';
 
 // components
 import Header from './Header/Header';
@@ -19,10 +21,15 @@ import Camps from './Camps/Camps';
 
 // styled
 import Container from './Container';
+import { filterBySearch } from '../../../utils/utils';
 
 class Dashboard extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      searchQuery: ''
+    };
 
     this.logout = this.logout.bind(this);
     this.createCamp = this.createCamp.bind(this);
@@ -47,10 +54,7 @@ class Dashboard extends PureComponent {
   }
 
   render() {
-    const { camps } = this.props;
-    if (!camps) {
-      return null;
-    }
+    const { camps, places, types } = this.props;
 
     const {
       publishedRuCount, publishedEnCount, publishedDeCount
@@ -78,14 +82,14 @@ class Dashboard extends PureComponent {
           openPeriod={this.openPeriod}
         />
         <Search
-          // value={this.state.searchQuery}
-          onChange={e => console.log(e)}
+          value={this.state.searchQuery}
+          onChange={val => this.setState({ searchQuery: val })}
         />
         <Camps
-          camps={camps}
+          camps={filterBySearch(this.state.searchQuery, camps)}
           openCamp={this.openCamp}
-          // places={this.props.places}
-          // types={this.props.types}
+          places={places}
+          types={types}
         />
       </Container>
     );
@@ -95,18 +99,26 @@ class Dashboard extends PureComponent {
 Dashboard.propTypes = {
   dispatch: PropTypes.func.isRequired,
   camps: PropTypes.object,
-  periods: PropTypes.object
+  periods: PropTypes.object,
+  places: PropTypes.object,
+  types: PropTypes.object
 };
 
 Dashboard.defaultProps = {
   camps: null,
-  periods: null
+  periods: null,
+  places: null,
+  types: null
 };
 
 const selector = createSelector(
   campsSelector,
   periodsSelector,
-  (camps, periods) => ({ camps, periods })
+  placesSelector,
+  typesSelector,
+  (camps, periods, places, types) => ({
+    camps, periods, places, types
+  })
 );
 
 export default connect(selector)(Dashboard);

@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import {
   __, apply, compose, curry, flatten, gt, head, ifElse, keys, length, map, min, nthArg, pickBy,
-  pipe, prop, test, uncurryN, or, reduce, values, assoc, evolve, concat, curryN, toPairs
+  pipe, prop, test, uncurryN, or, reduce, values, assoc, evolve, concat
 } from 'ramda';
 
 export const renameKeys = curry((keysMap, obj) =>
@@ -37,13 +37,6 @@ export const fillMaxPrisoners = prisons => (
 
 export const concatUrl = (url, property) =>
   evolve({ [`${property}`]: concat(`${url}/`) });
-
-export const fillPhotos = curryN(2, (photosById, prisons) => (
-  reduce((acc, [prisonId, photos]) => {
-    acc[prisonId].photos = map(concatUrl(window.location.origin, 'path'), photos);
-    return acc;
-  }, prisons, toPairs(photosById))
-));
 
 export const directoryToOptions = map(renameKeys({ id: 'value', name: 'label' }));
 

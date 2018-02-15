@@ -22,8 +22,8 @@ const TD = styled.td`
 const PrisonRow = (props) => {
   const {
     prison,
-    // places,
-    // types,
+    places,
+    types,
     openCamp
   } = props;
 
@@ -33,21 +33,15 @@ const PrisonRow = (props) => {
       <td className='prisons__cell'>{prison.getIn(['name', 'ru'])}</td>
       <td className='prisons__cell prisons__cell_period'>{getPeriods(prison.toJS())}</td>
       <td className='prisons__cell'>
-        {
-          moment(prison.get('updated_at'))
-            .locale('ru')
-            .format('DD.MM.YY, HH:mm')
-        }
+        {moment(prison.get('updated_at'))
+          .locale('ru')
+          .format('DD.MM.YY, HH:mm')}
       </td>
       <td className='prisons__cell'>
-        {
-          // prison.place_id !== null ? places[prison.place_id].name : ''
-        }
+        {places.getIn([prison.get('place_id'), 'name'])}
       </td>
       <td className='prisons__cell'>
-        {
-          // prison.type_id !== null ? types[prison.type_id].name : ''
-        }
+        {types.getIn([prison.get('type_id'), 'name'])}
       </td>
       <td className='prisons__cell prisons__strength'>
         <span>
@@ -80,12 +74,9 @@ PrisonRow.propTypes = {
       en: PropTypes.bool,
       de: PropTypes.bool
     })
-  })
-  // places: PropTypes.object,
-  // types: PropTypes.arrayOf(PropTypes.shape({
-  //   id: PropTypes.number,
-  //   name: PropTypes.string
-  // }))
+  }),
+  places: PropTypes.object,
+  types: PropTypes.object
 };
 
 export default PrisonRow;
