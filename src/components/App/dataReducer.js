@@ -44,8 +44,7 @@ export default (state = initialState, { type, payload }) => {
     case DATA_FETCH_SUCCESS:
       return state.merge(payload);
     case CREATE_CAMP_SUCCESS:
-      console.log('dataReducer payload', payload);
-      return state;
+      return state.update('camps', camps => camps.push(payload));
     case UPDATE_CAMP_SUCCESS:
       return state;
     case DELETE_CAMP_SUCCESS:

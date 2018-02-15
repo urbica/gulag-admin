@@ -54,7 +54,7 @@ class Camp extends PureComponent {
     this.state = {
       camp: props.camp,
       activeLang: 'ru',
-      note: props.notes.get('note')
+      note: (props.notes && props.notes.get('note')) || ''
     };
     this.updateCamp = this.updateCamp.bind(this);
     this.langChange = this.langChange.bind(this);
@@ -202,10 +202,14 @@ Camp.propTypes = {
   dispatch: PropTypes.func.isRequired,
   camp: PropTypes.object.isRequired,
   photos: PropTypes.object.isRequired,
-  notes: PropTypes.object.isRequired,
+  notes: PropTypes.object,
   activities: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,
   types: PropTypes.object.isRequired
+};
+
+Camp.defaultProps = {
+  notes: null
 };
 
 const selector = createSelector(
