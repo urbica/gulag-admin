@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div
+  className="sc-bdVaJa eUGucI"
+>
+  <div
+    className="sc-bwzfXH fTzidj"
+  >
+    Хронология Гулага
+  </div>
+</div>
+`;

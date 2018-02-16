@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<header
+  className="sc-bdVaJa iEbmKW"
+>
+  <button
+    className="sc-bwzfXH ilXtSL"
+    onClick={undefined}
+  >
+    Выйти
+  </button>
+  <div>
+    <div
+      className="sc-htpNat oVgFz"
+    >
+      Опубликовано лагерей
+    </div>
+    <div>
+      <div
+        className="sc-bxivhb gsTOhO"
+      >
+        <div
+          className="sc-ifAKCX RqEBc"
+        >
+          <span>
+            /
+          </span>
+        </div>
+        На русском
+      </div>
+      <div
+        className="sc-bxivhb gsTOhO"
+      >
+        <div
+          className="sc-ifAKCX RqEBc"
+        >
+          <span>
+            /
+          </span>
+        </div>
+        На английском
+      </div>
+      <div
+        className="sc-bxivhb gsTOhO"
+      >
+        <div
+          className="sc-ifAKCX RqEBc"
+        >
+          <span>
+            /
+          </span>
+        </div>
+        На немецком
+      </div>
+    </div>
+  </div>
+  <button
+    className="sc-bwzfXH bVDlAF"
+    color="orange"
+    onClick={undefined}
+  >
+    Добавить лагерь
+  </button>
+</header>
+`;
