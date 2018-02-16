@@ -13,7 +13,6 @@ const triangle = {
 
 export default styled.td`
   border-top: none;
-  text-transform: uppercase;
   font-size: 14px;
   white-space: nowrap;
   padding: 0 40px 10px 0;

@@ -19,7 +19,6 @@ const Button = styled.button`
   font-family: 'Formular';
   font-size: 12px;
   font-weight: bold;
-  text-transform: uppercase;
 `;
 
 const LanguageChanger = (props) => {

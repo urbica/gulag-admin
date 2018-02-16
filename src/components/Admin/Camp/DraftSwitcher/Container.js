@@ -26,7 +26,6 @@ export default styled.label`
     font-family: 'Formular';
     font-size: 12px;
     font-weight: bold;
-    text-transform: uppercase;
 
     z-index: 1;
   }

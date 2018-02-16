@@ -20,7 +20,6 @@
 //   font-size: 12px;
 //   font-weight: bold;
 //   color: #000;
-//   text-transform: uppercase;
 //   text-decoration: none;
 //   transition: .2s;
 //   &:hover {

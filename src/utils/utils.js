@@ -61,7 +61,7 @@ export const getPeriods = prison =>
       if (years.length === 1) {
         return `${years[0]}${coma}\n`;
       }
-      return `${Math.min(...years)} — ${Math.max(...years)}${coma}\n`;
+      return `${Math.min(...years)}—${Math.max(...years)}${coma}\n`;
     });
 
 export const filterBySearch = (searchQuery, prisons) => {

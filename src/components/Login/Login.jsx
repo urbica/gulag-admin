@@ -15,6 +15,8 @@ import InputWrap from './InputWrap';
 import Enter from './Enter';
 import PasswordLine from './PasswordLine';
 import Preloader from './Preloader';
+import WrongLine from './WrongLine';
+import WrongPassword from './WrongPassword';
 
 class Login extends PureComponent {
   constructor(props) {
@@ -56,9 +58,10 @@ class Login extends PureComponent {
             alt='preloader'
             isLoading={this.props.loginLoading}
           />
+          <WrongLine isPassWrong={this.props.loginError} />
           {
             this.props.loginError &&
-            <div>неверный пароль</div>
+            <WrongPassword>А теперь попробуй с правильным паролем</WrongPassword>
           }
         </LoginForm>
       </Container>

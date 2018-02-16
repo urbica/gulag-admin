@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 
 export const campsSelector = state => state.getIn(['data', 'camps']);
-export const periodsSelector = state => state.getIn(['data', 'periods']);
 export const activitiesSelector = state => state.getIn(['data', 'activities']);
 export const placesSelector = state => state.getIn(['data', 'places']);
 export const typesSelector = state => state.getIn(['data', 'types']);

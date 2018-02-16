@@ -10,7 +10,6 @@
 
 .prisons thead td {
     border-top: none;
-    text-transform: uppercase;
     font-size: 14px;
     white-space: nowrap;
     padding: 0 40px 10px 0;
@@ -30,7 +29,7 @@
 .prisons thead td.sort_DESC:after {
     position: absolute;
     margin-left: 5px;
-    margin-top: 2px;
+    margin-top: 3px;
     width: 0;
     height: 0;
     border-style: solid;
@@ -42,7 +41,7 @@
 .prisons thead td.sort_ASC:after {
     position: absolute;
     margin-left: 5px;
-    margin-top: 2px;
+    margin-top: 3px;
     width: 0;
     height: 0;
     border-style: solid;

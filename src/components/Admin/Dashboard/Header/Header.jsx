@@ -15,9 +15,9 @@ const Header = (props) => {
 
   return (
     <Container>
-      <Button onClick={logout}>выйти</Button>
+      <Button onClick={logout}>Выйти</Button>
       <div>
-        <Title>Карточки лагерей</Title>
+        <Title>Опубликовано лагерей</Title>
         <div>
           <Lang>
             <PrisonsCount>
@@ -39,7 +39,7 @@ const Header = (props) => {
           </Lang>
         </div>
       </div>
-      <Button color='orange' onClick={createCamp}>добавить</Button>
+      <Button color='orange' onClick={createCamp}>Добавить лагерь</Button>
     </Container>
   );
 };

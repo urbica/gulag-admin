@@ -45,10 +45,8 @@ const PrisonRow = (props) => {
       </td>
       <td className='prisons__cell prisons__strength'>
         <span>
-          {
-            String(prison.get('max_prisoners'))
-              .replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ')
-          }
+          {String(prison.get('max_prisoners'))
+            .replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1\u00A0')}
         </span>
       </td>
       <TD published={prison.getIn(['published', 'ru'])} />

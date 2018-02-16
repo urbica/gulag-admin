@@ -11,7 +11,6 @@ const Separator = styled.fieldset`
   & legend {
     padding: 0 10px;
     margin: auto;
-    text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;
   }

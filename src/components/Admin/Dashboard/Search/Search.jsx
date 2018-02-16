@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
 
@@ -9,6 +9,7 @@ import searchIcon from './search.svg';
 import TextInput from '../../TextInput/TextInput';
 
 // styled
+import Container from './Container';
 import SearchWrap from './SearchWrap';
 import Title from './Title';
 
@@ -22,7 +23,7 @@ const Search = (props) => {
   };
 
   return (
-    <Fragment>
+    <Container>
       <Title>Лагеря</Title>
       <SearchWrap>
         <TextInput
@@ -34,7 +35,7 @@ const Search = (props) => {
           alt='Search'
         />
       </SearchWrap>
-    </Fragment>
+    </Container>
   );
 };
 

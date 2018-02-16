@@ -9,13 +9,11 @@ import { logout } from '../../App/authReducer';
 import { createCamp } from '../../App/dataReducer';
 
 // selectors
-import {
-  campsSelector, placesSelector, typesSelector, periodsSelector
-} from '../../App/dataSelectors';
+import { campsSelector, placesSelector, typesSelector } from '../../App/dataSelectors';
 
 // components
 import Header from './Header/Header';
-import Periods from './Periods/Periods';
+import Chronology from './Chronology/Chronology';
 import Search from './Search/Search';
 import Camps from './Camps/Camps';
 
@@ -77,10 +75,7 @@ class Dashboard extends PureComponent {
           logout={this.logout}
           createCamp={this.createCamp}
         />
-        <Periods
-          periods={this.props.periods}
-          openPeriod={this.openPeriod}
-        />
+        <Chronology />
         <Search
           value={this.state.searchQuery}
           onChange={val => this.setState({ searchQuery: val })}
@@ -99,25 +94,22 @@ class Dashboard extends PureComponent {
 Dashboard.propTypes = {
   dispatch: PropTypes.func.isRequired,
   camps: PropTypes.object,
-  periods: PropTypes.object,
   places: PropTypes.object,
   types: PropTypes.object
 };
 
 Dashboard.defaultProps = {
   camps: null,
-  periods: null,
   places: null,
   types: null
 };
 
 const selector = createSelector(
   campsSelector,
-  periodsSelector,
   placesSelector,
   typesSelector,
-  (camps, periods, places, types) => ({
-    camps, periods, places, types
+  (camps, places, types) => ({
+    camps, places, types
   })
 );
 
