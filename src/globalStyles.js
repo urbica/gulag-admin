@@ -15,14 +15,6 @@ import blackWoff2 from './fonts/formular-black/formular-black.woff2';
 import blackWoff from './fonts/formular-black/formular-black.woff';
 import blackTtf from './fonts/formular-black/formular-black.ttf';
 
-// Vremena
-import vremenaItalicWoff2 from './fonts/vremena-italic/VremenaBookItalic.woff2';
-import vremenaItalicWoff from './fonts/vremena-italic/VremenaBookItalic.woff';
-import vremenaItalicTtf from './fonts/vremena-italic/VremenaBookItalic.ttf';
-import vremenaMediumWoff2 from './fonts/vremena-medium/VremenaMedium.woff2';
-import vremenaMediumWoff from './fonts/vremena-medium/VremenaMedium.woff';
-import vremenaMediumTtf from './fonts/vremena-medium/VremenaMedium.ttf';
-
 // eslint-disable-next-line
 injectGlobal`
   * {
@@ -69,26 +61,6 @@ injectGlobal`
     font-style: normal;
   }
 
-  @font-face {
-    font-family: Vremena;
-    src:
-      url(${vremenaItalicWoff2}) format('woff2'),
-      url(${vremenaItalicWoff}) format('woff'),
-      url(${vremenaItalicTtf}) format('truetype');
-    font-weight: normal;
-    font-style: italic;
-  }
-
-  @font-face {
-    font-family: Vremena;
-    src:
-      url(${vremenaMediumWoff2}) format('woff2'),
-      url(${vremenaMediumWoff}) format('woff'),
-      url(${vremenaMediumTtf}) format('truetype');
-    font-weight: 500;
-    font-style: normal;
-  }
-
   body {
     font-family: 'Formular', sans-serif;
     font-size: 16px;
@@ -99,7 +71,6 @@ injectGlobal`
   .incut {
     outline: 20px solid #1A1A1A;
 
-    font-family: 'Vremena';
     color: rgba(225,225,225,0.5);
 
     background-color: #1A1A1A;

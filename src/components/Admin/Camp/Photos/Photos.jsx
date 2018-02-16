@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import ImageCompressor from 'image-compressor';
+import ImageCompressor from 'image-compressor.js';
 
 // components
 import Photo from './Photo/Photo';
