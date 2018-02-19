@@ -5,7 +5,7 @@ exports[`renders 1`] = `
   className="sc-bdVaJa iEbmKW"
 >
   <button
-    className="sc-bwzfXH ilXtSL"
+    className="sc-bwzfXH cjRVLf"
     onClick={undefined}
   >
     Выйти
@@ -56,7 +56,7 @@ exports[`renders 1`] = `
     </div>
   </div>
   <button
-    className="sc-bwzfXH bVDlAF"
+    className="sc-bwzfXH cZtovU"
     color="orange"
     onClick={undefined}
   >

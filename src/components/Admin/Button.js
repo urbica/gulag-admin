@@ -7,6 +7,7 @@ const color = {
 };
 
 const Button = styled.button`
+  padding: 0;
   border: none;
   outline: none;
 

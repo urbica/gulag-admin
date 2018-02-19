@@ -2,22 +2,15 @@
 /* eslint-disable react/require-default-props */
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import FieldTitle from '../FieldTitle';
+import FieldTitle from '../../FieldTitle';
 
-const PrisonYearsWrap = styled.div`
-  margin-bottom: 33px;
-`;
-
-const YearsList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
+// styled
+import Container from './Container';
+import YearsList from './YearsList';
 
 const YearLabel = styled.label`
-  width: 59.5px;
   text-align: center;
-  margin-right: 6px;
-  margin-bottom: 10px;
+
   & input {
     display: none;
   }
@@ -69,7 +62,7 @@ class PrisonYears extends PureComponent {
     });
 
     return (
-      <PrisonYearsWrap>
+      <Container>
         <FieldTitle>Годы существования лагеря</FieldTitle>
         <YearsList>
           {
@@ -92,7 +85,7 @@ class PrisonYears extends PureComponent {
             })
           }
         </YearsList>
-      </PrisonYearsWrap>
+      </Container>
     );
   }
 }

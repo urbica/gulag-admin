@@ -1,12 +1,9 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Wrap = styled.div`
-  position: relative;
-`;
+// styled
+import Container from './Container';
 
 const TextArea = styled.textarea`
   max-width: 100%;
@@ -36,18 +33,23 @@ const Underline = styled.div`
 `;
 
 const NotesInput = ({ note, onChange }) => (
-  <Wrap>
+  <Container>
     <TextArea
       value={note}
       onChange={onChange}
     />
     <Underline />
-  </Wrap>
+  </Container>
 );
 
 NotesInput.propTypes = {
   note: PropTypes.string,
   onChange: PropTypes.func
+};
+
+NotesInput.defaultProps = {
+  note: null,
+  onChange: null
 };
 
 export default NotesInput;

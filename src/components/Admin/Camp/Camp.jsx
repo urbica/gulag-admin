@@ -18,7 +18,6 @@ import { updateCamp, deleteCamp, uploadPhotos, deletePhoto } from '../../App/dat
 // components
 import Header from './Header/Header';
 import LanguageSwitcher from './LanguageSwitcher/LanguageSwitcher';
-import DraftSwitch from './DraftSwitcher/DraftSwitch';
 import TextInput from './TextInput/TextInput';
 import MarkdownEditor from './Inputs/MarkdownEditor';
 import NotesInput from './NotesInput/NotesInput';
@@ -108,16 +107,27 @@ class Camp extends PureComponent {
           camp={camp}
           updateCamp={this.updateCamp}
         />
-        {/* <Link to={`https://gulagmap.ru/prison${camp.get('id')}`}>Посмотреть на карте</Link> */}
         <LanguageSwitcher
           languages={languages}
           activeLang={activeLang}
           onChange={this.langChange}
         />
-        <DraftSwitch
-          isPublished={isPublished}
-          onChange={this.updateField.bind(null, ['published', activeLang], !isPublished)}
-        />
+        <div
+          style={{
+            gridColumn: 'span 3',
+            justifySelf: 'end',
+            alignSelf: 'baseline'
+          }}
+        >
+          <Button
+            onClick={this.updateField.bind(null, ['published', activeLang], !isPublished)}
+          >
+            {isPublished ? 'Опубликованно' : 'Не опубликованно'}
+          </Button>
+          <a href={`http://gulagmap.ru/prison${camp.get('id')}`}>
+            Посмотреть на карте
+          </a>
+        </div>
         <Fieldset>
           <FieldTitle>название лагеря</FieldTitle>
           <TextInput
@@ -131,12 +141,14 @@ class Camp extends PureComponent {
             placeholder='Дополнительные названия, если есть'
           />
         </Fieldset>
-        <FieldTitle>Название локации</FieldTitle>
-        <TextInput
-          placeholder='Название'
-          value={camp.getIn(['location', activeLang])}
-          onChange={this.updateField.bind(null, ['location', activeLang])}
-        />
+        <Fieldset>
+          <FieldTitle>Название локации</FieldTitle>
+          <TextInput
+            placeholder='Название'
+            value={camp.getIn(['location', activeLang])}
+            onChange={this.updateField.bind(null, ['location', activeLang])}
+          />
+        </Fieldset>
         <MarkdownEditor
           source={camp.getIn(['description', this.state.activeLang])}
           onChange={this.updateField.bind(null, ['description', activeLang])}
@@ -190,6 +202,7 @@ class Camp extends PureComponent {
         <Button
           color='red'
           onClick={() => this.props.dispatch(deleteCamp(camp.get('id')))}
+          style={{ gridColumn: 6, justifySelf: 'end' }}
         >
           удалить
         </Button>

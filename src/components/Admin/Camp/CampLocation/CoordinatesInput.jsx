@@ -8,7 +8,6 @@ import TextInput from '../TextInput/TextInput';
 const InputWrap = styled.div`
   margin-left: auto;
   & label {
-    width: 275px;
     padding: 8px 8px 5px;
     & input {
       font-size: 12px;

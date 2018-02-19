@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.div`
+  grid-column: span 6;
+
   & figure {
     position: relative;
     display: inline-block;
@@ -23,7 +25,6 @@ export default styled.div`
       padding: 3px 10px;
       border: none;
 
-      font-family: 'Formular';
       font-size: 14px;
       color: #fff;
 

@@ -3,21 +3,22 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import MaskedInput from 'react-text-mask';
-import styled from 'styled-components';
 
-const Wrap = styled.div`
-  width: 100%;
-`;
+// styled
+import Container from './Container';
+import Title from './Title';
+import Label from './Label';
+import Year from './Year';
 
 const PrisonStatistics = (props) => {
   const { feature, onChange } = props;
   return (
-    <Wrap>
-      <div className='field-title'>количество заключенных по годам</div>
+    <Container>
+      <Title>Количество заключенных по годам</Title>
       {Object.keys(feature.properties)
         .map(year => (
-          <label className='amount' key={year}>
-            <span className='amount__year'>{year}:</span>
+          <Label key={year}>
+            <Year>{year}:</Year>
             <MaskedInput
               className='input input_inside'
               type='text'
@@ -27,9 +28,9 @@ const PrisonStatistics = (props) => {
               onChange={onChange.bind(null, year)}
             />
             <div className='inputLine' />
-          </label>
+          </Label>
         ))}
-    </Wrap>
+    </Container>
   );
 };
 

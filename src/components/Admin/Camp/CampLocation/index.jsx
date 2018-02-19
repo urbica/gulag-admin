@@ -8,8 +8,8 @@ import './PrisonLocation.css';
 // components
 import CoordinatesInput from './CoordinatesInput';
 import Map from './Map/Map';
-import PrisonYears from './PrisonYears';
-import PrisonStatistics from './CampStatistics/PrisonStatistics';
+import CampYears from './CampYears/CampYears';
+import CampStatistics from './CampStatistics/CampStatistics';
 
 // styled
 import Container from './Container';
@@ -163,14 +163,14 @@ class PrisonLocation extends PureComponent {
           />
         </div>
         <Map features={[selectedFeature]} />
-        <PrisonYears
+        <CampYears
           features={features}
           selectedFeatureIndex={this.state.selectedFeatureIndex}
           toggleYear={this.toggleYear}
         />
         {
           features[this.state.selectedFeatureIndex] &&
-          <PrisonStatistics
+          <CampStatistics
             feature={features[this.state.selectedFeatureIndex]}
             onChange={this.updatePrisonersAmount}
           />

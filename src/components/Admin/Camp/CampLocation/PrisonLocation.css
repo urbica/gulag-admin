@@ -139,26 +139,3 @@
 .field-title__plus:active {
   border-color: #000;
 }
-
-.amount {
-  display: inline-block;
-  position: relative;
-  width: 150px;
-  padding: 13px 13px 12px 64px;
-  margin-right: 10px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  background-color: #f3f3f3;
-}
-
-.amount:hover {
-  background-color: #f9f9f9;
-}
-
-.amount__year {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: .5;
-}

@@ -1,13 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 
-const Container = styled.div`
-  margin-top: 30px;
-  opacity: 0.5;
-  & div {
-    margin-bottom: 10px;
-  }
-`;
+// styled
+import Container from './Container';
 
 export default () => (
   <Container>

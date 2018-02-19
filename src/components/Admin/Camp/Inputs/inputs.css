@@ -1,11 +1,3 @@
-.field-title {
-  width: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, .3);
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-size: 12px;
-}
-
 .inputWrapper {
   position: relative;
 }
@@ -39,15 +31,6 @@ input::-webkit-contacts-auto-fill-button {
   right: 0;
 }
 
-.input_en {
-  color: #3949ab;
-  background-color: #ebecf6;
-}
-
-.input_en:hover {
-  background-color: #F5F5FA;
-}
-
 .inputLine {
   position: absolute;
   bottom: 0;
@@ -57,10 +40,6 @@ input::-webkit-contacts-auto-fill-button {
   background-color: #000;
   z-index: 10;
   transition: width .3s;
-}
-
-.input_en + .inputLine {
-  background-color: #3949ab;
 }
 
 .input:focus + .inputLine {
