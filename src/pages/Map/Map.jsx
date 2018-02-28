@@ -116,7 +116,7 @@ class Map extends PureComponent {
   onLoad() {
     this.map.addSource('ussr', {
       type: 'vector',
-      url: 'mapbox://gulagmap.83eae073'
+      url: 'mapbox://gulagmap.004jq1f0'
     });
     this.map.addSource('chukotka', {
       type: 'vector',
@@ -126,7 +126,7 @@ class Map extends PureComponent {
       id: 'ussr',
       type: 'fill',
       source: 'ussr',
-      'source-layer': 'NEWUSSR_BOUND',
+      'source-layer': 'USSR_new-8b73vi',
       layout: {},
       paint: {
         'fill-color': '#1b2128', // 222933 #1b2128
@@ -141,7 +141,7 @@ class Map extends PureComponent {
       id: 'chukotka',
       type: 'fill',
       source: 'chukotka',
-      'source-layer': 'chukotka_patch-4b7lx1',
+      'source-layer': 'chukotka-patch-4b7lx1',
       layout: {},
       paint: {
         'fill-color': '#1b2128',
