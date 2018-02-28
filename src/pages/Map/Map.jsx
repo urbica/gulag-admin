@@ -136,7 +136,7 @@ class Map extends PureComponent {
         ['<=', 'year_start', this.props.currentYear],
         ['>=', 'year_end', this.props.currentYear]
       ]
-    }, 'waterway');
+    }, 'waterway-z3');
     this.map.addLayer({
       id: 'chukotka',
       type: 'fill',
@@ -147,7 +147,7 @@ class Map extends PureComponent {
         'fill-color': '#1b2128',
         'fill-opacity': 1
       }
-    }, 'waterway');
+    }, 'waterway-z3');
 
     const { features } = this.props;
     const source = {
