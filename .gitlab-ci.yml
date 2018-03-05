@@ -8,6 +8,8 @@ test:
   image: node:8-alpine
   script:
     - NODE_ENV=development yarn
+    - NODE_ENV=development yarn lint
+    - NODE_ENV=development yarn test
     - NODE_ENV=production yarn build
   artifacts:
     paths:
@@ -28,6 +30,7 @@ build:latest:
   only:
     - master
     - dev
+    - refactoring
 
 deploy:staging:
   image: alpine

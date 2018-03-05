@@ -5,7 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "lint": "eslint src --ext .js,.jsx",
-    "commit": "git-cz",
+    "cz": "git-cz",
     "release": "standard-version",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -56,5 +56,5 @@
     "react-test-renderer": "16.2.0",
     "redux-mock-store": "1.5.1"
   },
-  "proxy": "https://gulagmap.ru"
+  "proxy": "https://gulag-next.urbica.co"
 }
