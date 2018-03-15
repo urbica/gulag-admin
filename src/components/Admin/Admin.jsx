@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, /* Redirect, */ Switch } from 'react-router-dom';
 import { createSelector } from 'reselect';
 
 import { fetchData } from '../App/dataReducer';
@@ -22,7 +22,7 @@ class Admin extends PureComponent {
   }
 
   render() {
-    const { token, camps } = this.props;
+    // const { token, camps } = this.props;
 
     // if (!token) {
     //   return <Redirect to='/login' />;
@@ -39,13 +39,13 @@ class Admin extends PureComponent {
 }
 
 Admin.propTypes = {
-  token: PropTypes.string,
+  // token: PropTypes.string,
   camps: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 };
 
 Admin.defaultProps = {
-  token: null,
+  // token: null,
   camps: null
 };
 
