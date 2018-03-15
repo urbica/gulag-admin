@@ -7,25 +7,23 @@ export default (token) => {
   return (
     new Promise((resolve, reject) => (
       Promise.all([
-        fetch('/api/public/camps.json', options)
-          .then(res => (res.status !== 200 ? reject(res) : res.json()))
-          .then(camps => fillMaxPrisoners(camps)),
-        fetch('/api/public/uploads.json', options)
+        // fetch('/api/camps.json', options)
+        //   .then(res => (res.status !== 200 ? reject(res) : res.json()))
+        //   .then(camps => fillMaxPrisoners(camps)),
+        // fetch('/api/uploads.json', options)
+        //   .then(res => (res.status !== 200 ? reject(res) : res.json())),
+        fetch('/api/camp-activities', options)
           .then(res => (res.status !== 200 ? reject(res) : res.json())),
-        fetch('/api/public/activities.json', options)
+        fetch('/api/camp-regions', options)
           .then(res => (res.status !== 200 ? reject(res) : res.json())),
-        fetch('/api/public/places.json', options)
+        fetch('/api/camp-types', options)
           .then(res => (res.status !== 200 ? reject(res) : res.json())),
-        fetch('/api/public/types.json', options)
-          .then(res => (res.status !== 200 ? reject(res) : res.json())),
-        fetch('/api/public/periods.json', options)
-          .then(res => (res.status !== 200 ? reject(res) : res.json())),
-        fetch('/api/public/notes.json', options)
+        fetch('/api/periods', options)
           .then(res => (res.status !== 200 ? reject(res) : res.json()))
       ])
-        .then(([camps, uploads, activities, places, types, periods, notes]) =>
+        .then(([activities, places, types, periods]) =>
           resolve(Immutable.fromJS({
-            camps, uploads, activities, places, types, periods, notes
+            activities, places, types, periods
           })))
         .catch(error => reject(error))
     ))

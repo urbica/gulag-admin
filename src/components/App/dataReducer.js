@@ -30,13 +30,13 @@ export const uploadPhotos = (prisonId, photos) => ({
 export const deletePhoto = photoId => ({ type: DELETE_PHOTO_REQUEST, payload: photoId });
 
 const initialState = Map({
-  camps: null,
-  uploads: null,
-  activities: null,
-  places: null,
-  types: null,
-  periods: null,
-  notes: null
+  camps: Map(),
+  uploads: Map(),
+  activities: Map(),
+  places: Map(),
+  types: Map(),
+  periods: Map(),
+  notes: Map()
 });
 
 export default (state = initialState, { type, payload }) => {

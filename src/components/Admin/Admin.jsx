@@ -24,19 +24,15 @@ class Admin extends PureComponent {
   render() {
     const { token, camps } = this.props;
 
-    if (!token) {
-      return <Redirect to='/login' />;
-    }
-
-    if (!camps) {
-      return null;
-    }
+    // if (!token) {
+    //   return <Redirect to='/login' />;
+    // }
 
     return (
       <Switch>
-        <Route exact path='/admin' component={Dashboard} />
-        <Route exact path='/admin/camp:id' component={Camp} />
-        <Route exact path='/admin/period:id' component={Period} />
+        <Route exact path='/' component={Dashboard} />
+        <Route exact path='/camp:id' component={Camp} />
+        <Route exact path='/chronology' component={Period} />
       </Switch>
     );
   }
