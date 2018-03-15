@@ -56,6 +56,6 @@
     "react-test-renderer": "16.2.0",
     "redux-mock-store": "1.5.1"
   },
-  "homepage": "admin",
+  "homepage": "/admin",
   "proxy": "https://gulag-next.urbica.co"
 }
