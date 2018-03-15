@@ -17,6 +17,9 @@ import authReducer from './components/App/authReducer';
 import uiReducer from './components/App/uiReducer';
 import dataReducer from './components/App/dataReducer';
 
+// eslint-disable-next-line no-alert
+alert('!!!!!');
+
 let middleware;
 const sagaMiddleware = createSagaMiddleware();
 const history = createHistory();
