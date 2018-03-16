@@ -30,9 +30,9 @@ class Admin extends PureComponent {
 
     return (
       <Switch>
-        <Route exact path='/' component={Dashboard} />
-        <Route exact path='/camp:id' component={Camp} />
-        <Route exact path='/chronology' component={Period} />
+        <Route exact path='/admin' component={Dashboard} />
+        <Route exact path='/admin/camp:id' component={Camp} />
+        <Route exact path='/admin/chronology' component={Period} />
       </Switch>
     );
   }
