@@ -8,7 +8,7 @@ import Admin from '../Admin/Admin';
 const App = () => (
   <Fragment>
     <Route path='/login' component={Login} />
-    <Route path='/' component={Admin} />
+    <Route path='/admin' component={Admin} />
   </Fragment>
 );
 
