@@ -3,18 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "lint": "eslint src --ext .js,.jsx",
-    "cz": "git-cz",
-    "release": "standard-version",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "cz": "git-cz",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx",
+    "precommit": "lint-staged",
+    "release": "standard-version",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier-eslint --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "commitizen": "2.9.6",
+    "cz-conventional-changelog": "2.1.0",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "eslint": "4.19.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.7.0",
+    "prettier": "1.11.1",
+    "react-scripts": "1.1.1",
+    "react-test-renderer": "16.2.0",
+    "redux-mock-store": "1.5.1"
   },
   "dependencies": {
     "commonmark": "0.28.1",
@@ -41,20 +63,6 @@
     "redux-saga": "0.16.0",
     "reselect": "3.0.1",
     "styled-components": "3.1.6"
-  },
-  "devDependencies": {
-    "commitizen": "2.9.6",
-    "cz-conventional-changelog": "2.1.0",
-    "enzyme": "3.3.0",
-    "enzyme-adapter-react-16": "1.1.1",
-    "eslint": "4.17.0",
-    "eslint-config-airbnb": "16.1.0",
-    "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-jsx-a11y": "6.0.3",
-    "eslint-plugin-react": "7.6.1",
-    "react-scripts": "1.1.1",
-    "react-test-renderer": "16.2.0",
-    "redux-mock-store": "1.5.1"
   },
   "homepage": "/admin",
   "proxy": "https://gulag-next.urbica.co"
