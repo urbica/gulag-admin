@@ -5,12 +5,9 @@ export default (password) => {
     headers: { 'Content-Type': 'application/json' }
   };
 
-  return (
-    new Promise((resolve, reject) => (
-      fetch('/login', options)
-        .then(res => (res.status !== 200 ? reject(res) : res.json()))
-        .then(json => resolve(json.token))
-        .catch(error => reject(error))
-    ))
-  );
+  return new Promise((resolve, reject) =>
+    fetch('/api/login', options)
+      .then(res => (res.status !== 200 ? reject(res) : res.json()))
+      .then(json => resolve(json.token))
+      .catch(error => reject(error)));
 };
