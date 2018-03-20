@@ -1,15 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { push } from 'react-router-redux';
-import { createSelector } from 'reselect';
-import { connect } from 'react-redux';
 
-// actions
-import { logout } from '../../App/authReducer';
-import { createCamp } from '../../App/dataReducer';
-
-// selectors
-import { campsSelector, placesSelector, typesSelector } from '../../App/dataSelectors';
+import { filterBySearch } from '../../../utils/utils';
 
 // components
 import Header from './Header/Header';
@@ -19,7 +11,6 @@ import Camps from './Camps/Camps';
 
 // styled
 import Container from './Container';
-import { filterBySearch } from '../../../utils/utils';
 
 class Dashboard extends PureComponent {
   constructor(props) {
@@ -28,42 +19,31 @@ class Dashboard extends PureComponent {
     this.state = {
       searchQuery: ''
     };
-
-    this.logout = this.logout.bind(this);
-    this.createCamp = this.createCamp.bind(this);
-    this.openPeriod = this.openPeriod.bind(this);
-    this.openCamp = this.openCamp.bind(this);
-  }
-
-  logout() {
-    this.props.dispatch(logout());
-  }
-
-  createCamp() {
-    this.props.dispatch(createCamp());
-  }
-
-  openPeriod(id) {
-    this.props.dispatch(push(`/admin/period${id}`));
-  }
-
-  openCamp(id) {
-    this.props.dispatch(push(`/admin/camp${id}`));
   }
 
   render() {
-    const { camps, places, types } = this.props;
-
     const {
-      publishedRuCount, publishedEnCount, publishedDeCount
-    } = camps.reduce((acc, camp) => {
-      /* eslint-disable no-param-reassign */
-      if (camp.getIn(['published', 'ru'])) acc.publishedRuCount += 1;
-      if (camp.getIn(['published', 'en'])) acc.publishedEnCount += 1;
-      if (camp.getIn(['published', 'de'])) acc.publishedDeCount += 1;
-      /* eslint-enable no-param-reassign */
-      return acc;
-    }, { publishedRuCount: 0, publishedEnCount: 0, publishedDeCount: 0 });
+      camps,
+      places,
+      types,
+      periods,
+      logout,
+      createCamp,
+      openCamp,
+      openChronology
+    } = this.props;
+
+    const { publishedRuCount, publishedEnCount, publishedDeCount } = camps.reduce(
+      (acc, camp) => {
+        /* eslint-disable no-param-reassign */
+        if (camp.getIn(['published', 'ru'])) acc.publishedRuCount += 1;
+        if (camp.getIn(['published', 'en'])) acc.publishedEnCount += 1;
+        if (camp.getIn(['published', 'de'])) acc.publishedDeCount += 1;
+        /* eslint-enable no-param-reassign */
+        return acc;
+      },
+      { publishedRuCount: 0, publishedEnCount: 0, publishedDeCount: 0 }
+    );
 
     return (
       <Container>
@@ -72,17 +52,17 @@ class Dashboard extends PureComponent {
           publishedRuCount={publishedRuCount}
           publishedEnCount={publishedEnCount}
           publishedDeCount={publishedDeCount}
-          logout={this.logout}
-          createCamp={this.createCamp}
+          logout={logout}
+          createCamp={createCamp}
         />
-        <Chronology />
+        <Chronology periods={periods} openChronology={openChronology} />
         <Search
           value={this.state.searchQuery}
           onChange={val => this.setState({ searchQuery: val })}
         />
         <Camps
           camps={filterBySearch(this.state.searchQuery, camps)}
-          openCamp={this.openCamp}
+          openCamp={openCamp}
           places={places}
           types={types}
         />
@@ -92,10 +72,14 @@ class Dashboard extends PureComponent {
 }
 
 Dashboard.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   camps: PropTypes.object,
   places: PropTypes.object,
-  types: PropTypes.object
+  types: PropTypes.object,
+  periods: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
+  createCamp: PropTypes.func.isRequired,
+  openCamp: PropTypes.func.isRequired,
+  openChronology: PropTypes.func.isRequired
 };
 
 Dashboard.defaultProps = {
@@ -104,13 +88,4 @@ Dashboard.defaultProps = {
   types: null
 };
 
-const selector = createSelector(
-  campsSelector,
-  placesSelector,
-  typesSelector,
-  (camps, places, types) => ({
-    camps, places, types
-  })
-);
-
-export default connect(selector)(Dashboard);
+export default Dashboard;

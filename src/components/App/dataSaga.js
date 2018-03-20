@@ -4,12 +4,30 @@ import { push } from 'react-router-redux';
 import tokenSelector from './authSelector';
 
 import {
-  DATA_FETCH_REQUEST, DATA_FETCH_SUCCESS, DATA_FETCH_FAILURE,
-  CREATE_CAMP_REQUEST, CREATE_CAMP_SUCCESS, CREATE_CAMP_FAILURE,
-  UPDATE_CAMP_REQUEST, UPDATE_CAMP_SUCCESS, UPDATE_CAMP_FAILURE,
-  DELETE_CAMP_REQUEST, DELETE_CAMP_SUCCESS, DELETE_CAMP_FAILURE,
-  UPLOAD_PHOTOS_REQUEST, UPLOAD_PHOTOS_SUCCESS, UPLOAD_PHOTOS_FAILURE,
-  DELETE_PHOTO_REQUEST, DELETE_PHOTO_SUCCESS, DELETE_PHOTO_FAILURE
+  DATA_FETCH_REQUEST,
+  DATA_FETCH_SUCCESS,
+  DATA_FETCH_FAILURE,
+  CREATE_CAMP_REQUEST,
+  CREATE_CAMP_SUCCESS,
+  CREATE_CAMP_FAILURE,
+  UPDATE_CAMP_REQUEST,
+  UPDATE_CAMP_SUCCESS,
+  UPDATE_CAMP_FAILURE,
+  DELETE_CAMP_REQUEST,
+  DELETE_CAMP_SUCCESS,
+  DELETE_CAMP_FAILURE,
+  UPLOAD_PHOTOS_REQUEST,
+  UPLOAD_PHOTOS_SUCCESS,
+  UPLOAD_PHOTOS_FAILURE,
+  DELETE_PHOTO_REQUEST,
+  DELETE_PHOTO_SUCCESS,
+  DELETE_PHOTO_FAILURE,
+  CREATE_PERIOD_REQUEST,
+  CREATE_PERIOD_SUCCESS,
+  CREATE_PERIOD_FAILURE,
+  DELETE_PERIOD_REQUEST,
+  DELETE_PERIOD_SUCCESS,
+  DELETE_PERIOD_FAILURE
 } from './dataReducer';
 
 import fetchData from '../../api/fetchData';
@@ -18,6 +36,8 @@ import updateCamp from '../../api/updateCamp';
 import deleteCamp from '../../api/deleteCamp';
 import uploadPhotos from '../../api/uploadPhotos';
 import deletePhoto from '../../api/deletePhoto';
+import createPeriod from '../../api/createPeriod';
+import deletePeriod from '../../api/deletePeriod';
 
 function* fetchDataHandler() {
   try {
@@ -88,6 +108,28 @@ function* deletePhotoHandler({ payload }) {
   }
 }
 
+function* createPeriodHandler() {
+  try {
+    const token = yield select(tokenSelector);
+    const newPeriod = yield call(createPeriod, token);
+
+    yield put({ type: CREATE_PERIOD_SUCCESS, payload: newPeriod });
+  } catch (error) {
+    yield put({ type: CREATE_PERIOD_FAILURE, payload: error });
+  }
+}
+
+function* deletePeriodHandler({ payload }) {
+  try {
+    const token = yield select(tokenSelector);
+
+    yield call(deletePeriod, token, payload);
+    yield put({ type: DELETE_PERIOD_SUCCESS, payload });
+  } catch (error) {
+    yield put({ type: DELETE_PERIOD_FAILURE, payload: error });
+  }
+}
+
 function* DataSaga() {
   yield takeLatest(DATA_FETCH_REQUEST, fetchDataHandler);
   yield takeLatest(CREATE_CAMP_REQUEST, createCampHandler);
@@ -95,6 +137,8 @@ function* DataSaga() {
   yield takeLatest(DELETE_CAMP_REQUEST, deleteCampHandler);
   yield takeLatest(UPLOAD_PHOTOS_REQUEST, uploadPhotosHandler);
   yield takeLatest(DELETE_PHOTO_REQUEST, deletePhotoHandler);
+  yield takeLatest(CREATE_PERIOD_REQUEST, createPeriodHandler);
+  yield takeLatest(DELETE_PERIOD_REQUEST, deletePeriodHandler);
 }
 
 export default DataSaga;

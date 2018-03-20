@@ -10,13 +10,13 @@ import tokenSelector from '../App/authSelector';
 import { campsSelector } from '../App/dataSelectors';
 
 // components
-import Dashboard from './Dashboard/Dashboard';
+import Dashboard from './Dashboard';
 import Camp from './Camp/Camp';
-import Period from './Period/Period';
+import Chronology from './Chronology';
 
 class Admin extends PureComponent {
   componentDidMount() {
-    if (!this.props.camps) {
+    if (!this.props.periods) {
       this.props.dispatch(fetchData());
     }
   }
@@ -32,7 +32,7 @@ class Admin extends PureComponent {
       <Switch>
         <Route exact path='/admin' component={Dashboard} />
         <Route exact path='/admin/camp:id' component={Camp} />
-        <Route exact path='/admin/chronology' component={Period} />
+        <Route exact path='/admin/chronology' component={Chronology} />
       </Switch>
     );
   }
@@ -40,22 +40,18 @@ class Admin extends PureComponent {
 
 Admin.propTypes = {
   token: PropTypes.string,
-  camps: PropTypes.object,
+  periods: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 };
 
 Admin.defaultProps = {
   token: null,
-  camps: null
+  periods: null
 };
 
-const selector = createSelector(
-  tokenSelector,
-  campsSelector,
-  (token, camps) => ({
-    token,
-    camps
-  })
-);
+const selector = createSelector(tokenSelector, campsSelector, (token, camps) => ({
+  token,
+  camps
+}));
 
 export default connect(selector)(Admin);
