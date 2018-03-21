@@ -5,7 +5,8 @@ export default styled.header`
   justify-content: space-between;
   align-items: baseline;
 
+  width: 1200px;
   padding-top: 25px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  margin-bottom: 25px;
+  margin: 0 auto 50px auto;
 `;

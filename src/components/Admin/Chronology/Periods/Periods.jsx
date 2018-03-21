@@ -1,26 +1,58 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const Periods = ({ periods, createPeriod, deletePeriod }) => (
-  <div>
-    {periods.map(period => (
-      <div key={period.get('id')}>
-        <div>{period.get('id')}</div>
-        <div>{period.get('year')}</div>
-        <div>{period.getIn(['title', 'ru'])}</div>
-        <div>{period.getIn(['descriptions', 'ru'])}</div>
-        <button onClick={deletePeriod.bind(null, period.get('id'))}>
-          delete period{period.get('id')}
-        </button>
-      </div>
-    ))}
-    <button onClick={createPeriod}>Добавить ещё период</button>
-  </div>
-);
+// styled
+import Container from './Container';
+import Wrapper from './Wrapper';
+import Form from './Form';
+import Year from './Year';
+import Title from './Title';
+import Description from './Description';
+import DeleteButton from './DeleteButton';
+import Button from './Button';
+
+const Periods = (props) => {
+  const {
+    periods, createPeriod, deletePeriod, changePeriod
+  } = props;
+
+  return (
+    <Fragment>
+      {periods.toList().map(period => (
+        <Container>
+          <Wrapper>
+            <Form key={period.get('id')}>
+              <Year
+                placeholder='Год начала периода'
+                value={period.get('year')}
+                onChange={changePeriod.bind(null, [period.get('id'), 'year'])}
+              />
+              <Title
+                placeholder='Заголовок периода'
+                value={period.getIn(['title', 'ru'])}
+                onChange={changePeriod.bind(null, [period.get('id'), 'title', 'ru'])}
+              />
+              <Description
+                placeholder='Описание периода'
+                value={period.getIn(['descriptions', 'ru'])}
+                onChange={changePeriod.bind(null, [period.get('id'), 'descriptions', 'ru'])}
+              />
+            </Form>
+            <DeleteButton onClick={deletePeriod.bind(null, period.get('id'))}>Удалить</DeleteButton>
+          </Wrapper>
+        </Container>
+      ))}
+      <Wrapper>
+        <Button onClick={createPeriod}>Добавить ещё период</Button>
+      </Wrapper>
+    </Fragment>
+  );
+};
 
 Periods.propTypes = {
   periods: PropTypes.object.isRequired,
   createPeriod: PropTypes.func.isRequired,
+  changePeriod: PropTypes.func.isRequired,
   deletePeriod: PropTypes.func.isRequired
 };
 

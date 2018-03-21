@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { Map } from 'immutable';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 
@@ -7,7 +8,10 @@ import { createPeriod, deletePeriod } from '../../App/dataReducer';
 
 import Chronology from './Chronology';
 
-const mapStateToProps = () => createSelector(periodsSelector, periods => ({ periods }));
+const mapStateToProps = () =>
+  createSelector(periodsSelector, periods => ({
+    periods: periods.reduce((acc, period) => acc.set(period.get('id'), period), Map())
+  }));
 
 const mapDispatchToProps = dispatch => ({
   pushToDashboard: () => dispatch(push('/admin')),

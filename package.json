@@ -46,7 +46,7 @@
     "debounce": "1.1.0",
     "history": "4.7.2",
     "image-compressor.js": "1.0.0",
-    "immutable": "3.8.2",
+    "immutable": "4.0.0-rc.9",
     "mapbox-gl": "0.44.1",
     "moment": "2.20.1",
     "normalize.css": "8.0.0",

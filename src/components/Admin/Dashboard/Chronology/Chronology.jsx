@@ -13,14 +13,16 @@ const Chronology = ({ periods, openChronology }) => (
   <Container>
     <Title>Хронология Гулага</Title>
     <PeriodsWrapp onClick={openChronology}>
-      <Periods>
-        {periods.map(period => (
-          <Period>
-            <span>{period.get('year')}</span>
-            <span>{period.getIn(['title', 'ru'])}</span>
-          </Period>
-        ))}
-      </Periods>
+      {periods.size !== 0 && (
+        <Periods>
+          {periods.map(period => (
+            <Period>
+              <span>{period.get('year')}</span>
+              <span>{period.getIn(['title', 'ru'])}</span>
+            </Period>
+          ))}
+        </Periods>
+      )}
     </PeriodsWrapp>
     {periods.size === 0 && <Button onClick={openChronology}>Добавить периоды</Button>}
   </Container>
