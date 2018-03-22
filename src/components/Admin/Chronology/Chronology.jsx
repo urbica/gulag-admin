@@ -16,7 +16,9 @@ class Chronology extends PureComponent {
         periods: periods.setIn(path, target.value)
       }));
     };
-    this.savePeriods = () => {};
+    this.updatePeriods = () => {
+      this.props.updatePeriods(Object.values(this.state.periods.toJS()));
+    };
   }
 
   componentWillReceiveProps({ periods }) {
@@ -26,7 +28,7 @@ class Chronology extends PureComponent {
   render() {
     return (
       <Fragment>
-        <Header goBack={this.props.pushToDashboard} />
+        <Header goBack={this.props.pushToDashboard} updatePeriods={this.updatePeriods} />
         <Periods
           periods={this.state.periods}
           createPeriod={this.props.createPeriod}
@@ -42,7 +44,8 @@ Chronology.propTypes = {
   pushToDashboard: PropTypes.func.isRequired,
   periods: PropTypes.object.isRequired,
   createPeriod: PropTypes.func.isRequired,
-  deletePeriod: PropTypes.func.isRequired
+  deletePeriod: PropTypes.func.isRequired,
+  updatePeriods: PropTypes.func.isRequired
 };
 
 export default Chronology;

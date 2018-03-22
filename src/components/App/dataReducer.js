@@ -24,6 +24,9 @@ export const CREATE_PERIOD_FAILURE = 'CREATE_PERIOD_FAILURE';
 export const DELETE_PERIOD_REQUEST = 'DELETE_PERIOD_REQUEST';
 export const DELETE_PERIOD_SUCCESS = 'DELETE_PERIOD_SUCCESS';
 export const DELETE_PERIOD_FAILURE = 'DELETE_PERIOD_FAILURE';
+export const UPDATE_PERIODS_REQUEST = 'UPDATE_PERIODS_REQUEST';
+export const UPDATE_PERIODS_SUCCESS = 'UPDATE_PERIODS_SUCCESS';
+export const UPDATE_PERIODS_FAILURE = 'UPDATE_PERIODS_FAILURE';
 
 export const fetchData = () => ({ type: DATA_FETCH_REQUEST });
 export const createCamp = () => ({ type: CREATE_CAMP_REQUEST });
@@ -36,6 +39,7 @@ export const uploadPhotos = (prisonId, photos) => ({
 export const deletePhoto = photoId => ({ type: DELETE_PHOTO_REQUEST, payload: photoId });
 export const createPeriod = () => ({ type: CREATE_PERIOD_REQUEST });
 export const deletePeriod = periodId => ({ type: DELETE_PERIOD_REQUEST, payload: periodId });
+export const updatePeriods = periods => ({ type: UPDATE_PERIODS_REQUEST, payload: periods });
 
 const initialState = Map({
   camps: Map(),
@@ -70,6 +74,8 @@ export default (state = initialState, { type, payload }) => {
       const newPeriods = state.get('periods').filter(period => period.get('id') !== payload);
       return state.set('periods', newPeriods);
     }
+    case UPDATE_PERIODS_SUCCESS:
+      return state.set('periods', payload);
     default:
       return state;
   }

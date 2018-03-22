@@ -27,7 +27,10 @@ import {
   CREATE_PERIOD_FAILURE,
   DELETE_PERIOD_REQUEST,
   DELETE_PERIOD_SUCCESS,
-  DELETE_PERIOD_FAILURE
+  DELETE_PERIOD_FAILURE,
+  UPDATE_PERIODS_REQUEST,
+  UPDATE_PERIODS_SUCCESS,
+  UPDATE_PERIODS_FAILURE
 } from './dataReducer';
 
 import fetchData from '../../api/fetchData';
@@ -38,6 +41,7 @@ import uploadPhotos from '../../api/uploadPhotos';
 import deletePhoto from '../../api/deletePhoto';
 import createPeriod from '../../api/createPeriod';
 import deletePeriod from '../../api/deletePeriod';
+import updatePeriods from '../../api/updatePeriods';
 
 function* fetchDataHandler() {
   try {
@@ -130,6 +134,17 @@ function* deletePeriodHandler({ payload }) {
   }
 }
 
+function* updatePeriodsHandler({ payload }) {
+  try {
+    const token = yield select(tokenSelector);
+
+    const newPeriods = yield call(updatePeriods, token, payload);
+    yield put({ type: UPDATE_PERIODS_SUCCESS, payload: newPeriods });
+  } catch (error) {
+    yield put({ type: UPDATE_PERIODS_FAILURE, payload: error });
+  }
+}
+
 function* DataSaga() {
   yield takeLatest(DATA_FETCH_REQUEST, fetchDataHandler);
   yield takeLatest(CREATE_CAMP_REQUEST, createCampHandler);
@@ -139,6 +154,7 @@ function* DataSaga() {
   yield takeLatest(DELETE_PHOTO_REQUEST, deletePhotoHandler);
   yield takeLatest(CREATE_PERIOD_REQUEST, createPeriodHandler);
   yield takeLatest(DELETE_PERIOD_REQUEST, deletePeriodHandler);
+  yield takeLatest(UPDATE_PERIODS_REQUEST, updatePeriodsHandler);
 }
 
 export default DataSaga;

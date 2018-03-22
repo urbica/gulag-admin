@@ -19,9 +19,9 @@ const Periods = (props) => {
   return (
     <Fragment>
       {periods.toList().map(period => (
-        <Container>
+        <Container key={period.get('id')}>
           <Wrapper>
-            <Form key={period.get('id')}>
+            <Form>
               <Year
                 placeholder='Год начала периода'
                 value={period.get('year')}
@@ -34,8 +34,8 @@ const Periods = (props) => {
               />
               <Description
                 placeholder='Описание периода'
-                value={period.getIn(['descriptions', 'ru'])}
-                onChange={changePeriod.bind(null, [period.get('id'), 'descriptions', 'ru'])}
+                value={period.getIn(['description', 'ru'])}
+                onChange={changePeriod.bind(null, [period.get('id'), 'description', 'ru'])}
               />
             </Form>
             <DeleteButton onClick={deletePeriod.bind(null, period.get('id'))}>Удалить</DeleteButton>
