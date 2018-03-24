@@ -12,7 +12,7 @@ import Button from './Button';
 
 const Chronology = ({ periods, openChronology }) => (
   <Container>
-    <Title>Хронология Гулага</Title>
+    <Title>Хронология ГУЛАГа</Title>
     <PeriodsWrapp onClick={openChronology}>
       {periods.size !== 0 && (
         <Periods>
