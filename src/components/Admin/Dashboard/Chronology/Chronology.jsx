@@ -7,6 +7,7 @@ import Title from './Title';
 import PeriodsWrapp from './PeriodsWrapp';
 import Periods from './Periods';
 import Period from './Period';
+import Year from './Year';
 import Button from './Button';
 
 const Chronology = ({ periods, openChronology }) => (
@@ -17,7 +18,7 @@ const Chronology = ({ periods, openChronology }) => (
         <Periods>
           {periods.map(period => (
             <Period>
-              <span>{period.get('year')}</span>
+              <Year>{period.get('year')}</Year>
               <span>{period.getIn(['title', 'ru'])}</span>
             </Period>
           ))}

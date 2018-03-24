@@ -25,7 +25,7 @@ const mapStateToProps = createSelector(
     camps,
     places,
     types,
-    periods
+    periods: periods.sort((a, b) => a.get('id') > b.get('id'))
   })
 );
 
