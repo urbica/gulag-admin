@@ -12,7 +12,7 @@ export default (token) => {
   };
 
   return new Promise((resolve, reject) =>
-    fetch('/camps', options)
+    fetch('/api/camps', options)
       .then(res => (res.status !== 200 ? reject(res) : res.json()))
       .then(newCamp => resolve(Immutable.fromJS(newCamp)))
       .catch(err => reject(err)));
