@@ -1,4 +1,4 @@
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 
 export const DATA_FETCH_REQUEST = 'DATA_FETCH_REQUEST';
 export const DATA_FETCH_SUCCESS = 'DATA_FETCH_SUCCESS';
@@ -42,7 +42,7 @@ export const deletePeriod = periodId => ({ type: DELETE_PERIOD_REQUEST, payload:
 export const updatePeriods = periods => ({ type: UPDATE_PERIODS_REQUEST, payload: periods });
 
 const initialState = Map({
-  camps: Map(),
+  camps: List(),
   uploads: Map(),
   activities: Map(),
   places: Map(),

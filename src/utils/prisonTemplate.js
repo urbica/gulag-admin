@@ -1,16 +1,10 @@
 export default {
-  id: undefined,
-  name: {
+  title: {
     ru: 'Новый лагерь',
     en: 'New prison',
     de: 'Neue Gefängnis'
   },
-  additional_names: {
-    ru: '',
-    en: '',
-    de: ''
-  },
-  location: {
+  subTitles: {
     ru: '',
     en: '',
     de: ''
@@ -31,7 +25,16 @@ export default {
         coordinates: [90, 62],
         type: 'Point'
       },
-      properties: {}
+      properties: {
+        description: {
+          ru: '',
+          en: '',
+          de: ''
+        },
+        type_id: null,
+        activity_id: null,
+        region_id: null
+      }
     }
   ]
 };

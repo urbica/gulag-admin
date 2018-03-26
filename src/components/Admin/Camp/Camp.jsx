@@ -36,14 +36,13 @@ import Separator from './Separator';
 
 import { languages } from '../../../config';
 
-const toOptions = list => (
-  list.map(({ id, name }) => ({ value: id, label: name }))
-);
+// const toOptions = list => (
+//   list.map(({ id, name }) => ({ value: id, label: name }))
+// );
 
 const placesToOptions = (places) => {
   const arr = [];
-  Object.values(places)
-    .map(place => arr.push({ value: place.id, label: place.name }));
+  Object.values(places).map(place => arr.push({ value: place.id, label: place.name }));
   return arr;
 };
 
@@ -96,17 +95,12 @@ class Camp extends PureComponent {
 
   render() {
     const { camp, activeLang } = this.state;
-    const {
-      photos, activities, places, types
-    } = this.props;
-    const isPublished = camp.getIn(['published', activeLang]);
+    const { photos, places } = this.props;
+    // const isPublished = camp.getIn(['published', activeLang]);
 
     return (
       <Container>
-        <Header
-          camp={camp}
-          updateCamp={this.updateCamp}
-        />
+        <Header camp={camp} updateCamp={this.updateCamp} />
         <LanguageSwitcher
           languages={languages}
           activeLang={activeLang}
@@ -119,14 +113,12 @@ class Camp extends PureComponent {
             alignSelf: 'baseline'
           }}
         >
-          <Button
+          {/* <Button
             onClick={this.updateField.bind(null, ['published', activeLang], !isPublished)}
           >
             {isPublished ? 'Опубликованно' : 'Не опубликованно'}
-          </Button>
-          <a href={`http://gulagmap.ru/prison${camp.get('id')}`}>
-            Посмотреть на карте
-          </a>
+          </Button> */}
+          <a href={`/camp${camp.get('id')}`}>Посмотреть на карте</a>
         </div>
         <Fieldset>
           <FieldTitle>название лагеря</FieldTitle>
@@ -155,23 +147,16 @@ class Camp extends PureComponent {
         />
         <MarkdownHelp />
         <FieldTitle>Заметки</FieldTitle>
-        <NotesInput
-          note={this.state.note}
-          onChange={this.updateNotes}
-        />
+        <NotesInput note={this.state.note} onChange={this.updateNotes} />
         <Separator>
           <legend>Информация, общая для всех языков</legend>
         </Separator>
-        <Photos
-          photos={photos}
-          uploadHandler={this.uploadPhotos}
-          deletePhoto={this.deletePhoto}
-        />
+        <Photos photos={photos} uploadHandler={this.uploadPhotos} deletePhoto={this.deletePhoto} />
         <Fieldset>
           <FieldTitle>Основная деятельность</FieldTitle>
           <SelectInput
             value={camp.get('activity_id')}
-            options={toOptions(activities.toJS())}
+            // options={toOptions(activities.toJS())}
             clearable={false}
             onChange={({ value }) => this.updateField(['activity_id'], value)}
           />
@@ -189,14 +174,13 @@ class Camp extends PureComponent {
           <FieldTitle>Тип объекта</FieldTitle>
           <SelectInput
             value={camp.get('type_id')}
-            options={toOptions(types.toJS())}
+            // options={toOptions(types.toJS())}
             clearable={false}
             onChange={({ value }) => this.updateField(['type_id'], value)}
           />
         </Fieldset>
         <PrisonLocation
-          features={camp.get('features')
-            .toJS() || []}
+          features={camp.get('features').toJS() || []}
           updateFeatures={features => this.updateField(['features'], Immutable.fromJS(features))}
         />
         <Button
@@ -216,9 +200,9 @@ Camp.propTypes = {
   camp: PropTypes.object.isRequired,
   photos: PropTypes.object.isRequired,
   notes: PropTypes.object,
-  activities: PropTypes.object.isRequired,
-  places: PropTypes.object.isRequired,
-  types: PropTypes.object.isRequired
+  // activities: PropTypes.object.isRequired,
+  places: PropTypes.object.isRequired
+  // types: PropTypes.object.isRequired
 };
 
 Camp.defaultProps = {
@@ -233,7 +217,12 @@ const selector = createSelector(
   placesSelector,
   typesSelector,
   (camp, photos, notes, activities, places, types) => ({
-    camp, photos, notes, activities, places, types
+    camp,
+    photos,
+    notes,
+    activities,
+    places,
+    types
   })
 );
 
