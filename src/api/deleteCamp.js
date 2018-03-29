@@ -6,11 +6,8 @@ export default (token, id) => {
     }
   };
 
-  return (
-    new Promise((resolve, reject) => (
-      fetch(`/api/public/camps/id/${id}`, options)
-        .then(res => (res.status !== 204 ? reject(res) : resolve(res)))
-        .catch(error => reject(error))
-    ))
-  );
+  return new Promise((resolve, reject) =>
+    fetch(`/api/camps/${id}`, options)
+      .then(res => (res.status !== 204 ? reject(res) : resolve(res)))
+      .catch(error => reject(error)));
 };

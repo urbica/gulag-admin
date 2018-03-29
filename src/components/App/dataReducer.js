@@ -59,8 +59,10 @@ export default (state = initialState, { type, payload }) => {
       return state.update('camps', camps => camps.push(payload));
     case UPDATE_CAMP_SUCCESS:
       return state;
-    case DELETE_CAMP_SUCCESS:
-      return state;
+    case DELETE_CAMP_SUCCESS: {
+      const newCamps = state.get('camps').filter(camp => camp.get('id') !== payload);
+      return state.set('camps', newCamps);
+    }
     case UPLOAD_PHOTOS_SUCCESS:
       return state;
     case DELETE_PHOTO_SUCCESS:
