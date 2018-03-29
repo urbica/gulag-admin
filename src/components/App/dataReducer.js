@@ -60,13 +60,10 @@ export default (state = initialState, { type, payload }) => {
     case UPDATE_CAMP_SUCCESS:
       return state;
     case DELETE_CAMP_SUCCESS:
-      console.log('dataReducer payload', payload);
       return state;
     case UPLOAD_PHOTOS_SUCCESS:
-      console.log('dataReducer payload', payload);
       return state;
     case DELETE_PHOTO_SUCCESS:
-      console.log('dataReducer payload', payload);
       return state;
     case CREATE_PERIOD_SUCCESS:
       return state.update('periods', periods => periods.push(payload));

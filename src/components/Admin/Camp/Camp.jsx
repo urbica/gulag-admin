@@ -36,9 +36,7 @@ import Separator from './Separator';
 
 import { languages } from '../../../config';
 
-// const toOptions = list => (
-//   list.map(({ id, name }) => ({ value: id, label: name }))
-// );
+const toOptions = list => list.map(({ id, title }) => ({ value: id, label: title.ru }));
 
 const placesToOptions = (places) => {
   const arr = [];
@@ -95,8 +93,10 @@ class Camp extends PureComponent {
 
   render() {
     const { camp, activeLang } = this.state;
-    const { photos, places } = this.props;
-    // const isPublished = camp.getIn(['published', activeLang]);
+    const {
+      photos, places, activities, types
+    } = this.props;
+    const isPublished = camp.getIn(['published', activeLang]);
 
     return (
       <Container>
@@ -113,23 +113,21 @@ class Camp extends PureComponent {
             alignSelf: 'baseline'
           }}
         >
-          {/* <Button
-            onClick={this.updateField.bind(null, ['published', activeLang], !isPublished)}
-          >
+          <Button onClick={this.updateField.bind(null, ['published', activeLang], !isPublished)}>
             {isPublished ? 'Опубликованно' : 'Не опубликованно'}
-          </Button> */}
+          </Button>
           <a href={`/camp${camp.get('id')}`}>Посмотреть на карте</a>
         </div>
         <Fieldset>
           <FieldTitle>название лагеря</FieldTitle>
           <TextInput
-            value={camp.getIn(['name', activeLang])}
-            onChange={this.updateField.bind(null, ['name', activeLang])}
+            value={camp.getIn(['title', activeLang])}
+            onChange={this.updateField.bind(null, ['title', activeLang])}
             placeholder='Название'
           />
           <TextInput
-            value={camp.getIn(['additional_names', activeLang])}
-            onChange={this.updateField.bind(null, ['additional_names', activeLang])}
+            value={camp.getIn(['subTitles', activeLang])}
+            onChange={this.updateField.bind(null, ['subTitles', activeLang])}
             placeholder='Дополнительные названия, если есть'
           />
         </Fieldset>
@@ -156,7 +154,7 @@ class Camp extends PureComponent {
           <FieldTitle>Основная деятельность</FieldTitle>
           <SelectInput
             value={camp.get('activity_id')}
-            // options={toOptions(activities.toJS())}
+            options={toOptions(activities.toJS())}
             clearable={false}
             onChange={({ value }) => this.updateField(['activity_id'], value)}
           />
@@ -174,7 +172,7 @@ class Camp extends PureComponent {
           <FieldTitle>Тип объекта</FieldTitle>
           <SelectInput
             value={camp.get('type_id')}
-            // options={toOptions(types.toJS())}
+            options={toOptions(types.toJS())}
             clearable={false}
             onChange={({ value }) => this.updateField(['type_id'], value)}
           />
@@ -200,9 +198,9 @@ Camp.propTypes = {
   camp: PropTypes.object.isRequired,
   photos: PropTypes.object.isRequired,
   notes: PropTypes.object,
-  // activities: PropTypes.object.isRequired,
-  places: PropTypes.object.isRequired
-  // types: PropTypes.object.isRequired
+  activities: PropTypes.object.isRequired,
+  places: PropTypes.object.isRequired,
+  types: PropTypes.object.isRequired
 };
 
 Camp.defaultProps = {

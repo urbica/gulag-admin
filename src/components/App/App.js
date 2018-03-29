@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 // components
 import Login from '../Login/Login';
-import Admin from '../Admin/Admin';
+import Admin from '../Admin';
 
 const App = () => (
   <Fragment>

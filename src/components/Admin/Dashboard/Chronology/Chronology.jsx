@@ -17,7 +17,7 @@ const Chronology = ({ periods, openChronology }) => (
       {periods.size !== 0 && (
         <Periods>
           {periods.map(period => (
-            <Period>
+            <Period key={period.get('id')}>
               <Year>{period.get('year')}</Year>
               <span>{period.getIn(['title', 'ru'])}</span>
             </Period>

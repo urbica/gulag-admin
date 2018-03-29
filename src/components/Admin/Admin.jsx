@@ -1,13 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { createSelector } from 'reselect';
-
-import { fetchData } from '../App/dataReducer';
-
-import tokenSelector from '../App/authSelector';
-import { campsSelector } from '../App/dataSelectors';
 
 // components
 import Dashboard from './Dashboard';
@@ -16,16 +9,22 @@ import Chronology from './Chronology';
 
 class Admin extends PureComponent {
   componentDidMount() {
-    if (!this.props.periods) {
-      this.props.dispatch(fetchData());
+    const { isDataLoaded, fetchData } = this.props;
+
+    if (!isDataLoaded) {
+      fetchData();
     }
   }
 
   render() {
-    const { token /* , camps */ } = this.props;
+    const { token, isDataLoaded } = this.props;
 
     if (!token) {
       return <Redirect to='/login' />;
+    }
+
+    if (!isDataLoaded) {
+      return null;
     }
 
     return (
@@ -40,18 +39,12 @@ class Admin extends PureComponent {
 
 Admin.propTypes = {
   token: PropTypes.string,
-  periods: PropTypes.object,
-  dispatch: PropTypes.func.isRequired
+  fetchData: PropTypes.func.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired
 };
 
 Admin.defaultProps = {
-  token: null,
-  periods: null
+  token: null
 };
 
-const selector = createSelector(tokenSelector, campsSelector, (token, camps) => ({
-  token,
-  camps
-}));
-
-export default connect(selector)(Admin);
+export default Admin;
