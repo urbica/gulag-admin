@@ -1,44 +1,12 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/require-default-props */
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
-import FieldTitle from '../../FieldTitle';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // styled
 import Container from './Container';
+import FieldTitle from '../../FieldTitle';
 import YearsList from './YearsList';
-
-const YearLabel = styled.label`
-  text-align: center;
-
-  & input {
-    display: none;
-  }
-`;
-
-const YearSpan = styled.span`
-  display: inline-block;
-  width: 100%;
-  padding-top: 6px;
-  padding-bottom: 5px;
-  border-radius: 3px;
-  font-size: 16px;
-  &:hover {
-    background-color: #f3f3f3;
-    cursor: pointer;
-  }
-  input:checked + & {
-    color: #fff;
-    background-color: #4a4a4a;
-    &:hover {
-      background: rgba(0,0,0,1);
-    }
-  }
-  input:disabled + & {
-    color: #fff;
-    background-color: rgba(74,74,74,.3);
-  }
-`;
+import YearLabel from './YearLabel';
+import YearSpan from './YearSpan';
 
 const years = [];
 // eslint-disable-next-line
@@ -46,48 +14,49 @@ for (let i = 1918; i <= 1960; i++) {
   years.push(i);
 }
 
-class PrisonYears extends PureComponent {
-  render() {
-    const { selectedFeatureIndex, toggleYear } = this.props;
-    const features = this.props.features || [];
-    let yearsDisabled = [];
+const LocationYears = ({ features, selectedFeatureIndex, toggleYear }) => {
+  let yearsDisabled = [];
 
-    features.map((feature, index) => {
-      if (index !== selectedFeatureIndex) {
+  features.forEach((feature, index) => {
+    if (index !== selectedFeatureIndex) {
+      if (feature.getIn(['properties', 'statistics'])) {
         // eslint-disable-next-line
-        const years = Object.keys(feature.properties);
-        yearsDisabled = yearsDisabled.concat(years);
+        const years = feature.getIn(['properties', 'statistics']).keySeq();
+        yearsDisabled = yearsDisabled.concat(years.toJS());
       }
-      return null;
-    });
+    }
+  });
 
-    return (
-      <Container>
-        <FieldTitle>Годы существования лагеря</FieldTitle>
-        <YearsList>
-          {
-            years.map((year) => {
-              const checked = features[selectedFeatureIndex] ?
-                features[selectedFeatureIndex].properties[year] : false;
-              const disabled = yearsDisabled.includes(String(year));
+  return (
+    <Container>
+      <FieldTitle>Годы существования лагеря</FieldTitle>
+      <YearsList>
+        {years.map((year) => {
+          const checked =
+            features.getIn([selectedFeatureIndex, 'properties', 'statistics', year]) !== undefined;
+          const disabled = yearsDisabled.includes(year);
 
-              return (
-                <YearLabel key={year}>
-                  <input
-                    type='checkbox'
-                    checked={checked}
-                    disabled={disabled}
-                    onChange={toggleYear.bind(null, year, features)}
-                  />
-                  <YearSpan>{year}</YearSpan>
-                </YearLabel>
-              );
-            })
-          }
-        </YearsList>
-      </Container>
-    );
-  }
-}
+          return (
+            <YearLabel key={year}>
+              <input
+                type='checkbox'
+                checked={checked}
+                disabled={disabled}
+                onChange={toggleYear.bind(null, year)}
+              />
+              <YearSpan>{year}</YearSpan>
+            </YearLabel>
+          );
+        })}
+      </YearsList>
+    </Container>
+  );
+};
 
-export default PrisonYears;
+LocationYears.propTypes = {
+  features: PropTypes.object.isRequired,
+  selectedFeatureIndex: PropTypes.number.isRequired,
+  toggleYear: PropTypes.func.isRequired
+};
+
+export default LocationYears;

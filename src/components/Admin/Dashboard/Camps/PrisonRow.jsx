@@ -30,7 +30,7 @@ const PrisonRow = (props) => {
         {prison.get('id')}
       </td>
       <td className='prisons__cell'>{prison.getIn(['title', 'ru'])}</td>
-      <td className='prisons__cell prisons__cell_period'>{getPeriods(prison.toJS())}</td>
+      <td className='prisons__cell prisons__cell_period'>{getPeriods(prison)}</td>
       <td className='prisons__cell'>
         {moment(prison.get('updated_at'))
           .locale('ru')

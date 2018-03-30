@@ -14,6 +14,7 @@ import {
 import { logout } from '../../App/authReducer';
 import { createCamp } from '../../App/dataReducer';
 
+// component
 import Dashboard from './Dashboard';
 
 const mapStateToProps = createSelector(
@@ -21,12 +22,29 @@ const mapStateToProps = createSelector(
   placesSelector,
   typesSelector,
   periodsSelector,
-  (camps, places, types, periods) => ({
-    camps,
-    places,
-    types,
-    periods: periods.sort((a, b) => a.get('id') > b.get('id'))
-  })
+  (camps, places, types, periods) => {
+    const { publishedRuCount, publishedEnCount, publishedDeCount } = camps.reduce(
+      (acc, camp) => {
+        /* eslint-disable no-param-reassign */
+        if (camp.getIn(['published', 'ru'])) acc.publishedRuCount += 1;
+        if (camp.getIn(['published', 'en'])) acc.publishedEnCount += 1;
+        if (camp.getIn(['published', 'de'])) acc.publishedDeCount += 1;
+        /* eslint-enable no-param-reassign */
+        return acc;
+      },
+      { publishedRuCount: 0, publishedEnCount: 0, publishedDeCount: 0 }
+    );
+
+    return {
+      camps,
+      places,
+      types,
+      periods: periods.sort((a, b) => a.get('id') > b.get('id')),
+      publishedRuCount,
+      publishedEnCount,
+      publishedDeCount
+    };
+  }
 );
 
 const mapDispatchToProps = dispatch => ({

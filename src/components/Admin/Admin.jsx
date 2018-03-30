@@ -4,7 +4,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 
 // components
 import Dashboard from './Dashboard';
-import Camp from './Camp/Camp';
+import Camp from './Camp';
 import Chronology from './Chronology';
 
 class Admin extends PureComponent {

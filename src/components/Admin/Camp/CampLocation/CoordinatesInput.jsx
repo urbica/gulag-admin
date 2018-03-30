@@ -21,20 +21,16 @@ const CoordinatesInput = (props) => {
   const { coordinates, updateCoordinates } = props;
   const value = `${coordinates[1]}, ${coordinates[0]}`;
 
-  const changeHandler = (event) => {
+  const changeHandler = (newValue) => {
     const regexp = /^(\d{1,3}(\.\d+)?),\s*(\d{1,3}(\.\d+)?)$/;
-    const match = regexp.exec(event.target.value);
+    const match = regexp.exec(newValue);
     const newCoordinates = match ? [match[3], match[1]] : [0, 0];
     updateCoordinates(newCoordinates);
   };
 
   return (
     <InputWrap>
-      <TextInput
-        desc='широта, долгота'
-        value={value}
-        onChange={changeHandler}
-      />
+      <TextInput desc='широта, долгота' value={value} onChange={changeHandler} />
     </InputWrap>
   );
 };

@@ -19,6 +19,10 @@ class Dashboard extends PureComponent {
     this.state = {
       searchQuery: ''
     };
+
+    this.changeSearch = (val) => {
+      this.setState({ searchQuery: val });
+    };
   }
 
   render() {
@@ -30,25 +34,16 @@ class Dashboard extends PureComponent {
       logout,
       createCamp,
       openCamp,
-      openChronology
+      openChronology,
+      publishedRuCount,
+      publishedEnCount,
+      publishedDeCount
     } = this.props;
-
-    const { publishedRuCount, publishedEnCount, publishedDeCount } = camps.reduce(
-      (acc, camp) => {
-        /* eslint-disable no-param-reassign */
-        if (camp.getIn(['published', 'ru'])) acc.publishedRuCount += 1;
-        if (camp.getIn(['published', 'en'])) acc.publishedEnCount += 1;
-        if (camp.getIn(['published', 'de'])) acc.publishedDeCount += 1;
-        /* eslint-enable no-param-reassign */
-        return acc;
-      },
-      { publishedRuCount: 0, publishedEnCount: 0, publishedDeCount: 0 }
-    );
 
     return (
       <Container>
         <Header
-          campsCount={this.props.camps.size}
+          campsCount={camps.size}
           publishedRuCount={publishedRuCount}
           publishedEnCount={publishedEnCount}
           publishedDeCount={publishedDeCount}
@@ -56,10 +51,7 @@ class Dashboard extends PureComponent {
           createCamp={createCamp}
         />
         <Chronology periods={periods} openChronology={openChronology} />
-        <Search
-          value={this.state.searchQuery}
-          onChange={val => this.setState({ searchQuery: val })}
-        />
+        <Search value={this.state.searchQuery} onChange={this.changeSearch} />
         <Camps
           camps={filterBySearch(this.state.searchQuery, camps)}
           openCamp={openCamp}
@@ -72,20 +64,17 @@ class Dashboard extends PureComponent {
 }
 
 Dashboard.propTypes = {
-  camps: PropTypes.object,
-  places: PropTypes.object,
-  types: PropTypes.object,
+  camps: PropTypes.object.isRequired,
+  places: PropTypes.object.isRequired,
+  types: PropTypes.object.isRequired,
   periods: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   createCamp: PropTypes.func.isRequired,
   openCamp: PropTypes.func.isRequired,
-  openChronology: PropTypes.func.isRequired
-};
-
-Dashboard.defaultProps = {
-  camps: null,
-  places: null,
-  types: null
+  openChronology: PropTypes.func.isRequired,
+  publishedRuCount: PropTypes.number.isRequired,
+  publishedEnCount: PropTypes.number.isRequired,
+  publishedDeCount: PropTypes.number.isRequired
 };
 
 export default Dashboard;
