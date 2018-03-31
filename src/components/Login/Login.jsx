@@ -1,12 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 // icons
 import preloader from '../../icons/preloader.svg';
-
-// action
-import { login } from '../App/authReducer';
 
 // styled
 import Container from './Container';
@@ -21,18 +17,24 @@ import WrongPassword from './WrongPassword';
 class Login extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.authorize = this.authorize.bind(this);
+
+    this.inputRef = React.createRef();
+
+    this.handleKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        this.authorize();
+      }
+    };
+
+    this.authorize = () => {
+      const password = this.inputRef.current.value;
+
+      this.props.login(password);
+    };
   }
 
-  authorize() {
-    this.props.dispatch(login(this.input.value));
-  }
-
-  handleKeyPress(e) {
-    if (e.key === 'Enter') {
-      this.authorize();
-    }
+  componentDidMount() {
+    this.inputRef.current.focus();
   }
 
   render() {
@@ -43,9 +45,7 @@ class Login extends PureComponent {
           <InputWrap>
             <input
               required
-              ref={(ref) => {
-                this.input = ref;
-              }}
+              ref={this.inputRef}
               type='password'
               placeholder='Введите пароль'
               onKeyPress={this.handleKeyPress}
@@ -53,16 +53,11 @@ class Login extends PureComponent {
             <Enter onClick={this.authorize}>Enter</Enter>
             <PasswordLine />
           </InputWrap>
-          <Preloader
-            src={preloader}
-            alt='preloader'
-            isLoading={this.props.loginLoading}
-          />
+          <Preloader src={preloader} alt='preloader' isLoading={this.props.loginLoading} />
           <WrongLine isPassWrong={this.props.loginError} />
-          {
-            this.props.loginError &&
+          {this.props.loginError && (
             <WrongPassword>А теперь попробуй с правильным паролем</WrongPassword>
-          }
+          )}
         </LoginForm>
       </Container>
     );
@@ -70,7 +65,7 @@ class Login extends PureComponent {
 }
 
 Login.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   loginLoading: PropTypes.bool.isRequired,
   loginError: PropTypes.bool
 };
@@ -79,9 +74,4 @@ Login.defaultProps = {
   loginError: null
 };
 
-export default connect(
-  state => ({
-    loginLoading: state.getIn(['ui', 'loginLoading']),
-    loginError: state.getIn(['ui', 'loginError'])
-  })
-)(Login);
+export default Login;

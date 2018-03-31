@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 
 // components
-import Login from '../Login/Login';
+import Login from '../Login';
 import Admin from '../Admin';
 
 const App = () => (
