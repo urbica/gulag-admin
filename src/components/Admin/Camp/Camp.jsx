@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
-import Immutable from 'immutable';
 import PropTypes from 'prop-types';
+
+// utils
+import { getPeriods } from '../../../utils/utils';
 
 // components
 import Header from './Header/Header';
@@ -13,7 +15,7 @@ import MarkdownEditor from './Inputs/MarkdownEditor';
 import SelectInput from './Inputs/SelectInput';
 // import Photos from './Photos/Photos';
 import MarkdownHelp from './MarkdownHelp/MarkdownHelp';
-import CampLocation from './CampLocation/CampLocation';
+import CampLocations from './CampLocations/CampLocations';
 
 // styled
 import Container from './Container';
@@ -65,9 +67,7 @@ class Camp extends PureComponent {
 
   render() {
     const { camp, activeLang } = this.state;
-    const {
-      placesOptions, activitiesOptions, typesOptions, periods
-    } = this.props;
+    const { placesOptions, activitiesOptions, typesOptions } = this.props;
 
     const isPublished = camp.getIn(['published', activeLang]);
     const updatedAt = moment(camp.get('updated_at'))
@@ -78,7 +78,7 @@ class Camp extends PureComponent {
       <Container>
         <Header
           title={camp.getIn(['title', activeLang])}
-          periods={periods}
+          periods={getPeriods(camp.get('locations'))}
           updateCamp={this.updateCamp}
           updatedAt={updatedAt}
         />
@@ -162,11 +162,7 @@ class Camp extends PureComponent {
             onChange={({ value }) => this.updateField(['typeId'], value)}
           />
         </Fieldset>
-        <CampLocation
-          features={camp.get('features')}
-          updateField={this.updateField}
-          updateFeatures={features => this.updateField(['features'], Immutable.fromJS(features))}
-        />
+        <CampLocations locations={camp.get('locations')} updateField={this.updateField} />
         <Button color='red' onClick={this.deleteCamp} style={{ gridColumn: 6, justifySelf: 'end' }}>
           удалить
         </Button>
@@ -182,8 +178,7 @@ Camp.propTypes = {
   placesOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   typesOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   updateCamp: PropTypes.func.isRequired,
-  deleteCamp: PropTypes.func.isRequired,
-  periods: PropTypes.arrayOf(PropTypes.string).isRequired
+  deleteCamp: PropTypes.func.isRequired
 };
 
 export default Camp;

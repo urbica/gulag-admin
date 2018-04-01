@@ -15,10 +15,19 @@ import CampStatistics from './CampStatistics/CampStatistics';
 import Container from './Container';
 import LocationTab from './LocationTab';
 
-const newFeature = Immutable.fromJS({
+const newLocation = Immutable.fromJS({
+  activityId: null,
+  description: { de: '', en: '', ru: '' },
+  geometry: { type: 'Point', coordinates: [90, 62] },
+  regionId: null,
+  statistics: [],
+  typeId: null
+});
+
+const locationToFeature = location => ({
   type: 'Feature',
   properties: {},
-  geometry: { type: 'Point', coordinates: [90, 62] }
+  geometry: location.get('geometry').toJS()
 });
 
 class CampLocation extends PureComponent {
@@ -26,27 +35,30 @@ class CampLocation extends PureComponent {
     super(props);
 
     this.state = {
-      selectedFeatureIndex: 0,
+      selectedLocationIndex: 0,
       showDeleteMenu: false
     };
 
-    this.createFeature = () => {
-      const { features } = this.props;
+    this.createLocation = () => {
+      const { locations } = this.props;
 
-      props.updateField(['features', features.size], newFeature);
-      this.setState({ selectedFeatureIndex: features.size });
+      props.updateField(['locations', locations.size], newLocation);
+      this.setState({ selectedLocationIndex: locations.size });
     };
 
     this.removeFeature = (locationId) => {
-      const newFeatures = this.props.features.delete(locationId);
+      const newLocations = this.props.locations.delete(locationId);
 
-      props.updateField(['features'], newFeatures);
-      this.closeDeleteMenu();
+      props.updateField(['locations'], newLocations);
+      this.setState(({ selectedLocationIndex }) => ({
+        selectedLocationIndex: selectedLocationIndex - 1,
+        showDeleteMenu: false
+      }));
     };
 
-    this.selectFeature = (selectedFeatureIndex) => {
+    this.selectFeature = (selectedLocationIndex) => {
       this.closeDeleteMenu();
-      this.setState({ selectedFeatureIndex });
+      this.setState({ selectedLocationIndex });
     };
 
     this.openDeleteMenu = () => {
@@ -58,71 +70,73 @@ class CampLocation extends PureComponent {
     };
 
     this.updateCoordinates = (coordinates) => {
-      const { selectedFeatureIndex } = this.state;
+      const { selectedLocationIndex } = this.state;
 
       this.props.updateField(
-        ['features', selectedFeatureIndex, 'geometry', 'coordinates'],
+        ['locations', selectedLocationIndex, 'geometry', 'coordinates'],
         Immutable.fromJS(coordinates)
       );
     };
 
     this.toggleYear = (year) => {
-      const { selectedFeatureIndex } = this.state;
-      const { features, updateField } = this.props;
+      const { selectedLocationIndex } = this.state;
+      const { locations, updateField } = this.props;
 
-      const isYearExists =
-        features.getIn([selectedFeatureIndex, 'properties', 'statistics', year]) !== undefined;
+      const isYearExists = locations
+        .getIn([selectedLocationIndex, 'statistics'])
+        .find(stat => stat.get('year') === year);
 
       if (isYearExists) {
-        const newFeatures = features.deleteIn([
-          selectedFeatureIndex,
-          'properties',
-          'statistics',
-          year
-        ]);
+        const newStatistics = locations
+          .getIn([selectedLocationIndex, 'statistics'])
+          .filter(stat => stat.get('year') !== year);
 
-        updateField(['features'], newFeatures);
+        updateField(['locations', selectedLocationIndex, 'statistics'], newStatistics);
       } else {
-        updateField(['features', selectedFeatureIndex, 'properties', 'statistics', year], 0);
+        const newStatistics = locations
+          .getIn([selectedLocationIndex, 'statistics'])
+          .push(Immutable.fromJS({ year, prisonersAmount: null }));
+
+        updateField(['locations', selectedLocationIndex, 'statistics'], newStatistics);
       }
     };
 
-    this.updatePrisonersAmount = (year, event) => {
-      const { selectedFeatureIndex } = this.state;
+    this.updatePrisonersAmount = (index, event) => {
+      const { selectedLocationIndex } = this.state;
       const { value } = event.target;
 
       this.props.updateField(
-        ['features', selectedFeatureIndex, 'properties', 'statistics', year],
+        ['locations', selectedLocationIndex, 'statistics', index, 'prisonersAmount'],
         value
       );
 
-      // const { features } = this.props;
+      // const { locations } = this.props;
       // const { value } = event.target;
       // const lens = compose(
-      //   lensIndex(this.state.selectedFeatureIndex),
+      //   lensIndex(this.state.selectedLocationIndex),
       //   lensPath(['properties', year, 'peoples'])
       // );
-      // const newFeatures = set(lens, parseInt(value, 10), features);
+      // const newFeatures = set(lens, parseInt(value, 10), locations);
       //
       // this.props.updateFeatures(newFeatures);
     };
   }
 
   render() {
-    const { features } = this.props;
-    const selectedFeature = features.get(this.state.selectedFeatureIndex) || newFeature;
+    const { locations } = this.props;
+    const selectedLocation = locations.get(this.state.selectedLocationIndex);
 
     return (
       <Container>
         <div className='field-title_locations'>
-          {features.map((location, index) => {
+          {locations.map((location, index) => {
             const onClick = this.selectFeature.bind(null, index);
             const className =
-              this.state.selectedFeatureIndex === index
+              this.state.selectedLocationIndex === index
                 ? 'field-title__location field-title__location_active'
                 : 'field-title__location';
             const classNameDelete =
-              this.state.showDeleteMenu && this.state.selectedFeatureIndex === index
+              this.state.showDeleteMenu && this.state.selectedLocationIndex === index
                 ? 'location-delete location-delete_show'
                 : 'location-delete';
 
@@ -133,7 +147,7 @@ class CampLocation extends PureComponent {
                 className={className}
               >
                 <LocationTab onClick={onClick}>
-                  Локация {features.size > 1 ? index + 1 : ''}
+                  Локация {locations.size > 1 ? index + 1 : ''}
                 </LocationTab>
                 <button onClick={this.openDeleteMenu}>
                   <svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'>
@@ -150,23 +164,23 @@ class CampLocation extends PureComponent {
               </div>
             );
           })}
-          <button className='field-title__plus' onClick={this.createFeature}>
+          <button className='field-title__plus' onClick={this.createLocation}>
             +
           </button>
           <CoordinatesInput
-            coordinates={selectedFeature.getIn(['geometry', 'coordinates']).toJS()}
+            coordinates={selectedLocation.getIn(['geometry', 'coordinates']).toJS()}
             updateCoordinates={this.updateCoordinates}
           />
         </div>
-        <Map features={[selectedFeature.toJS()]} />
+        <Map features={[locationToFeature(selectedLocation)]} />
         <CampYears
-          features={features}
-          selectedFeatureIndex={this.state.selectedFeatureIndex}
+          locations={locations}
+          selectedLocationIndex={this.state.selectedLocationIndex}
           toggleYear={this.toggleYear}
         />
         <CampStatistics
-          feature={features.get(this.state.selectedFeatureIndex).toJS()}
-          onChange={this.updatePrisonersAmount}
+          statistics={selectedLocation.get('statistics')}
+          updatePrisonersAmount={this.updatePrisonersAmount}
         />
       </Container>
     );
@@ -174,7 +188,7 @@ class CampLocation extends PureComponent {
 }
 
 CampLocation.propTypes = {
-  features: PropTypes.object.isRequired,
+  locations: PropTypes.object.isRequired,
   updateField: PropTypes.func.isRequired
 };
 

@@ -13,9 +13,6 @@ import {
 // actions
 import { updateCamp, deleteCamp } from '../../App/dataReducer';
 
-// utils
-import { getPeriods } from '../../../utils/utils';
-
 import Camp from './Camp';
 
 const toOptions = list =>
@@ -37,8 +34,7 @@ const mapStateToProps = createSelector(
     photos,
     activitiesOptions: toOptions(activities),
     placesOptions: toOptions(places),
-    typesOptions: toOptions(types),
-    periods: getPeriods(camp)
+    typesOptions: toOptions(types)
   })
 );
 

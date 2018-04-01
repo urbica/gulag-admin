@@ -7,7 +7,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Container from './Container';
 
 /* eslint-disable max-len */
-const accessToken = 'pk.eyJ1IjoiZ3VsYWdtYXAiLCJhIjoiY2lxa3VtaWtyMDAyZGhzbWI1aDQ3NGhtayJ9.D2IEMpF7p8yNtpY_2HUQlw';
+const accessToken =
+  'pk.eyJ1IjoiZ3VsYWdtYXAiLCJhIjoiY2lxa3VtaWtyMDAyZGhzbWI1aDQ3NGhtayJ9.D2IEMpF7p8yNtpY_2HUQlw';
 
 /* eslint-enable max-len */
 
@@ -68,16 +69,12 @@ class Map extends PureComponent {
   }
 
   render() {
-    return (
-      <Container id='map' />
-    );
+    return <Container id='map' />;
   }
 }
 
 Map.propTypes = {
-  features: PropTypes.arrayOf(
-    PropTypes.object
-  ).isRequired
+  features: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default Map;

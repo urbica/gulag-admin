@@ -79,26 +79,25 @@ const CampsTable = (props) => {
 
   const sortCamps = (a, b) => {
     if (campsSortASC) {
-      return a.getIn(campsSortBy) > (b.getIn(campsSortBy));
+      return a.getIn(campsSortBy) > b.getIn(campsSortBy);
     }
-    return a.getIn(campsSortBy) < (b.getIn(campsSortBy));
+    return a.getIn(campsSortBy) < b.getIn(campsSortBy);
   };
 
   return (
     <table className='prisons'>
       <thead>
         <tr>
-          {Object.keys(campsTableHeaders)
-            .map(headerId => (
-              <ColumnHeader
-                key={headerId}
-                isTriangleVisible={campsSortBy.equals(campsTableHeaders[headerId].path)}
-                campsSortASC={campsSortASC}
-                onClick={dispatch.bind(null, changeCampsSortedBy(campsTableHeaders[headerId].path))}
-              >
-                {campsTableHeaders[headerId].title}
-              </ColumnHeader>
-            ))}
+          {Object.keys(campsTableHeaders).map(headerId => (
+            <ColumnHeader
+              key={headerId}
+              isTriangleVisible={campsSortBy.equals(campsTableHeaders[headerId].path)}
+              campsSortASC={campsSortASC}
+              onClick={dispatch.bind(null, changeCampsSortedBy(campsTableHeaders[headerId].path))}
+            >
+              {campsTableHeaders[headerId].title}
+            </ColumnHeader>
+          ))}
         </tr>
       </thead>
       <tbody>
@@ -107,7 +106,7 @@ const CampsTable = (props) => {
           .map(camp => (
             <PrisonRow
               key={camp.get('id')}
-              prison={camp}
+              camp={camp}
               places={props.places}
               types={props.types}
               openCamp={openCamp}
@@ -128,9 +127,7 @@ CampsTable.propTypes = {
   types: PropTypes.object.isRequired
 };
 
-export default connect(
-  state => ({
-    campsSortASC: state.getIn(['ui', 'campsSortASC']),
-    campsSortBy: state.getIn(['ui', 'campsSortBy'])
-  })
-)(CampsTable);
+export default connect(state => ({
+  campsSortASC: state.getIn(['ui', 'campsSortASC']),
+  campsSortBy: state.getIn(['ui', 'campsSortBy'])
+}))(CampsTable);

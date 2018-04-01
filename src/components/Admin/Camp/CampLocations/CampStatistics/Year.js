@@ -7,5 +7,5 @@ export default styled.span`
 
   transform: translateY(-50%);
 
-  opacity: .5;
+  opacity: 0.5;
 `;

@@ -14,16 +14,19 @@ for (let i = 1918; i <= 1960; i++) {
   years.push(i);
 }
 
-const LocationYears = ({ features, selectedFeatureIndex, toggleYear }) => {
-  let yearsDisabled = [];
+const LocationYears = ({ locations, selectedLocationIndex, toggleYear }) => {
+  const yearsDisabled = [];
+  const yearsChecked = [];
 
-  features.forEach((feature, index) => {
-    if (index !== selectedFeatureIndex) {
-      if (feature.getIn(['properties', 'statistics'])) {
-        // eslint-disable-next-line
-        const years = feature.getIn(['properties', 'statistics']).keySeq();
-        yearsDisabled = yearsDisabled.concat(years.toJS());
-      }
+  locations.forEach((location, index) => {
+    if (location.get('statistics')) {
+      location.get('statistics').forEach((stat) => {
+        if (index === selectedLocationIndex) {
+          yearsChecked.push(stat.get('year'));
+        } else {
+          yearsDisabled.push(stat.get('year'));
+        }
+      });
     }
   });
 
@@ -32,8 +35,7 @@ const LocationYears = ({ features, selectedFeatureIndex, toggleYear }) => {
       <FieldTitle>Годы существования лагеря</FieldTitle>
       <YearsList>
         {years.map((year) => {
-          const checked =
-            features.getIn([selectedFeatureIndex, 'properties', 'statistics', year]) !== undefined;
+          const checked = yearsChecked.includes(year);
           const disabled = yearsDisabled.includes(year);
 
           return (
@@ -54,8 +56,8 @@ const LocationYears = ({ features, selectedFeatureIndex, toggleYear }) => {
 };
 
 LocationYears.propTypes = {
-  features: PropTypes.object.isRequired,
-  selectedFeatureIndex: PropTypes.number.isRequired,
+  locations: PropTypes.object.isRequired,
+  selectedLocationIndex: PropTypes.number.isRequired,
   toggleYear: PropTypes.func.isRequired
 };
 
