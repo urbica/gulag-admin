@@ -25,7 +25,9 @@ const Chronology = ({ periods, openChronology }) => (
         </Periods>
       )}
     </PeriodsWrapp>
-    {periods.size === 0 && <Button onClick={openChronology}>Добавить периоды</Button>}
+    {periods.size === 0 && (
+      <Button onClick={openChronology}>Добавить периоды</Button>
+    )}
   </Container>
 );
 

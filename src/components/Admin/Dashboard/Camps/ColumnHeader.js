@@ -24,17 +24,20 @@ export default styled.td`
     opacity: .5;
     transition: .2s;
   }
-  
+
   &:after {
     content: '';
     position: absolute;
-    
-    display: ${({ isTriangleVisible }) => (isTriangleVisible ? 'inline-block' : 'none')};
+
+    display: ${({ isTriangleVisible }) =>
+      isTriangleVisible ? 'inline-block' : 'none'};
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: ${({ campsSortASC }) => (campsSortASC ? triangle.width.ASC : triangle.width.DESC)};
-    border-color: ${({ campsSortASC }) => (campsSortASC ? triangle.color.ASC : triangle.color.DESC)};
+    border-width: ${({ campsSortASC }) =>
+      campsSortASC ? triangle.width.ASC : triangle.width.DESC};
+    border-color: ${({ campsSortASC }) =>
+      campsSortASC ? triangle.color.ASC : triangle.color.DESC};
     margin-top: 2px;
     margin-left: 5px;
 `;

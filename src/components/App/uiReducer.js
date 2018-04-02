@@ -5,7 +5,10 @@ import { DATA_FETCH_SUCCESS, DATA_FETCH_FAILURE } from './dataReducer';
 
 const CAMPS_SORT_BY_CHANGED = 'CAMPS_SORT_BY_CHANGED';
 
-export const changeCampsSortedBy = value => ({ type: CAMPS_SORT_BY_CHANGED, payload: value });
+export const changeCampsSortedBy = value => ({
+  type: CAMPS_SORT_BY_CHANGED,
+  payload: value
+});
 
 const initialState = Immutable.fromJS({
   loginLoading: false,
@@ -28,7 +31,9 @@ export default (state = initialState, { type, payload }) => {
       return state.set('dataFetchError', true);
     case CAMPS_SORT_BY_CHANGED:
       if (state.get('campsSortBy').equals(payload)) {
-        return state.set('campsSortASC', !state.get('campsSortASC')).set('campsSortBy', payload);
+        return state
+          .set('campsSortASC', !state.get('campsSortASC'))
+          .set('campsSortBy', payload);
       }
       return state.set('campsSortASC', true).set('campsSortBy', payload);
     default:

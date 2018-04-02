@@ -1,4 +1,5 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions,
+jsx-a11y/label-has-for */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
@@ -62,11 +63,7 @@ class CampPhotos extends PureComponent {
             onDelete={this.deletePhoto.bind(null, photo.get('id'))}
           />
         ))}
-        <Dropzone
-          accept='image/*'
-          onDrop={this.uploadPhotos}
-          style={style}
-        >
+        <Dropzone accept='image/*' onDrop={this.uploadPhotos} style={style}>
           Загрузить
         </Dropzone>
       </Container>

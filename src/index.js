@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
-import { routerMiddleware, routerReducer, ConnectedRouter } from 'react-router-redux';
+import {
+  routerMiddleware,
+  routerReducer,
+  ConnectedRouter
+} from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import { applyMiddleware, createStore } from 'redux';
 import { combineReducers } from 'redux-immutable';
@@ -22,14 +26,17 @@ const sagaMiddleware = createSagaMiddleware();
 const history = createHistory();
 const routersMiddleware = routerMiddleware(history);
 
-
 if (process.env.NODE_ENV === 'development') {
   const loggerMiddleware = createLogger({
     collapsed: true,
     stateTransformer: state => state.toJS()
   });
 
-  middleware = applyMiddleware(sagaMiddleware, routersMiddleware, loggerMiddleware);
+  middleware = applyMiddleware(
+    sagaMiddleware,
+    routersMiddleware,
+    loggerMiddleware
+  );
 } else {
   middleware = applyMiddleware(sagaMiddleware, routersMiddleware);
 }
@@ -40,7 +47,6 @@ const reducer = combineReducers({
   ui: uiReducer,
   data: dataReducer
 });
-
 
 const store = createStore(reducer, middleware);
 sagaMiddleware.run(Saga);

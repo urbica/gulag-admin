@@ -1,3 +1,4 @@
+/* eslint-disable */
 // import Immutable from 'immutable';
 //
 // export default (token, newCamp) => {

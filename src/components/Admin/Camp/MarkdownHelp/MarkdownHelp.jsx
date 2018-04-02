@@ -19,9 +19,10 @@ export default () => (
       НАЧАЛО_ВРЕЗКИ<br />
       <br />
       ## Заголовок<br />
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus adipisci animi
-      aspernatur cum, enim harum illo, ipsam minima molestiae neque nisi obcaecati quidem
-      repudiandae sunt tempora, tenetur totam ullam.<br />
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus
+      adipisci animi aspernatur cum, enim harum illo, ipsam minima molestiae
+      neque nisi obcaecati quidem repudiandae sunt tempora, tenetur totam ullam.
+      <br />
       <br />
       [urbica.co](http://urbica.co)<br />
       <br />

@@ -93,7 +93,12 @@ function* deleteCampHandler({ payload }) {
 function* uploadPhotosHandler({ payload }) {
   try {
     const token = yield select(tokenSelector);
-    const response = yield call(uploadPhotos, token, payload.prisonId, payload.photos);
+    const response = yield call(
+      uploadPhotos,
+      token,
+      payload.prisonId,
+      payload.photos
+    );
 
     yield put({ type: UPLOAD_PHOTOS_SUCCESS, payload: response });
   } catch (error) {

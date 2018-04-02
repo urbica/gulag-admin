@@ -8,9 +8,14 @@ import Title from './Title';
 import Lang from './Lang';
 import PrisonsCount from './PrisonsCount';
 
-const Header = (props) => {
+const Header = props => {
   const {
-    campsCount, publishedRuCount, publishedEnCount, publishedDeCount, logout, createCamp
+    campsCount,
+    publishedRuCount,
+    publishedEnCount,
+    publishedDeCount,
+    logout,
+    createCamp
   } = props;
 
   return (
@@ -21,25 +26,30 @@ const Header = (props) => {
         <div>
           <Lang>
             <PrisonsCount>
-              {publishedRuCount}<span>/{campsCount}</span>
+              {publishedRuCount}
+              <span>/{campsCount}</span>
             </PrisonsCount>
             На русском
           </Lang>
           <Lang>
             <PrisonsCount>
-              {publishedEnCount}<span>/{campsCount}</span>
+              {publishedEnCount}
+              <span>/{campsCount}</span>
             </PrisonsCount>
             На английском
           </Lang>
           <Lang>
             <PrisonsCount>
-              {publishedDeCount}<span>/{campsCount}</span>
+              {publishedDeCount}
+              <span>/{campsCount}</span>
             </PrisonsCount>
             На немецком
           </Lang>
         </div>
       </div>
-      <Button color='orange' onClick={createCamp}>Добавить лагерь</Button>
+      <Button color='orange' onClick={createCamp}>
+        Добавить лагерь
+      </Button>
     </Container>
   );
 };

@@ -11,10 +11,8 @@ import Description from './Description';
 import DeleteButton from './DeleteButton';
 import Button from './Button';
 
-const Periods = (props) => {
-  const {
-    periods, createPeriod, deletePeriod, changePeriod
-  } = props;
+const Periods = props => {
+  const { periods, createPeriod, deletePeriod, changePeriod } = props;
 
   return (
     <Fragment>
@@ -30,15 +28,25 @@ const Periods = (props) => {
               <Title
                 placeholder='Заголовок периода'
                 value={period.getIn(['title', 'ru'])}
-                onChange={changePeriod.bind(null, [period.get('id'), 'title', 'ru'])}
+                onChange={changePeriod.bind(null, [
+                  period.get('id'),
+                  'title',
+                  'ru'
+                ])}
               />
               <Description
                 placeholder='Описание периода'
                 value={period.getIn(['description', 'ru'])}
-                onChange={changePeriod.bind(null, [period.get('id'), 'description', 'ru'])}
+                onChange={changePeriod.bind(null, [
+                  period.get('id'),
+                  'description',
+                  'ru'
+                ])}
               />
             </Form>
-            <DeleteButton onClick={deletePeriod.bind(null, period.get('id'))}>Удалить</DeleteButton>
+            <DeleteButton onClick={deletePeriod.bind(null, period.get('id'))}>
+              Удалить
+            </DeleteButton>
           </Wrapper>
         </Container>
       ))}

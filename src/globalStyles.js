@@ -2,6 +2,7 @@ import 'normalize.css/normalize.css';
 import { injectGlobal } from 'styled-components';
 
 // Formular
+// eslint-disable-next-line
 import lightWoff2 from './fonts/formular-lightitalic/formular-lightitalic.woff2';
 import lightWoff from './fonts/formular-lightitalic/formular-lightitalic.woff';
 import lightTtf from './fonts/formular-lightitalic/formular-lightitalic.ttf';
@@ -75,7 +76,7 @@ injectGlobal`
 
     background-color: #1A1A1A;
     break-inside: avoid;
-    
+
     h2 {
       font-size: 20px;
       font-weight: 500 !important;

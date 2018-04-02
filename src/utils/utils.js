@@ -23,7 +23,7 @@ export const getPeriods = locations =>
 
 export const filterBySearch = (searchQuery, prisons) => {
   if (searchQuery.length > 0) {
-    return prisons.filter((prison) => {
+    return prisons.filter(prison => {
       const searchString = [
         prison.get('id'),
         prison.getIn(['title', 'ru']),
@@ -42,4 +42,5 @@ export const filterBySearch = (searchQuery, prisons) => {
   return prisons;
 };
 
-export const splitDigits = digit => String(digit).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+export const splitDigits = digit =>
+  String(digit).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');

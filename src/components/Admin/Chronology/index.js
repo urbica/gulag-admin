@@ -4,7 +4,11 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 
 import { periodsSelector } from '../../App/dataSelectors';
-import { createPeriod, deletePeriod, updatePeriods } from '../../App/dataReducer';
+import {
+  createPeriod,
+  deletePeriod,
+  updatePeriods
+} from '../../App/dataReducer';
 
 import Chronology from './Chronology';
 

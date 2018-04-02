@@ -62,9 +62,12 @@ class Map extends PureComponent {
     });
 
     setTimeout(() => {
-      const credits = ' <a href="http://urbica.co" target="_blank">© Urbica</a>';
+      const credits =
+        ' <a href="http://urbica.co" target="_blank">© Urbica</a>';
       const attrEls = document.getElementsByClassName('mapboxgl-ctrl-attrib');
-      if (attrEls.length > 0) attrEls[0].insertAdjacentHTML('beforeend', credits);
+      if (attrEls.length > 0) {
+        attrEls[0].insertAdjacentHTML('beforeend', credits);
+      }
     }, 500);
   }
 

@@ -35,7 +35,8 @@ import ColumnHeader from './ColumnHeader';
 //       return aFirstYear < bFirstYear;
 //     });
 //   } else if (sortBy[0] === 'updated_at') {
-//     return comparator((a, b) => new Date(a.updated_at) < new Date(b.updated_at));
+//     return comparator((a, b) =>
+//        new Date(a.updated_at) < new Date(b.updated_at));
 //   } else if (sortBy[0] === 'place_id') {
 //     return (a, b) => {
 //       const aPlaceName = view(lensPath([a.place_id, 'name']), places);

@@ -28,7 +28,10 @@ class Chronology extends PureComponent {
   render() {
     return (
       <Fragment>
-        <Header goBack={this.props.pushToDashboard} updatePeriods={this.updatePeriods} />
+        <Header
+          goBack={this.props.pushToDashboard}
+          updatePeriods={this.updatePeriods}
+        />
         <Periods
           periods={this.state.periods}
           createPeriod={this.props.createPeriod}

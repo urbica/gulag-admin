@@ -36,14 +36,15 @@ class Camp extends PureComponent {
     };
 
     this.updateCamp = () => {
-      const newPrison = this.state.camp.set('updated_at', new Date().toISOString());
+      const date = new Date().toISOString();
+      const newPrison = this.state.camp.set('updated_at', date);
 
       props.updateCamp(newPrison);
     };
 
     this.deleteCamp = () => props.deleteCamp(props.camp.get('id'));
 
-    this.changeLang = (lang) => {
+    this.changeLang = lang => {
       this.setState({ activeLang: lang });
     };
 
@@ -74,6 +75,7 @@ class Camp extends PureComponent {
       .locale('ru')
       .format('DD.MM.YY, HH:mm');
 
+    console.log(camp.toJS());
     return (
       <Container>
         <Header
@@ -94,7 +96,14 @@ class Camp extends PureComponent {
             alignSelf: 'baseline'
           }}
         >
-          <Button onClick={this.updateField.bind(null, ['published', activeLang], !isPublished)}>
+          <Button
+            // eslint-disable-next-line
+            onClick={this.updateField.bind(
+              null,
+              ['published', activeLang],
+              !isPublished
+            )}
+          >
             {isPublished ? 'Опубликованно' : 'Не опубликованно'}
           </Button>
           <a href={`/camp${camp.get('id')}`}>Посмотреть на карте</a>
@@ -147,10 +156,10 @@ class Camp extends PureComponent {
         <Fieldset>
           <FieldTitle>Регион</FieldTitle>
           <SelectInput
-            value={camp.get('placeId')}
+            value={camp.get('regionId')}
             options={placesOptions}
             clearable={false}
-            onChange={({ value }) => this.updateField(['placeId'], value)}
+            onChange={({ value }) => this.updateField(['regionId'], value)}
           />
         </Fieldset>
         <Fieldset>
@@ -162,8 +171,15 @@ class Camp extends PureComponent {
             onChange={({ value }) => this.updateField(['typeId'], value)}
           />
         </Fieldset>
-        <CampLocations locations={camp.get('locations')} updateField={this.updateField} />
-        <Button color='red' onClick={this.deleteCamp} style={{ gridColumn: 6, justifySelf: 'end' }}>
+        <CampLocations
+          locations={camp.get('locations')}
+          updateField={this.updateField}
+        />
+        <Button
+          color='red'
+          onClick={this.deleteCamp}
+          style={{ gridColumn: 6, justifySelf: 'end' }}
+        >
           удалить
         </Button>
       </Container>

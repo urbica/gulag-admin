@@ -13,20 +13,22 @@ const CampStatistics = ({ statistics, updatePrisonersAmount }) => (
   <Container>
     <Title>Количество заключенных по годам</Title>
     {statistics &&
-      statistics.sort((a, b) => a.get('year') > b.get('year')).map((stat, i) => (
-        <Label key={stat.get('year')}>
-          <Year>{stat.get('year')}:</Year>
-          <MaskedInput
-            className='input input_inside'
-            type='text'
-            value={stat.get('prisonersAmount')}
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-            guide={false}
-            onChange={updatePrisonersAmount.bind(null, i)}
-          />
-          <div className='inputLine' />
-        </Label>
-      ))}
+      statistics
+        .sort((a, b) => a.get('year') > b.get('year'))
+        .map((stat, i) => (
+          <Label key={stat.get('year')}>
+            <Year>{stat.get('year')}:</Year>
+            <MaskedInput
+              className='input input_inside'
+              type='text'
+              value={stat.get('prisonersAmount')}
+              mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+              guide={false}
+              onChange={updatePrisonersAmount.bind(null, i)}
+            />
+            <div className='inputLine' />
+          </Label>
+        ))}
   </Container>
 );
 

@@ -18,7 +18,12 @@ export default styled.div`
     width: 100%;
     height: 100%;
 
-    background-color: rgba(0, 0, 0, ${({ isActive }) => (isActive ? 'transparent' : '0.5')});
+    background-color: rgba(
+      0,
+      0,
+      0,
+      ${({ isActive }) => (isActive ? 'transparent' : '0.5')}
+    );
   }
 
   img {
