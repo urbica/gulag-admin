@@ -1,20 +1,28 @@
 {
-  "extends": "airbnb",
-  "plugins": [
-    "import",
-    "react"
-  ],
+  "extends": [ "airbnb", "prettier" ],
+  "plugins": [ "import", "react" ],
   "env": {
     "browser": true,
     "node": true,
     "jest": true
   },
   "rules": {
-    "jsx-quotes": ["error", "prefer-single"],
     "comma-dangle": ["error", "never"],
     "function-paren-newline": ["error", "consistent"],
-    "react/jsx-no-bind": [0],
+    "jsx-quotes": ["error", "prefer-single"],
+    "max-len": ["error", { "code": 80, "ignoreUrls": true }],
+    "no-return-assign": 0,
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "quotes": ["error", "single"],
+    "react/forbid-prop-types": [1, { "forbid": ["any", "array"] }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/forbid-prop-types": [1, { "forbid": ["any", "array"] }]
+    "react/jsx-no-bind": [0],
+    "react/sort-comp": [1, { "order": [
+      "type-annotations",
+      "static-methods",
+      "lifecycle",
+      "everything-else",
+      "render"
+    ]}]
   }
 }

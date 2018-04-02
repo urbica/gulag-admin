@@ -18,8 +18,11 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": ["yarn lint"],
-    "*.{js,jsx,json,md}": ["prettier-eslint --write", "git add"]
+    "*.{js,jsx}": [
+      "prettier-eslint --write",
+      "yarn lint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "commitizen": "2.9.6",
@@ -28,6 +31,7 @@
     "enzyme-adapter-react-16": "1.1.1",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
+    "eslint-config-prettier": "2.9.0",
     "eslint-plugin-import": "2.10.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.7.0",
