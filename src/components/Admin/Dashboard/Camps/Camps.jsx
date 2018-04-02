@@ -61,21 +61,22 @@ import ColumnHeader from './ColumnHeader';
 
 const campsTableHeaders = {
   id: { title: 'Id', path: Immutable.fromJS(['id']) },
-  name: { title: 'Название', path: Immutable.fromJS(['name', 'ru']) },
+  title: { title: 'Название', path: Immutable.fromJS(['title', 'ru']) },
   period: { title: 'Период', path: Immutable.fromJS(['period']) },
   updated_at: { title: 'Ред.', path: Immutable.fromJS(['updated_at']) },
   place: { title: 'Регион', path: Immutable.fromJS(['place_id']) },
   type: { title: 'Тип лагеря', path: Immutable.fromJS(['type_id']) },
-  max_prisoners: { title: 'Макс. числ.', path: Immutable.fromJS(['max_prisoners']) },
+  max_prisoners: {
+    title: 'Макс. числ.',
+    path: Immutable.fromJS(['max_prisoners'])
+  },
   ru: { title: 'Рус', path: Immutable.fromJS(['published', 'ru']) },
   en: { title: 'Eng', path: Immutable.fromJS(['published', 'en']) },
   de: { title: 'Deu', path: Immutable.fromJS(['published', 'de']) }
 };
 
-const CampsTable = (props) => {
-  const {
-    camps, campsSortBy, campsSortASC, openCamp, dispatch
-  } = props;
+const CampsTable = props => {
+  const { camps, campsSortBy, campsSortASC, openCamp, dispatch } = props;
 
   const sortCamps = (a, b) => {
     if (campsSortASC) {
@@ -91,9 +92,14 @@ const CampsTable = (props) => {
           {Object.keys(campsTableHeaders).map(headerId => (
             <ColumnHeader
               key={headerId}
-              isTriangleVisible={campsSortBy.equals(campsTableHeaders[headerId].path)}
+              isTriangleVisible={campsSortBy.equals(
+                campsTableHeaders[headerId].path
+              )}
               campsSortASC={campsSortASC}
-              onClick={dispatch.bind(null, changeCampsSortedBy(campsTableHeaders[headerId].path))}
+              onClick={dispatch.bind(
+                null,
+                changeCampsSortedBy(campsTableHeaders[headerId].path)
+              )}
             >
               {campsTableHeaders[headerId].title}
             </ColumnHeader>

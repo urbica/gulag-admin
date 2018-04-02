@@ -19,21 +19,19 @@ export default {
     en: false,
     de: false
   },
-  features: [
+  typeId: null,
+  activityId: null,
+  regionId: null,
+  locations: [
     {
       geometry: {
         coordinates: [90, 62],
         type: 'Point'
       },
-      properties: {
-        description: {
-          ru: '',
-          en: '',
-          de: ''
-        },
-        type_id: null,
-        activity_id: null,
-        region_id: null
+      description: {
+        ru: '',
+        en: '',
+        de: ''
       }
     }
   ]

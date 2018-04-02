@@ -46,7 +46,7 @@ class CampLocation extends PureComponent {
       this.setState({ selectedLocationIndex: locations.size });
     };
 
-    this.removeFeature = (locationId) => {
+    this.removeLocation = locationId => {
       const newLocations = this.props.locations.delete(locationId);
 
       props.updateField(['locations'], newLocations);
@@ -56,7 +56,7 @@ class CampLocation extends PureComponent {
       }));
     };
 
-    this.selectFeature = (selectedLocationIndex) => {
+    this.selectFeature = selectedLocationIndex => {
       this.closeDeleteMenu();
       this.setState({ selectedLocationIndex });
     };
@@ -69,7 +69,7 @@ class CampLocation extends PureComponent {
       this.setState({ showDeleteMenu: false });
     };
 
-    this.updateCoordinates = (coordinates) => {
+    this.updateCoordinates = coordinates => {
       const { selectedLocationIndex } = this.state;
 
       this.props.updateField(
@@ -78,7 +78,7 @@ class CampLocation extends PureComponent {
       );
     };
 
-    this.toggleYear = (year) => {
+    this.toggleYear = year => {
       const { selectedLocationIndex } = this.state;
       const { locations, updateField } = this.props;
 
@@ -91,13 +91,19 @@ class CampLocation extends PureComponent {
           .getIn([selectedLocationIndex, 'statistics'])
           .filter(stat => stat.get('year') !== year);
 
-        updateField(['locations', selectedLocationIndex, 'statistics'], newStatistics);
+        updateField(
+          ['locations', selectedLocationIndex, 'statistics'],
+          newStatistics
+        );
       } else {
         const newStatistics = locations
           .getIn([selectedLocationIndex, 'statistics'])
           .push(Immutable.fromJS({ year, prisonersAmount: null }));
 
-        updateField(['locations', selectedLocationIndex, 'statistics'], newStatistics);
+        updateField(
+          ['locations', selectedLocationIndex, 'statistics'],
+          newStatistics
+        );
       }
     };
 
@@ -106,7 +112,13 @@ class CampLocation extends PureComponent {
       const { value } = event.target;
 
       this.props.updateField(
-        ['locations', selectedLocationIndex, 'statistics', index, 'prisonersAmount'],
+        [
+          'locations',
+          selectedLocationIndex,
+          'statistics',
+          index,
+          'prisonersAmount'
+        ],
         value
       );
 
@@ -136,7 +148,8 @@ class CampLocation extends PureComponent {
                 ? 'field-title__location field-title__location_active'
                 : 'field-title__location';
             const classNameDelete =
-              this.state.showDeleteMenu && this.state.selectedLocationIndex === index
+              this.state.showDeleteMenu &&
+              this.state.selectedLocationIndex === index
                 ? 'location-delete location-delete_show'
                 : 'location-delete';
 
@@ -158,7 +171,9 @@ class CampLocation extends PureComponent {
                   </svg>
                 </button>
                 <div className={classNameDelete}>
-                  <span onClick={this.removeFeature.bind(null, index)}>Удалить</span>
+                  <span onClick={this.removeLocation.bind(null, index)}>
+                    Удалить
+                  </span>
                   <span onClick={this.closeDeleteMenu}>Отмена</span>
                 </div>
               </div>
@@ -168,7 +183,10 @@ class CampLocation extends PureComponent {
             +
           </button>
           <CoordinatesInput
-            coordinates={selectedLocation.getIn(['geometry', 'coordinates']).toJS()}
+            // eslint-disable-next-line
+            coordinates={selectedLocation
+              .getIn(['geometry', 'coordinates'])
+              .toJS()}
             updateCoordinates={this.updateCoordinates}
           />
         </div>

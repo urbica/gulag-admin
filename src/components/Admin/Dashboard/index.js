@@ -1,3 +1,4 @@
+import { Map } from 'immutable';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -23,7 +24,11 @@ const mapStateToProps = createSelector(
   typesSelector,
   periodsSelector,
   (camps, places, types, periods) => {
-    const { publishedRuCount, publishedEnCount, publishedDeCount } = camps.reduce(
+    const {
+      publishedRuCount,
+      publishedEnCount,
+      publishedDeCount
+    } = camps.reduce(
       (acc, camp) => {
         /* eslint-disable no-param-reassign */
         if (camp.getIn(['published', 'ru'])) acc.publishedRuCount += 1;
@@ -37,8 +42,11 @@ const mapStateToProps = createSelector(
 
     return {
       camps,
-      places,
-      types,
+      places: places.reduce(
+        (acc, place) => acc.set(place.get('id'), place),
+        Map()
+      ),
+      types: types.reduce((acc, type) => acc.set(type.get('id'), type), Map()),
       periods: periods.sort((a, b) => a.get('id') > b.get('id')),
       publishedRuCount,
       publishedEnCount,

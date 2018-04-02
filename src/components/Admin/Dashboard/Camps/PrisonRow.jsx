@@ -19,10 +19,8 @@ const TD = styled.td`
   }
 `;
 
-const PrisonRow = (props) => {
-  const {
-    camp, places, types, openCamp
-  } = props;
+const PrisonRow = props => {
+  const { camp, places, types, openCamp } = props;
 
   return (
     <tr onClick={openCamp.bind(null, camp.get('id'))}>
@@ -30,17 +28,26 @@ const PrisonRow = (props) => {
         {camp.get('id')}
       </td>
       <td className='prisons__cell'>{camp.getIn(['title', 'ru'])}</td>
-      <td className='prisons__cell prisons__cell_period'>{getPeriods(camp.get('locations'))}</td>
+      <td className='prisons__cell prisons__cell_period'>
+        {getPeriods(camp.get('locations'))}
+      </td>
       <td className='prisons__cell'>
         {moment(camp.get('updated_at'))
           .locale('ru')
           .format('DD.MM.YY, HH:mm')}
       </td>
-      <td className='prisons__cell'>{places.getIn([camp.get('place_id'), 'name'])}</td>
-      <td className='prisons__cell'>{types.getIn([camp.get('type_id'), 'name'])}</td>
+      <td className='prisons__cell'>
+        {places.getIn([camp.get('regionId'), 'title', 'ru'])}
+      </td>
+      <td className='prisons__cell'>
+        {types.getIn([camp.get('typeId'), 'title', 'ru'])}
+      </td>
       <td className='prisons__cell prisons__strength'>
         <span>
-          {String(camp.get('max_prisoners')).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1\u00A0')}
+          {String(camp.get('max_prisoners')).replace(
+            /(\d)(?=(\d{3})+([^\d]|$))/g,
+            '$1\u00A0'
+          )}
         </span>
       </td>
       <TD published={camp.getIn(['published', 'ru'])} />

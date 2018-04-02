@@ -20,7 +20,7 @@ class Login extends PureComponent {
 
     this.inputRef = React.createRef();
 
-    this.handleKeyPress = (e) => {
+    this.handleKeyPress = e => {
       if (e.key === 'Enter') {
         this.authorize();
       }
@@ -53,10 +53,16 @@ class Login extends PureComponent {
             <Enter onClick={this.authorize}>Enter</Enter>
             <PasswordLine />
           </InputWrap>
-          <Preloader src={preloader} alt='preloader' isLoading={this.props.loginLoading} />
+          <Preloader
+            src={preloader}
+            alt='preloader'
+            isLoading={this.props.loginLoading}
+          />
           <WrongLine isPassWrong={this.props.loginError} />
           {this.props.loginError && (
-            <WrongPassword>А теперь попробуй с правильным паролем</WrongPassword>
+            <WrongPassword>
+              А теперь попробуй с правильным паролем
+            </WrongPassword>
           )}
         </LoginForm>
       </Container>
