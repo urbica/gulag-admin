@@ -27,6 +27,12 @@ export const DELETE_PERIOD_FAILURE = 'DELETE_PERIOD_FAILURE';
 export const UPDATE_PERIODS_REQUEST = 'UPDATE_PERIODS_REQUEST';
 export const UPDATE_PERIODS_SUCCESS = 'UPDATE_PERIODS_SUCCESS';
 export const UPDATE_PERIODS_FAILURE = 'UPDATE_PERIODS_FAILURE';
+export const DELETE_CAMP_STAT_REQUEST = 'DELETE_CAMP_STAT_REQUEST';
+export const DELETE_CAMP_STAT_SUCCESS = 'DELETE_CAMP_STAT_SUCCESS';
+export const DELETE_CAMP_STAT_FAILURE = 'DELETE_CAMP_STAT_FAILURE';
+export const DELETE_CAMP_LOCATION_REQUEST = 'DELETE_CAMP_LOCATION_REQUEST';
+export const DELETE_CAMP_LOCATION_SUCCESS = 'DELETE_CAMP_LOCATION_SUCCESS';
+export const DELETE_CAMP_LOCATION_FAILURE = 'DELETE_CAMP_LOCATION_FAILURE';
 
 export const fetchData = () => ({ type: DATA_FETCH_REQUEST });
 export const createCamp = () => ({ type: CREATE_CAMP_REQUEST });
@@ -54,6 +60,14 @@ export const deletePeriod = periodId => ({
 export const updatePeriods = periods => ({
   type: UPDATE_PERIODS_REQUEST,
   payload: periods
+});
+export const deleteCampStat = (id, campId) => ({
+  type: DELETE_CAMP_STAT_REQUEST,
+  payload: { id, campId }
+});
+export const deleteCampLocation = id => ({
+  type: DELETE_CAMP_LOCATION_REQUEST,
+  payload: id
 });
 
 const initialState = Map({
@@ -99,6 +113,37 @@ export default (state = initialState, { type, payload }) => {
     }
     case UPDATE_PERIODS_SUCCESS:
       return state.set('periods', payload);
+    case DELETE_CAMP_STAT_SUCCESS: {
+      const updatedCamps = state.get('camps').map(camp => {
+        if (camp.get('id') === payload.campId) {
+          const updatedLocations = camp.get('locations').map(location => {
+            if (location.get('id') === payload.campLocationId) {
+              const filteredStatistics = location
+                .get('statistics')
+                .filter(stat => stat.get('id') !== payload.statId);
+              return location.set('statistics', filteredStatistics);
+            }
+            return location;
+          });
+          return camp.set('locations', updatedLocations);
+        }
+        return camp;
+      });
+      return state.set('camps', updatedCamps);
+    }
+    case DELETE_CAMP_LOCATION_SUCCESS: {
+      const updatedCamps = state.get('camps').map(camp => {
+        if (camp.get('id') === payload.campId) {
+          const filteredLocations = camp
+            .get('locations')
+            .filter(location => location.get('id') !== payload.locationId);
+
+          return camp.set('locations', filteredLocations);
+        }
+        return camp;
+      });
+      return state.set('camps', updatedCamps);
+    }
     default:
       return state;
   }

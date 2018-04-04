@@ -21,7 +21,7 @@ const CampStatistics = ({ statistics, updatePrisonersAmount }) => (
             <MaskedInput
               className='input input_inside'
               type='text'
-              value={stat.get('prisonersAmount')}
+              value={stat.get('prisonersCount')}
               mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
               guide={false}
               onChange={updatePrisonersAmount.bind(null, i)}

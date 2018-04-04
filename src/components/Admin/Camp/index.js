@@ -11,7 +11,12 @@ import {
 } from '../../App/dataSelectors';
 
 // actions
-import { updateCamp, deleteCamp } from '../../App/dataReducer';
+import {
+  updateCamp,
+  deleteCamp,
+  deleteCampStat,
+  deleteCampLocation
+} from '../../App/dataReducer';
 
 import Camp from './Camp';
 
@@ -30,7 +35,8 @@ const mapStateToProps = createSelector(
   placesSelector,
   typesSelector,
   (camp, photos, activities, places, types) => ({
-    camp,
+    camp: camp.update('locations', locations =>
+      locations.sort((a, b) => a.get('orderIndex') > b.get('orderIndex'))),
     photos,
     activitiesOptions: toOptions(activities),
     placesOptions: toOptions(places),
@@ -40,7 +46,9 @@ const mapStateToProps = createSelector(
 
 const mapDispatchToProps = dispatch => ({
   updateCamp: newCamp => dispatch(updateCamp(newCamp)),
-  deleteCamp: campId => dispatch(deleteCamp(campId))
+  deleteCamp: campId => dispatch(deleteCamp(campId)),
+  deleteCampStat: (statId, campId) => dispatch(deleteCampStat(statId, campId)),
+  deleteCampLocation: id => dispatch(deleteCampLocation(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Camp);

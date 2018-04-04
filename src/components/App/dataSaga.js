@@ -30,7 +30,13 @@ import {
   DELETE_PERIOD_FAILURE,
   UPDATE_PERIODS_REQUEST,
   UPDATE_PERIODS_SUCCESS,
-  UPDATE_PERIODS_FAILURE
+  UPDATE_PERIODS_FAILURE,
+  DELETE_CAMP_STAT_REQUEST,
+  DELETE_CAMP_STAT_SUCCESS,
+  DELETE_CAMP_STAT_FAILURE,
+  DELETE_CAMP_LOCATION_REQUEST,
+  DELETE_CAMP_LOCATION_SUCCESS,
+  DELETE_CAMP_LOCATION_FAILURE
 } from './dataReducer';
 
 import fetchData from '../../api/fetchData';
@@ -42,6 +48,8 @@ import deletePhoto from '../../api/deletePhoto';
 import createPeriod from '../../api/createPeriod';
 import deletePeriod from '../../api/deletePeriod';
 import updatePeriods from '../../api/updatePeriods';
+import deleteStatistics from '../../api/deleteStatistics';
+import deleteLocation from '../../api/deleteLocation';
 
 function* fetchDataHandler() {
   try {
@@ -83,8 +91,8 @@ function* deleteCampHandler({ payload }) {
     const token = yield select(tokenSelector);
 
     yield call(deleteCamp, token, payload);
-    yield put({ type: DELETE_CAMP_SUCCESS, payload });
     yield put(push('/admin'));
+    yield put({ type: DELETE_CAMP_SUCCESS, payload });
   } catch (error) {
     yield put({ type: DELETE_CAMP_FAILURE, payload: error });
   }
@@ -150,6 +158,33 @@ function* updatePeriodsHandler({ payload }) {
   }
 }
 
+function* deleteStatisticsHandler({ payload }) {
+  try {
+    const token = yield select(tokenSelector);
+
+    const result = yield call(
+      deleteStatistics,
+      token,
+      payload.id,
+      payload.campId
+    );
+    yield put({ type: DELETE_CAMP_STAT_SUCCESS, payload: result });
+  } catch (error) {
+    yield put({ type: DELETE_CAMP_STAT_FAILURE, payload: error });
+  }
+}
+
+function* deleteLocationHandler({ payload }) {
+  try {
+    const token = yield select(tokenSelector);
+
+    const result = yield call(deleteLocation, token, payload);
+    yield put({ type: DELETE_CAMP_LOCATION_SUCCESS, payload: result });
+  } catch (error) {
+    yield put({ type: DELETE_CAMP_LOCATION_FAILURE, payload: error });
+  }
+}
+
 function* DataSaga() {
   yield takeLatest(DATA_FETCH_REQUEST, fetchDataHandler);
   yield takeLatest(CREATE_CAMP_REQUEST, createCampHandler);
@@ -160,6 +195,8 @@ function* DataSaga() {
   yield takeLatest(CREATE_PERIOD_REQUEST, createPeriodHandler);
   yield takeLatest(DELETE_PERIOD_REQUEST, deletePeriodHandler);
   yield takeLatest(UPDATE_PERIODS_REQUEST, updatePeriodsHandler);
+  yield takeLatest(DELETE_CAMP_STAT_REQUEST, deleteStatisticsHandler);
+  yield takeLatest(DELETE_CAMP_LOCATION_REQUEST, deleteLocationHandler);
 }
 
 export default DataSaga;

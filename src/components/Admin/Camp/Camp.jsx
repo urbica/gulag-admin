@@ -27,6 +27,13 @@ import Separator from './Separator';
 import { languages } from '../../../config';
 
 class Camp extends PureComponent {
+  static getDerivedStateFromProps({ camp }, prevState) {
+    return {
+      ...prevState,
+      camp
+    };
+  }
+
   constructor(props) {
     super(props);
 
@@ -68,14 +75,19 @@ class Camp extends PureComponent {
 
   render() {
     const { camp, activeLang } = this.state;
-    const { placesOptions, activitiesOptions, typesOptions } = this.props;
+    const {
+      placesOptions,
+      activitiesOptions,
+      typesOptions,
+      deleteCampStat,
+      deleteCampLocation
+    } = this.props;
 
     const isPublished = camp.getIn(['published', activeLang]);
     const updatedAt = moment(camp.get('updated_at'))
       .locale('ru')
       .format('DD.MM.YY, HH:mm');
 
-    console.log(camp.toJS());
     return (
       <Container>
         <Header
@@ -174,6 +186,9 @@ class Camp extends PureComponent {
         <CampLocations
           locations={camp.get('locations')}
           updateField={this.updateField}
+          deleteCampStat={deleteCampStat}
+          deleteCampLocation={deleteCampLocation}
+          campId={camp.get('id')}
         />
         <Button
           color='red'
@@ -194,7 +209,9 @@ Camp.propTypes = {
   placesOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   typesOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   updateCamp: PropTypes.func.isRequired,
-  deleteCamp: PropTypes.func.isRequired
+  deleteCamp: PropTypes.func.isRequired,
+  deleteCampStat: PropTypes.func.isRequired,
+  deleteCampLocation: PropTypes.func.isRequired
 };
 
 export default Camp;

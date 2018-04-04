@@ -16,12 +16,9 @@ import Container from './Container';
 import LocationTab from './LocationTab';
 
 const newLocation = Immutable.fromJS({
-  activityId: null,
   description: { de: '', en: '', ru: '' },
   geometry: { type: 'Point', coordinates: [90, 62] },
-  regionId: null,
-  statistics: [],
-  typeId: null
+  statistics: []
 });
 
 const locationToFeature = location => ({
@@ -42,12 +39,19 @@ class CampLocation extends PureComponent {
     this.createLocation = () => {
       const { locations } = this.props;
 
-      props.updateField(['locations', locations.size], newLocation);
+      props.updateField(
+        ['locations', locations.size],
+        newLocation.set('orderIndex', locations.size)
+      );
       this.setState({ selectedLocationIndex: locations.size });
     };
 
-    this.removeLocation = locationId => {
-      const newLocations = this.props.locations.delete(locationId);
+    this.removeLocation = locationIndex => {
+      const locationId = this.props.locations.getIn([locationIndex, 'id']);
+      if (locationId !== undefined) {
+        props.deleteCampLocation(locationId);
+      }
+      const newLocations = this.props.locations.delete(locationIndex);
 
       props.updateField(['locations'], newLocations);
       this.setState(({ selectedLocationIndex }) => ({
@@ -87,6 +91,20 @@ class CampLocation extends PureComponent {
         .find(stat => stat.get('year') === year);
 
       if (isYearExists) {
+        const statistics = locations.getIn([
+          selectedLocationIndex,
+          'statistics'
+        ]);
+
+        const statId = statistics
+          .filter(stat => stat.get('year') === year)
+          .first()
+          .get('id');
+
+        if (statId !== undefined) {
+          props.deleteCampStat(statId, props.campId);
+        }
+
         const newStatistics = locations
           .getIn([selectedLocationIndex, 'statistics'])
           .filter(stat => stat.get('year') !== year);
@@ -98,7 +116,7 @@ class CampLocation extends PureComponent {
       } else {
         const newStatistics = locations
           .getIn([selectedLocationIndex, 'statistics'])
-          .push(Immutable.fromJS({ year, prisonersAmount: null }));
+          .push(Immutable.fromJS({ year, prisonersCount: null }));
 
         updateField(
           ['locations', selectedLocationIndex, 'statistics'],
@@ -111,15 +129,14 @@ class CampLocation extends PureComponent {
       const { selectedLocationIndex } = this.state;
       const { value } = event.target;
 
+      const updatedStatistics = this.props.locations
+        .getIn([selectedLocationIndex, 'statistics'])
+        .sort((a, b) => a.get('year') > b.get('year'))
+        .setIn([index, 'prisonersCount'], value);
+
       this.props.updateField(
-        [
-          'locations',
-          selectedLocationIndex,
-          'statistics',
-          index,
-          'prisonersAmount'
-        ],
-        value
+        ['locations', selectedLocationIndex, 'statistics'],
+        updatedStatistics
       );
 
       // const { locations } = this.props;
@@ -207,7 +224,10 @@ class CampLocation extends PureComponent {
 
 CampLocation.propTypes = {
   locations: PropTypes.object.isRequired,
-  updateField: PropTypes.func.isRequired
+  updateField: PropTypes.func.isRequired,
+  deleteCampStat: PropTypes.func.isRequired,
+  deleteCampLocation: PropTypes.func.isRequired,
+  campId: PropTypes.number.isRequired
 };
 
 export default CampLocation;

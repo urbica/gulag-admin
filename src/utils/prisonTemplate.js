@@ -32,7 +32,8 @@ export default {
         ru: '',
         en: '',
         de: ''
-      }
+      },
+      orderIndex: 0
     }
   ]
 };
