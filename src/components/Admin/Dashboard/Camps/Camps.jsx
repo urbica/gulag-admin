@@ -65,8 +65,8 @@ const campsTableHeaders = {
   title: { title: 'Название', path: Immutable.fromJS(['title', 'ru']) },
   period: { title: 'Период', path: Immutable.fromJS(['period']) },
   updated_at: { title: 'Ред.', path: Immutable.fromJS(['updated_at']) },
-  place: { title: 'Регион', path: Immutable.fromJS(['place_id']) },
-  type: { title: 'Тип лагеря', path: Immutable.fromJS(['type_id']) },
+  region: { title: 'Регион', path: Immutable.fromJS(['regionId']) },
+  type: { title: 'Тип лагеря', path: Immutable.fromJS(['typeId']) },
   max_prisoners: {
     title: 'Макс. числ.',
     path: Immutable.fromJS(['max_prisoners'])
