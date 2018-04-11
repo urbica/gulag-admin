@@ -13,7 +13,7 @@ import TextInput from './TextInput/TextInput';
 import MarkdownEditor from './Inputs/MarkdownEditor';
 // import NotesInput from './NotesInput/NotesInput';
 import SelectInput from './Inputs/SelectInput';
-// import Photos from './Photos/Photos';
+import Photos from './Photos/Photos';
 import MarkdownHelp from './MarkdownHelp/MarkdownHelp';
 import CampLocations from './CampLocations/CampLocations';
 
@@ -62,15 +62,16 @@ class Camp extends PureComponent {
       this.setState({ camp: updatedCamp });
     };
 
-    // this.uploadPhotos = (photos) => {
-    //   const campId = this.state.camp.get('id');
-    //
-    //   this.props.dispatch(uploadPhotos(campId, photos));
-    // };
-    //
-    // this.deletePhoto = (photoId) => {
-    //   this.props.dispatch(deletePhoto(photoId));
-    // };
+    this.uploadPhotos = photos => {
+      const campId = this.state.camp.get('id');
+
+      this.props.uploadPhotos(campId, photos);
+    };
+
+    this.deletePhoto = photoId => {
+      console.log(photoId);
+      // this.props.dispatch(deletePhoto(photoId));
+    };
   }
 
   render() {
@@ -151,11 +152,11 @@ class Camp extends PureComponent {
         <Separator>
           <legend>Информация, общая для всех языков</legend>
         </Separator>
-        {/* <Photos
-          photos={photos}
+        <Photos
+          photos={camp.get('photos')}
           uploadHandler={this.uploadPhotos}
           deletePhoto={this.deletePhoto}
-        /> */}
+        />
         <Fieldset>
           <FieldTitle>Основная деятельность</FieldTitle>
           <SelectInput
@@ -211,7 +212,8 @@ Camp.propTypes = {
   updateCamp: PropTypes.func.isRequired,
   deleteCamp: PropTypes.func.isRequired,
   deleteCampStat: PropTypes.func.isRequired,
-  deleteCampLocation: PropTypes.func.isRequired
+  deleteCampLocation: PropTypes.func.isRequired,
+  uploadPhotos: PropTypes.func.isRequired
 };
 
 export default Camp;

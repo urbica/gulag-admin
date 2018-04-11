@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 
 const Photo = ({ photo, onDelete }) => (
   <figure>
-    <img
-      src={photo.get('path')}
-      alt={photo.get('id')}
-    />
+    <img src={`/${photo.get('path')}`} alt={photo.get('id')} />
     <figcaption>{photo.get('id')}</figcaption>
     <button onClick={onDelete}>Удалить</button>
   </figure>

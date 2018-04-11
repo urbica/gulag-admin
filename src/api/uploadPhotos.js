@@ -2,9 +2,10 @@
 
 export default (token, prisonId, photos) => {
   const uploads = new FormData();
-  uploads.append('camp_id', prisonId);
-  Array.from(photos)
-    .forEach(photo => uploads.append('path', photo));
+  uploads.append('campId', prisonId);
+  Array.from(photos).forEach(photo => uploads.append('path', photo));
+  uploads.append('title', '{"ru": "title"}');
+  uploads.append('description', '{"ru": "description"}');
 
   const options = {
     body: uploads,
@@ -14,11 +15,8 @@ export default (token, prisonId, photos) => {
     }
   };
 
-  return (
-    new Promise((resolve, reject) => (
-      fetch('/api/public/uploads/id', options)
-        .then(res => (res.status !== 200 ? reject(res) : resolve(res.json())))
-        .catch(err => reject(err))
-    ))
-  );
+  return new Promise((resolve, reject) =>
+    fetch('/api/photos', options)
+      .then(res => (res.status !== 200 ? reject(res) : resolve(res.json())))
+      .catch(err => reject(err)));
 };
