@@ -69,8 +69,7 @@ class Camp extends PureComponent {
     };
 
     this.deletePhoto = photoId => {
-      console.log(photoId);
-      // this.props.dispatch(deletePhoto(photoId));
+      this.props.deletePhoto(photoId);
     };
   }
 
@@ -213,7 +212,8 @@ Camp.propTypes = {
   deleteCamp: PropTypes.func.isRequired,
   deleteCampStat: PropTypes.func.isRequired,
   deleteCampLocation: PropTypes.func.isRequired,
-  uploadPhotos: PropTypes.func.isRequired
+  uploadPhotos: PropTypes.func.isRequired,
+  deletePhoto: PropTypes.func.isRequired
 };
 
 export default Camp;

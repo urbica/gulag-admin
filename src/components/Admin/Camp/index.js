@@ -16,7 +16,8 @@ import {
   deleteCamp,
   deleteCampStat,
   deleteCampLocation,
-  uploadPhotos
+  uploadPhotos,
+  deletePhoto
 } from '../../App/dataReducer';
 
 import Camp from './Camp';
@@ -50,7 +51,8 @@ const mapDispatchToProps = dispatch => ({
   deleteCamp: campId => dispatch(deleteCamp(campId)),
   deleteCampStat: (statId, campId) => dispatch(deleteCampStat(statId, campId)),
   deleteCampLocation: id => dispatch(deleteCampLocation(id)),
-  uploadPhotos: (campId, photos) => dispatch(uploadPhotos(campId, photos))
+  uploadPhotos: (campId, photos) => dispatch(uploadPhotos(campId, photos)),
+  deletePhoto: campId => dispatch(deletePhoto(campId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Camp);

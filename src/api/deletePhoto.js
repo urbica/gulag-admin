@@ -6,11 +6,8 @@ export default (token, photoId) => {
     }
   };
 
-  return (
-    new Promise((resolve, reject) => (
-      fetch(`/api/public/uploads/id/${photoId}`, options)
-        .then(res => (res.status !== 204 ? reject(res) : resolve(res)))
-        .catch(error => reject(error))
-    ))
-  );
+  return new Promise((resolve, reject) =>
+    fetch(`/api/photos/${photoId}`, options)
+      .then(res => (res.status !== 204 ? reject(res) : resolve(res)))
+      .catch(error => reject(error)));
 };
