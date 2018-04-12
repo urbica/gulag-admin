@@ -52,7 +52,7 @@ const mapDispatchToProps = dispatch => ({
   deleteCampStat: (statId, campId) => dispatch(deleteCampStat(statId, campId)),
   deleteCampLocation: id => dispatch(deleteCampLocation(id)),
   uploadPhotos: (campId, photos) => dispatch(uploadPhotos(campId, photos)),
-  deletePhoto: campId => dispatch(deletePhoto(campId))
+  deletePhoto: (campId, photoId) => dispatch(deletePhoto(campId, photoId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Camp);

@@ -69,7 +69,9 @@ class Camp extends PureComponent {
     };
 
     this.deletePhoto = photoId => {
-      this.props.deletePhoto(photoId);
+      const campId = this.state.camp.get('id');
+
+      this.props.deletePhoto(campId, photoId);
     };
   }
 
@@ -155,6 +157,8 @@ class Camp extends PureComponent {
           photos={camp.get('photos')}
           uploadHandler={this.uploadPhotos}
           deletePhoto={this.deletePhoto}
+          activeLang={activeLang}
+          updateField={this.updateField}
         />
         <Fieldset>
           <FieldTitle>Основная деятельность</FieldTitle>

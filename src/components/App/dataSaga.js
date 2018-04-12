@@ -118,7 +118,7 @@ function* deletePhotoHandler({ payload }) {
   try {
     const token = yield select(tokenSelector);
 
-    yield call(deletePhoto, token, payload);
+    yield call(deletePhoto, token, payload.photoId);
     yield put({ type: DELETE_PHOTO_SUCCESS, payload });
   } catch (error) {
     yield put({ type: DELETE_PHOTO_FAILURE, payload: error });

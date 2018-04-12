@@ -35,5 +35,6 @@ export default {
       },
       orderIndex: 0
     }
-  ]
+  ],
+  photos: []
 };

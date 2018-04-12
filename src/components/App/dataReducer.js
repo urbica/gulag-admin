@@ -48,9 +48,9 @@ export const uploadPhotos = (prisonId, photos) => ({
   type: UPLOAD_PHOTOS_REQUEST,
   payload: { prisonId, photos }
 });
-export const deletePhoto = photoId => ({
+export const deletePhoto = (campId, photoId) => ({
   type: DELETE_PHOTO_REQUEST,
-  payload: photoId
+  payload: { campId, photoId }
 });
 export const createPeriod = () => ({ type: CREATE_PERIOD_REQUEST });
 export const deletePeriod = periodId => ({
@@ -99,10 +99,31 @@ export default (state = initialState, { type, payload }) => {
         .filter(camp => camp.get('id') !== payload);
       return state.set('camps', newCamps);
     }
-    case UPLOAD_PHOTOS_SUCCESS:
-      return state;
-    case DELETE_PHOTO_SUCCESS:
-      return state;
+    case UPLOAD_PHOTOS_SUCCESS: {
+      const newCamps = state
+        .get('camps')
+        .map(
+          camp =>
+            camp.get('id') === payload.get('campId')
+              ? camp.update('photos', photos => photos.push(payload))
+              : camp
+        );
+
+      return state.set('camps', newCamps);
+    }
+    case DELETE_PHOTO_SUCCESS: {
+      const newCamps = state
+        .get('camps')
+        .map(
+          camp =>
+            camp.get('id') !== payload.campId
+              ? camp
+              : camp.update('photos', photos =>
+                  photos.filter(photo => photo.get('id') !== payload.photoId))
+        );
+
+      return state.set('camps', newCamps);
+    }
     case CREATE_PERIOD_SUCCESS:
       return state.update('periods', periods => periods.push(payload));
     case DELETE_PERIOD_SUCCESS: {

@@ -11,6 +11,7 @@ import Photo from './Photo/Photo';
 // styled
 import Container from './Container';
 import FieldTitle from '../FieldTitle';
+import PhotosWrapper from './PhotosWrapper';
 
 const style = {
   display: 'inline-block',
@@ -28,6 +29,7 @@ class CampPhotos extends PureComponent {
     super(props);
     this.uploadPhotos = this.uploadPhotos.bind(this);
     this.deletePhoto = this.deletePhoto.bind(this);
+    this.updatePhoto = this.updatePhoto.bind(this);
   }
 
   uploadPhotos(photo) {
@@ -52,20 +54,35 @@ class CampPhotos extends PureComponent {
     }
   }
 
+  updatePhoto(id, type, value) {
+    const updatedPhotos = this.props.photos.map(
+      photo =>
+        photo.get('id') === id
+          ? photo.setIn([type, this.props.activeLang], value)
+          : photo
+    );
+
+    this.props.updateField(['photos'], updatedPhotos);
+  }
+
   render() {
     return (
       <Container>
         <FieldTitle>фотографии</FieldTitle>
-        {this.props.photos.map(photo => (
-          <Photo
-            key={photo.get('id')}
-            photo={photo}
-            onDelete={this.deletePhoto.bind(null, photo.get('id'))}
-          />
-        ))}
-        <Dropzone accept='image/*' onDrop={this.uploadPhotos} style={style}>
-          Загрузить
-        </Dropzone>
+        <PhotosWrapper>
+          {this.props.photos.map(photo => (
+            <Photo
+              key={photo.get('id')}
+              photo={photo}
+              onDelete={this.deletePhoto.bind(null, photo.get('id'))}
+              activeLang={this.props.activeLang}
+              updatePhoto={this.updatePhoto}
+            />
+          ))}
+          <Dropzone accept='image/*' onDrop={this.uploadPhotos} style={style}>
+            Загрузить
+          </Dropzone>
+        </PhotosWrapper>
       </Container>
     );
   }
@@ -74,7 +91,9 @@ class CampPhotos extends PureComponent {
 CampPhotos.propTypes = {
   uploadHandler: PropTypes.func.isRequired,
   deletePhoto: PropTypes.func.isRequired,
-  photos: PropTypes.object.isRequired
+  photos: PropTypes.object.isRequired,
+  activeLang: PropTypes.string.isRequired,
+  updateField: PropTypes.func.isRequired
 };
 
 export default CampPhotos;
