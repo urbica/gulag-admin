@@ -41,7 +41,8 @@ const mapStateToProps = createSelector(
     );
 
     const campsWithMaxPrisoners = camps.reduce((acc, camp) => {
-      const value = camp.get('locations').reduce((locAcc, location) => {
+      const locations = camp.get('locations') || List();
+      const value = locations.reduce((locAcc, location) => {
         const maxValue = location
           .get('statistics')
           .reduce(

@@ -32,7 +32,7 @@ const PrisonRow = props => {
         {getPeriods(camp.get('locations'))}
       </td>
       <td className='prisons__cell'>
-        {moment(camp.get('updated_at'))
+        {moment(camp.get('updatedAt'))
           .locale('ru')
           .format('DD.MM.YY, HH:mm')}
       </td>

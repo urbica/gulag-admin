@@ -53,7 +53,7 @@ class Camp extends PureComponent {
 
   updateCamp() {
     const date = new Date().toISOString();
-    const newPrison = this.state.camp.set('updated_at', date);
+    const newPrison = this.state.camp.set('updatedAt', date);
 
     this.props.updateCamp(newPrison);
   }
@@ -129,7 +129,7 @@ class Camp extends PureComponent {
     } = this.props;
 
     const isPublished = camp.getIn(['published', activeLang]);
-    const updatedAt = moment(camp.get('updated_at'))
+    const updatedAt = moment(camp.get('updatedAt'))
       .locale('ru')
       .format('DD.MM.YY, HH:mm');
 

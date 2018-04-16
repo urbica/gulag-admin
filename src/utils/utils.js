@@ -1,5 +1,6 @@
-export const getPeriods = locations =>
-  locations.reduce((acc, location) => {
+export const getPeriods = locations => {
+  const loc = locations || [];
+  return loc.reduce((acc, location) => {
     if (location.get('statistics')) {
       if (location.get('statistics').size === 1) {
         return [...acc, `${location.getIn(['statistics', 0, 'year'])}; `];
@@ -20,6 +21,7 @@ export const getPeriods = locations =>
     }
     return acc;
   }, []);
+};
 
 export const filterBySearch = (searchQuery, prisons) => {
   if (searchQuery.length > 0) {
