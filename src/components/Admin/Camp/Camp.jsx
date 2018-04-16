@@ -42,37 +42,80 @@ class Camp extends PureComponent {
       activeLang: 'ru'
     };
 
-    this.updateCamp = () => {
-      const date = new Date().toISOString();
-      const newPrison = this.state.camp.set('updated_at', date);
+    this.updateCamp = this.updateCamp.bind(this);
+    this.deleteCamp = this.deleteCamp.bind(this);
+    this.changeLang = this.changeLang.bind(this);
+    this.updateField = this.updateField.bind(this);
+    this.uploadPhotos = this.uploadPhotos.bind(this);
+    this.deletePhoto = this.deletePhoto.bind(this);
+    this.publishCamp = this.publishCamp.bind(this);
+  }
 
-      props.updateCamp(newPrison);
-    };
+  updateCamp() {
+    const date = new Date().toISOString();
+    const newPrison = this.state.camp.set('updated_at', date);
 
-    this.deleteCamp = () => props.deleteCamp(props.camp.get('id'));
+    this.props.updateCamp(newPrison);
+  }
 
-    this.changeLang = lang => {
-      this.setState({ activeLang: lang });
-    };
+  deleteCamp() {
+    this.props.deleteCamp(this.props.camp.get('id'));
+  }
 
-    this.updateField = (path, value) => {
-      const { camp } = this.state;
-      const updatedCamp = camp.setIn(path, value);
+  changeLang(lang) {
+    this.setState({ activeLang: lang });
+  }
 
-      this.setState({ camp: updatedCamp });
-    };
+  updateField(path, value) {
+    const { camp } = this.state;
+    const updatedCamp = camp.setIn(path, value);
 
-    this.uploadPhotos = photos => {
-      const campId = this.state.camp.get('id');
+    this.setState({ camp: updatedCamp });
+  }
 
-      this.props.uploadPhotos(campId, photos);
-    };
+  uploadPhotos(photos) {
+    const campId = this.state.camp.get('id');
 
-    this.deletePhoto = photoId => {
-      const campId = this.state.camp.get('id');
+    this.props.uploadPhotos(campId, photos);
+  }
 
-      this.props.deletePhoto(campId, photoId);
-    };
+  deletePhoto(photoId) {
+    const campId = this.state.camp.get('id');
+
+    this.props.deletePhoto(campId, photoId);
+  }
+
+  checkValidation() {
+    const { camp, activeLang } = this.state;
+    const title = camp.getIn(['title', activeLang]);
+    const activityId = camp.get('activityId');
+    const typeId = camp.get('typeId');
+    const locations = camp.get('locations');
+    const statics = locations.reduce((acc, location) => {
+      if (location.getIn(['statistics', 0])) {
+        return true;
+      }
+      return false;
+    }, false);
+
+    if (title && activityId && typeId && statics) {
+      return true;
+    }
+
+    alert('Не заполненны минимальные поля');
+
+    return false;
+  }
+
+  publishCamp() {
+    const { activeLang } = this.state;
+    const isPublished = this.state.camp.getIn(['published', activeLang]);
+
+    if (!isPublished && this.checkValidation()) {
+      this.updateField(['published', activeLang], true);
+    } else {
+      this.updateField(['published', activeLang], false);
+    }
   }
 
   render() {
@@ -110,14 +153,7 @@ class Camp extends PureComponent {
             alignSelf: 'baseline'
           }}
         >
-          <Button
-            // eslint-disable-next-line
-            onClick={this.updateField.bind(
-              null,
-              ['published', activeLang],
-              !isPublished
-            )}
-          >
+          <Button onClick={this.publishCamp}>
             {isPublished ? 'Опубликованно' : 'Не опубликованно'}
           </Button>
           <a href={`/camp${camp.get('id')}`}>Посмотреть на карте</a>
