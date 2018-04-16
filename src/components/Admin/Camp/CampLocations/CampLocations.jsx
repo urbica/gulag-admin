@@ -14,6 +14,9 @@ import CampStatistics from './CampStatistics/CampStatistics';
 // styled
 import Container from './Container';
 import LocationTab from './LocationTab';
+import Fieldset from '../Fieldset';
+import FieldTitle from '../FieldTitle';
+import TextInput from '../TextInput/TextInput';
 
 const newLocation = Immutable.fromJS({
   description: { de: '', en: '', ru: '' },
@@ -138,21 +141,11 @@ class CampLocation extends PureComponent {
         ['locations', selectedLocationIndex, 'statistics'],
         updatedStatistics
       );
-
-      // const { locations } = this.props;
-      // const { value } = event.target;
-      // const lens = compose(
-      //   lensIndex(this.state.selectedLocationIndex),
-      //   lensPath(['properties', year, 'peoples'])
-      // );
-      // const newFeatures = set(lens, parseInt(value, 10), locations);
-      //
-      // this.props.updateFeatures(newFeatures);
     };
   }
 
   render() {
-    const { locations } = this.props;
+    const { locations, activeLang } = this.props;
     const selectedLocation = locations.get(this.state.selectedLocationIndex);
 
     return (
@@ -208,6 +201,19 @@ class CampLocation extends PureComponent {
           />
         </div>
         <Map features={[locationToFeature(selectedLocation)]} />
+        <Fieldset>
+          <FieldTitle>Описание локации</FieldTitle>
+          <TextInput
+            placeholder='Описание локации'
+            value={selectedLocation.getIn(['description', activeLang])}
+            onChange={this.props.updateField.bind(null, [
+              'locations',
+              this.state.selectedLocationIndex,
+              'description',
+              activeLang
+            ])}
+          />
+        </Fieldset>
         <CampYears
           locations={locations}
           selectedLocationIndex={this.state.selectedLocationIndex}
@@ -227,7 +233,8 @@ CampLocation.propTypes = {
   updateField: PropTypes.func.isRequired,
   deleteCampStat: PropTypes.func.isRequired,
   deleteCampLocation: PropTypes.func.isRequired,
-  campId: PropTypes.number.isRequired
+  campId: PropTypes.number.isRequired,
+  activeLang: PropTypes.string.isRequired
 };
 
 export default CampLocation;

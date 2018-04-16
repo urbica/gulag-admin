@@ -135,14 +135,6 @@ class Camp extends PureComponent {
             placeholder='Дополнительные названия, если есть'
           />
         </Fieldset>
-        <Fieldset>
-          <FieldTitle>Название локации</FieldTitle>
-          <TextInput
-            placeholder='Название'
-            value={camp.getIn(['location', activeLang])}
-            onChange={this.updateField.bind(null, ['location', activeLang])}
-          />
-        </Fieldset>
         <MarkdownEditor
           source={camp.getIn(['description', activeLang])}
           onChange={this.updateField.bind(null, ['description', activeLang])}
@@ -193,6 +185,7 @@ class Camp extends PureComponent {
           deleteCampStat={deleteCampStat}
           deleteCampLocation={deleteCampLocation}
           campId={camp.get('id')}
+          activeLang={activeLang}
         />
         <Button
           color='red'
@@ -208,7 +201,6 @@ class Camp extends PureComponent {
 
 Camp.propTypes = {
   camp: PropTypes.object.isRequired,
-  // photos: PropTypes.object.isRequired,
   activitiesOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   placesOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   typesOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
