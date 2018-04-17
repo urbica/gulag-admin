@@ -1,9 +1,3 @@
-.field-title_locations {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
 .field-title__location {
   position: relative;
   color: rgba(0, 0, 0, .5);
@@ -114,28 +108,4 @@
 .location-delete span:last-child:active {
   background-color: #f3f3f3;
   color: rgba(0, 0, 0, .5);
-}
-
-.field-title__plus {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border: solid 1px #b2b2b2;
-  border-radius: 2px;
-  margin-left: 3px;
-  background-color: transparent;
-  color: rgba(0, 0, 0, .5);
-  text-align: center;
-  outline: none;
-}
-
-.field-title__plus:hover {
-  color: #000;
-  background-color: #f0f0f0;
-  cursor: pointer;
-}
-
-.field-title__plus:active {
-  border-color: #000;
 }

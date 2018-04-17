@@ -24,7 +24,7 @@ import Fieldset from './Fieldset';
 import FieldTitle from './FieldTitle';
 import Separator from './Separator';
 
-import { languages } from '../../../config';
+import languages from '../../../config/languages';
 
 class Camp extends PureComponent {
   static getDerivedStateFromProps({ camp }, prevState) {
