@@ -52,18 +52,34 @@ class CampLocation extends PureComponent {
   removeLocation(locationIndex) {
     const { locations, deleteCampLocation, updateField } = this.props;
     const locationId = locations.getIn([locationIndex, 'id']);
+    const checkLocations = locations.reduce((acc, location) => {
+      if (location.get('id') !== undefined) {
+        return true;
+      }
+      return false;
+    }, false);
 
-    if (locationId !== undefined) {
+    if (checkLocations && locations.size > 1 && locationId !== undefined) {
       deleteCampLocation(locationId);
+
+      const newLocations = locations.delete(locationIndex);
+
+      updateField(['locations'], newLocations);
+      this.setState(({ selectedLocationIndex }) => ({
+        selectedLocationIndex: selectedLocationIndex - 1,
+        showDeleteMenu: false
+      }));
     }
 
-    const newLocations = locations.delete(locationIndex);
+    if (locationId === undefined) {
+      const newLocations = locations.delete(locationIndex);
 
-    updateField(['locations'], newLocations);
-    this.setState(({ selectedLocationIndex }) => ({
-      selectedLocationIndex: selectedLocationIndex - 1,
-      showDeleteMenu: false
-    }));
+      updateField(['locations'], newLocations);
+      this.setState(({ selectedLocationIndex }) => ({
+        selectedLocationIndex: selectedLocationIndex - 1,
+        showDeleteMenu: false
+      }));
+    }
   }
 
   closeDeleteMenu() {
@@ -156,9 +172,7 @@ class CampLocation extends PureComponent {
     const { selectedLocationIndex, showDeleteMenu } = this.state;
     const { locations, activeLang } = this.props;
     const selectedLocation = locations.get(selectedLocationIndex);
-    const coordinates = selectedLocation
-      .getIn(['geometry', 'coordinates'])
-      .toJS();
+    const coordinates = selectedLocation.getIn(['geometry', 'coordinates']);
 
     return (
       <Container>

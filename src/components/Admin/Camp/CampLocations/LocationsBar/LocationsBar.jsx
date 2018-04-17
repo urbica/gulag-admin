@@ -28,21 +28,21 @@ const LocationsBar = props => {
 
   return (
     <Container>
-      {locations.map(location => {
-        const locationIndex = location.get('orderIndex');
+      {locations.map((location, i) => {
         const className =
-          selectedLocationIndex === locationIndex
+          selectedLocationIndex === i
             ? 'field-title__location field-title__location_active'
             : 'field-title__location';
         const classNameDelete =
-          showDeleteMenu && selectedLocationIndex === locationIndex
+          showDeleteMenu && selectedLocationIndex === i
             ? 'location-delete location-delete_show'
             : 'location-delete';
 
         return (
-          <div key={locationIndex} className={className}>
-            <LocationTab onClick={selectLocation.bind(null, locationIndex)}>
-              Локация {locations.size > 1 ? locationIndex + 1 : ''}
+          // eslint-disable-next-line
+          <div key={i} className={className}>
+            <LocationTab onClick={selectLocation.bind(null, i)}>
+              Локация {locations.size > 1 ? i + 1 : ''}
             </LocationTab>
             <button onClick={openDeleteMenu}>
               <svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'>
@@ -53,9 +53,7 @@ const LocationsBar = props => {
               </svg>
             </button>
             <div className={classNameDelete}>
-              <span onClick={removeLocation.bind(null, locationIndex)}>
-                Удалить
-              </span>
+              <span onClick={removeLocation.bind(null, i)}>Удалить</span>
               <span onClick={closeDeleteMenu}>Отмена</span>
             </div>
           </div>
@@ -63,7 +61,7 @@ const LocationsBar = props => {
       })}
       <PlusButton onClick={createLocation}>+</PlusButton>
       <CoordinatesInput
-        coordinates={coordinates}
+        coordinates={coordinates.toJS()}
         updateCoordinates={updateCoordinates}
       />
     </Container>
@@ -73,7 +71,7 @@ const LocationsBar = props => {
 LocationsBar.propTypes = {
   locations: PropTypes.object.isRequired,
   showDeleteMenu: PropTypes.bool.isRequired,
-  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+  coordinates: PropTypes.object.isRequired,
   selectedLocationIndex: PropTypes.number.isRequired,
   removeLocation: PropTypes.func.isRequired,
   closeDeleteMenu: PropTypes.func.isRequired,
