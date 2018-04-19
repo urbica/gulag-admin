@@ -80,10 +80,22 @@ const CampsTable = props => {
   const { camps, campsSortBy, campsSortASC, openCamp, dispatch } = props;
 
   const sortCamps = (a, b) => {
-    if (campsSortASC) {
-      return a.getIn(campsSortBy) > b.getIn(campsSortBy);
+    if (!campsSortASC) {
+      if (a.getIn(campsSortBy) > b.getIn(campsSortBy)) {
+        return -1;
+      }
+      if (a.getIn(campsSortBy) < b.getIn(campsSortBy)) {
+        return 1;
+      }
+      return 0;
     }
-    return a.getIn(campsSortBy) < b.getIn(campsSortBy);
+    if (a.getIn(campsSortBy) < b.getIn(campsSortBy)) {
+      return -1;
+    }
+    if (a.getIn(campsSortBy) > b.getIn(campsSortBy)) {
+      return 1;
+    }
+    return 0;
   };
 
   return (
