@@ -15,7 +15,7 @@ services:
   #   restart: always
 
   gulag-frontend:
-    image: gitlab.urbica.co:5001/gulag/gulag:master
+    image: gitlab.urbica.co:5001/gulag/admin:master
     container_name: gulag-frontend
     restart: always
     ports:
