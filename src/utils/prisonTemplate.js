@@ -22,6 +22,7 @@ export default {
   typeId: null,
   activityId: null,
   regionId: null,
+  notes: '',
   locations: [
     {
       geometry: {

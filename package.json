@@ -71,5 +71,5 @@
     "styled-components": "3.2.5"
   },
   "homepage": "/admin",
-  "proxy": "https://gulag-next.urbica.co"
+  "proxy": "https://gulag.urbica.co"
 }

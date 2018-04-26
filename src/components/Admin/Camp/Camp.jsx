@@ -11,7 +11,7 @@ import LanguageSwitcher from './LanguageSwitcher/LanguageSwitcher';
 import Button from '../Button';
 import TextInput from './TextInput/TextInput';
 import MarkdownEditor from './Inputs/MarkdownEditor';
-// import NotesInput from './NotesInput/NotesInput';
+import NotesInput from './NotesInput/NotesInput';
 import SelectInput from './Inputs/SelectInput';
 import Photos from './Photos/Photos';
 import MarkdownHelp from './MarkdownHelp/MarkdownHelp';
@@ -176,8 +176,11 @@ class Camp extends PureComponent {
           onChange={this.updateField.bind(null, ['description', activeLang])}
         />
         <MarkdownHelp />
-        {/* <FieldTitle>Заметки</FieldTitle>
-        <NotesInput note={this.state.note} onChange={this.updateNotes} /> */}
+        <FieldTitle>Заметки</FieldTitle>
+        <NotesInput
+          note={camp.get('notes')}
+          onChange={this.updateField.bind(null, ['notes'])}
+        />
         <Separator>
           <legend>Информация, общая для всех языков</legend>
         </Separator>
