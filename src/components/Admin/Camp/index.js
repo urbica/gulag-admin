@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { List } from 'immutable';
 
 // selectors
 import {
@@ -37,8 +38,15 @@ const mapStateToProps = createSelector(
   placesSelector,
   typesSelector,
   (camp, photos, activities, places, types) => ({
-    camp: camp.update('locations', locations =>
-      locations.sort((a, b) => a.get('orderIndex') > b.get('orderIndex'))),
+    camp: camp.update('locations', locations => {
+      if (locations === null || locations === undefined) return List();
+
+      return locations.sort((a, b) => {
+        if (a.get('orderIndex') > b.get('orderIndex')) return 1;
+        if (a.get('orderIndex') < b.get('orderIndex')) return -1;
+        return 0;
+      });
+    }),
     photos,
     activitiesOptions: toOptions(activities),
     placesOptions: toOptions(places),
