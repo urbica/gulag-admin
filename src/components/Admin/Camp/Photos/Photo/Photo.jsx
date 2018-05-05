@@ -11,12 +11,6 @@ const Photo = ({ photo, onDelete, activeLang, updatePhoto }) => (
       <button onClick={onDelete}>Удалить</button>
     </figure>
     <input
-      value={photo.getIn(['title', activeLang])}
-      onChange={({ target }) =>
-        updatePhoto(photo.get('id'), 'title', target.value)
-      }
-    />
-    <input
       value={photo.getIn(['description', activeLang])}
       onChange={({ target }) =>
         updatePhoto(photo.get('id'), 'description', target.value)
