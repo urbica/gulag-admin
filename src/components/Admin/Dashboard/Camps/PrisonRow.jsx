@@ -23,7 +23,13 @@ const PrisonRow = ({ camp, places, types, openCamp }) => (
     <td className='prisons__cell' height='56'>
       {camp.get('id')}
     </td>
-    <td className='prisons__cell'>
+    <td 
+      className={
+        Boolean(camp.get('notes')) === true
+          ? 'prisons__flag'
+          : 'prisons__cell'
+      }
+    >
       {camp.getIn(['title', 'ru'])}
     </td>
     <td className='prisons__cell prisons__cell_period'>
