@@ -35,12 +35,12 @@ class MarkdownEditor extends PureComponent {
   }
 
   render() {
+    const { preview } = this.state;
     const { source, onChange } = this.props;
 
     return (
       <Container>
-        {
-          this.state.preview &&
+        {preview && (
           <div className='inputWrapper'>
             <DescriptionTitle>
               Описание лагеря
@@ -48,57 +48,42 @@ class MarkdownEditor extends PureComponent {
                 Редактировать
               </PreviewButton>
             </DescriptionTitle>
-            {
-              parseMd(source)
-                .map((elem, i) => {
-                  switch (elem.type) {
-                    case 'description': {
-                      const parsed = reader.parse(elem.payload);
-                      const result = writer.render(parsed);
-                      return (
-                        <div
-                          key={i}
-                          dangerouslySetInnerHTML={{ __html: result }}
-                        />
-                      );
-                    }
-                    case 'incut': {
-                      const parsed = reader.parse(elem.payload);
-                      const result = writer.render(parsed);
-                      return (
-                        <div
-                          key={i}
-                          className='incut'
-                        >
-                          <div dangerouslySetInnerHTML={{ __html: result }} />
-                        </div>
-                      );
-                    }
-                    case 'gallery': {
-                      const photos = [];
-                      let arr;
+            {parseMd(source).map((elem, i) => {
+              switch (elem.type) {
+                case 'description': {
+                  const parsed = reader.parse(elem.payload);
+                  const result = writer.render(parsed);
+                  return (
+                    <div key={i} dangerouslySetInnerHTML={{ __html: result }} />
+                  );
+                }
+                case 'incut': {
+                  const parsed = reader.parse(elem.payload);
+                  const result = writer.render(parsed);
+                  return (
+                    <div key={i} className='incut'>
+                      <div dangerouslySetInnerHTML={{ __html: result }} />
+                    </div>
+                  );
+                }
+                case 'gallery': {
+                  const photos = [];
+                  let arr;
 
-                      // eslint-disable-next-line no-cond-assign
-                      while ((arr = imgURLRegEx.exec(elem.payload)) !== null) {
-                        // adding current match to last arr in acc
-                        photos.push(arr[1]);
-                      }
-                      return (
-                        <Gallery
-                          key={i}
-                          photos={photos}
-                        />
-                      );
-                    }
-                    default:
-                      return null;
+                  // eslint-disable-next-line no-cond-assign
+                  while ((arr = imgURLRegEx.exec(elem.payload)) !== null) {
+                    // adding current match to last arr in acc
+                    photos.push(arr[1]);
                   }
-                })
-            }
+                  return <Gallery key={i} photos={photos} />;
+                }
+                default:
+                  return null;
+              }
+            })}
           </div>
-        }
-        {
-          !this.state.preview &&
+        )}
+        {!preview && (
           <div className='inputWrapper'>
             <DescriptionTitle>
               Описание лагеря
@@ -113,7 +98,7 @@ class MarkdownEditor extends PureComponent {
             />
             <div className='inputLine' />
           </div>
-        }
+        )}
       </Container>
     );
   }

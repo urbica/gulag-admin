@@ -27,9 +27,10 @@ class Login extends PureComponent {
     };
 
     this.authorize = () => {
+      const { login } = this.props;
       const password = this.inputRef.current.value;
 
-      this.props.login(password);
+      login(password);
     };
   }
 
@@ -38,10 +39,14 @@ class Login extends PureComponent {
   }
 
   render() {
+    const { loginLoading, loginError } = this.props;
+
     return (
       <Container>
         <LoginForm>
-          <div>Пароль</div>
+          <div>
+            Пароль
+          </div>
           <InputWrap>
             <input
               required
@@ -50,16 +55,14 @@ class Login extends PureComponent {
               placeholder='Введите пароль'
               onKeyPress={this.handleKeyPress}
             />
-            <Enter onClick={this.authorize}>Enter</Enter>
+            <Enter onClick={this.authorize}>
+              Enter
+            </Enter>
             <PasswordLine />
           </InputWrap>
-          <Preloader
-            src={preloader}
-            alt='preloader'
-            isLoading={this.props.loginLoading}
-          />
-          <WrongLine isPassWrong={this.props.loginError} />
-          {this.props.loginError && (
+          <Preloader src={preloader} alt='preloader' isLoading={loginLoading} />
+          <WrongLine isPassWrong={loginError} />
+          {loginError && (
             <WrongPassword>
               А теперь попробуй с правильным паролем
             </WrongPassword>

@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,7 +9,9 @@ const Photo = ({ photo, onDelete, activeLang, updatePhoto }) => (
   <Container>
     <figure>
       <img src={`/${photo.get('path')}`} alt={photo.get('id')} />
-      <button onClick={onDelete}>Удалить</button>
+      <button onClick={onDelete}>
+        Удалить
+      </button>
     </figure>
     <input
       value={photo.getIn(['description', activeLang])}

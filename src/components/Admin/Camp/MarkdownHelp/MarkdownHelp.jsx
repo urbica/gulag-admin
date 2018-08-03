@@ -5,28 +5,46 @@ import Container from './Container';
 
 export default () => (
   <Container>
-    <div>## Заголовок</div>
-    <div>#### Заголовок четвёртого уровня</div>
-    <div>*курсив*</div>
-    <div>**полужирное начертание**</div>
-    <div>* элемент маркированного списка</div>
+    <div>
+      ## Заголовок
+    </div>
+    <div>
+      #### Заголовок четвёртого уровня
+    </div>
+    <div>
+      *курсив*
+    </div>
+    <div>
+      **полужирное начертание**
+    </div>
+    <div>
+      * элемент маркированного списка
+    </div>
     <br />
-    <div>[urbica.co](http://urbica.co)</div>
+    <div>
+      [urbica.co](http://urbica.co)
+    </div>
     <br />
-    <div>![Alt-текст](http://lorempixel.com/100/100)</div>
+    <div>
+      ![Alt-текст](http://lorempixel.com/100/100)
+    </div>
     <div style={{ backgroundColor: '#fff9d5' }}>
       <br />
-      НАЧАЛО_ВРЕЗКИ<br />
+      НАЧАЛО_ВРЕЗКИ
       <br />
-      ## Заголовок<br />
+      <br />
+      ## Заголовок
+      <br />
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus
       adipisci animi aspernatur cum, enim harum illo, ipsam minima molestiae
       neque nisi obcaecati quidem repudiandae sunt tempora, tenetur totam ullam.
       <br />
       <br />
-      [urbica.co](http://urbica.co)<br />
+      [urbica.co](http://urbica.co)
       <br />
-      ![Alt-текст](http://lorempixel.com/100/100)<br />
+      <br />
+      ![Alt-текст](http://lorempixel.com/100/100)
+      <br />
       <br />
       КОНЕЦ_ВРЕЗКИ
     </div>

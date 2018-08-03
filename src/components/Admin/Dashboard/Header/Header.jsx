@@ -20,28 +20,38 @@ const Header = props => {
 
   return (
     <Container>
-      <Button onClick={logout}>Выйти</Button>
+      <Button onClick={logout}>
+        Выйти
+      </Button>
       <div>
-        <Title>Опубликовано лагерей</Title>
+        <Title>
+          Опубликовано лагерей
+        </Title>
         <div>
           <Lang>
             <PrisonsCount>
               {publishedRuCount}
-              <span>/{campsCount}</span>
+              <span>
+                {`/${campsCount}`}
+              </span>
             </PrisonsCount>
             На русском
           </Lang>
           <Lang>
             <PrisonsCount>
               {publishedEnCount}
-              <span>/{campsCount}</span>
+              <span>
+                {`/${campsCount}`}
+              </span>
             </PrisonsCount>
             На английском
           </Lang>
           <Lang>
             <PrisonsCount>
               {publishedDeCount}
-              <span>/{campsCount}</span>
+              <span>
+                {`/${campsCount}`}
+              </span>
             </PrisonsCount>
             На немецком
           </Lang>

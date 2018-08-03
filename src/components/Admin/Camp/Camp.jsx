@@ -27,13 +27,6 @@ import Separator from './Separator';
 import languages from '../../../config/languages';
 
 class Camp extends PureComponent {
-  static getDerivedStateFromProps({ camp }, prevState) {
-    return {
-      ...prevState,
-      camp
-    };
-  }
-
   constructor(props) {
     super(props);
 
@@ -51,15 +44,26 @@ class Camp extends PureComponent {
     this.publishCamp = this.publishCamp.bind(this);
   }
 
-  updateCamp() {
-    const date = new Date().toISOString();
-    const newPrison = this.state.camp.set('updatedAt', date);
+  static getDerivedStateFromProps({ camp }, prevState) {
+    return {
+      ...prevState,
+      camp
+    };
+  }
 
-    this.props.updateCamp(newPrison);
+  updateCamp() {
+    const { camp } = this.state;
+    const { updateCamp } = this.props;
+    const date = new Date().toISOString();
+    const newPrison = camp.set('updatedAt', date);
+
+    updateCamp(newPrison);
   }
 
   deleteCamp() {
-    this.props.deleteCamp(this.props.camp.get('id'));
+    const { deleteCamp, camp } = this.props;
+
+    deleteCamp(camp.get('id'));
   }
 
   changeLang(lang) {
@@ -74,15 +78,17 @@ class Camp extends PureComponent {
   }
 
   uploadPhotos(photos) {
-    const campId = this.state.camp.get('id');
+    const { camp } = this.state;
+    const { uploadPhotos } = this.props;
 
-    this.props.uploadPhotos(campId, photos);
+    uploadPhotos(camp.get('id'), photos);
   }
 
   deletePhoto(photoId) {
-    const campId = this.state.camp.get('id');
+    const { camp } = this.state;
+    const { deletePhoto } = this.props;
 
-    this.props.deletePhoto(campId, photoId);
+    deletePhoto(camp.get('id'), photoId);
   }
 
   checkValidation() {
@@ -91,12 +97,10 @@ class Camp extends PureComponent {
     const activityId = camp.get('activityId');
     const typeId = camp.get('typeId');
     const locations = camp.get('locations');
-    const statics = locations.reduce((acc, location) => {
-      if (location.getIn(['statistics', 0])) {
-        return true;
-      }
-      return false;
-    }, false);
+    const statics = locations.reduce(
+      (acc, location) => !!location.getIn(['statistics', 0]),
+      false
+    );
 
     if (title && activityId && typeId && statics) {
       return true;
@@ -108,8 +112,8 @@ class Camp extends PureComponent {
   }
 
   publishCamp() {
-    const { activeLang } = this.state;
-    const isPublished = this.state.camp.getIn(['published', activeLang]);
+    const { camp, activeLang } = this.state;
+    const isPublished = camp.getIn(['published', activeLang]);
 
     if (!isPublished && this.checkValidation()) {
       this.updateField(['published', activeLang], true);
@@ -156,10 +160,14 @@ class Camp extends PureComponent {
           <Button onClick={this.publishCamp}>
             {isPublished ? 'Опубликованно' : 'Не опубликованно'}
           </Button>
-          <a href={`/camp${camp.get('id')}`}>Посмотреть на карте</a>
+          <a href={`/camp${camp.get('id')}`}>
+            Посмотреть на карте
+          </a>
         </div>
         <Fieldset>
-          <FieldTitle>название лагеря</FieldTitle>
+          <FieldTitle>
+            название лагеря
+          </FieldTitle>
           <TextInput
             value={camp.getIn(['title', activeLang])}
             onChange={this.updateField.bind(null, ['title', activeLang])}
@@ -176,13 +184,17 @@ class Camp extends PureComponent {
           onChange={this.updateField.bind(null, ['description', activeLang])}
         />
         <MarkdownHelp />
-        <FieldTitle>Заметки</FieldTitle>
+        <FieldTitle>
+          Заметки
+        </FieldTitle>
         <NotesInput
           note={camp.get('notes')}
           onChange={this.updateField.bind(null, ['notes'])}
         />
         <Separator>
-          <legend>Информация, общая для всех языков</legend>
+          <legend>
+            Информация, общая для всех языков
+          </legend>
         </Separator>
         <Photos
           photos={camp.get('photos')}
@@ -192,7 +204,9 @@ class Camp extends PureComponent {
           updateField={this.updateField}
         />
         <Fieldset>
-          <FieldTitle>Основная деятельность</FieldTitle>
+          <FieldTitle>
+            Основная деятельность
+          </FieldTitle>
           <SelectInput
             value={camp.get('activityId')}
             options={activitiesOptions}
@@ -201,7 +215,9 @@ class Camp extends PureComponent {
           />
         </Fieldset>
         <Fieldset>
-          <FieldTitle>Регион</FieldTitle>
+          <FieldTitle>
+            Регион
+          </FieldTitle>
           <SelectInput
             value={camp.get('regionId')}
             options={placesOptions}
@@ -210,7 +226,9 @@ class Camp extends PureComponent {
           />
         </Fieldset>
         <Fieldset>
-          <FieldTitle>Тип объекта</FieldTitle>
+          <FieldTitle>
+            Тип объекта
+          </FieldTitle>
           <SelectInput
             value={camp.get('typeId')}
             options={typesOptions}

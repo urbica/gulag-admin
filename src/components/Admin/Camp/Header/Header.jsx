@@ -9,30 +9,34 @@ import Subtitle from './Subtitle';
 import Button from '../../Button';
 import PrisonSaved from './PrisonSaved';
 
-const Header = (props) => {
-  const {
-    title, periods, updatedAt, updateCamp
-  } = props;
-
-  return (
-    <Container>
-      <BackLink to='/admin'>← к таблице лагерей</BackLink>
-      <div>
-        <Title>{title}</Title>
-        <Subtitle>{periods}</Subtitle>
-      </div>
-      <div>
-        <Button color='orange' onClick={updateCamp}>
-          сохранить
-        </Button>
-        <PrisonSaved>
-          <div>Сохранено:</div>
-          <span>{updatedAt}</span>
-        </PrisonSaved>
-      </div>
-    </Container>
-  );
-};
+const Header = ({ title, periods, updatedAt, updateCamp }) => (
+  <Container>
+    <BackLink to='/admin'>
+      ← к таблице лагерей
+    </BackLink>
+    <div>
+      <Title>
+        {title}
+      </Title>
+      <Subtitle>
+        {periods}
+      </Subtitle>
+    </div>
+    <div>
+      <Button color='orange' onClick={updateCamp}>
+        сохранить
+      </Button>
+      <PrisonSaved>
+        <div>
+          Сохранено:
+        </div>
+        <span>
+          {updatedAt}
+        </span>
+      </PrisonSaved>
+    </div>
+  </Container>
+);
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,

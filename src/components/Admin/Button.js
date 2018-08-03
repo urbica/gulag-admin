@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const color = {
+const colors = {
   orange: '#ff5c00',
   red: '#d0021b'
 };
@@ -13,7 +13,7 @@ const Button = styled.button`
 
   font-size: 16px;
   font-weight: 900;
-  color: ${props => color[props.color] || '#000'};
+  color: ${({ color }) => colors[color] || '#000'};
   
   background-color: transparent;
 

@@ -13,27 +13,23 @@ import Container from './Container';
 import SearchWrap from './SearchWrap';
 import Title from './Title';
 
-const Search = (props) => {
+const Search = props => {
   const onChange = event => props.onChange(event.target.value);
   const delayedOnChange = debounce(onChange, 300);
 
-  const handleOnChange = (event) => {
+  const handleOnChange = event => {
     event.persist();
     delayedOnChange(event);
   };
 
   return (
     <Container>
-      <Title>Лагеря</Title>
+      <Title>
+        Лагеря
+      </Title>
       <SearchWrap>
-        <TextInput
-          onChange={handleOnChange}
-          placeholder='Поиск'
-        />
-        <img
-          src={searchIcon}
-          alt='Search'
-        />
+        <TextInput onChange={handleOnChange} placeholder='Поиск' />
+        <img src={searchIcon} alt='Search' />
       </SearchWrap>
     </Container>
   );

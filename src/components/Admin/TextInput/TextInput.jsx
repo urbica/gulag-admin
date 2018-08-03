@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -12,13 +10,13 @@ const InputWrap = styled.label`
   background-color: #f3f3f3;
   cursor: text;
   &:hover,
-  &:hover input{
+  &:hover input {
     background-color: #f9f9f9;
   }
 `;
 
 const InputDesc = styled.span`
-  opacity: .5;
+  opacity: 0.5;
 `;
 
 const Input = styled.input`
@@ -40,20 +38,21 @@ const InputLine = styled.div`
   height: 2px;
   background-color: #000;
   z-index: 10;
-  transition: width .3s;
+  transition: width 0.3s;
   input:focus + & {
     width: 100%;
-    transition: width .3s;
+    transition: width 0.3s;
   }
 `;
 
-const TextInput = (props) => {
-  const { placeholder, value, onChange } = props;
-  const desc = props.desc || '';
+const TextInput = props => {
+  const { desc, placeholder, value, onChange } = props;
 
   return (
     <InputWrap>
-      <InputDesc>{desc}</InputDesc>
+      <InputDesc>
+        {desc}
+      </InputDesc>
       <Input
         type='text'
         placeholder={placeholder}
@@ -67,12 +66,14 @@ const TextInput = (props) => {
 
 TextInput.propTypes = {
   desc: PropTypes.string,
-  placeholder: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
+  placeholder: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired
+};
+
+TextInput.defaultProps = {
+  desc: '',
+  value: ''
 };
 
 export default TextInput;

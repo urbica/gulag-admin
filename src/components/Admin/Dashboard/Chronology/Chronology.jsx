@@ -12,21 +12,29 @@ import Button from './Button';
 
 const Chronology = ({ periods, openChronology }) => (
   <Container>
-    <Title>Хронология ГУЛАГа</Title>
+    <Title>
+      Хронология ГУЛАГа
+    </Title>
     <PeriodsWrapp onClick={openChronology}>
       {periods.size !== 0 && (
         <Periods>
           {periods.map(period => (
             <Period key={period.get('id')}>
-              <Year>{period.get('year')}</Year>
-              <span>{period.getIn(['title', 'ru'])}</span>
+              <Year>
+                {period.get('year')}
+              </Year>
+              <span>
+                {period.getIn(['title', 'ru'])}
+              </span>
             </Period>
           ))}
         </Periods>
       )}
     </PeriodsWrapp>
     {periods.size === 0 && (
-      <Button onClick={openChronology}>Добавить периоды</Button>
+      <Button onClick={openChronology}>
+        Добавить периоды
+      </Button>
     )}
   </Container>
 );

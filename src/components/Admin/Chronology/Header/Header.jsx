@@ -9,10 +9,16 @@ import SaveButton from './SaveButton';
 
 const Header = ({ goBack, updatePeriods }) => (
   <Container>
-    <BackButton onClick={goBack}>← к таблице лагерей</BackButton>
-    <Title>Хронология ГУЛАГа</Title>
+    <BackButton onClick={goBack}>
+      ← к таблице лагерей
+    </BackButton>
+    <Title>
+      Хронология ГУЛАГа
+    </Title>
     <div>
-      <SaveButton onClick={updatePeriods}>сохранить</SaveButton>
+      <SaveButton onClick={updatePeriods}>
+        сохранить
+      </SaveButton>
     </div>
   </Container>
 );

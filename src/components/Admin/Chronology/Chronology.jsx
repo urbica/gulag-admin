@@ -17,26 +17,32 @@ class Chronology extends PureComponent {
       }));
     };
     this.updatePeriods = () => {
-      this.props.updatePeriods(Object.values(this.state.periods.toJS()));
+      const { updatePeriods } = this.props;
+      const { periods } = this.state;
+
+      updatePeriods(Object.values(periods.toJS()));
     };
   }
 
   componentWillReceiveProps({ periods }) {
-    this.setState(() => ({ periods }));
+    this.setState({ periods });
   }
 
   render() {
+    const { pushToDashboard, createPeriod, deletePeriod } = this.props;
+    const { periods } = this.state;
+
     return (
       <Fragment>
         <Header
-          goBack={this.props.pushToDashboard}
+          goBack={pushToDashboard}
           updatePeriods={this.updatePeriods}
         />
         <Periods
-          periods={this.state.periods}
-          createPeriod={this.props.createPeriod}
+          periods={periods}
+          createPeriod={createPeriod}
           changePeriod={this.changePeriod}
-          deletePeriod={this.props.deletePeriod}
+          deletePeriod={deletePeriod}
         />
       </Fragment>
     );

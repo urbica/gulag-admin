@@ -20,7 +20,7 @@ class Dashboard extends PureComponent {
       searchQuery: ''
     };
 
-    this.changeSearch = (val) => {
+    this.changeSearch = val => {
       this.setState({ searchQuery: val });
     };
   }
@@ -39,6 +39,7 @@ class Dashboard extends PureComponent {
       publishedEnCount,
       publishedDeCount
     } = this.props;
+    const { searchQuery } = this.state;
 
     return (
       <Container>
@@ -51,9 +52,9 @@ class Dashboard extends PureComponent {
           createCamp={createCamp}
         />
         <Chronology periods={periods} openChronology={openChronology} />
-        <Search value={this.state.searchQuery} onChange={this.changeSearch} />
+        <Search value={searchQuery} onChange={this.changeSearch} />
         <Camps
-          camps={filterBySearch(this.state.searchQuery, camps)}
+          camps={filterBySearch(searchQuery, camps)}
           openCamp={openCamp}
           places={places}
           types={types}

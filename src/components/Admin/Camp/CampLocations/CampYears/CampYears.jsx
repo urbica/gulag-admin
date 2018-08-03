@@ -9,8 +9,7 @@ import YearLabel from './YearLabel';
 import YearSpan from './YearSpan';
 
 const years = [];
-// eslint-disable-next-line
-for (let i = 1918; i <= 1960; i++) {
+for (let i = 1918; i <= 1960; i += 1) {
   years.push(i);
 }
 
@@ -20,7 +19,7 @@ const LocationYears = ({ locations, selectedLocationIndex, toggleYear }) => {
 
   locations.forEach((location, index) => {
     if (location.get('statistics')) {
-      location.get('statistics').forEach((stat) => {
+      location.get('statistics').forEach(stat => {
         if (index === selectedLocationIndex) {
           yearsChecked.push(stat.get('year'));
         } else {
@@ -32,9 +31,11 @@ const LocationYears = ({ locations, selectedLocationIndex, toggleYear }) => {
 
   return (
     <Container>
-      <FieldTitle>Годы существования лагеря</FieldTitle>
+      <FieldTitle>
+        Годы существования лагеря
+      </FieldTitle>
       <YearsList>
-        {years.map((year) => {
+        {years.map(year => {
           const checked = yearsChecked.includes(year);
           const disabled = yearsDisabled.includes(year);
 
@@ -46,7 +47,9 @@ const LocationYears = ({ locations, selectedLocationIndex, toggleYear }) => {
                 disabled={disabled}
                 onChange={toggleYear.bind(null, year)}
               />
-              <YearSpan>{year}</YearSpan>
+              <YearSpan>
+                {year}
+              </YearSpan>
             </YearLabel>
           );
         })}

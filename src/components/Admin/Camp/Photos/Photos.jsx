@@ -49,33 +49,36 @@ class CampPhotos extends PureComponent {
   deletePhoto(photoId) {
     const { deletePhoto } = this.props;
     // eslint-disable-next-line
-    if (confirm('Удалить фото?')) {
+    if (confirm("Удалить фото?")) {
       deletePhoto(photoId);
     }
   }
 
   updatePhoto(id, type, value) {
-    const updatedPhotos = this.props.photos.map(
+    const { photos, activeLang, updateField } = this.props;
+    const updatedPhotos = photos.map(
       photo =>
-        photo.get('id') === id
-          ? photo.setIn([type, this.props.activeLang], value)
-          : photo
+        photo.get('id') === id ? photo.setIn([type, activeLang], value) : photo
     );
 
-    this.props.updateField(['photos'], updatedPhotos);
+    updateField(['photos'], updatedPhotos);
   }
 
   render() {
+    const { photos, activeLang } = this.props;
+
     return (
       <Container>
-        <FieldTitle>фотографии</FieldTitle>
+        <FieldTitle>
+          фотографии
+        </FieldTitle>
         <PhotosWrapper>
-          {this.props.photos.map(photo => (
+          {photos.map(photo => (
             <Photo
               key={photo.get('id')}
               photo={photo}
               onDelete={this.deletePhoto.bind(null, photo.get('id'))}
-              activeLang={this.props.activeLang}
+              activeLang={activeLang}
               updatePhoto={this.updatePhoto}
             />
           ))}

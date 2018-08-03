@@ -11,13 +11,17 @@ import Year from './Year';
 
 const CampStatistics = ({ statistics, updatePrisonersAmount }) => (
   <Container>
-    <Title>Количество заключенных по годам</Title>
+    <Title>
+      Количество заключенных по годам
+    </Title>
     {statistics &&
       statistics
         .sort((a, b) => a.get('year') > b.get('year'))
         .map((stat, i) => (
           <Label key={stat.get('year')}>
-            <Year>{stat.get('year')}:</Year>
+            <Year>
+              {`${stat.get('year')}:`}
+            </Year>
             <MaskedInput
               className='input input_inside'
               type='text'

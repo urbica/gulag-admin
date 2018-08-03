@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/button-has-type */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './PrisonLocation.css';
@@ -39,10 +40,9 @@ const LocationsBar = props => {
             : 'location-delete';
 
         return (
-          // eslint-disable-next-line
-          <div key={i} className={className}>
+          <div key={location.get('id')} className={className}>
             <LocationTab onClick={selectLocation.bind(null, i)}>
-              Локация {locations.size > 1 ? i + 1 : ''}
+              {`Локация ${locations.size > 1 ? i + 1 : ''}`}
             </LocationTab>
             <button onClick={openDeleteMenu}>
               <svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'>
@@ -53,13 +53,19 @@ const LocationsBar = props => {
               </svg>
             </button>
             <div className={classNameDelete}>
-              <span onClick={removeLocation.bind(null, i)}>Удалить</span>
-              <span onClick={closeDeleteMenu}>Отмена</span>
+              <span onClick={removeLocation.bind(null, i)}>
+                Удалить
+              </span>
+              <span onClick={closeDeleteMenu}>
+                Отмена
+              </span>
             </div>
           </div>
         );
       })}
-      <PlusButton onClick={createLocation}>+</PlusButton>
+      <PlusButton onClick={createLocation}>
+        +
+      </PlusButton>
       <CoordinatesInput
         coordinates={coordinates.toJS()}
         updateCoordinates={updateCoordinates}

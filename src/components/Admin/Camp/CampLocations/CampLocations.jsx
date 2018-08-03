@@ -52,12 +52,10 @@ class CampLocation extends PureComponent {
   removeLocation(locationIndex) {
     const { locations, deleteCampLocation, updateField } = this.props;
     const locationId = locations.getIn([locationIndex, 'id']);
-    const checkLocations = locations.reduce((acc, location) => {
-      if (location.get('id') !== undefined) {
-        return true;
-      }
-      return false;
-    }, false);
+    const checkLocations = locations.reduce(
+      (acc, location) => location.get('id') !== undefined,
+      false
+    );
 
     if (checkLocations && locations.size > 1 && locationId !== undefined) {
       deleteCampLocation(locationId);
@@ -95,9 +93,10 @@ class CampLocation extends PureComponent {
   }
 
   updateCoordinates(coordinates) {
+    const { updateField } = this.props;
     const { selectedLocationIndex } = this.state;
 
-    this.props.updateField(
+    updateField(
       ['locations', selectedLocationIndex, 'geometry', 'coordinates'],
       Immutable.fromJS(coordinates)
     );
@@ -115,7 +114,7 @@ class CampLocation extends PureComponent {
 
   toggleYear(year) {
     const { selectedLocationIndex } = this.state;
-    const { locations, updateField } = this.props;
+    const { locations, deleteCampStat, campId, updateField } = this.props;
 
     const isYearExists = locations
       .getIn([selectedLocationIndex, 'statistics'])
@@ -123,14 +122,13 @@ class CampLocation extends PureComponent {
 
     if (isYearExists) {
       const statistics = locations.getIn([selectedLocationIndex, 'statistics']);
-
       const statId = statistics
         .filter(stat => stat.get('year') === year)
         .first()
         .get('id');
 
       if (statId !== undefined) {
-        this.props.deleteCampStat(statId, this.props.campId);
+        deleteCampStat(statId, campId);
       }
 
       const newStatistics = locations
@@ -155,14 +153,15 @@ class CampLocation extends PureComponent {
 
   updatePrisonersAmount(index, event) {
     const { selectedLocationIndex } = this.state;
+    const { locations, updateField } = this.props;
     const { value } = event.target;
 
-    const updatedStatistics = this.props.locations
+    const updatedStatistics = locations
       .getIn([selectedLocationIndex, 'statistics'])
       .sort((a, b) => a.get('year') > b.get('year'))
       .setIn([index, 'prisonersCount'], value);
 
-    this.props.updateField(
+    updateField(
       ['locations', selectedLocationIndex, 'statistics'],
       updatedStatistics
     );
@@ -190,7 +189,9 @@ class CampLocation extends PureComponent {
         />
         <Map features={[locationToFeature(selectedLocation)]} />
         <Fieldset>
-          <FieldTitle>Описание локации</FieldTitle>
+          <FieldTitle>
+            Описание локации
+          </FieldTitle>
           <TextInput
             placeholder='Описание локации'
             value={selectedLocation.getIn(['description', activeLang])}

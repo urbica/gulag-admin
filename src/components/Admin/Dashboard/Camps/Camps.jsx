@@ -76,9 +76,15 @@ const campsTableHeaders = {
   de: { title: 'Deu', path: Immutable.fromJS(['published', 'de']) }
 };
 
-const CampsTable = props => {
-  const { camps, campsSortBy, campsSortASC, openCamp, dispatch } = props;
-
+const CampsTable = ({
+  camps,
+  campsSortBy,
+  campsSortASC,
+  openCamp,
+  dispatch,
+  places,
+  types
+}) => {
   const sortCamps = (a, b) => {
     if (!campsSortASC) {
       if (a.getIn(campsSortBy) > b.getIn(campsSortBy)) {
@@ -120,17 +126,15 @@ const CampsTable = props => {
         </tr>
       </thead>
       <tbody>
-        {camps
-          .sort(sortCamps)
-          .map(camp => (
-            <PrisonRow
-              key={camp.get('id')}
-              camp={camp}
-              places={props.places}
-              types={props.types}
-              openCamp={openCamp}
-            />
-          ))}
+        {camps.sort(sortCamps).map(camp => (
+          <PrisonRow
+            key={camp.get('id')}
+            camp={camp}
+            places={places}
+            types={types}
+            openCamp={openCamp}
+          />
+        ))}
       </tbody>
     </table>
   );

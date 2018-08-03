@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -15,47 +13,46 @@ const TD = styled.td`
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: ${props => (props.published ? '#000' : 'rgba(0,0,0,.1)')};
+    background-color: ${({ published }) =>
+      published ? '#000' : 'rgba(0,0,0,.1)'};
   }
 `;
 
-const PrisonRow = props => {
-  const { camp, places, types, openCamp } = props;
-
-  return (
-    <tr onClick={openCamp.bind(null, camp.get('id'))}>
-      <td className='prisons__cell' height='56'>
-        {camp.get('id')}
-      </td>
-      <td className='prisons__cell'>{camp.getIn(['title', 'ru'])}</td>
-      <td className='prisons__cell prisons__cell_period'>
-        {getPeriods(camp.get('locations'))}
-      </td>
-      <td className='prisons__cell'>
-        {moment(camp.get('updatedAt'))
+const PrisonRow = ({ camp, places, types, openCamp }) => (
+  <tr onClick={openCamp.bind(null, camp.get('id'))}>
+    <td className='prisons__cell' height='56'>
+      {camp.get('id')}
+    </td>
+    <td className='prisons__cell'>
+      {camp.getIn(['title', 'ru'])}
+    </td>
+    <td className='prisons__cell prisons__cell_period'>
+      {getPeriods(camp.get('locations'))}
+    </td>
+    <td className='prisons__cell'>
+      {moment(camp.get('updatedAt'))
           .locale('ru')
           .format('DD.MM.YY, HH:mm')}
-      </td>
-      <td className='prisons__cell'>
-        {places.getIn([camp.get('regionId'), 'title', 'ru'])}
-      </td>
-      <td className='prisons__cell'>
-        {types.getIn([camp.get('typeId'), 'title', 'ru'])}
-      </td>
-      <td className='prisons__cell prisons__strength'>
-        <span>
-          {String(camp.get('max_prisoners')).replace(
+    </td>
+    <td className='prisons__cell'>
+      {places.getIn([camp.get('regionId'), 'title', 'ru'])}
+    </td>
+    <td className='prisons__cell'>
+      {types.getIn([camp.get('typeId'), 'title', 'ru'])}
+    </td>
+    <td className='prisons__cell prisons__strength'>
+      <span>
+        {String(camp.get('max_prisoners')).replace(
             /(\d)(?=(\d{3})+([^\d]|$))/g,
             '$1\u00A0'
           )}
-        </span>
-      </td>
-      <TD published={camp.getIn(['published', 'ru'])} />
-      <TD published={camp.getIn(['published', 'en'])} />
-      <TD published={camp.getIn(['published', 'de'])} />
-    </tr>
-  );
-};
+      </span>
+    </td>
+    <TD published={camp.getIn(['published', 'ru'])} />
+    <TD published={camp.getIn(['published', 'en'])} />
+    <TD published={camp.getIn(['published', 'de'])} />
+  </tr>
+);
 
 PrisonRow.propTypes = {
   camp: PropTypes.shape({
@@ -73,9 +70,10 @@ PrisonRow.propTypes = {
       en: PropTypes.bool,
       de: PropTypes.bool
     })
-  }),
-  places: PropTypes.object,
-  types: PropTypes.object
+  }).isRequired,
+  places: PropTypes.object.isRequired,
+  types: PropTypes.object.isRequired,
+  openCamp: PropTypes.func.isRequired
 };
 
 export default PrisonRow;
