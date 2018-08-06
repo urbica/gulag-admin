@@ -1,4 +1,4 @@
-import { List, Map } from 'immutable';
+import { Map } from 'immutable';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -40,29 +40,8 @@ const mapStateToProps = createSelector(
       { publishedRuCount: 0, publishedEnCount: 0, publishedDeCount: 0 }
     );
 
-    const campsWithMaxPrisoners = camps.reduce((acc, camp) => {
-      const locations = camp.get('locations') || List();
-      const value = locations.reduce((locAcc, location) => {
-        const maxValue = location
-          .get('statistics')
-          .reduce(
-            (maxVal, val) =>
-              val.get('prisonersCount') > maxVal
-                ? val.get('prisonersCount')
-                : maxVal,
-            0
-          );
-
-        return locAcc > maxValue ? locAcc : maxValue;
-      }, 0);
-
-      const campWithMaxPrisoners = camp.set('max_prisoners', value);
-
-      return acc.push(campWithMaxPrisoners);
-    }, List());
-
     return {
-      camps: campsWithMaxPrisoners,
+      camps,
       places: places.reduce(
         (acc, place) => acc.set(place.get('id'), place),
         Map()

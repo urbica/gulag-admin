@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "commonmark": "0.28.1",
+    "create-immutable-selector": "1.0.0",
     "debounce": "1.1.0",
     "history": "4.7.2",
     "image-compressor.js": "1.0.0",

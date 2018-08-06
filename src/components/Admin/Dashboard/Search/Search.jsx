@@ -1,25 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'debounce';
 
 // icons
 import searchIcon from './search.svg';
 
-// container
+// component
 import TextInput from '../../TextInput/TextInput';
 
 // styled
-import Container from './Container';
-import SearchWrap from './SearchWrap';
-import Title from './Title';
+import Container from './styled/Container';
+import SearchWrap from './styled/SearchWrap';
+import Title from './styled/Title';
 
-const Search = props => {
-  const onChange = event => props.onChange(event.target.value);
-  const delayedOnChange = debounce(onChange, 300);
-
-  const handleOnChange = event => {
+const Search = ({ searchQuery, changeSearchQuery }) => {
+  const changeSearchQueryHandle = event => {
     event.persist();
-    delayedOnChange(event);
+    changeSearchQuery(event.target.value);
   };
 
   return (
@@ -28,7 +24,11 @@ const Search = props => {
         Лагеря
       </Title>
       <SearchWrap>
-        <TextInput onChange={handleOnChange} placeholder='Поиск' />
+        <TextInput
+          value={searchQuery}
+          onChange={changeSearchQueryHandle}
+          placeholder='Поиск'
+        />
         <img src={searchIcon} alt='Search' />
       </SearchWrap>
     </Container>
@@ -36,7 +36,8 @@ const Search = props => {
 };
 
 Search.propTypes = {
-  onChange: PropTypes.func.isRequired
+  searchQuery: PropTypes.string.isRequired,
+  changeSearchQuery: PropTypes.func.isRequired
 };
 
 export default Search;

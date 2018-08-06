@@ -1,30 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { filterBySearch } from '../../../utils/utils';
-
 // components
 import Header from './Header/Header';
 import Chronology from './Chronology/Chronology';
-import Search from './Search/Search';
-import Camps from './Camps/Camps';
+import Search from './Search';
+import Camps from './Camps';
 
 // styled
 import Container from './Container';
 
 class Dashboard extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      searchQuery: ''
-    };
-
-    this.changeSearch = val => {
-      this.setState({ searchQuery: val });
-    };
-  }
-
   render() {
     const {
       camps,
@@ -39,7 +25,6 @@ class Dashboard extends PureComponent {
       publishedEnCount,
       publishedDeCount
     } = this.props;
-    const { searchQuery } = this.state;
 
     return (
       <Container>
@@ -52,9 +37,8 @@ class Dashboard extends PureComponent {
           createCamp={createCamp}
         />
         <Chronology periods={periods} openChronology={openChronology} />
-        <Search value={searchQuery} onChange={this.changeSearch} />
+        <Search />
         <Camps
-          camps={filterBySearch(searchQuery, camps)}
           openCamp={openCamp}
           places={places}
           types={types}
