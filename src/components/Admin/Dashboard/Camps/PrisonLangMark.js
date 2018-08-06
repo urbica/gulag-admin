@@ -9,6 +9,7 @@ export default styled.td`
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: ${props => (props.published ? '#000' : 'rgba(0,0,0,.1)')};
+    background-color: ${({ published }) =>
+      published ? '#000' : 'rgba(0,0,0,.1)'};
   }
 `;
