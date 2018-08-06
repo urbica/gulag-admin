@@ -1,34 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import moment from 'moment';
 import { getPeriods } from '../../../../utils/utils';
 
-const TD = styled.td`
-  padding: 10px 25px 10px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-  &:before {
-    content: '';
-    display: block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: ${({ published }) =>
-      published ? '#000' : 'rgba(0,0,0,.1)'};
-  }
-`;
+// styled
+import PrisonLangMark from './PrisonLangMark';
 
 const PrisonRow = ({ camp, places, types, openCamp }) => (
   <tr onClick={openCamp.bind(null, camp.get('id'))}>
     <td className='prisons__cell' height='56'>
       {camp.get('id')}
     </td>
-    <td 
-      className={
-        Boolean(camp.get('notes')) === true
-          ? 'prisons__flag'
-          : 'prisons__cell'
-      }
+    <td
+      className={`prisons__cell ${
+        Boolean(camp.get('notes')) === true ? 'prisons__flag' : ''
+      }`}
     >
       {camp.getIn(['title', 'ru'])}
     </td>
@@ -37,8 +23,8 @@ const PrisonRow = ({ camp, places, types, openCamp }) => (
     </td>
     <td className='prisons__cell'>
       {moment(camp.get('updatedAt'))
-          .locale('ru')
-          .format('DD.MM.YY, HH:mm')}
+        .locale('ru')
+        .format('DD.MM.YY, HH:mm')}
     </td>
     <td className='prisons__cell'>
       {places.getIn([camp.get('regionId'), 'title', 'ru'])}
@@ -49,14 +35,14 @@ const PrisonRow = ({ camp, places, types, openCamp }) => (
     <td className='prisons__cell prisons__strength'>
       <span>
         {String(camp.get('max_prisoners')).replace(
-            /(\d)(?=(\d{3})+([^\d]|$))/g,
-            '$1\u00A0'
-          )}
+          /(\d)(?=(\d{3})+([^\d]|$))/g,
+          '$1\u00A0'
+        )}
       </span>
     </td>
-    <TD published={camp.getIn(['published', 'ru'])} />
-    <TD published={camp.getIn(['published', 'en'])} />
-    <TD published={camp.getIn(['published', 'de'])} />
+    <PrisonLangMark published={camp.getIn(['published', 'ru'])} />
+    <PrisonLangMark published={camp.getIn(['published', 'en'])} />
+    <PrisonLangMark published={camp.getIn(['published', 'de'])} />
   </tr>
 );
 
