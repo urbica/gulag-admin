@@ -4,7 +4,7 @@ Pipeline status:
 
 master [![build status](https://gitlab.urbica.co/gulag/gulag/badges/master/build.svg)](https://gitlab.urbica.co/gulag/gulag/commits/master)
 
-dev [![build status](https://gitlab.urbica.co/gulag/gulag/badges/dev/build.svg)](https://gitlab.urbica.co/gulag/gulag/commits/dev)
+dev [![build status](https://gitlab.urbica.co/gulag/gulag/badges/dev/build.svg)](https://gitlab.urbica.co/gulag/gulag/commits/dev) [![Greenkeeper badge](https://badges.greenkeeper.io/urbica/gulag-admin.svg)](https://greenkeeper.io/)
 
 We are using:
 
